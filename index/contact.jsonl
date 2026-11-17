@@ -1,0 +1,2 @@
+{"section":"contact","method":"list_forms","kind":"call","http":"GET","path":"/v1/contact/form","summary":"Get form characteristics","signature":"list_forms(self) -> list[models.ContactFormCharacteristic]","id":"contact.list_forms","import":"ovhcloud.api.contact"}
+{"section":"contact","method":"send","kind":"call","http":"POST","path":"/v1/contact/form/send","summary":"Send form following characteristics of /contact/form","signature":"send(self, body: models.SendRequest) -> None","id":"contact.send","import":"ovhcloud.api.contact"}

@@ -1,0 +1,27 @@
+# OVHcloud Python SDK
+
+> The Python client for the OVHcloud API (github.com/ovh/sdk-python): 77 API
+> sections and 6173 operations, as typed methods on one client, sync or asyncio. OAuth2
+> service-account authentication, typed exceptions, iterators over lists, helpers that wait
+> for asynchronous work, and a read-only mode to explore an account safely. Most of the code
+> is generated from the API's OpenAPI specifications.
+
+Before you write a call, look up the method of its route in the operation index: guessing
+names from the URL is not reliable. The index also gives the IAM actions of each method: the
+ones the program calls are what its service account needs.
+
+This is not python-ovh (`pip install ovh`, `import ovh`). Here: `import ovhcloud`, an OAuth2
+service account instead of application keys and consumer keys, paths with `/v1/` or `/v2/`
+instead of `/1.0/`, and `client.get("/v1/me")` for a route with no method yet.
+
+## Docs
+
+- [Guide](README.md): install, first program, coming from python-ovh, finding an operation, arguments, pagination, waiting for asynchronous work, errors, configuration, raw calls, asyncio, testing, observability
+- [Agent notes](AGENTS.md): the conventions in short, for AI coding agents
+- [Operation index](index/README.md): one index/<section>.jsonl per section, 6925 methods in all, each line a method with its route, Python signature and IAM actions
+
+## Optional
+
+- [Changelog](CHANGELOG.md): what changed in each release
+- [Contributing](CONTRIBUTING.md): the api/ package is generated, how to report a problem
+- [OVHcloud API console](https://api.ovh.com): every route, with its parameters

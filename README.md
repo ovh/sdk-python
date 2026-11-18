@@ -32,6 +32,8 @@ Python 3.11 or later.
 pip install ovhcloud
 ```
 
+Or `uv add ovhcloud`. The package is [`ovhcloud` on PyPI](https://pypi.org/project/ovhcloud/).
+
 You also need OAuth2 credentials: the client ID and secret of a service account.
 
 1. Create the service account in the OVHcloud Control Panel or with the API:

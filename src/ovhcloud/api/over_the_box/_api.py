@@ -26,7 +26,7 @@ class OverTheBoxApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 46 operations, on the routes under /v1/overTheBox.
+    It has 47 operations, on the routes under /v1/overTheBox.
 
     To start, list what the account has: list_over_the_boxes, list_available_offers, list_hardwares,
     list_hardware_availables, list_available_release_channels, list_backups, list_remote_accesses,
@@ -640,6 +640,29 @@ class OverTheBoxApi(_gen.SectionApi):
             result=list[models.OverTheBoxDeviceAction],
         )
 
+    def update_ipv6(
+        self, service_name: str, body: models.UpdateIPv6Request
+    ) -> models.OverTheBoxTask:
+        """update_ipv6 calls PUT /v1/overTheBox/{serviceName}/ipv6: Update the IPv6 status of an OverTheBox service
+
+        Enables or disables IPv6 on the service and returns the task that performs the change.
+
+        Args:
+            service_name: The internal name of your overTheBox offer
+            body: the request body
+
+        Requires the IAM action overTheBox:apiovh:ipv6/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_IPV6,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.UpdateIPv6Request,
+            result=models.OverTheBoxTask,
+        )
+
     def link_device(self, service_name: str, body: models.LinkDeviceRequest) -> None:
         """link_device calls POST /v1/overTheBox/{serviceName}/linkDevice: Link a device to an OverTheBox service
 
@@ -1170,7 +1193,7 @@ class AsyncOverTheBoxApi(_gen.AsyncSectionApi):
 
     The methods of OverTheBoxApi, with await. Iterators are async: use ``async for``.
 
-    It has 46 operations, on the routes under /v1/overTheBox.
+    It has 47 operations, on the routes under /v1/overTheBox.
 
     To start, list what the account has: list_over_the_boxes, list_available_offers, list_hardwares,
     list_hardware_availables, list_available_release_channels, list_backups, list_remote_accesses,
@@ -1784,6 +1807,29 @@ class AsyncOverTheBoxApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.RestoreBackupDeviceRequest,
             result=list[models.OverTheBoxDeviceAction],
+        )
+
+    async def update_ipv6(
+        self, service_name: str, body: models.UpdateIPv6Request
+    ) -> models.OverTheBoxTask:
+        """update_ipv6 calls PUT /v1/overTheBox/{serviceName}/ipv6: Update the IPv6 status of an OverTheBox service
+
+        Enables or disables IPv6 on the service and returns the task that performs the change.
+
+        Args:
+            service_name: The internal name of your overTheBox offer
+            body: the request body
+
+        Requires the IAM action overTheBox:apiovh:ipv6/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_IPV6,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.UpdateIPv6Request,
+            result=models.OverTheBoxTask,
         )
 
     async def link_device(self, service_name: str, body: models.LinkDeviceRequest) -> None:

@@ -31,6 +31,13 @@ from ._config import (
 )
 from ._engine import AsyncEngine, Engine
 from ._errors import ConfigurationError
+from ._hooks import (
+    AfterRequestHook,
+    AsyncAfterRequestHook,
+    AsyncBeforeRequestHook,
+    BeforeRequestHook,
+    check_hooks,
+)
 from ._models import decode, decode_raw
 from ._pagination import aiterate, iterate
 from ._policy import Policy
@@ -161,6 +168,22 @@ class Client(_BaseClient[Engine]):
     allowed_operations
         Send only the operations whose name matches one of these patterns: "vrack.*",
         "*.get_*".
+    dry_run
+        True: send reads (GET and HEAD) as usual, and nothing else. Any other call raises
+        DryRunError, with the URL, headers and body it would have sent. No token is fetched
+        for it. The policy (read_only, allowed_operations) still applies first.
+    before_request
+        A function, or a list of them, called with a CallInfo before each call. Raise an
+        exception to refuse the call: nothing is sent, and the caller gets a
+        HookRefusedError. It runs once per call, not per retry. A call refused by the
+        policy, or malformed, never reaches it.
+    after_request
+        A function, or a list of them, called with a CallInfo and a CallResult after each
+        call, once its retries are over. It sees every call, also those refused by the
+        policy, by a before hook or by dry_run, so it can keep a full audit log.
+
+        Hooks run in the order given. Each page of an ``all_`` iterator is a separate call.
+        The client is shared, so a hook must be safe to call from several threads at once.
     root_cas, root_cas_pem
         Replace the system's certificate authorities with a PEM file or PEM data.
     client_cert, client_key, client_key_password
@@ -203,6 +226,9 @@ class Client(_BaseClient[Engine]):
         token_source: TokenSource | None = None,
         http_client: httpx.Client | None = None,
         retry_sleep: t.Callable[[float], None] | None = None,
+        dry_run: bool = False,
+        before_request: BeforeRequestHook | t.Sequence[BeforeRequestHook] | None = None,
+        after_request: AfterRequestHook | t.Sequence[AfterRequestHook] | None = None,
     ) -> None:
         setup = _Setup.resolve(
             region=region,
@@ -224,7 +250,10 @@ class Client(_BaseClient[Engine]):
             ssl_context=ssl_context,
             proxy=proxy,
             http_client_given=http_client is not None,
+            dry_run=dry_run,
         )
+        before = check_hooks("before_request", before_request, allow_async=False)
+        after = check_hooks("after_request", after_request, allow_async=False)
         if http_client is not None:
             if timeout is not None:
                 http_client.timeout = timeout_for(timeout)
@@ -237,7 +266,13 @@ class Client(_BaseClient[Engine]):
             if owns:
                 http.close()
             raise
-        engine = Engine(http=http, tokens=tokens, **setup.engine_args())
+        engine = Engine(
+            http=http,
+            tokens=tokens,
+            before_request=before,
+            after_request=after,
+            **setup.engine_args(),
+        )
         if retry_sleep is not None:
             engine = dataclasses.replace(engine, sleep=retry_sleep)
         self._engine = engine
@@ -509,6 +544,9 @@ class AsyncClient(_BaseClient[AsyncEngine]):
         Your own httpx.AsyncClient.
     retry_sleep
         An async function: ``async def no_sleep(seconds: float) -> None: pass``.
+    before_request, after_request
+        Plain functions or async functions. A plain one runs in the event loop, so it must
+        not block. Calls made at the same time in the loop run a hook at the same time.
 
     Use one AsyncClient in one event loop. Close it with ``await client.aclose()``, or use
     ``async with``.
@@ -540,6 +578,9 @@ class AsyncClient(_BaseClient[AsyncEngine]):
         token_source: AsyncTokenSource | TokenSource | None = None,
         http_client: httpx.AsyncClient | None = None,
         retry_sleep: t.Callable[[float], t.Awaitable[None]] | None = None,
+        dry_run: bool = False,
+        before_request: AsyncBeforeRequestHook | t.Sequence[AsyncBeforeRequestHook] | None = None,
+        after_request: AsyncAfterRequestHook | t.Sequence[AsyncAfterRequestHook] | None = None,
     ) -> None:
         setup = _Setup.resolve(
             region=region,
@@ -561,7 +602,10 @@ class AsyncClient(_BaseClient[AsyncEngine]):
             ssl_context=ssl_context,
             proxy=proxy,
             http_client_given=http_client is not None,
+            dry_run=dry_run,
         )
+        before = check_hooks("before_request", before_request, allow_async=True)
+        after = check_hooks("after_request", after_request, allow_async=True)
         if http_client is not None:
             if timeout is not None:
                 http_client.timeout = timeout_for(timeout)
@@ -571,7 +615,13 @@ class AsyncClient(_BaseClient[AsyncEngine]):
         # Nothing to close on error: an httpx.AsyncClient opens no connection before its
         # first request.
         tokens = _async_token_source(token_source, client_id, client_secret, setup.region, http)
-        engine = AsyncEngine(http=http, tokens=tokens, **setup.engine_args())
+        engine = AsyncEngine(
+            http=http,
+            tokens=tokens,
+            before_request=before,
+            after_request=after,
+            **setup.engine_args(),
+        )
         if retry_sleep is not None:
             engine = dataclasses.replace(engine, sleep=retry_sleep)
         self._engine = engine
@@ -845,6 +895,7 @@ class _Setup:
     context: ssl.SSLContext | None
     proxy: str | None
     trust_env: bool
+    dry_run: bool
 
     @classmethod
     def resolve(
@@ -869,6 +920,7 @@ class _Setup:
         ssl_context: ssl.SSLContext | None,
         proxy: str | None | NotGiven,
         http_client_given: bool,
+        dry_run: bool,
     ) -> _Setup:
         resolved_region = parse_region(region or os.environ.get(ENV_REGION) or Region.EU)
 
@@ -931,6 +983,7 @@ class _Setup:
             context=context,
             proxy=None if isinstance(proxy, NotGiven) else proxy,
             trust_env=isinstance(proxy, NotGiven),
+            dry_run=dry_run,
         )
 
     def engine_args(self) -> dict[str, t.Any]:
@@ -944,6 +997,7 @@ class _Setup:
             "debug_bodies": self.debug_bodies,
             "policy": self.policy,
             "deadline": self.deadline,
+            "dry_run": self.dry_run,
         }
 
     def http_args(self) -> dict[str, t.Any]:

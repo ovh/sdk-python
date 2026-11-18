@@ -13,7 +13,7 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
 
 ## Find the right method
 
-- Each API section is a client attribute, in snake_case: `client.vrack`,
+- Each API section is a client attribute, in snake_case: `client.me`,
   `client.public_cloud` (the `publicCloud` API). Its types are in its `models` module:
   `from ovhcloud.api.public_cloud import models`.
 - To find the method of a route, read `index/<section>.jsonl`. It has one JSON line per
@@ -23,14 +23,14 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
   uses:
 
   ```shell
-  grep -h '"path":"/v1/vrack/{serviceName}"' \
+  grep -h '"path":"/v1/me"' \
       "$(python -c 'import ovhcloud, os; print(os.path.dirname(ovhcloud.__file__))')"/index/*.jsonl
   ```
 
 - To tell the user what to grant the service account, list the `iam` of the methods your
   program calls, from the index or from the docstrings.
 - The docstring of each method starts with its route:
-  `get_vrack calls GET /v1/vrack/{serviceName}`. It then gives the API's description, the
+  `get_account_details calls GET /v1/me`. It then gives the API's description, the
   arguments, the IAM actions the call needs, and whether it is deprecated. A deprecated method
   names its replacement route when the API gives one: look it up in the index too. `all_x`
   iterators say which list they walk, its arguments, and the IAM actions of both calls. A
@@ -38,9 +38,9 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
 - `help(ovhcloud.api.<section>)` gives the section's size, its route prefixes, the list
   methods to start from, and its index file.
 - Routes start with their API version, `/v1/` or `/v2/`. The same path can exist in both.
-- At run time, `ovhcloud.lookup_operation("vrack.get_vrack")` returns an operation's route,
-  summary and IAM actions, `ovhcloud.match_operation("GET", "/v1/vrack/pn-1")` finds the
-  operation of a concrete path, and `ovhcloud.operations()` lists them all.
+- At run time, `ovhcloud.lookup_operation("me.get_account_details")` returns an operation's
+  route, summary and IAM actions, `ovhcloud.match_operation("GET", "/v1/me/sshKey/my-key")`
+  finds the operation of a concrete path, and `ovhcloud.operations()` lists them all.
 
 ## Write the call
 
@@ -52,7 +52,7 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
   `await ovhcloud.async_wait_ready(...)` and the other `async_` forms.
 - Arguments come in this order: path parameters, required query parameters, the request
   body. Optional parameters are keyword-only, after them. Leave out what you do not set.
-- Names are snake_case: methods (`get_vrack`), arguments (`service_name`), fields
+- Names are snake_case: methods (`get_ssh_key`), arguments (`key_name`), fields
   (`ip_address`). Classes keep the API's acronyms upper case: `DedicatedServerIPBlock`. Enum
   members are UPPER_CASE: `WidgetStateEnum.OK`. Check the `models` module before you use one.
 - A request body is a model of the section: `models.WidgetWidgetWritable(name="x")`. Only the
@@ -77,13 +77,13 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
 - `list_x` returns a list, often of IDs only. `all_x` is an iterator over the objects: a `for`
   loop gets them one at a time. An error stops the loop with an exception.
 - Paginated v2 lists have only `all_x`. There is no method that loads every page at once:
-  use `list(client.section.all_x(...))` if you need them all.
+  use `list(client.<section>.all_<x>(...))` if you need them all.
 - A path parameter must not be empty: the call fails before it sends anything, with
   `ovhcloud.InvalidRequestError`.
 - No method for a route yet? Call it directly: `client.get("/v1/me")`,
   `client.post("/v1/...", {"key": "value"})`. It returns plain dicts and lists, or the type you
-  pass as `result=`: `client.get("/v1/vrack", result=list[str])`. Build a path with parameters
-  with `ovhcloud.path("/v1/vrack/{serviceName}", serviceName=name)`: it escapes them.
+  pass as `result=`: `client.get("/v1/me/sshKey", result=list[str])`. Build a path with
+  parameters with `ovhcloud.path("/v1/me/sshKey/{keyName}", keyName=name)`: it escapes them.
 - A path starts with `/v1/` or `/v2/`. python-ovh's `/1.0/me` is `/v1/me` here. A path
   without its version raises `ovhcloud.InvalidRequestError`, with the path to use.
 
@@ -114,19 +114,31 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
 - Read `status_code`, `error_class`, `message`, `query_id` (for support) and `operation`, the
   method's name, on any `ApiError`.
 - A 403 means the service account lacks an IAM action. The message ends with the actions the
-  call needs (`requires the IAM action vrack:apiovh:get`), also in `iam_actions`: report them
+  call needs (`requires the IAM action account:apiovh:me/get`), also in `iam_actions`: report them
   to the user, who can grant them. Retrying does not help.
 - A request the client is configured to refuse raises `ovhcloud.NotAllowedError`, and nothing
   is sent. Do not work around it: ask the user.
+- With `dry_run=True`, a call that would change something raises `ovhcloud.DryRunError`. It is
+  not a failure: it tells what would have been sent.
 - A timeout raises `ovhcloud.RequestTimeoutError`. It is a `TransportError` and a
   `TimeoutError`. It is never retried: the server may have done the work.
 
 ## Configure the client
 
 - To explore an account safely, use a read-only client: `ovhcloud.Client(read_only=True)`
-  sends only `GET` and `HEAD`. `read_only=["cloud.reboot_instance"]` also allows that one
-  operation. `allowed_operations=["vrack.*", "*.get_*"]` sends only the operations whose name
+  sends only `GET` and `HEAD`. `read_only=["cloud.reboot_project_instance"]` also allows that one
+  operation. `allowed_operations=["me.*", "*.get_*"]` sends only the operations whose name
   matches. A request must pass both when both are set.
+- To plan a change before making it, use `ovhcloud.Client(dry_run=True)`. Reads are sent, so
+  you see the real state. Any other call is not sent: it raises `ovhcloud.DryRunError` with
+  the `method`, the full `url`, the `headers` and the JSON `body` it would have sent. Show
+  these to the user, then make the change with a normal client once they agree.
+- To log or veto calls, use `before_request=hook` (raise an exception to stop the call: the
+  caller gets `ovhcloud.HookRefusedError`) and `after_request=hook` (sees every call, with
+  its `status_code`, `query_id`, `error`, `duration` and `attempts`). The hooks get a
+  `CallInfo` with the operation, so `call.operation.name` and `call.operation.read_only` tell
+  what the call does. Each page of an `all_x` iterator is a separate call. Calls made at the
+  same time run a hook at the same time, so a hook must be safe for that.
 - There is no timeout by default. Set one: `ovhcloud.Client(timeout=30)`.
 - Retries are off by default. `retry=True` retries only `GET`, `HEAD` and `DELETE`, never
   `POST`, `PUT` or `PATCH`: those can start tasks or place orders. In tests, pass
@@ -144,6 +156,8 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
   `http_client=httpx.Client(transport=httpx.MockTransport(handler))`. Mock paths with their
   version: `/v1/me`. The host is the region's: `api.ca.ovhcloud.com` for `region="ca"`.
 - With `retry=`, pass `retry_sleep=lambda s: None` (an `async` function for `AsyncClient`).
+- Answer with JSON, and an error status for an error: a 404 makes the call raise
+  `ovhcloud.NotFoundError`.
 - A fake return value is a model built with its required fields and the fields your code
   reads: `models.WidgetWidget(id="w-1", name="web")`.
 - One `AsyncClient` per event loop: create it in the test or a fixture of the same loop
@@ -153,10 +167,13 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
 
 - `src/ovhcloud/api/`, `index/` and `llms.txt` are generated at each release. Do not edit
   them: the next release overwrites the change. Report the problem instead, with the route.
-- `src/ovhcloud/_core/` is hand-written: changes there follow
+- `src/ovhcloud/_core/` is hand-written. Each export replaces this whole repository, so a
+  change made here is ported by the maintainers into the generator: see
   [CONTRIBUTING.md](CONTRIBUTING.md).
 - Check a change with `uvx ruff check src` and
   `uvx pyright --pythonpath .venv/bin/python src/ovhcloud/_core`. The SDK's tests are not part
   of this repository.
+- [examples/](examples/README.md) has small programs that call real methods. It is in the
+  repository and the sdist, not in the installed package.
 
 More: [README.md](README.md) is the full guide.

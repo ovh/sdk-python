@@ -26,12 +26,11 @@ class VrackServicesApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 11 operations, on the routes under /v2/vrackServices.
+    It has 9 operations, on the routes under /v2/vrackServices.
 
     To start, list what the account has: all_resources,
     all_reference_compatible_managed_service_types, all_reference_feature_availabilities,
-    all_reference_regions, all_vrack_service_eligible_dedicated_server_interfaces,
-    all_resource_eligible_managed_services, all_resource_tasks.
+    all_reference_regions, all_resource_eligible_managed_services, all_resource_tasks.
 
     To find the method for a route, search index/vrack_services.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -237,54 +236,6 @@ class VrackServicesApi(_gen.SectionApi):
             result=models.VrackServicesVrackServices,
         )
 
-    def get_resource_eligible_bgp_allowed_prefixes(
-        self, vrack_services_id: str
-    ) -> models.VrackServicesEligibleBgpAllowedPrefixes:
-        """get_resource_eligible_bgp_allowed_prefixes calls GET /v2/vrackServices/resource/{vrackServicesId}/eligibleBgpAllowedPrefixes: List eligible IP prefixes for BGP Service
-
-        Returns the Additional IPv4 and IPv6 blocks that can be used in the BGP Service of the vRack
-        Services: blocks in the same region that are not used elsewhere.
-
-        Args:
-            vrack_services_id: Vrack services ID
-
-        Requires the IAM action vrackServices:apiovh:resource/eligibleBgpAllowedPrefixes/get. May
-        also use vrackServices:apiovh:bgp/ip/additionalIp/move, ip:apiovh:move.
-        """
-        return self._call(
-            _r.OP_GET_RESOURCE_ELIGIBLE_BGP_ALLOWED_PREFIXES,
-            path_params={
-                "vrackServicesId": vrack_services_id,
-            },
-            result=models.VrackServicesEligibleBgpAllowedPrefixes,
-        )
-
-    def all_vrack_service_eligible_dedicated_server_interfaces(
-        self, vrack_services_id: str
-    ) -> t.Iterator[models.VrackServicesEligibleDedicatedServerInterface]:
-        """all_vrack_service_eligible_dedicated_server_interfaces iterates over GET /v2/vrackServices/resource/{vrackServicesId}/eligibleDedicatedServerInterfaces (List eligible server interfaces).
-
-        It yields one item at a time, and gets the next page only when the loop reaches it.
-        An error is raised and stops the loop.
-
-        Returns, by availability zone, the dedicated server interfaces that can be added to the
-        vRack Services, with the server each one belongs to.
-
-        Args:
-            vrack_services_id: Vrack services ID
-
-        Requires the IAM action vrackServices:apiovh:resource/eligibleDedicatedServerInterfaces/get.
-        May also use vrackServices:apiovh:dedicatedServer/vnicAttach,
-        dedicatedServer:apiovh:vrackServices/vnicAttach.
-        """
-        return self._pages(
-            _r.OP_ALL_VRACK_SERVICE_ELIGIBLE_DEDICATED_SERVER_INTERFACES,
-            path_params={
-                "vrackServicesId": vrack_services_id,
-            },
-            item=models.VrackServicesEligibleDedicatedServerInterface,
-        )
-
     def all_resource_eligible_managed_services(
         self, vrack_services_id: str
     ) -> t.Iterator[models.VrackServicesEligibleManagedService]:
@@ -359,12 +310,11 @@ class AsyncVrackServicesApi(_gen.AsyncSectionApi):
 
     The methods of VrackServicesApi, with await. Iterators are async: use ``async for``.
 
-    It has 11 operations, on the routes under /v2/vrackServices.
+    It has 9 operations, on the routes under /v2/vrackServices.
 
     To start, list what the account has: all_resources,
     all_reference_compatible_managed_service_types, all_reference_feature_availabilities,
-    all_reference_regions, all_vrack_service_eligible_dedicated_server_interfaces,
-    all_resource_eligible_managed_services, all_resource_tasks.
+    all_reference_regions, all_resource_eligible_managed_services, all_resource_tasks.
 
     To find the method for a route, search index/vrack_services.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -570,54 +520,6 @@ class AsyncVrackServicesApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.VrackServicesVrackServicesInput,
             result=models.VrackServicesVrackServices,
-        )
-
-    async def get_resource_eligible_bgp_allowed_prefixes(
-        self, vrack_services_id: str
-    ) -> models.VrackServicesEligibleBgpAllowedPrefixes:
-        """get_resource_eligible_bgp_allowed_prefixes calls GET /v2/vrackServices/resource/{vrackServicesId}/eligibleBgpAllowedPrefixes: List eligible IP prefixes for BGP Service
-
-        Returns the Additional IPv4 and IPv6 blocks that can be used in the BGP Service of the vRack
-        Services: blocks in the same region that are not used elsewhere.
-
-        Args:
-            vrack_services_id: Vrack services ID
-
-        Requires the IAM action vrackServices:apiovh:resource/eligibleBgpAllowedPrefixes/get. May
-        also use vrackServices:apiovh:bgp/ip/additionalIp/move, ip:apiovh:move.
-        """
-        return await self._call(
-            _r.OP_GET_RESOURCE_ELIGIBLE_BGP_ALLOWED_PREFIXES,
-            path_params={
-                "vrackServicesId": vrack_services_id,
-            },
-            result=models.VrackServicesEligibleBgpAllowedPrefixes,
-        )
-
-    def all_vrack_service_eligible_dedicated_server_interfaces(
-        self, vrack_services_id: str
-    ) -> t.AsyncIterator[models.VrackServicesEligibleDedicatedServerInterface]:
-        """all_vrack_service_eligible_dedicated_server_interfaces iterates over GET /v2/vrackServices/resource/{vrackServicesId}/eligibleDedicatedServerInterfaces (List eligible server interfaces).
-
-        It yields one item at a time, and gets the next page only when the loop reaches it.
-        An error is raised and stops the loop. Use it with ``async for``.
-
-        Returns, by availability zone, the dedicated server interfaces that can be added to the
-        vRack Services, with the server each one belongs to.
-
-        Args:
-            vrack_services_id: Vrack services ID
-
-        Requires the IAM action vrackServices:apiovh:resource/eligibleDedicatedServerInterfaces/get.
-        May also use vrackServices:apiovh:dedicatedServer/vnicAttach,
-        dedicatedServer:apiovh:vrackServices/vnicAttach.
-        """
-        return self._pages(
-            _r.OP_ALL_VRACK_SERVICE_ELIGIBLE_DEDICATED_SERVER_INTERFACES,
-            path_params={
-                "vrackServicesId": vrack_services_id,
-            },
-            item=models.VrackServicesEligibleDedicatedServerInterface,
         )
 
     def all_resource_eligible_managed_services(

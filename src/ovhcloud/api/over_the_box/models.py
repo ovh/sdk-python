@@ -29,6 +29,7 @@ __all__ = [
     "LinkHardwareRequest",
     "RestoreBackupDeviceRequest",
     "UpdateAutoMTURequest",
+    "UpdateIPv6Request",
     "DbaasLogsLogKind",
     "DbaasLogsLogSubscription",
     "DbaasLogsLogSubscriptionCreation",
@@ -179,6 +180,13 @@ class UpdateAutoMTURequest(_gen.BaseModel):
         validation_alias="mtuAuto", serialization_alias="mtuAuto", union_mode="left_to_right"
     )
     """Enable or disable autoMTU"""
+
+
+class UpdateIPv6Request(_gen.BaseModel):
+    """The request body of PUT /v1/overTheBox/{serviceName}/ipv6."""
+
+    enabled: bool = _p.Field()
+    """Enabled/disabled IPv6"""
 
 
 class DbaasLogsLogKind(_gen.BaseModel):

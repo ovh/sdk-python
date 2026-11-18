@@ -4921,6 +4921,116 @@ OP_GET_PROJECT_MANAGED_KUBERNETES_USAGE_ETCD = Operation(
     schemas_version="1.0",
 )
 
+OP_ALL_ALL_MANAGED_REGISTRIES = Operation(
+    name="public_cloud.all_all_managed_registries",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry",
+    summary="List Managed Private Registry services",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_MANAGED_REGISTRY = Operation(
+    name="public_cloud.create_managed_registry",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry",
+    summary="Create a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_MANAGED_REGISTRY = Operation(
+    name="public_cloud.get_managed_registry",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}",
+    summary="Get a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_EDIT_MANAGED_REGISTRY = Operation(
+    name="public_cloud.edit_managed_registry",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}",
+    summary="Update a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_MANAGED_REGISTRY = Operation(
+    name="public_cloud.delete_managed_registry",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}",
+    summary="Delete a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_MANAGED_REGISTRY_ADMIN_CREDENTIALS = Operation(
+    name="public_cloud.reset_managed_registry_admin_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/adminCredentials",
+    summary="Reset the administrator password of a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/adminCredentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_MANAGED_REGISTRY_PLANS = Operation(
+    name="public_cloud.all_managed_registry_plans",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/capabilities/plan",
+    summary="List plans a Managed Private Registry service can switch to",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/capabilities/plan/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_MANAGED_REGISTRY_VERSIONS = Operation(
+    name="public_cloud.all_managed_registry_versions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/capabilities/version",
+    summary="List Harbor versions a Managed Private Registry service can be upgraded to",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/capabilities/version/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_MANAGED_REGISTRY_EVENTS = Operation(
+    name="public_cloud.all_managed_registry_events",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/event",
+    summary="List events of a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/event/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_ALL_MANAGED_REGISTRY_TASKS = Operation(
+    name="public_cloud.all_all_managed_registry_tasks",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/task",
+    summary="List asynchronous tasks of a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/task/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_MANAGED_REGISTRY_TASK = Operation(
+    name="public_cloud.get_managed_registry_task",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/task/{taskId}",
+    summary="Get an asynchronous task of a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:managedRegistry/task/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
 OP_ALL_NETWORKS = Operation(
     name="public_cloud.all_networks",
     method="GET",
@@ -5357,6 +5467,26 @@ OP_GET_PROJECT_REFERENCE_MANAGED_KUBERNETES_VERSION = Operation(
     path="/v2/publicCloud/project/{projectId}/reference/managedKubernetes/version",
     summary="List Kubernetes versions",
     iam_actions=("publicCloudProject:apiovh:reference/managedKubernetes/version/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_REGISTRY_PLANS = Operation(
+    name="public_cloud.all_registry_plans",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/reference/managedRegistry/plan",
+    summary="List plans available to create a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:reference/managedRegistry/plan/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_REGISTRY_REGIONS = Operation(
+    name="public_cloud.all_registry_regions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/reference/managedRegistry/region",
+    summary="List regions available to create a Managed Private Registry service",
+    iam_actions=("publicCloudProject:apiovh:reference/managedRegistry/region/get",),
     deprecated=False,
     schemas_version="1.0",
 )
@@ -6512,6 +6642,17 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_ALL_PROJECT_MANAGED_KUBERNETES_TASKS,
     OP_GET_PROJECT_MANAGED_KUBERNETES_TASK,
     OP_GET_PROJECT_MANAGED_KUBERNETES_USAGE_ETCD,
+    OP_ALL_ALL_MANAGED_REGISTRIES,
+    OP_CREATE_MANAGED_REGISTRY,
+    OP_GET_MANAGED_REGISTRY,
+    OP_EDIT_MANAGED_REGISTRY,
+    OP_DELETE_MANAGED_REGISTRY,
+    OP_RESET_MANAGED_REGISTRY_ADMIN_CREDENTIALS,
+    OP_ALL_MANAGED_REGISTRY_PLANS,
+    OP_ALL_MANAGED_REGISTRY_VERSIONS,
+    OP_ALL_MANAGED_REGISTRY_EVENTS,
+    OP_ALL_ALL_MANAGED_REGISTRY_TASKS,
+    OP_GET_MANAGED_REGISTRY_TASK,
     OP_ALL_NETWORKS,
     OP_CREATE_NETWORK,
     OP_GET_NETWORK,
@@ -6556,6 +6697,8 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_PLANS,
     OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_REGIONS,
     OP_GET_PROJECT_REFERENCE_MANAGED_KUBERNETES_VERSION,
+    OP_ALL_REGISTRY_PLANS,
+    OP_ALL_REGISTRY_REGIONS,
     OP_ALL_PRODUCT_AVAILABILITY,
     OP_GET_PROJECT_REFERENCE_RANCHER_ELIGIBILITY,
     OP_ALL_PROJECT_REFERENCE_RANCHER_PLANS,

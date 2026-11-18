@@ -6,5 +6,5 @@
 
 """The API sections of the SDK, one package each. Generated at each release.
 
-Get a section from the client (``client.vrack``), and its types from its ``models`` module.
+Get a section from the client (``client.me``), and its types from its ``models`` module.
 """

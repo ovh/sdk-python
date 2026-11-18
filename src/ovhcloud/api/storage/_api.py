@@ -26,156 +26,15 @@ class StorageApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 45 operations, on the routes under /v1/storage.
+    It has 38 operations, on the routes under /v1/storage/netapp.
 
-    To start, list what the account has: list_nashas, list_netapps, list_networks, list_shares,
+    To start, list what the account has: list_netapps, list_networks, list_shares,
     list_snapshot_policies, list_share_access_paths, list_share_acls, list_share_snapshots.
 
     To find the method for a route, search index/storage.jsonl: one line per method, with its route,
     its signature and the IAM actions it requires. It is at the root of the SDK repository, and in
     the installed package.
     """
-
-    def list_nashas(
-        self,
-        *,
-        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
-    ) -> list[str]:
-        """list_nashas calls GET /v1/storage/nasha: List available services
-
-        Args:
-            iam_tags: Filter resources on IAM tags (optional)
-
-        Requires the IAM action nasHA:apiovh:storage/get.
-        """
-        return self._call(
-            _r.OP_LIST_NASHAS,
-            query=(("iamTags", iam_tags),),
-            result=list[str],
-        )
-
-    def get_nasha(self, service_name: str) -> None:
-        """get_nasha calls GET /v1/storage/nasha/{serviceName}: Void
-
-        Args:
-            service_name: The nasha storage id
-
-        Requires the IAM action nasHA:apiovh:storage/get.
-        """
-        return self._call(
-            _r.OP_GET_NASHA,
-            path_params={
-                "serviceName": service_name,
-            },
-        )
-
-    def change_contact_nasha(
-        self, service_name: str, body: models.ChangeContactNashaRequest
-    ) -> list[int]:
-        """change_contact_nasha calls POST /v1/storage/nasha/{serviceName}/changeContact: Change service contacts
-
-        Starts a procedure to change the admin, tech or billing contact of the service.
-
-        Args:
-            service_name: The nasha storage id
-            body: the request body
-
-        Requires the IAM action nasHA:apiovh:storage/changeContact.
-        """
-        return self._call(
-            _r.OP_CHANGE_CONTACT_NASHA,
-            path_params={
-                "serviceName": service_name,
-            },
-            body=body,
-            body_type=models.ChangeContactNashaRequest,
-            result=list[int],
-        )
-
-    def confirm_termination_nasha(
-        self, service_name: str, body: models.ConfirmTerminationNashaRequest
-    ) -> str:
-        """confirm_termination_nasha calls POST /v1/storage/nasha/{serviceName}/confirmTermination: Confirm service termination
-
-        Terminates the service with the token sent by email to the admin contact. A reason, a future
-        use and a comment can be given.
-
-        Args:
-            service_name: The nasha storage id
-            body: the request body
-
-        Requires the IAM action nasHA:apiovh:storage/confirmTermination.
-        """
-        return self._call(
-            _r.OP_CONFIRM_TERMINATION_NASHA,
-            path_params={
-                "serviceName": service_name,
-            },
-            body=body,
-            body_type=models.ConfirmTerminationNashaRequest,
-            result=str,
-        )
-
-    def get_nasha_service_infos(self, service_name: str) -> models.ServicesService:
-        """get_nasha_service_infos calls GET /v1/storage/nasha/{serviceName}/serviceInfos: Get service information
-
-        Returns the status, creation and expiration dates, contacts and renewal settings of the
-        service.
-
-        Args:
-            service_name: The nasha storage id
-
-        Requires the IAM action nasHA:apiovh:storage/serviceInfos/get.
-        """
-        return self._call(
-            _r.OP_GET_NASHA_SERVICE_INFOS,
-            path_params={
-                "serviceName": service_name,
-            },
-            result=models.ServicesService,
-        )
-
-    def update_nasha_service_infos(
-        self, service_name: str, body: models.ServicesServiceWritable
-    ) -> None:
-        """update_nasha_service_infos calls PUT /v1/storage/nasha/{serviceName}/serviceInfos: Update service information
-
-        Updates the renewal settings of the service: automatic renewal, period, or deletion at
-        expiration.
-
-        Args:
-            service_name: The nasha storage id
-            body: the request body
-
-        Requires the IAM action nasHA:apiovh:storage/serviceInfos/edit.
-        """
-        return self._call(
-            _r.OP_UPDATE_NASHA_SERVICE_INFOS,
-            path_params={
-                "serviceName": service_name,
-            },
-            body=body,
-            body_type=models.ServicesServiceWritable,
-        )
-
-    def terminate_nasha(self, service_name: str) -> str:
-        """terminate_nasha calls POST /v1/storage/nasha/{serviceName}/terminate: Request service termination
-
-        Starts the termination of the service. The admin contact receives a token by email, to
-        confirm with the `confirmTermination` call.
-
-        Args:
-            service_name: The nasha storage id
-
-        Requires the IAM action nasHA:apiovh:storage/terminate.
-        """
-        return self._call(
-            _r.OP_TERMINATE_NASHA,
-            path_params={
-                "serviceName": service_name,
-            },
-            result=str,
-        )
 
     def list_netapps(
         self,
@@ -1072,156 +931,15 @@ class AsyncStorageApi(_gen.AsyncSectionApi):
 
     The methods of StorageApi, with await. Iterators are async: use ``async for``.
 
-    It has 45 operations, on the routes under /v1/storage.
+    It has 38 operations, on the routes under /v1/storage/netapp.
 
-    To start, list what the account has: list_nashas, list_netapps, list_networks, list_shares,
+    To start, list what the account has: list_netapps, list_networks, list_shares,
     list_snapshot_policies, list_share_access_paths, list_share_acls, list_share_snapshots.
 
     To find the method for a route, search index/storage.jsonl: one line per method, with its route,
     its signature and the IAM actions it requires. It is at the root of the SDK repository, and in
     the installed package.
     """
-
-    async def list_nashas(
-        self,
-        *,
-        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
-    ) -> list[str]:
-        """list_nashas calls GET /v1/storage/nasha: List available services
-
-        Args:
-            iam_tags: Filter resources on IAM tags (optional)
-
-        Requires the IAM action nasHA:apiovh:storage/get.
-        """
-        return await self._call(
-            _r.OP_LIST_NASHAS,
-            query=(("iamTags", iam_tags),),
-            result=list[str],
-        )
-
-    async def get_nasha(self, service_name: str) -> None:
-        """get_nasha calls GET /v1/storage/nasha/{serviceName}: Void
-
-        Args:
-            service_name: The nasha storage id
-
-        Requires the IAM action nasHA:apiovh:storage/get.
-        """
-        return await self._call(
-            _r.OP_GET_NASHA,
-            path_params={
-                "serviceName": service_name,
-            },
-        )
-
-    async def change_contact_nasha(
-        self, service_name: str, body: models.ChangeContactNashaRequest
-    ) -> list[int]:
-        """change_contact_nasha calls POST /v1/storage/nasha/{serviceName}/changeContact: Change service contacts
-
-        Starts a procedure to change the admin, tech or billing contact of the service.
-
-        Args:
-            service_name: The nasha storage id
-            body: the request body
-
-        Requires the IAM action nasHA:apiovh:storage/changeContact.
-        """
-        return await self._call(
-            _r.OP_CHANGE_CONTACT_NASHA,
-            path_params={
-                "serviceName": service_name,
-            },
-            body=body,
-            body_type=models.ChangeContactNashaRequest,
-            result=list[int],
-        )
-
-    async def confirm_termination_nasha(
-        self, service_name: str, body: models.ConfirmTerminationNashaRequest
-    ) -> str:
-        """confirm_termination_nasha calls POST /v1/storage/nasha/{serviceName}/confirmTermination: Confirm service termination
-
-        Terminates the service with the token sent by email to the admin contact. A reason, a future
-        use and a comment can be given.
-
-        Args:
-            service_name: The nasha storage id
-            body: the request body
-
-        Requires the IAM action nasHA:apiovh:storage/confirmTermination.
-        """
-        return await self._call(
-            _r.OP_CONFIRM_TERMINATION_NASHA,
-            path_params={
-                "serviceName": service_name,
-            },
-            body=body,
-            body_type=models.ConfirmTerminationNashaRequest,
-            result=str,
-        )
-
-    async def get_nasha_service_infos(self, service_name: str) -> models.ServicesService:
-        """get_nasha_service_infos calls GET /v1/storage/nasha/{serviceName}/serviceInfos: Get service information
-
-        Returns the status, creation and expiration dates, contacts and renewal settings of the
-        service.
-
-        Args:
-            service_name: The nasha storage id
-
-        Requires the IAM action nasHA:apiovh:storage/serviceInfos/get.
-        """
-        return await self._call(
-            _r.OP_GET_NASHA_SERVICE_INFOS,
-            path_params={
-                "serviceName": service_name,
-            },
-            result=models.ServicesService,
-        )
-
-    async def update_nasha_service_infos(
-        self, service_name: str, body: models.ServicesServiceWritable
-    ) -> None:
-        """update_nasha_service_infos calls PUT /v1/storage/nasha/{serviceName}/serviceInfos: Update service information
-
-        Updates the renewal settings of the service: automatic renewal, period, or deletion at
-        expiration.
-
-        Args:
-            service_name: The nasha storage id
-            body: the request body
-
-        Requires the IAM action nasHA:apiovh:storage/serviceInfos/edit.
-        """
-        return await self._call(
-            _r.OP_UPDATE_NASHA_SERVICE_INFOS,
-            path_params={
-                "serviceName": service_name,
-            },
-            body=body,
-            body_type=models.ServicesServiceWritable,
-        )
-
-    async def terminate_nasha(self, service_name: str) -> str:
-        """terminate_nasha calls POST /v1/storage/nasha/{serviceName}/terminate: Request service termination
-
-        Starts the termination of the service. The admin contact receives a token by email, to
-        confirm with the `confirmTermination` call.
-
-        Args:
-            service_name: The nasha storage id
-
-        Requires the IAM action nasHA:apiovh:storage/terminate.
-        """
-        return await self._call(
-            _r.OP_TERMINATE_NASHA,
-            path_params={
-                "serviceName": service_name,
-            },
-            result=str,
-        )
 
     async def list_netapps(
         self,

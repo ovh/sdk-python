@@ -1,0 +1,6 @@
+// Type-checks the examples, strict, against the SDK installed in the project's .venv:
+// scripts/build.sh runs pyright in this folder.
+{
+  "typeCheckingMode": "strict",
+  "pythonVersion": "3.11"
+}

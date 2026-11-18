@@ -19,76 +19,6 @@ SECTION_KEY = "storage"
 #: The /v2 contract the section was generated from, sent as X-Schemas-Version.
 SCHEMAS_VERSION: str | None = None
 
-OP_LIST_NASHAS = Operation(
-    name="storage.list_nashas",
-    method="GET",
-    path="/v1/storage/nasha",
-    summary="List available services",
-    iam_actions=("nasHA:apiovh:storage/get",),
-    deprecated=False,
-    schemas_version=None,
-)
-
-OP_GET_NASHA = Operation(
-    name="storage.get_nasha",
-    method="GET",
-    path="/v1/storage/nasha/{serviceName}",
-    summary="Void",
-    iam_actions=("nasHA:apiovh:storage/get",),
-    deprecated=False,
-    schemas_version=None,
-)
-
-OP_CHANGE_CONTACT_NASHA = Operation(
-    name="storage.change_contact_nasha",
-    method="POST",
-    path="/v1/storage/nasha/{serviceName}/changeContact",
-    summary="Change service contacts",
-    iam_actions=("nasHA:apiovh:storage/changeContact",),
-    deprecated=False,
-    schemas_version=None,
-)
-
-OP_CONFIRM_TERMINATION_NASHA = Operation(
-    name="storage.confirm_termination_nasha",
-    method="POST",
-    path="/v1/storage/nasha/{serviceName}/confirmTermination",
-    summary="Confirm service termination",
-    iam_actions=("nasHA:apiovh:storage/confirmTermination",),
-    deprecated=False,
-    schemas_version=None,
-)
-
-OP_GET_NASHA_SERVICE_INFOS = Operation(
-    name="storage.get_nasha_service_infos",
-    method="GET",
-    path="/v1/storage/nasha/{serviceName}/serviceInfos",
-    summary="Get service information",
-    iam_actions=("nasHA:apiovh:storage/serviceInfos/get",),
-    deprecated=False,
-    schemas_version=None,
-)
-
-OP_UPDATE_NASHA_SERVICE_INFOS = Operation(
-    name="storage.update_nasha_service_infos",
-    method="PUT",
-    path="/v1/storage/nasha/{serviceName}/serviceInfos",
-    summary="Update service information",
-    iam_actions=("nasHA:apiovh:storage/serviceInfos/edit",),
-    deprecated=False,
-    schemas_version=None,
-)
-
-OP_TERMINATE_NASHA = Operation(
-    name="storage.terminate_nasha",
-    method="POST",
-    path="/v1/storage/nasha/{serviceName}/terminate",
-    summary="Request service termination",
-    iam_actions=("nasHA:apiovh:storage/terminate",),
-    deprecated=False,
-    schemas_version=None,
-)
-
 OP_LIST_NETAPPS = Operation(
     name="storage.list_netapps",
     method="GET",
@@ -470,13 +400,6 @@ OP_TERMINATE = Operation(
 )
 
 OPERATIONS: tuple[Operation, ...] = (
-    OP_LIST_NASHAS,
-    OP_GET_NASHA,
-    OP_CHANGE_CONTACT_NASHA,
-    OP_CONFIRM_TERMINATION_NASHA,
-    OP_GET_NASHA_SERVICE_INFOS,
-    OP_UPDATE_NASHA_SERVICE_INFOS,
-    OP_TERMINATE_NASHA,
     OP_LIST_NETAPPS,
     OP_GET_NETAPP_CAPABILITIES_PRODUCT,
     OP_GET_NETAPP,

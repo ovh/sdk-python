@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import contextlib
 import dataclasses
+import inspect
 import itertools
 import time
 import typing as t
@@ -19,16 +20,19 @@ from . import _debug
 from ._auth import AsyncTokenSource, TokenSource
 from ._errors import (
     DecodeError,
+    DryRunError,
+    HookRefusedError,
     InvalidRequestError,
     RequestTimeoutError,
     ResponseTooLargeError,
     TransportError,
     api_error_class,
 )
+from ._hooks import Call, CallInfo, CallResult
 from ._models import decode, to_body
 from ._pagination import aiterate, iterate
 from ._policy import Policy
-from ._registry import Operation, match_operation
+from ._registry import Operation, is_read_only, match_operation
 from ._request import (
     Request,
     build_headers,
@@ -44,6 +48,10 @@ from ._types import NOT_GIVEN, NotGiven
 __all__ = ["AsyncEngine", "Engine"]
 
 SCHEMAS_VERSION_HEADER: t.Final = "X-Schemas-Version"
+
+# Headers httpx adds from the URL and the body. A DryRunError leaves them out, as Go's does:
+# there, the transport sets them.
+_TRANSPORT_HEADERS: t.Final = frozenset({"Host", "Content-Length"})
 
 
 @dataclasses.dataclass(frozen=True, slots=True, kw_only=True)
@@ -65,6 +73,12 @@ class _EngineBase:
     #: http.Client.Timeout. None: no limit. httpx only limits each step (connect, each read),
     #: so a server that sends a byte now and then would never time out without it.
     deadline: float | None = None
+    #: dry_run=True: send GET and HEAD, refuse anything else with DryRunError.
+    dry_run: bool = False
+    #: The before_request and after_request hooks. AsyncEngine awaits what they return when
+    #: it is awaitable.
+    before_request: tuple[t.Callable[[CallInfo], object], ...] = ()
+    after_request: tuple[t.Callable[[CallInfo, CallResult], object], ...] = ()
 
     def operation_request(
         self,
@@ -75,30 +89,72 @@ class _EngineBase:
         body: object,
         body_type: object = None,
     ) -> Request:
-        """The Request of a generated method. body_type is the type of op's body: a dict or
-        a list body is turned into it (see to_body)."""
+        """The Request of a generated method. body_type is the type of op's body: prepare
+        turns a dict or a list body into it (see to_body)."""
         return Request(
             method=op.method,
             path=fill_path(op.path, path_params or {}),
             query=tuple(query),
             headers=tuple(headers),
-            body=to_body(op, body_type, body),
+            body=body,
             operation=op,
             schemas_version=op.schemas_version,
+            body_type=body_type,
         )
 
-    def prepare(self, req: Request) -> tuple[Request, httpx.Request]:
-        """Check req (its path, then the policy) and build its HTTP request, with no token
-        yet. The returned Request names the operation the path matched, if any."""
+    def prepare(self, req: Request, call: Call) -> tuple[Request, httpx.Request]:
+        """Check req (its path, then the policy, then its body) and build its HTTP request,
+        with no token yet. The returned Request names the operation the path matched, if
+        any. call learns the operation, then the query that is sent."""
         op = req.operation
         if op is None:
             op = match_operation(req.method, req.path)
+            call.info = dataclasses.replace(call.info, operation=op)
         # First the path: the policy must check the route that is really sent.
         check_path(req.path, req.method, op)
         self.policy.check(op, req.method, req.path)
         if req.operation is None and op is not None:
             req = dataclasses.replace(req, operation=op)  # the caller's Request is unchanged
-        return req, self.build(req)
+        if req.body_type is not None and op is not None:
+            req = dataclasses.replace(req, body=to_body(op, req.body_type, req.body))
+        request = self.build(req)
+        call.info = dataclasses.replace(call.info, query=tuple(request.url.params.multi_items()))
+        return req, request
+
+    def hook_refused(self, call: Call, err: Exception) -> HookRefusedError:
+        op = call.info.operation
+        return HookRefusedError(
+            operation=op.name if op is not None else "",
+            method=call.info.method,
+            path=call.info.path,
+            cause=err,
+        )
+
+    def check_dry_run(self, req: Request, request: httpx.Request) -> None:
+        """In dry-run mode, raise DryRunError for a call that does not only read. The
+        credential headers are left out, though sign has not added the token yet: the
+        headers option or a request may hold some."""
+        if not self.dry_run or is_read_only(req.method):
+            return
+        headers: dict[str, str] = {}
+        for raw_name, raw_value in request.headers.raw:
+            name = _debug.canonical_header_key(raw_name.decode("latin-1"))
+            if name in _debug.SENSITIVE_HEADERS or name in _TRANSPORT_HEADERS:
+                continue
+            value = raw_value.decode("latin-1")
+            headers[name] = f"{headers[name]}, {value}" if name in headers else value
+        raise DryRunError(
+            operation=req.operation.name if req.operation is not None else "",
+            method=req.method,
+            url=str(request.url),
+            headers=headers,
+            body=None if isinstance(req.body, NotGiven) else request.content,
+        )
+
+    @staticmethod
+    def saw_response(call: Call, response: httpx.Response) -> None:
+        call.status_code = response.status_code
+        call.query_id = response.headers.get("X-Ovh-Queryid", "")
 
     def build(self, req: Request) -> httpx.Request:
         """The HTTP request of req, without its token: sign adds it."""
@@ -289,24 +345,50 @@ class Engine(_EngineBase):
     # --- sending --------------------------------------------------------------------------
 
     def send(self, req: Request) -> tuple[bytes, httpx.Headers]:
-        """Send a request: policy, token, retries, size cap. Return the body and headers of
-        a 2xx response. Raise ApiError for any other status."""
-        req, request = self.prepare(req)
+        """Send one call. The steps run in this order: find the operation, check the path
+        and the policy, build the request, run the before hooks, stop there in dry-run mode,
+        then fetch the token and send, with retries and the size cap. Return the body and
+        headers of a 2xx response. Raise ApiError for any other status.
+
+        The after hooks see every outcome, refusals and exceptions included, then the
+        exception goes on. AsyncEngine.send is the same with await: change both."""
+        call = Call(req)
+        try:
+            out = self._send(req, call)
+        except BaseException as err:
+            for after in self.after_request:
+                after(call.info, call.result(err))
+            raise
+        for after in self.after_request:
+            after(call.info, call.result(None))
+        return out
+
+    def _send(self, req: Request, call: Call) -> tuple[bytes, httpx.Headers]:
+        req, request = self.prepare(req, call)
+        for before in self.before_request:
+            try:
+                before(call.info)
+            except Exception as err:
+                raise self.hook_refused(call, err) from err
+        self.check_dry_run(req, request)
         self.sign(request, self.tokens.token())
-        response, content = self.exchange(request)
+        response, content = self.exchange(request, call)
         return self.result(req, response, content)
 
-    def exchange(self, request: httpx.Request) -> tuple[httpx.Response, bytes]:
-        """One logical request: debug logging, retries, the deadline and the size cap.
-        AsyncEngine.exchange is the same with await: change both."""
+    def exchange(self, request: httpx.Request, call: Call) -> tuple[httpx.Response, bytes]:
+        """One logical request: debug logging, retries, the deadline and the size cap. call
+        learns the number of attempts and the last response. AsyncEngine.exchange is the
+        same with await: change both."""
         attempts = self.retry.attempts()
         waited = 0.0
         for attempt in itertools.count(1):
             self.log_request(request)
             started = time.monotonic()
+            call.attempts = attempt
             # Not retried: a request that got no response may still have been applied.
             with _wrap_httpx(f"{request.method} {request.url.path}"):
                 response = self.http.send(request, stream=True)
+            self.saw_response(call, response)
             content: bytes | None = None
             try:
                 self.check_deadline(started)
@@ -400,21 +482,41 @@ class AsyncEngine(_EngineBase):
     # --- sending --------------------------------------------------------------------------
 
     async def send(self, req: Request) -> tuple[bytes, httpx.Headers]:
-        """Engine.send, with await."""
-        req, request = self.prepare(req)
+        """Engine.send, with await. A hook may be a plain function or an async one."""
+        call = Call(req)
+        try:
+            out = await self._send(req, call)
+        except BaseException as err:
+            for after in self.after_request:
+                await _maybe_await(after(call.info, call.result(err)))
+            raise
+        for after in self.after_request:
+            await _maybe_await(after(call.info, call.result(None)))
+        return out
+
+    async def _send(self, req: Request, call: Call) -> tuple[bytes, httpx.Headers]:
+        req, request = self.prepare(req, call)
+        for before in self.before_request:
+            try:
+                await _maybe_await(before(call.info))
+            except Exception as err:
+                raise self.hook_refused(call, err) from err
+        self.check_dry_run(req, request)
         self.sign(request, await self.tokens.token())
-        response, content = await self.exchange(request)
+        response, content = await self.exchange(request, call)
         return self.result(req, response, content)
 
-    async def exchange(self, request: httpx.Request) -> tuple[httpx.Response, bytes]:
+    async def exchange(self, request: httpx.Request, call: Call) -> tuple[httpx.Response, bytes]:
         """Engine.exchange, with await: change both."""
         attempts = self.retry.attempts()
         waited = 0.0
         for attempt in itertools.count(1):
             self.log_request(request)
             started = time.monotonic()
+            call.attempts = attempt
             with _wrap_httpx(f"{request.method} {request.url.path}"):
                 response = await self.http.send(request, stream=True)
+            self.saw_response(call, response)
             content: bytes | None = None
             try:
                 self.check_deadline(started)
@@ -450,6 +552,12 @@ class AsyncEngine(_EngineBase):
                 return body.content()
         finally:
             await response.aclose()
+
+
+async def _maybe_await(value: object) -> None:
+    """Await what an async hook returned. A plain function's None is left as it is."""
+    if inspect.isawaitable(value):
+        await value
 
 
 @contextlib.contextmanager

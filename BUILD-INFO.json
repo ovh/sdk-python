@@ -1,9 +1,10 @@
 {
-  "version": "0.1.4",
-  "pythonVersion": "0.1.4",
+  "version": "0.2.0",
+  "pythonVersion": "0.2.0",
   "sections": 80,
-  "operations": 6753,
-  "methods": 7535,
-  "models": 9429,
-  "snapshot": "snapshot/2026.11.18"
+  "operations": 6180,
+  "methods": 6962,
+  "models": 8878,
+  "snapshot": "snapshot/2026.11.18-1654",
+  "generator": "v0.6.1"
 }

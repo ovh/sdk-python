@@ -137,8 +137,6 @@ if t.TYPE_CHECKING:
     from .packxdsl._api import PackxdslApi as _PackxdslApi
     from .partner._api import AsyncPartnerApi as _AsyncPartnerApi
     from .partner._api import PartnerApi as _PartnerApi
-    from .price._api import AsyncPriceApi as _AsyncPriceApi
-    from .price._api import PriceApi as _PriceApi
     from .public_cloud._api import AsyncPublicCloudApi as _AsyncPublicCloudApi
     from .public_cloud._api import PublicCloudApi as _PublicCloudApi
     from .saascsp2._api import AsyncSaascsp2Api as _AsyncSaascsp2Api
@@ -171,6 +169,8 @@ if t.TYPE_CHECKING:
         AsyncVeeamveeamEnterpriseApi as _AsyncVeeamveeamEnterpriseApi,
     )
     from .veeamveeam_enterprise._api import VeeamveeamEnterpriseApi as _VeeamveeamEnterpriseApi
+    from .videocenter._api import AsyncVideocenterApi as _AsyncVideocenterApi
+    from .videocenter._api import VideocenterApi as _VideocenterApi
     from .vip._api import AsyncVipApi as _AsyncVipApi
     from .vip._api import VipApi as _VipApi
     from .vmware_cloud_director._api import (
@@ -555,7 +555,7 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def over_the_box(self) -> _OverTheBoxApi:
-        """The overTheBox section: 46 operations."""
+        """The overTheBox section: 47 operations."""
         from .over_the_box._api import OverTheBoxApi
 
         return OverTheBoxApi(self)
@@ -589,15 +589,8 @@ class Client(_CoreClient):
         return PartnerApi(self)
 
     @functools.cached_property
-    def price(self) -> _PriceApi:
-        """The price section: 581 operations."""
-        from .price._api import PriceApi
-
-        return PriceApi(self)
-
-    @functools.cached_property
     def public_cloud(self) -> _PublicCloudApi:
-        """The publicCloud section: 600 operations."""
+        """The publicCloud section: 613 operations."""
         from .public_cloud._api import PublicCloudApi
 
         return PublicCloudApi(self)
@@ -660,7 +653,7 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def storage(self) -> _StorageApi:
-        """The storage section: 45 operations."""
+        """The storage section: 38 operations."""
         from .storage._api import StorageApi
 
         return StorageApi(self)
@@ -701,6 +694,13 @@ class Client(_CoreClient):
         return VeeamveeamEnterpriseApi(self)
 
     @functools.cached_property
+    def videocenter(self) -> _VideocenterApi:
+        """The videocenter section: 3 operations."""
+        from .videocenter._api import VideocenterApi
+
+        return VideocenterApi(self)
+
+    @functools.cached_property
     def vip(self) -> _VipApi:
         """The vip section: 4 operations."""
         from .vip._api import VipApi
@@ -730,7 +730,7 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def vrack_services(self) -> _VrackServicesApi:
-        """The vrackServices section: 11 operations."""
+        """The vrackServices section: 9 operations."""
         from .vrack_services._api import VrackServicesApi
 
         return VrackServicesApi(self)
@@ -1119,7 +1119,7 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def over_the_box(self) -> _AsyncOverTheBoxApi:
-        """The overTheBox section: 46 operations."""
+        """The overTheBox section: 47 operations."""
         from .over_the_box._api import AsyncOverTheBoxApi
 
         return AsyncOverTheBoxApi(self)
@@ -1153,15 +1153,8 @@ class AsyncClient(_CoreAsyncClient):
         return AsyncPartnerApi(self)
 
     @functools.cached_property
-    def price(self) -> _AsyncPriceApi:
-        """The price section: 581 operations."""
-        from .price._api import AsyncPriceApi
-
-        return AsyncPriceApi(self)
-
-    @functools.cached_property
     def public_cloud(self) -> _AsyncPublicCloudApi:
-        """The publicCloud section: 600 operations."""
+        """The publicCloud section: 613 operations."""
         from .public_cloud._api import AsyncPublicCloudApi
 
         return AsyncPublicCloudApi(self)
@@ -1224,7 +1217,7 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def storage(self) -> _AsyncStorageApi:
-        """The storage section: 45 operations."""
+        """The storage section: 38 operations."""
         from .storage._api import AsyncStorageApi
 
         return AsyncStorageApi(self)
@@ -1265,6 +1258,13 @@ class AsyncClient(_CoreAsyncClient):
         return AsyncVeeamveeamEnterpriseApi(self)
 
     @functools.cached_property
+    def videocenter(self) -> _AsyncVideocenterApi:
+        """The videocenter section: 3 operations."""
+        from .videocenter._api import AsyncVideocenterApi
+
+        return AsyncVideocenterApi(self)
+
+    @functools.cached_property
     def vip(self) -> _AsyncVipApi:
         """The vip section: 4 operations."""
         from .vip._api import AsyncVipApi
@@ -1294,7 +1294,7 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def vrack_services(self) -> _AsyncVrackServicesApi:
-        """The vrackServices section: 11 operations."""
+        """The vrackServices section: 9 operations."""
         from .vrack_services._api import AsyncVrackServicesApi
 
         return AsyncVrackServicesApi(self)

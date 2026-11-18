@@ -51,6 +51,9 @@ class Request:
     operation: Operation | None = None
     #: X-Schemas-Version to send, or None.
     schemas_version: str | None = None
+    #: The type of a generated method's body. The client turns a dict or a list body into
+    #: it (see to_body) after the policy check. None: the body is sent as it is.
+    body_type: object = None
 
 
 # A {name} left in a path. fill_path escapes the braces of every value it fills in, so a

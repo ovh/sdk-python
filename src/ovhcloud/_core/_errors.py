@@ -19,6 +19,8 @@ ErrConflict            ConflictError (409)
 ErrTooManyRequests     TooManyRequestsError (429)
 ErrInvalidRequest      InvalidRequestError
 ErrNotAllowed          NotAllowedError
+ErrDryRun              DryRunError
+(a hook's error)       HookRefusedError
 ErrResponseTooLarge    ResponseTooLargeError
 ErrWaitFailed          WaitFailedError
 =====================  =======================
@@ -38,7 +40,9 @@ __all__ = [
     "ConfigurationError",
     "ConflictError",
     "DecodeError",
+    "DryRunError",
     "ForbiddenError",
+    "HookRefusedError",
     "InvalidRequestError",
     "NotAllowedError",
     "NotFoundError",
@@ -238,6 +242,70 @@ class NotAllowedError(OvhError):
         self.reason = reason
         name = operation or "request"
         super().__init__(f"{name} ({method} {path}) not sent: {reason}")
+
+
+class DryRunError(OvhError):
+    """A call the client did not send because it is in dry-run mode (``dry_run=True``).
+
+    It is not a failure: it tells what the call would have sent. The credentials are left
+    out: no token is fetched, and the Authorization header (with the other credential
+    headers, such as Cookie) is not in ``headers``::
+
+        try:
+            client.post("/v1/me/contact", {"email": "ops@example.com"})
+        except ovhcloud.DryRunError as dry:
+            print(dry.method, dry.url, dry.body)
+
+    Go's DryRunError holds the Operation and an http.Header. Here, like the other errors,
+    ``operation`` is the operation's name, and ``headers`` a plain dict.
+    """
+
+    #: The operation's name, or "" when the registry does not know the route.
+    operation: str
+    method: str
+    #: The full URL: the endpoint, the path and the encoded query.
+    url: str
+    #: The headers: Accept, Content-Type, User-Agent, X-Schemas-Version, those of the
+    #: client's ``headers`` option and those of the request. Several values of one header
+    #: are joined with ", ".
+    headers: dict[str, str]
+    #: The JSON body, None when the call has none.
+    body: bytes | None
+
+    def __init__(
+        self,
+        *,
+        operation: str,
+        method: str,
+        url: str,
+        headers: dict[str, str],
+        body: bytes | None,
+    ) -> None:
+        self.operation = operation
+        self.method = method
+        self.url = url
+        self.headers = headers
+        self.body = body
+        name = operation or "request"
+        super().__init__(f"{name} ({method} {url}) not sent: dry run")
+
+
+class HookRefusedError(OvhError):
+    """A call that a ``before_request`` hook refused by raising an exception. Nothing was
+    sent. The hook's exception is the ``__cause__``.
+    """
+
+    #: The operation's name, or "" when the registry does not know the route.
+    operation: str
+    method: str
+    path: str
+
+    def __init__(self, *, operation: str, method: str, path: str, cause: BaseException) -> None:
+        self.operation = operation
+        self.method = method
+        self.path = path
+        name = operation or "request"
+        super().__init__(f"{name} ({method} {path}) not sent: refused by a hook: {cause}")
 
 
 class ResponseTooLargeError(OvhError):

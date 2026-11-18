@@ -79,26 +79,6 @@ OP_UPDATE_RESOURCE = Operation(
     schemas_version="1.0",
 )
 
-OP_GET_RESOURCE_ELIGIBLE_BGP_ALLOWED_PREFIXES = Operation(
-    name="vrack_services.get_resource_eligible_bgp_allowed_prefixes",
-    method="GET",
-    path="/v2/vrackServices/resource/{vrackServicesId}/eligibleBgpAllowedPrefixes",
-    summary="List eligible IP prefixes for BGP Service",
-    iam_actions=("vrackServices:apiovh:resource/eligibleBgpAllowedPrefixes/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_ALL_VRACK_SERVICE_ELIGIBLE_DEDICATED_SERVER_INTERFACES = Operation(
-    name="vrack_services.all_vrack_service_eligible_dedicated_server_interfaces",
-    method="GET",
-    path="/v2/vrackServices/resource/{vrackServicesId}/eligibleDedicatedServerInterfaces",
-    summary="List eligible server interfaces",
-    iam_actions=("vrackServices:apiovh:resource/eligibleDedicatedServerInterfaces/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
 OP_ALL_RESOURCE_ELIGIBLE_MANAGED_SERVICES = Operation(
     name="vrack_services.all_resource_eligible_managed_services",
     method="GET",
@@ -136,8 +116,6 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_ALL_RESOURCES,
     OP_GET_RESOURCE,
     OP_UPDATE_RESOURCE,
-    OP_GET_RESOURCE_ELIGIBLE_BGP_ALLOWED_PREFIXES,
-    OP_ALL_VRACK_SERVICE_ELIGIBLE_DEDICATED_SERVER_INTERFACES,
     OP_ALL_RESOURCE_ELIGIBLE_MANAGED_SERVICES,
     OP_ALL_RESOURCE_TASKS,
     OP_GET_RESOURCE_TASK,

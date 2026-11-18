@@ -8,9 +8,9 @@
 
     import ovhcloud
 
-    with ovhcloud.Client() as client:  # OVH_CLIENT_ID, OVH_CLIENT_SECRET, OVH_REGION
-        for vrack in client.vrack.all_vracks():
-            print(vrack.name)
+    with ovhcloud.Client() as client:  # reads OVH_CLIENT_ID, OVH_CLIENT_SECRET, OVH_REGION
+        account = client.me.get_account_details()  # GET /v1/me
+        print(account.nichandle)
 
 For asyncio programs, ``ovhcloud.AsyncClient`` has the same methods, with await.
 
@@ -46,7 +46,9 @@ from ._core._errors import (
     ConfigurationError,
     ConflictError,
     DecodeError,
+    DryRunError,
     ForbiddenError,
+    HookRefusedError,
     InvalidRequestError,
     NotAllowedError,
     NotFoundError,
@@ -59,6 +61,14 @@ from ._core._errors import (
     UnauthorizedError,
     WaitFailedError,
     WaitTimeoutError,
+)
+from ._core._hooks import (
+    AfterRequestHook,
+    AsyncAfterRequestHook,
+    AsyncBeforeRequestHook,
+    BeforeRequestHook,
+    CallInfo,
+    CallResult,
 )
 from ._core._models import BaseModel, OpenFloatEnum, OpenIntEnum, OpenStrEnum, is_validated
 from ._core._pagination import MAX_CURSOR_PAGES
@@ -107,17 +117,25 @@ __all__ = [
     "MAX_RETRY_WAIT",
     "MIN_RETRY_DELAY",
     "NOT_GIVEN",
+    "AfterRequestHook",
     "ApiError",
+    "AsyncAfterRequestHook",
+    "AsyncBeforeRequestHook",
     "AsyncClient",
     "AsyncOAuth2ClientCredentials",
     "AsyncTokenSource",
     "BadRequestError",
     "BaseModel",
+    "BeforeRequestHook",
+    "CallInfo",
+    "CallResult",
     "Client",
     "ConfigurationError",
     "ConflictError",
     "DecodeError",
+    "DryRunError",
     "ForbiddenError",
+    "HookRefusedError",
     "InvalidRequestError",
     "NotAllowedError",
     "NotFoundError",

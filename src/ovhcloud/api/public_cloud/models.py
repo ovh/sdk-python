@@ -55,6 +55,7 @@ __all__ = [
     "CreateLoadBalancer400Response",
     "CreateLoadBalancer404Response",
     "CreateLoadBalancer409Response",
+    "CreateManagedRegistry400Response",
     "CreateNetwork409Response",
     "CreateProjectRancher500Response",
     "CreateSSHKey409Response",
@@ -104,6 +105,7 @@ __all__ = [
     "DeleteLoadBalancerPool409Response",
     "DeleteLoadBalancer404Response",
     "DeleteLoadBalancer409Response",
+    "DeleteManagedRegistry409Response",
     "DeleteNetwork404Response",
     "DeleteNetwork409Response",
     "DeleteProjectRancher500Response",
@@ -156,6 +158,8 @@ __all__ = [
     "EditLoadBalancer400Response",
     "EditLoadBalancer404Response",
     "EditLoadBalancer409Response",
+    "EditManagedRegistry400Response",
+    "EditManagedRegistry409Response",
     "EditNetwork404Response",
     "EditNetwork409Response",
     "EditQuota400Response",
@@ -231,6 +235,7 @@ __all__ = [
     "PostVolumeAction400Response",
     "PostVolumeAction404Response",
     "PostVolumeAction409Response",
+    "ResetManagedRegistryAdminCredentials409Response",
     "UpdateProjectRancher500Response",
     "CommonCurrentTask",
     "CommonCurrentTaskStatusEnum",
@@ -698,6 +703,28 @@ __all__ = [
     "PublicCloudManagedKubernetesVersionCatalog",
     "PublicCloudManagedKubernetesVersionReference",
     "PublicCloudManagedKubernetesVersionStatusEnum",
+    "PublicCloudManagedRegistryArtifactStorage",
+    "PublicCloudManagedRegistryAuthentication",
+    "PublicCloudManagedRegistryAuthenticationTypeEnum",
+    "PublicCloudManagedRegistryAuthorizedIPRule",
+    "PublicCloudManagedRegistryAuthorizedIPRuleScopeEnum",
+    "PublicCloudManagedRegistryAuthorizedIPs",
+    "PublicCloudManagedRegistryCredentials",
+    "PublicCloudManagedRegistryOidc",
+    "PublicCloudManagedRegistryPlan",
+    "PublicCloudManagedRegistryPlanEnum",
+    "PublicCloudManagedRegistryPlanFeatures",
+    "PublicCloudManagedRegistryPlanLimits",
+    "PublicCloudManagedRegistryRegion",
+    "PublicCloudManagedRegistryRegistry",
+    "PublicCloudManagedRegistryRegistryCreation",
+    "PublicCloudManagedRegistryRegistryCurrentState",
+    "PublicCloudManagedRegistryRegistryTargetSpec",
+    "PublicCloudManagedRegistryRegistryUpdate",
+    "PublicCloudManagedRegistryRegistryUpdateTargetSpec",
+    "PublicCloudManagedRegistryUsage",
+    "PublicCloudManagedRegistryValueWithUnit",
+    "PublicCloudManagedRegistryVersion",
     "PublicCloudNetworkNetwork",
     "PublicCloudNetworkNetworkCreation",
     "PublicCloudNetworkNetworkCurrentState",
@@ -1300,6 +1327,18 @@ class CreateLoadBalancer409Response(_gen.BaseModel):
     """Error message"""
 
 
+class CreateManagedRegistry400Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
 class CreateNetwork409Response(_gen.BaseModel):
     """Common error model"""
 
@@ -1877,6 +1916,18 @@ class DeleteLoadBalancer404Response(_gen.BaseModel):
 
 
 class DeleteLoadBalancer409Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class DeleteManagedRegistry409Response(_gen.BaseModel):
     """Common error model"""
 
     class_: str | None = _p.Field(
@@ -2501,6 +2552,30 @@ class EditLoadBalancer404Response(_gen.BaseModel):
 
 
 class EditLoadBalancer409Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class EditManagedRegistry400Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class EditManagedRegistry409Response(_gen.BaseModel):
     """Common error model"""
 
     class_: str | None = _p.Field(
@@ -3401,6 +3476,18 @@ class PostVolumeAction404Response(_gen.BaseModel):
 
 
 class PostVolumeAction409Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class ResetManagedRegistryAdminCredentials409Response(_gen.BaseModel):
     """Common error model"""
 
     class_: str | None = _p.Field(
@@ -14688,6 +14775,455 @@ class PublicCloudManagedKubernetesVersionStatusEnum(_gen.OpenStrEnum):
 
     END_OF_SUPPORT = "END_OF_SUPPORT"
     SUPPORTED = "SUPPORTED"
+
+
+class PublicCloudManagedRegistryArtifactStorage(_gen.BaseModel):
+    """Artifact storage usage. Storage consumed by artifacts, compared with the limit of the plan."""
+
+    limit: PublicCloudManagedRegistryValueWithUnit | None = _p.Field(default=None)
+    """Limit. Maximum artifact storage of the current plan. Reported by the service. See ValueWithUnit.
+
+    Read-only: the API sets it.
+    """
+
+    used: PublicCloudManagedRegistryValueWithUnit | None = _p.Field(default=None)
+    """Used. Artifact storage currently consumed. Null until the first measurement is collected. Reported by the service. See ValueWithUnit.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryAuthentication(_gen.BaseModel):
+    """Registry authentication. Login method of the registry. `oidc` is required if and only if `type` is `OIDC`."""
+
+    oidc: PublicCloudManagedRegistryOidc | None = _p.Field(default=None)
+    """OIDC configuration. External OpenID Connect provider users log in with. Required when `type` is `OIDC`, null otherwise. Mutable. See Oidc."""
+
+    type: PublicCloudManagedRegistryAuthenticationTypeEnum = _p.Field()
+    """Authentication type. Login method of the registry. Changing it deletes every existing Harbor user of the registry once the update task completes. Robot accounts are kept."""
+
+
+class PublicCloudManagedRegistryAuthenticationTypeEnum(_gen.OpenStrEnum):
+    """Authentication type. How users log in to the Harbor web interface and API of the registry. `IAM`: Users log in with OVHcloud accounts, authorized through OVHcloud IAM policies. `LOCAL`: Users log in with accounts created in Harbor. `OIDC`: Users log in through an external OpenID Connect provider. Requires `oidc`.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    IAM = "IAM"
+    LOCAL = "LOCAL"
+    OIDC = "OIDC"
+
+
+class PublicCloudManagedRegistryAuthorizedIPRule(_gen.BaseModel):
+    """Authorized IP rule. CIDR block allowed on one or more scopes of the registry."""
+
+    cidr: IPv4Block = _p.Field()
+    """CIDR. nIPv4 block allowed, for example `192.0.2.0/24`. Mutable."""
+
+    description: str | None = _p.Field(default=None)
+    """Description. Free text describing the rule, for example `VPN`. Null when not set. Mutable."""
+
+    scopes: list[PublicCloudManagedRegistryAuthorizedIPRuleScopeEnum] = _p.Field()
+    """Scopes. Parts of the registry the CIDR block is allowed on. Mutable."""
+
+
+class PublicCloudManagedRegistryAuthorizedIPRuleScopeEnum(_gen.OpenStrEnum):
+    """Authorized IP rule scope. Part of the registry an authorized IP rule applies to. `ADMINISTRATION`: Harbor web interface and management API. `ARTIFACT_OPERATIONS`: Registry endpoint used to push and pull artifacts, for example with `docker` or `helm`.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ADMINISTRATION = "ADMINISTRATION"
+    ARTIFACT_OPERATIONS = "ARTIFACT_OPERATIONS"
+
+
+class PublicCloudManagedRegistryAuthorizedIPs(_gen.BaseModel):
+    """Authorized IPs. IP filtering of the registry. When `rules` is empty or null, any IP is allowed on every scope. Otherwise a scope accepts only the CIDR blocks of the rules that list it."""
+
+    rules: list[PublicCloudManagedRegistryAuthorizedIPRule] | None = _p.Field(default=None)
+    """Rules. CIDR blocks allowed to reach the registry, each on one or more scopes. When empty or null, any IP is allowed. The list is replaced as a whole on update. See AuthorizedIpRule."""
+
+
+class PublicCloudManagedRegistryCredentials(_gen.BaseModel):
+    """Administrator credentials. Username and password of the Harbor administrator account of the registry."""
+
+    password: str | None = _p.Field(default=None)
+    """New password of the administrator account. The previous password stops working. Returned by the reset call only.
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Username of the administrator account
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryOidc(_gen.BaseModel):
+    """OpenID Connect configuration. External OpenID Connect provider configured as the Harbor login method. Used when `authentication.type` is `OIDC`. Register `<currentState.url>/c/oidc/callback` as a redirect URI of the client in the provider. Each field maps a Harbor OIDC setting, described in the [Harbor documentation](https://goharbor.io/docs/latest/administration/configure-authentication/oidc-auth/)."""
+
+    admin_group: str | None = _p.Field(
+        default=None, validation_alias="adminGroup", serialization_alias="adminGroup"
+    )
+    """Admin group. Group of the OIDC provider whose members get the Harbor system administrator role. When null, no group gets the role. Requires `groupsClaim`. Mutable."""
+
+    auto_onboard: bool | None = _p.Field(
+        default=None, validation_alias="autoOnboard", serialization_alias="autoOnboard"
+    )
+    """Automatic onboarding. When `true`, a user logging in for the first time is created from the token claims, without the Harbor onboarding screen. When null, treated as `false`. Mutable."""
+
+    client_id: str = _p.Field(validation_alias="clientId", serialization_alias="clientId")
+    """Client ID. Client identifier of the registry in the OIDC provider. Mutable."""
+
+    client_secret: str | None = _p.Field(
+        default=None, validation_alias="clientSecret", serialization_alias="clientSecret"
+    )
+    """Client secret of the registry in the OIDC provider. Required at creation. On update, omit it to keep the current secret, or set it to replace it. Mutable. Write-only: never returned on read."""
+
+    endpoint: str = _p.Field()
+    """Endpoint. Issuer URL of the OIDC provider, for example `https://keycloak.example.com/realms/mpr`. Its `/.well-known/openid-configuration` document must be reachable from the registry. Mutable."""
+
+    group_filter: str | None = _p.Field(
+        default=None, validation_alias="groupFilter", serialization_alias="groupFilter"
+    )
+    """Group filter. Regular expression selecting the groups of `groupsClaim` that are imported into Harbor. It does not restrict who can log in. When null, every group is imported. Mutable."""
+
+    groups_claim: str | None = _p.Field(
+        default=None, validation_alias="groupsClaim", serialization_alias="groupsClaim"
+    )
+    """Name of the token claim that lists the groups of the user. When null, groups are not read from the token. Mutable."""
+
+    name: str = _p.Field()
+    """Name of the OIDC provider, displayed on the Harbor login button. Mutable."""
+
+    scope: str = _p.Field()
+    """Comma-separated OIDC scopes requested at login, for example `openid,profile,email,offline_access`. Must include `openid`. Include `offline_access` so the registry gets a refresh token. Mutable."""
+
+    user_claim: str | None = _p.Field(
+        default=None, validation_alias="userClaim", serialization_alias="userClaim"
+    )
+    """Name of the ID token claim used as the Harbor username. The claim must be present in the ID token, otherwise onboarding the user fails. When null, Harbor uses the `name` claim. Mutable."""
+
+    verify_cert: bool | None = _p.Field(
+        default=None, validation_alias="verifyCert", serialization_alias="verifyCert"
+    )
+    """Verify certificate. When `true`, the TLS certificate of `endpoint` is verified. When null, treated as `true`. Set it to `false` only for a provider with a self-signed or untrusted certificate. Mutable."""
+
+
+class PublicCloudManagedRegistryPlan(_gen.BaseModel):
+    """Managed Private Registry plan. Plan with its limits and features, as listed by the reference and capabilities routes."""
+
+    features: PublicCloudManagedRegistryPlanFeatures | None = _p.Field(default=None)
+    """Features included in the plan. See PlanFeatures.
+
+    Read-only: the API sets it.
+    """
+
+    limits: PublicCloudManagedRegistryPlanLimits | None = _p.Field(default=None)
+    """Resource limits enforced by the plan. See PlanLimits.
+
+    Read-only: the API sets it.
+    """
+
+    name: PublicCloudManagedRegistryPlanEnum | None = _p.Field(default=None)
+    """Name of the plan, to use as `targetSpec.plan`
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryPlanEnum(_gen.OpenStrEnum):
+    """Managed Private Registry plan name. Plan of a Managed Private Registry service. Limits and features of each plan are listed by `GET .../reference/managedRegistry/plan`. `LARGE`: Largest storage and request limits. `MEDIUM`: Intermediate storage and request limits. `SMALL`: Smallest storage and request limits.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    LARGE = "LARGE"
+    MEDIUM = "MEDIUM"
+    SMALL = "SMALL"
+
+
+class PublicCloudManagedRegistryPlanFeatures(_gen.BaseModel):
+    """Features included in a Managed Private Registry plan"""
+
+    vulnerability_scanner: bool | None = _p.Field(
+        default=None,
+        validation_alias="vulnerabilityScanner",
+        serialization_alias="vulnerabilityScanner",
+    )
+    """Whether the plan includes vulnerability scanning of stored artifacts
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryPlanLimits(_gen.BaseModel):
+    """Resource limits enforced by a Managed Private Registry plan"""
+
+    artifact_storage: PublicCloudManagedRegistryValueWithUnit | None = _p.Field(
+        default=None, validation_alias="artifactStorage", serialization_alias="artifactStorage"
+    )
+    """Maximum storage available for artifacts. See ValueWithUnit.
+
+    Read-only: the API sets it.
+    """
+
+    parallel_requests: int | None = _p.Field(
+        default=None, validation_alias="parallelRequests", serialization_alias="parallelRequests"
+    )
+    """Maximum number of requests the registry serves concurrently
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryRegion(_gen.BaseModel):
+    """Region where a Managed Private Registry service can be created"""
+
+    name: str | None = _p.Field(default=None)
+    """Region name, to use as `targetSpec.region`, for example `EU-WEST-PAR`
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryRegistry(_gen.BaseModel):
+    """Managed Private Registry service. Harbor-based container registry. `targetSpec` holds the requested configuration and `currentState` the applied one. They differ while a task is running."""
+
+    checksum: str | None = _p.Field(default=None)
+    """Checksum. Hash of the current `targetSpec`. Send it back in `PUT .../managedRegistry/{managedRegistryId}` to detect concurrent updates. Changes on every `targetSpec` update.
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Creation date of the registry
+
+    Read-only: the API sets it.
+    """
+
+    current_state: PublicCloudManagedRegistryRegistryCurrentState | None = _p.Field(
+        default=None, validation_alias="currentState", serialization_alias="currentState"
+    )
+    """Current state. Configuration applied to the registry. Reported by the service. See RegistryCurrentState.
+
+    Read-only: the API sets it.
+    """
+
+    current_tasks: list[CommonCurrentTask] | None = _p.Field(
+        default=None, validation_alias="currentTasks", serialization_alias="currentTasks"
+    )
+    """Current tasks. Asynchronous tasks running on the registry. Empty or null when none is running. Follow `link` to get a task. Reported by the service.
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the registry
+
+    Read-only: the API sets it.
+    """
+
+    resource_status: CommonResourceStatusEnum | None = _p.Field(
+        default=None, validation_alias="resourceStatus", serialization_alias="resourceStatus"
+    )
+    """Resource status. Readiness of the registry. A new `targetSpec` is accepted only when it is `READY`. Reported by the service.
+
+    Read-only: the API sets it.
+    """
+
+    target_spec: PublicCloudManagedRegistryRegistryTargetSpec | None = _p.Field(
+        default=None, validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Target specification. Last configuration requested for the registry. Mutable through `PUT .../managedRegistry/{managedRegistryId}`. See RegistryTargetSpec.
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update of the registry
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryRegistryCreation(_gen.BaseModel):
+    """Registry creation request. Request body of `POST .../managedRegistry`."""
+
+    target_spec: PublicCloudManagedRegistryRegistryTargetSpec = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Target specification. Configuration the registry is created with. Mutable through `PUT .../managedRegistry/{managedRegistryId}`, except `region`, which is immutable. See RegistryTargetSpec."""
+
+
+class PublicCloudManagedRegistryRegistryCurrentState(_gen.BaseModel):
+    """Observed registry state. Configuration applied to the registry, reported as `currentState`. It matches `targetSpec` once every task has completed."""
+
+    authentication: PublicCloudManagedRegistryAuthentication | None = _p.Field(default=None)
+    """Login method applied to the registry. Reported by the service. See Authentication.
+
+    Read-only: the API sets it.
+    """
+
+    authorized_ips: PublicCloudManagedRegistryAuthorizedIPs | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """Authorized IPs. IP filtering applied to the registry. When `rules` is empty or null, any IP is allowed. Reported by the service. See AuthorizedIps.
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Display name applied to the registry. Reported by the service.
+
+    Read-only: the API sets it.
+    """
+
+    plan: PublicCloudManagedRegistryPlanEnum | None = _p.Field(default=None)
+    """Plan applied to the registry. Reported by the service.
+
+    Read-only: the API sets it.
+    """
+
+    region: str | None = _p.Field(default=None)
+    """Region where the registry is deployed, for example `EU-WEST-PAR`. Reported by the service.
+
+    Read-only: the API sets it.
+    """
+
+    url: str | None = _p.Field(default=None)
+    """URL of the Harbor web interface and registry endpoint, for example `https://xxxxxx.eu-west-par.container-registry.ovh.net`. Null until the registry is deployed. Reported by the service.
+
+    Read-only: the API sets it.
+    """
+
+    usage: PublicCloudManagedRegistryUsage | None = _p.Field(default=None)
+    """Resources consumed by the registry. Reported by the service. See Usage.
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Harbor version running on the registry, for example `2.14.2`. Reported by the service.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryRegistryTargetSpec(_gen.BaseModel):
+    """Desired registry specification. Configuration requested on `POST .../managedRegistry`, and returned as `targetSpec`."""
+
+    authentication: PublicCloudManagedRegistryAuthentication | None = _p.Field(default=None)
+    """Login method of the registry. Changing `type` deletes every existing Harbor user of the registry once the update task completes. Robot accounts are kept. See Authentication. Defaults to `LOCAL` authentication."""
+
+    authorized_ips: PublicCloudManagedRegistryAuthorizedIPs | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """Authorized IPs. CIDR blocks allowed to reach the registry, per scope. When omitted or when `rules` is empty, any IP is allowed. The rule list is replaced as a whole. See AuthorizedIps."""
+
+    name: str = _p.Field()
+    """Display name of the registry. Not an identifier. Renaming has no effect on the registry URL."""
+
+    plan: PublicCloudManagedRegistryPlanEnum = _p.Field()
+    """Plan of the registry, which sets its storage and request limits and its features. Plans are listed by `GET .../reference/managedRegistry/plan`. Changing it applies the limits and features of the new plan. Plans an existing registry can switch to are listed by `GET .../managedRegistry/{managedRegistryId}/capabilities/plan`."""
+
+    region: str = _p.Field()
+    """Region where the registry is deployed. Regions are listed by `GET .../reference/managedRegistry/region`. Immutable after creation. Create a new registry to change it."""
+
+    version: str | None = _p.Field(default=None)
+    """Harbor version to run, for example `2.14.2`. On `POST .../managedRegistry`, must be null or the latest available version: the registry is always created with the latest version. Mutable through `PUT .../managedRegistry/{managedRegistryId}`, which upgrades the registry."""
+
+
+class PublicCloudManagedRegistryRegistryUpdate(_gen.BaseModel):
+    """Registry update request. Request body of `PUT .../managedRegistry/{managedRegistryId}`."""
+
+    checksum: str | None = _p.Field(default=None)
+    """Optimistic concurrency token. When set, it must match the `checksum` returned by `GET .../managedRegistry/{managedRegistryId}`, otherwise the request is rejected. When null or empty, the check is skipped and the update overwrites the current `targetSpec`."""
+
+    target_spec: PublicCloudManagedRegistryRegistryUpdateTargetSpec = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Target specification. New configuration of the registry, replacing the previous one as a whole. See RegistryUpdateTargetSpec."""
+
+
+class PublicCloudManagedRegistryRegistryUpdateTargetSpec(_gen.BaseModel):
+    """Desired registry specification (update). Configuration requested on `PUT .../managedRegistry/{managedRegistryId}`. It replaces the previous `targetSpec` as a whole, so unchanged fields are sent too. `region` is immutable and not part of it."""
+
+    authentication: PublicCloudManagedRegistryAuthentication | None = _p.Field(default=None)
+    """Login method of the registry. Changing `type` deletes every existing Harbor user of the registry once the update task completes. Robot accounts are kept. See Authentication. Defaults to `LOCAL` authentication."""
+
+    authorized_ips: PublicCloudManagedRegistryAuthorizedIPs | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """Authorized IPs. CIDR blocks allowed to reach the registry, per scope. When omitted or when `rules` is empty, any IP is allowed. The rule list is replaced as a whole. See AuthorizedIps."""
+
+    name: str = _p.Field()
+    """Display name of the registry. Not an identifier. Renaming has no effect on the registry URL."""
+
+    plan: PublicCloudManagedRegistryPlanEnum = _p.Field()
+    """Plan of the registry, which sets its storage and request limits and its features. Must be the current plan or one listed by `GET .../managedRegistry/{managedRegistryId}/capabilities/plan`. Changing it applies the limits and features of the new plan."""
+
+    version: str = _p.Field()
+    """Harbor version to run, for example `2.14.2`. Must be the current version or one listed by `GET .../managedRegistry/{managedRegistryId}/capabilities/version`. Changing it upgrades the registry."""
+
+
+class PublicCloudManagedRegistryUsage(_gen.BaseModel):
+    """Registry usage. Resources consumed by the registry, compared with the limits of its plan. Reported as `currentState.usage`."""
+
+    artifact_storage: PublicCloudManagedRegistryArtifactStorage | None = _p.Field(
+        default=None, validation_alias="artifactStorage", serialization_alias="artifactStorage"
+    )
+    """Artifact storage consumed and its limit. Reported by the service. See ArtifactStorage.
+
+    Read-only: the API sets it.
+    """
+
+    measured_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="measuredAt", serialization_alias="measuredAt"
+    )
+    """Measured at. Time of the last usage measurement. Null until the first measurement is collected. Reported by the service.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryValueWithUnit(_gen.BaseModel):
+    """Value with unit. Numeric quantity together with the unit it is expressed in."""
+
+    unit: PublicCloudQuotaQuotaUnitEnum | None = _p.Field(default=None)
+    """Unit the value is expressed in, for example `GiB`
+
+    Read-only: the API sets it.
+    """
+
+    value: int | None = _p.Field(default=None)
+    """Numeric value in `unit`
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedRegistryVersion(_gen.BaseModel):
+    """Harbor version an existing registry can be upgraded to, to use as `targetSpec.version` on `PUT .../managedRegistry/{managedRegistryId}`"""
+
+    changelog_url: str | None = _p.Field(
+        default=None, validation_alias="changelogUrl", serialization_alias="changelogUrl"
+    )
+    """URL of the Harbor release notes of the version
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Harbor version, for example `2.14.2`
+
+    Read-only: the API sets it.
+    """
 
 
 class PublicCloudNetworkNetwork(_gen.BaseModel):

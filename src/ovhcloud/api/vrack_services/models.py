@@ -23,8 +23,6 @@ from ..._core import _gen
 __all__ = [
     "GetResourceTask404Response",
     "GetResource404Response",
-    "GetVrackServiceEligibleDedicatedServerInterfaces400Response",
-    "GetVrackServiceEligibleDedicatedServerInterfaces404Response",
     "UpdateResource400Response",
     "UpdateResource404Response",
     "UpdateResource412Response",
@@ -58,9 +56,6 @@ __all__ = [
     "VrackServicesDHCPTarget",
     "VrackServicesDedicatedServerInterfaceAssociationCurrentState",
     "VrackServicesDedicatedServerInterfaceAssociationTarget",
-    "VrackServicesEligibleBgpAllowedPrefixes",
-    "VrackServicesEligibleDedicatedServerInterface",
-    "VrackServicesEligibleDedicatedServerInterfaceItem",
     "VrackServicesEligibleManagedService",
     "VrackServicesEndpoint",
     "VrackServicesFeatureAvailability",
@@ -104,30 +99,6 @@ class GetResourceTask404Response(_gen.BaseModel):
 
 
 class GetResource404Response(_gen.BaseModel):
-    """Common error model"""
-
-    class_: str | None = _p.Field(
-        default=None, validation_alias="class", serialization_alias="class"
-    )
-    """Class of the error"""
-
-    message: str | None = _p.Field(default=None)
-    """Error message"""
-
-
-class GetVrackServiceEligibleDedicatedServerInterfaces400Response(_gen.BaseModel):
-    """Common error model"""
-
-    class_: str | None = _p.Field(
-        default=None, validation_alias="class", serialization_alias="class"
-    )
-    """Class of the error"""
-
-    message: str | None = _p.Field(default=None)
-    """Error message"""
-
-
-class GetVrackServiceEligibleDedicatedServerInterfaces404Response(_gen.BaseModel):
     """Common error model"""
 
     class_: str | None = _p.Field(
@@ -730,64 +701,6 @@ class VrackServicesDedicatedServerInterfaceAssociationTarget(_gen.BaseModel):
 
     uuid: str = _p.Field()
     """UUID that identifies a dedicatedServerInterface"""
-
-
-class VrackServicesEligibleBgpAllowedPrefixes(_gen.BaseModel):
-    """List of eligible allowed IP prefixes for vRack Services, separated by IP version"""
-
-    ipv4: list[IPv4Block] | None = _p.Field(default=None)
-    """List of eligible IPv4 prefixes
-
-    Read-only: the API sets it.
-    """
-
-    ipv6: list[IPv6Block] | None = _p.Field(default=None)
-    """List of eligible IPv6 prefixes
-
-    Read-only: the API sets it.
-    """
-
-
-class VrackServicesEligibleDedicatedServerInterface(_gen.BaseModel):
-    """List of eligible dedicatedServerInterfaces for vRack Services, listed by availabilityZone"""
-
-    availability_zone: str | None = _p.Field(
-        default=None, validation_alias="availabilityZone", serialization_alias="availabilityZone"
-    )
-    """The availabilityZone where the dedicatedServerInterfaces are located
-
-    Read-only: the API sets it.
-    """
-
-    dedicated_server_interfaces: list[VrackServicesEligibleDedicatedServerInterfaceItem] | None = (
-        _p.Field(
-            default=None,
-            validation_alias="dedicatedServerInterfaces",
-            serialization_alias="dedicatedServerInterfaces",
-        )
-    )
-    """List of eligible dedicatedServerInterfaces
-
-    Read-only: the API sets it.
-    """
-
-
-class VrackServicesEligibleDedicatedServerInterfaceItem(_gen.BaseModel):
-    """An eligible dedicatedServerInterface"""
-
-    server_name: str | None = _p.Field(
-        default=None, validation_alias="serverName", serialization_alias="serverName"
-    )
-    """Name of the dedicated server owning the dedicatedServerInterface
-
-    Read-only: the API sets it.
-    """
-
-    uuid: str | None = _p.Field(default=None)
-    """UUID that identifies the dedicatedServerInterface
-
-    Read-only: the API sets it.
-    """
 
 
 class VrackServicesEligibleManagedService(_gen.BaseModel):

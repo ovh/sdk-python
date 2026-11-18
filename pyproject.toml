@@ -60,7 +60,7 @@ path = "src/ovhcloud/_version.py"
 packages = ["src/ovhcloud"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src/ovhcloud", "docs/using-the-sdk.md", "opensource", "README.md", "LICENSE", "LICENSES", "CHANGELOG.md", "index", "AGENTS.md", "llms.txt", "README.md", "CHANGELOG.md", "CONTRIBUTING.md"]
+include = ["src/ovhcloud", "docs/using-the-sdk.md", "opensource", "README.md", "LICENSE", "LICENSES", "CHANGELOG.md", "index", "AGENTS.md", "llms.txt", "README.md", "CHANGELOG.md", "CONTRIBUTING.md", "examples"]
 
 [tool.ruff]
 line-length = 100

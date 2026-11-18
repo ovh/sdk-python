@@ -21,8 +21,6 @@ import pydantic as _p
 from ..._core import _gen
 
 __all__ = [
-    "ChangeContactNashaRequest",
-    "ConfirmTerminationNashaRequest",
     "IAMResourceMetadata",
     "IAMResourceMetadataStateEnum",
     "IAMResourceTagFilter",
@@ -101,48 +99,6 @@ __all__ = [
     "StorageProtocolEnum",
     "StorageRegionEnum",
 ]
-
-
-class ChangeContactNashaRequest(_gen.BaseModel):
-    """The request body of POST /v1/storage/nasha/{serviceName}/changeContact."""
-
-    contact_admin: str | None = _p.Field(
-        default=None, validation_alias="contactAdmin", serialization_alias="contactAdmin"
-    )
-    """The contact to set as admin contact"""
-
-    contact_billing: str | None = _p.Field(
-        default=None, validation_alias="contactBilling", serialization_alias="contactBilling"
-    )
-    """The contact to set as billing contact"""
-
-    contact_tech: str | None = _p.Field(
-        default=None, validation_alias="contactTech", serialization_alias="contactTech"
-    )
-    """The contact to set as tech contact"""
-
-
-class ConfirmTerminationNashaRequest(_gen.BaseModel):
-    """The request body of POST /v1/storage/nasha/{serviceName}/confirmTermination."""
-
-    commentary: str | None = _p.Field(default=None)
-    """Commentary about your termination request"""
-
-    future_use: ServiceTerminationFutureUseEnum | str | None = _p.Field(
-        default=None,
-        validation_alias="futureUse",
-        serialization_alias="futureUse",
-        union_mode="left_to_right",
-    )
-    """What next after your termination request"""
-
-    reason: ServiceTerminationReasonEnum | str | None = _p.Field(
-        default=None, union_mode="left_to_right"
-    )
-    """Reason of your termination request"""
-
-    token: str = _p.Field()
-    """The termination token sent by email to the admin contact"""
 
 
 class IAMResourceMetadata(_gen.BaseModel):

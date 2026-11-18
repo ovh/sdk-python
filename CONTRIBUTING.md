@@ -1,33 +1,32 @@
 # Contributing to sdk-python
 
-This project accepts contributions. To contribute, please pay attention to a few things:
-
-1. your code must follow the coding style rules
-2. your code must be unit-tested
-3. your code must be documented
-4. your work must be signed (see below)
-5. you may contribute through GitHub Pull Requests
+This project accepts contributions: issues and pull requests on GitHub. Your work must be
+signed off (see the DCO below).
 
 # How this repository is built
 
-Most of this repository is **generated** from the OVHcloud API's OpenAPI specifications, and
-generated again at every release:
+This repository is an **export**. The maintainers build it from a private generator at each
+release, and each export **replaces the whole tree**:
 
-- `src/ovhcloud/api/`: one package per API section. **Generated**. Do not edit these files:
-  the next release overwrites the change.
+- `src/ovhcloud/api/`: one package per API section, generated from the OVHcloud API's
+  OpenAPI specifications.
 - `index/` and `llms.txt`: generated with the code.
 - `src/ovhcloud/_core/`: the SDK core (client, authentication, retries, errors, pagination).
-  Hand-written.
+  It is hand-written, but it lives in the generator too, with its tests.
+
+The tests are not exported. So a change merged here would be lost at the next export. This
+is why the maintainers do not merge pull requests here. They port the change into the
+generator instead, with tests, and close the pull request with a link to the release that
+has it.
 
 So the most useful contributions are:
 
 - **Issues**: a wrong type, a missing operation, a confusing name, a bug in the core. Please
   give the API route (every method's docstring starts with it, for example
-  `get_vrack calls GET /v1/vrack/{serviceName}`).
-- **Pull requests on `src/ovhcloud/_core/`** are reviewed and merged as usual.
-- **Pull requests on `src/ovhcloud/api/`** are welcome as a precise description of a problem.
-  The maintainers carry the fix into the generator, so it survives the next generation, and
-  close the pull request with a link to the release that has it.
+  `get_account_details calls GET /v1/me`).
+- **Pull requests**, on `src/ovhcloud/_core/` or on `src/ovhcloud/api/`, as a precise
+  description of a fix. Say what was wrong and how to see it: a short script or the failing
+  call helps most.
 
 A problem in the API's own behaviour or documentation is not something this repository can
 fix: report it to OVHcloud support.
@@ -36,7 +35,7 @@ fix: report it to OVHcloud support.
 
 Python code follows PEP 8, formatted and checked with [ruff](https://docs.astral.sh/ruff/), and
 type-checked with [pyright](https://github.com/microsoft/pyright) (strict mode on the core).
-Every public name has a docstring. Run:
+Every public name has a docstring. Before you open a pull request, check the tree:
 
 ```bash
 uv sync

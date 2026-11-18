@@ -1,5 +1,8 @@
 # OVHcloud Python SDK
 
+[![PyPI version](https://img.shields.io/pypi/v/ovhcloud.svg)](https://pypi.org/project/ovhcloud/)
+[![Python versions](https://img.shields.io/pypi/pyversions/ovhcloud.svg)](https://pypi.org/project/ovhcloud/)
+
 The Python SDK for the [OVHcloud API](https://developers.eu.ovhcloud.com/): a typed method for
 every public operation, with OAuth2 service-account authentication, retries, typed exceptions
 and iterators over lists.
@@ -49,17 +52,17 @@ Keep the client ID and secret out of your source code: read them from the enviro
 
 ## 2. Your first program
 
-This prints your account details and lists your vRacks. Copy it, set two environment
-variables, run it.
+This prints the details of your account: `GET /v1/me`. Copy it, set your credentials, run
+it.
 
 ```python
 import ovhcloud
 
 with ovhcloud.Client() as client:  # reads OVH_CLIENT_ID, OVH_CLIENT_SECRET, OVH_REGION
-    account = client.me.get_account_details()
-    print("account", account.nichandle)
-
-    print("vRacks:", client.vrack.list_vracks())
+    account = client.me.get_account_details()  # GET /v1/me
+    print("account:", account.nichandle)
+    print("email:  ", account.email)
+    print("country:", account.country)
 ```
 
 ```shell
@@ -68,8 +71,10 @@ export OVH_REGION=eu    # eu (default), ca or us
 python first.py
 ```
 
+More examples: [examples/](examples/README.md).
+
 Create **one** client and share it: it is safe to use from several threads, and it reuses
-connections and tokens. Each API section is an attribute of the client (`client.vrack`),
+connections and tokens. Each API section is an attribute of the client (`client.me`),
 loaded the first time you use it.
 
 ### Choosing your region
@@ -139,7 +144,7 @@ Method names follow the URL path, without the section's own prefix:
 | `PUT /vrack/{serviceName}` | `client.vrack.update_vrack` |
 | `POST /vrack/{serviceName}/cloudProject` | `client.vrack.create_cloud_project` |
 | `DELETE /vrack/{serviceName}/cloudProject/{project}` | `client.vrack.delete_cloud_project` |
-| `POST /vrack/{serviceName}/changeContact` (an action) | `client.vrack.change_contact` |
+| `POST /vrack/{serviceName}/terminate` (an action) | `client.vrack.terminate` |
 
 Path parameters are not in the name: they are arguments.
 
@@ -179,6 +184,22 @@ grep -h '"path":"/v1/vrack/{serviceName}"' \
 [index/README.md](index/README.md) describes the fields. `iam` lists the IAM actions the call
 requires. To list what a program needs, collect the `iam` of the methods it calls: those are
 the actions to grant its service account in its IAM policy.
+
+### Search by URL path
+
+Every method's docstring starts with its HTTP method and route, so searching for the route
+always works, even when the name is not what you guessed:
+
+```shell
+grep -rh --include=_api.py "calls GET /v1/cloud/project/{serviceName}/instance:" \
+    "$(python -c 'import ovhcloud, os; print(os.path.dirname(ovhcloud.__file__))')"/api/
+```
+
+```
+"""list_project_instances calls GET /v1/cloud/project/{serviceName}/instance: Get instance
+```
+
+Routes carry their API version: `/v1/...` or `/v2/...`.
 
 ### Look up one method
 
@@ -402,6 +423,8 @@ vrack.get_vrack: GET /v1/vrack/pn-1: 403 Forbidden: This call has not been grant
 | `RequestTimeoutError` | a `TransportError` that is a timeout. It is also a `TimeoutError`. |
 | `InvalidRequestError` | refused before sending: a path without `/v1/` or `/v2/`, an empty path parameter, a `.` or `..` path segment, a header value that is not ASCII, a body that does not match its model, a `datetime` with no time zone |
 | `NotAllowedError` | refused by `read_only` or `allowed_operations`. Nothing was sent. |
+| `DryRunError` | not sent because the client has `dry_run=True`. It holds what would have been sent (section 7). |
+| `HookRefusedError` | refused by a `before_request` hook. Nothing was sent. The hook's exception is its `__cause__`. |
 | `ResponseTooLargeError` | the body is larger than `max_response_bytes` |
 | `DecodeError` | a 2xx body is not JSON, a page of a list is not a list, or a body cannot be decompressed |
 | `WaitFailedError`, `WaitTimeoutError` | a wait ended in a failure, or gave up |
@@ -423,6 +446,9 @@ All arguments of `ovhcloud.Client` are keyword-only, and win over the environmen
 | `max_response_bytes` | no limit | fail, never truncate, past this size |
 | `read_only` | `False` | `True`: only `GET` and `HEAD`. A list of patterns: also these operations. |
 | `allowed_operations` | all | only the operations whose name matches: `["vrack.*", "*.get_*"]` |
+| `dry_run` | `False` | send reads (`GET`, `HEAD`) as usual. Do not send anything else: raise `DryRunError` with the URL and body it would have sent. |
+| `before_request` | | a function, or a list of them, run before each call, to log it or to refuse it by raising an exception |
+| `after_request` | | a function, or a list of them, run after each call, with its status, query ID, error, duration and number of attempts |
 | `debug`, `debug_bodies` | off | log requests on the `ovhcloud` logger (see below) |
 | `user_agent` | | your product, added after the SDK's: `"my-tool/1.2"` |
 | `headers` | | headers sent with every request |
@@ -457,6 +483,84 @@ client = ovhcloud.Client(debug=True)
 
 Credential headers are always hidden. `debug_bodies=True` adds the bodies, which often hold
 secrets: use it only on test data.
+
+**Planning changes with a dry run.** With `dry_run=True`, a program reads the real state of the
+account, but changes nothing. A call that would change something is not sent. It raises
+`ovhcloud.DryRunError`, which holds what would have been sent:
+
+```python
+from ovhcloud.api.vrack import models
+
+client = ovhcloud.Client(dry_run=True)
+try:
+    client.vrack.create_cloud_project(
+        "pn-1", models.CreateCloudProjectRequest(project="0123456789abcdef")
+    )
+except ovhcloud.DryRunError as dry:
+    print(dry.method, dry.url, dry.body.decode())
+```
+
+```text
+POST https://api.eu.ovhcloud.com/v1/vrack/pn-1/cloudProject {"project":"0123456789abcdef"}
+```
+
+Printed, the error itself reads:
+
+```text
+vrack.create_cloud_project (POST https://api.eu.ovhcloud.com/v1/vrack/pn-1/cloudProject) not sent: dry run
+```
+
+`operation` is the operation's name (`""` when the route is unknown), `url` is the full URL
+with its query, `headers` the headers, and `body` the JSON body (`None` when there is none). No
+OAuth2 token is fetched for such a call, and the credential headers (`Authorization`,
+`Cookie`...) are left out. It is never retried. The policy still applies first: with
+`read_only` or `allowed_operations`, a refused call still raises `NotAllowedError`.
+
+**Watching every call with hooks.** A hook sees every call the client makes, with the operation
+it calls. Use it to keep an audit log, or to refuse some calls:
+
+```python
+import logging
+
+
+def no_deprecated(call: ovhcloud.CallInfo) -> None:
+    if call.operation is not None and call.operation.deprecated:
+        raise ValueError(f"{call.operation.name} is deprecated")
+
+
+def audit(call: ovhcloud.CallInfo, result: ovhcloud.CallResult) -> None:
+    logging.info(
+        "%s %s: %d in %.3fs (%d attempts, query %s): %s",
+        call.method, call.path, result.status_code, result.duration,
+        result.attempts, result.query_id, result.error,
+    )
+
+
+client = ovhcloud.Client(before_request=no_deprecated, after_request=audit)
+```
+
+- `CallInfo` has the `operation` (`None` when the route is unknown), `method`, `path`, `query`
+  and `body`. It never holds the token. It is frozen: a hook cannot change the call.
+  `call.read_only` is `True` for `GET` and `HEAD`, also for an unknown route.
+- A before hook runs once per call, just before it is sent. Retries do not run it again. If it
+  raises an exception, nothing is sent, and the caller gets a `HookRefusedError` whose
+  `__cause__` is that exception.
+- An after hook runs once per call, after the retries. It also sees the calls that were not
+  sent: refused by the policy or by a before hook, malformed, or stopped by a dry run. Then
+  `status_code` and `attempts` are 0. An exception it raises goes to the caller.
+- Several hooks run in the order they were given: pass a list.
+- A client is shared, so calls made at the same time from several threads run the same hook
+  at the same time. A hook must be safe for that: protect what it writes with a lock, for
+  example.
+- A `KeyboardInterrupt`, or the cancellation of an async call, is not a refusal. The after
+  hooks still see it, with `result.error` set, and then it goes on.
+- Each page of an `all_` iterator is a separate call, so the hooks run once per page.
+- `AsyncClient` takes plain functions or `async def` functions. A plain one runs in the event
+  loop, so it must not block.
+
+In one call, the steps run in this order: find the operation, check the path, check
+`read_only` and `allowed_operations`, check the body, run the before hooks, stop if it is a dry
+run, then send. The after hooks run last, whatever happened.
 
 **X-Schemas-Version.** The v2 API serves several versions of its contract. The SDK sends, with
 every v2 request, the version its types were generated from, so your account's own setting
@@ -611,6 +715,10 @@ waits: `async def no_sleep(seconds): pass`.
 
 ## 11. Observability
 
+The SDK's own hooks, `before_request` and `after_request` (section 7), see each call once,
+with the operation it calls, its status, its `X-Ovh-Queryid` and the number of attempts. They
+also see the calls that were refused and never sent. Use them for an audit log.
+
 The SDK has no tracing or metrics of its own. It sends every request, token requests
 included, through one `httpx` client. Give it your own, and use what httpx offers:
 
@@ -683,6 +791,8 @@ Copyright 2026 OVH SAS. Licensed under the [Apache License 2.0](LICENSE). See
 - Contribute: [CONTRIBUTING.md](CONTRIBUTING.md)
 - Report bugs: <https://github.com/ovh/sdk-python/issues>
 - Releases and changes: [CHANGELOG.md](CHANGELOG.md), <https://github.com/ovh/sdk-python/releases>
+- The package: [`ovhcloud` on PyPI](https://pypi.org/project/ovhcloud/)
+- Examples: [examples/](examples/README.md)
 - The API: the OVHcloud developer hub, <https://developers.eu.ovhcloud.com/>, and its
   [API reference](https://developers.eu.ovhcloud.com/reference/)
 - Service accounts and IAM: [Managing OVHcloud service accounts](https://docs.ovhcloud.com/en/guides/manage-and-operate/api/manage-service-account),

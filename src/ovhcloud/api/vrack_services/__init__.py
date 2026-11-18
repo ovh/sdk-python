@@ -10,11 +10,10 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.vrack_services``. Its types are in
 ``ovhcloud.api.vrack_services.models``.
 
-It has 11 operations, on the routes under /v2/vrackServices.
+It has 9 operations, on the routes under /v2/vrackServices.
 
 To start, list what the account has: all_resources, all_reference_compatible_managed_service_types,
-all_reference_feature_availabilities, all_reference_regions,
-all_vrack_service_eligible_dedicated_server_interfaces, all_resource_eligible_managed_services,
+all_reference_feature_availabilities, all_reference_regions, all_resource_eligible_managed_services,
 all_resource_tasks.
 
 To find the method for a route, search index/vrack_services.jsonl: one line per method, with its

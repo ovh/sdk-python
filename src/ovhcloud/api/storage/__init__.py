@@ -10,9 +10,9 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.storage``. Its types are in
 ``ovhcloud.api.storage.models``.
 
-It has 45 operations, on the routes under /v1/storage.
+It has 38 operations, on the routes under /v1/storage/netapp.
 
-To start, list what the account has: list_nashas, list_netapps, list_networks, list_shares,
+To start, list what the account has: list_netapps, list_networks, list_shares,
 list_snapshot_policies, list_share_access_paths, list_share_acls, list_share_snapshots.
 
 To find the method for a route, search index/storage.jsonl: one line per method, with its route, its

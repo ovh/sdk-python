@@ -26,11 +26,11 @@ class PublicCloudApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 600 operations, on the routes under /v2/publicCloud.
+    It has 613 operations, on the routes under /v2/publicCloud.
 
     To start, list what the account has: all_projects, all_gateways, all_load_balancers,
-    all_project_managed_kubernetes, all_networks, all_public_ips, all_project_ranchers,
-    all_security_groups, and 162 more.
+    all_project_managed_kubernetes, all_all_managed_registries, all_networks, all_public_ips,
+    all_project_ranchers, and 169 more.
 
     To find the method for a route, search index/public_cloud.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -13139,6 +13139,308 @@ class PublicCloudApi(_gen.SectionApi):
             result=models.PublicCloudManagedKubernetesEtcdUsage,
         )
 
+    def all_all_managed_registries(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudManagedRegistryRegistry]:
+        """all_all_managed_registries iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry (List Managed Private Registry services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/get.
+        """
+        return self._pages(
+            _r.OP_ALL_ALL_MANAGED_REGISTRIES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    def create_managed_registry(
+        self, project_id: str, body: models.PublicCloudManagedRegistryRegistryCreation
+    ) -> models.PublicCloudManagedRegistryRegistry:
+        """create_managed_registry calls POST /v2/publicCloud/project/{projectId}/managedRegistry: Create a Managed Private Registry service
+
+        The registry runs the latest available Harbor version. Change it later with
+        `targetSpec.version` on `PUT .../managedRegistry/{managedRegistryId}`.
+
+        Asynchronous creation
+
+        The registry is returned with `resourceStatus` `CREATING` and a `REGISTRY_CREATE` task in
+        `currentTasks`. Poll `GET .../managedRegistry/{managedRegistryId}` until `resourceStatus` is
+        `READY`. `currentState.url` and `currentState.usage` are null until then. Once the registry
+        is `READY`, generate the administrator password with `POST
+        .../managedRegistry/{managedRegistryId}/adminCredentials`.
+
+        Immutable fields
+
+        `region` cannot change after creation. Create a new registry to change it.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/create.
+        """
+        return self._call(
+            _r.OP_CREATE_MANAGED_REGISTRY,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedRegistryRegistryCreation,
+            result=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    def get_managed_registry(
+        self, project_id: str, managed_registry_id: str
+    ) -> models.PublicCloudManagedRegistryRegistry:
+        """get_managed_registry calls GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}: Get a Managed Private Registry service
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/get.
+        """
+        return self._call(
+            _r.OP_GET_MANAGED_REGISTRY,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            result=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    def edit_managed_registry(
+        self,
+        project_id: str,
+        managed_registry_id: str,
+        body: models.PublicCloudManagedRegistryRegistryUpdate,
+    ) -> models.PublicCloudManagedRegistryRegistry:
+        """edit_managed_registry calls PUT /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}: Update a Managed Private Registry service
+
+        Asynchronous update
+
+        The new `targetSpec` replaces the previous one, the registry moves to `resourceStatus`
+        `UPDATING` and a `REGISTRY_UPDATE` task starts. Poll `GET
+        .../managedRegistry/{managedRegistryId}` until `resourceStatus` is `READY` and
+        `currentState` reflects the change.
+
+        Optimistic concurrency
+
+        Send the `checksum` read from the last `GET`. When another update happened in between, the
+        checksums differ and the request is rejected: read the registry again and retry. Omitting
+        `checksum` skips the check.
+
+        Immutable fields
+
+        `region` is set at creation and is not part of the update body. Create a new registry to
+        change it.
+
+        Destructive updates
+
+        Changing `authentication.type` deletes every existing Harbor user of the registry once the
+        update task completes. Robot accounts are kept.
+
+        Rejected requests
+
+        The request is rejected when `resourceStatus` is not `READY`, or when `plan` or `version` is
+        neither the current value nor listed by `GET
+        .../managedRegistry/{managedRegistryId}/capabilities/plan` or `GET
+        .../managedRegistry/{managedRegistryId}/capabilities/version`.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/edit.
+        """
+        return self._call(
+            _r.OP_EDIT_MANAGED_REGISTRY,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedRegistryRegistryUpdate,
+            result=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    def delete_managed_registry(
+        self, project_id: str, managed_registry_id: str
+    ) -> models.PublicCloudManagedRegistryRegistry:
+        """delete_managed_registry calls DELETE /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}: Delete a Managed Private Registry service
+
+        Deletion is asynchronous: the registry moves to `resourceStatus` `DELETING`, the response
+        echoes it, and a `REGISTRY_DELETE` task then removes it. Poll `GET
+        .../managedRegistry/{managedRegistryId}` until the registry is no longer returned. Every
+        artifact stored in the registry is deleted and cannot be recovered.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_MANAGED_REGISTRY,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            result=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    def reset_managed_registry_admin_credentials(
+        self, project_id: str, managed_registry_id: str
+    ) -> models.PublicCloudManagedRegistryCredentials:
+        """reset_managed_registry_admin_credentials calls POST /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/adminCredentials: Reset the administrator password of a Managed Private Registry service
+
+        Generates a new password for the Harbor administrator account and returns it. The previous
+        password stops working immediately. The password is returned only in this response.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/adminCredentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_MANAGED_REGISTRY_ADMIN_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            result=models.PublicCloudManagedRegistryCredentials,
+        )
+
+    def all_managed_registry_plans(
+        self, project_id: str, managed_registry_id: str
+    ) -> t.Iterator[models.PublicCloudManagedRegistryPlan]:
+        """all_managed_registry_plans iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/capabilities/plan (List plans a Managed Private Registry service can switch to).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Any `name` listed can be set as `targetSpec.plan` on `PUT
+        .../managedRegistry/{managedRegistryId}`.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/capabilities/plan/get.
+        """
+        return self._pages(
+            _r.OP_ALL_MANAGED_REGISTRY_PLANS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            item=models.PublicCloudManagedRegistryPlan,
+        )
+
+    def all_managed_registry_versions(
+        self, project_id: str, managed_registry_id: str
+    ) -> t.Iterator[models.PublicCloudManagedRegistryVersion]:
+        """all_managed_registry_versions iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/capabilities/version (List Harbor versions a Managed Private Registry service can be upgraded to).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Only versions available as an upgrade from the version the registry currently runs are
+        listed. To upgrade, set a listed `name` as `targetSpec.version` on `PUT
+        .../managedRegistry/{managedRegistryId}`.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/capabilities/version/get.
+        """
+        return self._pages(
+            _r.OP_ALL_MANAGED_REGISTRY_VERSIONS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            item=models.PublicCloudManagedRegistryVersion,
+        )
+
+    def all_managed_registry_events(
+        self, project_id: str, managed_registry_id: str
+    ) -> t.Iterator[models.CommonEvent]:
+        """all_managed_registry_events iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/event (List events of a Managed Private Registry service).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/event/get.
+        """
+        return self._pages(
+            _r.OP_ALL_MANAGED_REGISTRY_EVENTS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            item=models.CommonEvent,
+        )
+
+    def all_all_managed_registry_tasks(
+        self, project_id: str, managed_registry_id: str
+    ) -> t.Iterator[models.CommonTask]:
+        """all_all_managed_registry_tasks iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/task (List asynchronous tasks of a Managed Private Registry service).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/task/get.
+        """
+        return self._pages(
+            _r.OP_ALL_ALL_MANAGED_REGISTRY_TASKS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            item=models.CommonTask,
+        )
+
+    def get_managed_registry_task(
+        self, project_id: str, managed_registry_id: str, task_id: str
+    ) -> models.CommonTask:
+        """get_managed_registry_task calls GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/task/{taskId}: Get an asynchronous task of a Managed Private Registry service
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+            task_id: Task ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/task/get.
+        """
+        return self._call(
+            _r.OP_GET_MANAGED_REGISTRY_TASK,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+                "taskId": task_id,
+            },
+            result=models.CommonTask,
+        )
+
     def all_networks(
         self, project_id: str, *, region: str | None | NotGiven = NOT_GIVEN
     ) -> t.Iterator[models.PublicCloudNetworkNetwork]:
@@ -14210,6 +14512,48 @@ class PublicCloudApi(_gen.SectionApi):
                 "projectId": project_id,
             },
             result=models.PublicCloudManagedKubernetesVersionCatalog,
+        )
+
+    def all_registry_plans(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudManagedRegistryPlan]:
+        """all_registry_plans iterates over GET /v2/publicCloud/project/{projectId}/reference/managedRegistry/plan (List plans available to create a Managed Private Registry service).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedRegistry/plan/get.
+        """
+        return self._pages(
+            _r.OP_ALL_REGISTRY_PLANS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedRegistryPlan,
+        )
+
+    def all_registry_regions(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudManagedRegistryRegion]:
+        """all_registry_regions iterates over GET /v2/publicCloud/project/{projectId}/reference/managedRegistry/region (List regions available to create a Managed Private Registry service).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedRegistry/region/get.
+        """
+        return self._pages(
+            _r.OP_ALL_REGISTRY_REGIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedRegistryRegion,
         )
 
     def all_product_availability(
@@ -15887,11 +16231,11 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
 
     The methods of PublicCloudApi, with await. Iterators are async: use ``async for``.
 
-    It has 600 operations, on the routes under /v2/publicCloud.
+    It has 613 operations, on the routes under /v2/publicCloud.
 
     To start, list what the account has: all_projects, all_gateways, all_load_balancers,
-    all_project_managed_kubernetes, all_networks, all_public_ips, all_project_ranchers,
-    all_security_groups, and 162 more.
+    all_project_managed_kubernetes, all_all_managed_registries, all_networks, all_public_ips,
+    all_project_ranchers, and 169 more.
 
     To find the method for a route, search index/public_cloud.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -29006,6 +29350,308 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
             result=models.PublicCloudManagedKubernetesEtcdUsage,
         )
 
+    def all_all_managed_registries(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedRegistryRegistry]:
+        """all_all_managed_registries iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry (List Managed Private Registry services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/get.
+        """
+        return self._pages(
+            _r.OP_ALL_ALL_MANAGED_REGISTRIES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    async def create_managed_registry(
+        self, project_id: str, body: models.PublicCloudManagedRegistryRegistryCreation
+    ) -> models.PublicCloudManagedRegistryRegistry:
+        """create_managed_registry calls POST /v2/publicCloud/project/{projectId}/managedRegistry: Create a Managed Private Registry service
+
+        The registry runs the latest available Harbor version. Change it later with
+        `targetSpec.version` on `PUT .../managedRegistry/{managedRegistryId}`.
+
+        Asynchronous creation
+
+        The registry is returned with `resourceStatus` `CREATING` and a `REGISTRY_CREATE` task in
+        `currentTasks`. Poll `GET .../managedRegistry/{managedRegistryId}` until `resourceStatus` is
+        `READY`. `currentState.url` and `currentState.usage` are null until then. Once the registry
+        is `READY`, generate the administrator password with `POST
+        .../managedRegistry/{managedRegistryId}/adminCredentials`.
+
+        Immutable fields
+
+        `region` cannot change after creation. Create a new registry to change it.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_MANAGED_REGISTRY,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedRegistryRegistryCreation,
+            result=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    async def get_managed_registry(
+        self, project_id: str, managed_registry_id: str
+    ) -> models.PublicCloudManagedRegistryRegistry:
+        """get_managed_registry calls GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}: Get a Managed Private Registry service
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/get.
+        """
+        return await self._call(
+            _r.OP_GET_MANAGED_REGISTRY,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            result=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    async def edit_managed_registry(
+        self,
+        project_id: str,
+        managed_registry_id: str,
+        body: models.PublicCloudManagedRegistryRegistryUpdate,
+    ) -> models.PublicCloudManagedRegistryRegistry:
+        """edit_managed_registry calls PUT /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}: Update a Managed Private Registry service
+
+        Asynchronous update
+
+        The new `targetSpec` replaces the previous one, the registry moves to `resourceStatus`
+        `UPDATING` and a `REGISTRY_UPDATE` task starts. Poll `GET
+        .../managedRegistry/{managedRegistryId}` until `resourceStatus` is `READY` and
+        `currentState` reflects the change.
+
+        Optimistic concurrency
+
+        Send the `checksum` read from the last `GET`. When another update happened in between, the
+        checksums differ and the request is rejected: read the registry again and retry. Omitting
+        `checksum` skips the check.
+
+        Immutable fields
+
+        `region` is set at creation and is not part of the update body. Create a new registry to
+        change it.
+
+        Destructive updates
+
+        Changing `authentication.type` deletes every existing Harbor user of the registry once the
+        update task completes. Robot accounts are kept.
+
+        Rejected requests
+
+        The request is rejected when `resourceStatus` is not `READY`, or when `plan` or `version` is
+        neither the current value nor listed by `GET
+        .../managedRegistry/{managedRegistryId}/capabilities/plan` or `GET
+        .../managedRegistry/{managedRegistryId}/capabilities/version`.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/edit.
+        """
+        return await self._call(
+            _r.OP_EDIT_MANAGED_REGISTRY,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedRegistryRegistryUpdate,
+            result=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    async def delete_managed_registry(
+        self, project_id: str, managed_registry_id: str
+    ) -> models.PublicCloudManagedRegistryRegistry:
+        """delete_managed_registry calls DELETE /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}: Delete a Managed Private Registry service
+
+        Deletion is asynchronous: the registry moves to `resourceStatus` `DELETING`, the response
+        echoes it, and a `REGISTRY_DELETE` task then removes it. Poll `GET
+        .../managedRegistry/{managedRegistryId}` until the registry is no longer returned. Every
+        artifact stored in the registry is deleted and cannot be recovered.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_MANAGED_REGISTRY,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            result=models.PublicCloudManagedRegistryRegistry,
+        )
+
+    async def reset_managed_registry_admin_credentials(
+        self, project_id: str, managed_registry_id: str
+    ) -> models.PublicCloudManagedRegistryCredentials:
+        """reset_managed_registry_admin_credentials calls POST /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/adminCredentials: Reset the administrator password of a Managed Private Registry service
+
+        Generates a new password for the Harbor administrator account and returns it. The previous
+        password stops working immediately. The password is returned only in this response.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/adminCredentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_MANAGED_REGISTRY_ADMIN_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            result=models.PublicCloudManagedRegistryCredentials,
+        )
+
+    def all_managed_registry_plans(
+        self, project_id: str, managed_registry_id: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedRegistryPlan]:
+        """all_managed_registry_plans iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/capabilities/plan (List plans a Managed Private Registry service can switch to).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Any `name` listed can be set as `targetSpec.plan` on `PUT
+        .../managedRegistry/{managedRegistryId}`.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/capabilities/plan/get.
+        """
+        return self._pages(
+            _r.OP_ALL_MANAGED_REGISTRY_PLANS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            item=models.PublicCloudManagedRegistryPlan,
+        )
+
+    def all_managed_registry_versions(
+        self, project_id: str, managed_registry_id: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedRegistryVersion]:
+        """all_managed_registry_versions iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/capabilities/version (List Harbor versions a Managed Private Registry service can be upgraded to).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Only versions available as an upgrade from the version the registry currently runs are
+        listed. To upgrade, set a listed `name` as `targetSpec.version` on `PUT
+        .../managedRegistry/{managedRegistryId}`.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/capabilities/version/get.
+        """
+        return self._pages(
+            _r.OP_ALL_MANAGED_REGISTRY_VERSIONS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            item=models.PublicCloudManagedRegistryVersion,
+        )
+
+    def all_managed_registry_events(
+        self, project_id: str, managed_registry_id: str
+    ) -> t.AsyncIterator[models.CommonEvent]:
+        """all_managed_registry_events iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/event (List events of a Managed Private Registry service).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/event/get.
+        """
+        return self._pages(
+            _r.OP_ALL_MANAGED_REGISTRY_EVENTS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            item=models.CommonEvent,
+        )
+
+    def all_all_managed_registry_tasks(
+        self, project_id: str, managed_registry_id: str
+    ) -> t.AsyncIterator[models.CommonTask]:
+        """all_all_managed_registry_tasks iterates over GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/task (List asynchronous tasks of a Managed Private Registry service).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/task/get.
+        """
+        return self._pages(
+            _r.OP_ALL_ALL_MANAGED_REGISTRY_TASKS,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+            },
+            item=models.CommonTask,
+        )
+
+    async def get_managed_registry_task(
+        self, project_id: str, managed_registry_id: str, task_id: str
+    ) -> models.CommonTask:
+        """get_managed_registry_task calls GET /v2/publicCloud/project/{projectId}/managedRegistry/{managedRegistryId}/task/{taskId}: Get an asynchronous task of a Managed Private Registry service
+
+        Args:
+            project_id: Project ID
+            managed_registry_id: Managed registry ID
+            task_id: Task ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedRegistry/task/get.
+        """
+        return await self._call(
+            _r.OP_GET_MANAGED_REGISTRY_TASK,
+            path_params={
+                "projectId": project_id,
+                "managedRegistryId": managed_registry_id,
+                "taskId": task_id,
+            },
+            result=models.CommonTask,
+        )
+
     def all_networks(
         self, project_id: str, *, region: str | None | NotGiven = NOT_GIVEN
     ) -> t.AsyncIterator[models.PublicCloudNetworkNetwork]:
@@ -30091,6 +30737,48 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
                 "projectId": project_id,
             },
             result=models.PublicCloudManagedKubernetesVersionCatalog,
+        )
+
+    def all_registry_plans(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedRegistryPlan]:
+        """all_registry_plans iterates over GET /v2/publicCloud/project/{projectId}/reference/managedRegistry/plan (List plans available to create a Managed Private Registry service).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedRegistry/plan/get.
+        """
+        return self._pages(
+            _r.OP_ALL_REGISTRY_PLANS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedRegistryPlan,
+        )
+
+    def all_registry_regions(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedRegistryRegion]:
+        """all_registry_regions iterates over GET /v2/publicCloud/project/{projectId}/reference/managedRegistry/region (List regions available to create a Managed Private Registry service).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedRegistry/region/get.
+        """
+        return self._pages(
+            _r.OP_ALL_REGISTRY_REGIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedRegistryRegion,
         )
 
     def all_product_availability(

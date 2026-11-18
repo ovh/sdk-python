@@ -527,6 +527,7 @@ class OtbServiceOperationModeEnum(_gen.OpenStrEnum):
 
     OVERTHEBOX = "overthebox"
     OVERTHEBOX_LEGACY = "overthebox-legacy"
+    UPATH = "upath"
     WIREGUARD = "wireguard"
 
 

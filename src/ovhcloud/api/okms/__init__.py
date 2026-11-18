@@ -10,11 +10,11 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.okms``. Its types are in
 ``ovhcloud.api.okms.models``.
 
-It has 26 operations, on the routes under /v2/okms.
+It has 33 operations, on the routes under /v2/okms.
 
 To start, list what the account has: all_resources, all_reference_regions,
 all_reference_service_keys, all_resource_credentials, all_resource_secrets,
-all_resource_service_keys, all_resource_secret_versions.
+all_resource_service_keys, all_resource_log_kinds, all_resource_log_subscriptions, and 1 more.
 
 To find the method for a route, search index/okms.jsonl: one line per method, with its route, its
 signature and the IAM actions it requires. It is at the root of the SDK repository, and in the

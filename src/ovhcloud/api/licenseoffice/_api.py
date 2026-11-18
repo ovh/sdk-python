@@ -26,14 +26,217 @@ class LicenseofficeApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 8 operations, on the routes under /v1/license/office.
+    It has 16 operations, on the routes under /v1/license/office.
 
-    To start, list what the account has: list_users.
+    To start, list what the account has: list_offices, list_domains, list_pending_tasks,
+    list_usage_statistics, list_users.
 
     To find the method for a route, search index/licenseoffice.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
     and in the installed package.
     """
+
+    def list_offices(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_offices calls GET /v1/license/office: List tenants
+
+        Returns the service names of the tenants.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        Requires the IAM action licenseOffice:apiovh:get.
+        """
+        return self._call(
+            _r.OP_LIST_OFFICES,
+            query=(("iamTags", iam_tags),),
+            result=list[str],
+        )
+
+    def get_office(self, service_name: str) -> models.LicenseOfficeOfficeTenantNativeWithIAM:
+        """get_office calls GET /v1/license/office/{serviceName}: Get a tenant
+
+        Returns the display name, contact details, service type, status and creation date of the
+        tenant, and whether the Microsoft Customer Agreement (MCA) is accepted.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOffice:apiovh:get.
+        """
+        return self._call(
+            _r.OP_GET_OFFICE,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.LicenseOfficeOfficeTenantNativeWithIAM,
+        )
+
+    def all_offices(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.LicenseOfficeOfficeTenantNativeWithIAM]:
+        """all_offices iterates over GET /v1/license/office (List tenants).
+
+        It lists the IDs with list_offices, then gets each object with get_office,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        The two calls require the IAM action licenseOffice:apiovh:get.
+        """
+        return self._each(
+            lambda: self.list_offices(
+                iam_tags=iam_tags,
+            ),
+            lambda listed_id: self.get_office(listed_id),
+        )
+
+    def update_office(
+        self, service_name: str, body: models.LicenseOfficeOfficeTenantNativeWritable
+    ) -> None:
+        """update_office calls PUT /v1/license/office/{serviceName}: Update a tenant
+
+        Updates the display name and the contact details of the tenant: first name, last name,
+        address, zip code, city and phone number.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOffice:apiovh:edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_OFFICE,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficeOfficeTenantNativeWritable,
+        )
+
+    def list_domains(self, service_name: str) -> list[str]:
+        """list_domains calls GET /v1/license/office/{serviceName}/domain: List domains
+
+        Returns the names of the domains of the tenant.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOffice:apiovh:domain/get.
+        """
+        return self._call(
+            _r.OP_LIST_DOMAINS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[str],
+        )
+
+    def get_domain(self, service_name: str, domain_name: str) -> models.LicenseOfficeDomainNative:
+        """get_domain calls GET /v1/license/office/{serviceName}/domain/{domainName}: Get a domain
+
+        Returns the status of the domain, `ok` or `unverified`, and the TXT record required to
+        validate it.
+
+        Args:
+            service_name: Service name
+            domain_name: Domain name
+
+        Requires the IAM action licenseOffice:apiovh:domain/get.
+        """
+        return self._call(
+            _r.OP_GET_DOMAIN,
+            path_params={
+                "serviceName": service_name,
+                "domainName": domain_name,
+            },
+            result=models.LicenseOfficeDomainNative,
+        )
+
+    def all_domains(self, service_name: str) -> t.Iterator[models.LicenseOfficeDomainNative]:
+        """all_domains iterates over GET /v1/license/office/{serviceName}/domain (List domains).
+
+        It lists the IDs with list_domains, then gets each object with get_domain,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service_name: Service name
+
+        The two calls require the IAM action licenseOffice:apiovh:domain/get.
+        """
+        return self._each(
+            lambda: self.list_domains(
+                service_name,
+            ),
+            lambda listed_id: self.get_domain(service_name, listed_id),
+        )
+
+    def list_pending_tasks(self, service_name: str) -> list[int]:
+        """list_pending_tasks calls GET /v1/license/office/{serviceName}/pendingTask: List tenant tasks
+
+        Returns the IDs of the pending tasks of the tenant.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOffice:apiovh:pendingTask/get.
+        """
+        return self._call(
+            _r.OP_LIST_PENDING_TASKS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[int],
+        )
+
+    def get_pending_task(self, service_name: str, id: int) -> models.LicenseOfficeOfficeTaskNative:
+        """get_pending_task calls GET /v1/license/office/{serviceName}/pendingTask/{id}: Get a tenant task
+
+        Returns the function, status, creation date and completion date of the task.
+
+        Args:
+            service_name: Service name
+            id: Id
+
+        Requires the IAM action licenseOffice:apiovh:pendingTask/get.
+        """
+        return self._call(
+            _r.OP_GET_PENDING_TASK,
+            path_params={
+                "serviceName": service_name,
+                "id": id,
+            },
+            result=models.LicenseOfficeOfficeTaskNative,
+        )
+
+    def all_pending_tasks(
+        self, service_name: str
+    ) -> t.Iterator[models.LicenseOfficeOfficeTaskNative]:
+        """all_pending_tasks iterates over GET /v1/license/office/{serviceName}/pendingTask (List tenant tasks).
+
+        It lists the IDs with list_pending_tasks, then gets each object with get_pending_task,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service_name: Service name
+
+        The two calls require the IAM action licenseOffice:apiovh:pendingTask/get.
+        """
+        return self._each(
+            lambda: self.list_pending_tasks(
+                service_name,
+            ),
+            lambda listed_id: self.get_pending_task(service_name, listed_id),
+        )
 
     def get_service_infos(self, service_name: str) -> models.ServicesService:
         """get_service_infos calls GET /v1/license/office/{serviceName}/serviceInfos: Get service information
@@ -73,6 +276,37 @@ class LicenseofficeApi(_gen.SectionApi):
             },
             body=body,
             body_type=models.ServicesServiceWritable,
+        )
+
+    def list_usage_statistics(
+        self,
+        service_name: str,
+        *,
+        from_: datetime.datetime | None | NotGiven = NOT_GIVEN,
+        to: datetime.datetime | None | NotGiven = NOT_GIVEN,
+    ) -> list[models.LicenseOfficeOfficeCurrentStatisticsNative]:
+        """list_usage_statistics calls GET /v1/license/office/{serviceName}/usageStatistics: Get tenant usage statistics
+
+        Returns, for each day between `from` and `to`, the peak and end-of-day counts of activated
+        licenses of the tenant, by license type.
+
+        Args:
+            service_name: Service name
+            from_: Period's start point (optional)
+            to: Period's end point (optional)
+
+        Requires the IAM action licenseOffice:apiovh:usageStatistics/get.
+        """
+        return self._call(
+            _r.OP_LIST_USAGE_STATISTICS,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(
+                ("from", from_),
+                ("to", to),
+            ),
+            result=list[models.LicenseOfficeOfficeCurrentStatisticsNative],
         )
 
     def list_users(
@@ -280,14 +514,221 @@ class AsyncLicenseofficeApi(_gen.AsyncSectionApi):
 
     The methods of LicenseofficeApi, with await. Iterators are async: use ``async for``.
 
-    It has 8 operations, on the routes under /v1/license/office.
+    It has 16 operations, on the routes under /v1/license/office.
 
-    To start, list what the account has: list_users.
+    To start, list what the account has: list_offices, list_domains, list_pending_tasks,
+    list_usage_statistics, list_users.
 
     To find the method for a route, search index/licenseoffice.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
     and in the installed package.
     """
+
+    async def list_offices(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_offices calls GET /v1/license/office: List tenants
+
+        Returns the service names of the tenants.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        Requires the IAM action licenseOffice:apiovh:get.
+        """
+        return await self._call(
+            _r.OP_LIST_OFFICES,
+            query=(("iamTags", iam_tags),),
+            result=list[str],
+        )
+
+    async def get_office(self, service_name: str) -> models.LicenseOfficeOfficeTenantNativeWithIAM:
+        """get_office calls GET /v1/license/office/{serviceName}: Get a tenant
+
+        Returns the display name, contact details, service type, status and creation date of the
+        tenant, and whether the Microsoft Customer Agreement (MCA) is accepted.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOffice:apiovh:get.
+        """
+        return await self._call(
+            _r.OP_GET_OFFICE,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.LicenseOfficeOfficeTenantNativeWithIAM,
+        )
+
+    def all_offices(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.LicenseOfficeOfficeTenantNativeWithIAM]:
+        """all_offices iterates over GET /v1/license/office (List tenants).
+
+        It lists the IDs with list_offices, then gets each object with get_office,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        The two calls require the IAM action licenseOffice:apiovh:get.
+        """
+        return self._each(
+            lambda: self.list_offices(
+                iam_tags=iam_tags,
+            ),
+            lambda listed_id: self.get_office(listed_id),
+        )
+
+    async def update_office(
+        self, service_name: str, body: models.LicenseOfficeOfficeTenantNativeWritable
+    ) -> None:
+        """update_office calls PUT /v1/license/office/{serviceName}: Update a tenant
+
+        Updates the display name and the contact details of the tenant: first name, last name,
+        address, zip code, city and phone number.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOffice:apiovh:edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_OFFICE,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficeOfficeTenantNativeWritable,
+        )
+
+    async def list_domains(self, service_name: str) -> list[str]:
+        """list_domains calls GET /v1/license/office/{serviceName}/domain: List domains
+
+        Returns the names of the domains of the tenant.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOffice:apiovh:domain/get.
+        """
+        return await self._call(
+            _r.OP_LIST_DOMAINS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[str],
+        )
+
+    async def get_domain(
+        self, service_name: str, domain_name: str
+    ) -> models.LicenseOfficeDomainNative:
+        """get_domain calls GET /v1/license/office/{serviceName}/domain/{domainName}: Get a domain
+
+        Returns the status of the domain, `ok` or `unverified`, and the TXT record required to
+        validate it.
+
+        Args:
+            service_name: Service name
+            domain_name: Domain name
+
+        Requires the IAM action licenseOffice:apiovh:domain/get.
+        """
+        return await self._call(
+            _r.OP_GET_DOMAIN,
+            path_params={
+                "serviceName": service_name,
+                "domainName": domain_name,
+            },
+            result=models.LicenseOfficeDomainNative,
+        )
+
+    def all_domains(self, service_name: str) -> t.AsyncIterator[models.LicenseOfficeDomainNative]:
+        """all_domains iterates over GET /v1/license/office/{serviceName}/domain (List domains).
+
+        It lists the IDs with list_domains, then gets each object with get_domain,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service_name: Service name
+
+        The two calls require the IAM action licenseOffice:apiovh:domain/get.
+        """
+        return self._each(
+            lambda: self.list_domains(
+                service_name,
+            ),
+            lambda listed_id: self.get_domain(service_name, listed_id),
+        )
+
+    async def list_pending_tasks(self, service_name: str) -> list[int]:
+        """list_pending_tasks calls GET /v1/license/office/{serviceName}/pendingTask: List tenant tasks
+
+        Returns the IDs of the pending tasks of the tenant.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOffice:apiovh:pendingTask/get.
+        """
+        return await self._call(
+            _r.OP_LIST_PENDING_TASKS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[int],
+        )
+
+    async def get_pending_task(
+        self, service_name: str, id: int
+    ) -> models.LicenseOfficeOfficeTaskNative:
+        """get_pending_task calls GET /v1/license/office/{serviceName}/pendingTask/{id}: Get a tenant task
+
+        Returns the function, status, creation date and completion date of the task.
+
+        Args:
+            service_name: Service name
+            id: Id
+
+        Requires the IAM action licenseOffice:apiovh:pendingTask/get.
+        """
+        return await self._call(
+            _r.OP_GET_PENDING_TASK,
+            path_params={
+                "serviceName": service_name,
+                "id": id,
+            },
+            result=models.LicenseOfficeOfficeTaskNative,
+        )
+
+    def all_pending_tasks(
+        self, service_name: str
+    ) -> t.AsyncIterator[models.LicenseOfficeOfficeTaskNative]:
+        """all_pending_tasks iterates over GET /v1/license/office/{serviceName}/pendingTask (List tenant tasks).
+
+        It lists the IDs with list_pending_tasks, then gets each object with get_pending_task,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service_name: Service name
+
+        The two calls require the IAM action licenseOffice:apiovh:pendingTask/get.
+        """
+        return self._each(
+            lambda: self.list_pending_tasks(
+                service_name,
+            ),
+            lambda listed_id: self.get_pending_task(service_name, listed_id),
+        )
 
     async def get_service_infos(self, service_name: str) -> models.ServicesService:
         """get_service_infos calls GET /v1/license/office/{serviceName}/serviceInfos: Get service information
@@ -329,6 +770,37 @@ class AsyncLicenseofficeApi(_gen.AsyncSectionApi):
             },
             body=body,
             body_type=models.ServicesServiceWritable,
+        )
+
+    async def list_usage_statistics(
+        self,
+        service_name: str,
+        *,
+        from_: datetime.datetime | None | NotGiven = NOT_GIVEN,
+        to: datetime.datetime | None | NotGiven = NOT_GIVEN,
+    ) -> list[models.LicenseOfficeOfficeCurrentStatisticsNative]:
+        """list_usage_statistics calls GET /v1/license/office/{serviceName}/usageStatistics: Get tenant usage statistics
+
+        Returns, for each day between `from` and `to`, the peak and end-of-day counts of activated
+        licenses of the tenant, by license type.
+
+        Args:
+            service_name: Service name
+            from_: Period's start point (optional)
+            to: Period's end point (optional)
+
+        Requires the IAM action licenseOffice:apiovh:usageStatistics/get.
+        """
+        return await self._call(
+            _r.OP_LIST_USAGE_STATISTICS,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(
+                ("from", from_),
+                ("to", to),
+            ),
+            result=list[models.LicenseOfficeOfficeCurrentStatisticsNative],
         )
 
     async def list_users(

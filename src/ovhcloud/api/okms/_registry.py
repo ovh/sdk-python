@@ -119,6 +119,79 @@ OP_DELETE_RESOURCE_CREDENTIAL = Operation(
     schemas_version="1.0",
 )
 
+OP_ALL_RESOURCE_LOG_KINDS = Operation(
+    name="okms.all_resource_log_kinds",
+    method="GET",
+    path="/v2/okms/resource/{okmsId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("okms:apiovh:log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_RESOURCE_LOG_KIND = Operation(
+    name="okms.get_resource_log_kind",
+    method="GET",
+    path="/v2/okms/resource/{okmsId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("okms:apiovh:log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_RESOURCE_LOG_SUBSCRIPTIONS = Operation(
+    name="okms.all_resource_log_subscriptions",
+    method="GET",
+    path="/v2/okms/resource/{okmsId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("okms:apiovh:log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_RESOURCE_LOG_SUBSCRIPTION = Operation(
+    name="okms.create_resource_log_subscription",
+    method="POST",
+    path="/v2/okms/resource/{okmsId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=(
+        "okms:apiovh:log/subscription/create",
+        "ldp:apiovh:output/graylog/stream/forwardTo",
+    ),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_RESOURCE_LOG_SUBSCRIPTION = Operation(
+    name="okms.get_resource_log_subscription",
+    method="GET",
+    path="/v2/okms/resource/{okmsId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("okms:apiovh:log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_RESOURCE_LOG_SUBSCRIPTION = Operation(
+    name="okms.delete_resource_log_subscription",
+    method="DELETE",
+    path="/v2/okms/resource/{okmsId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("okms:apiovh:log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_RESOURCE_LOG = Operation(
+    name="okms.url_resource_log",
+    method="POST",
+    path="/v2/okms/resource/{okmsId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("okms:apiovh:log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
 OP_ALL_RESOURCE_SECRETS = Operation(
     name="okms.all_resource_secrets",
     method="GET",
@@ -290,6 +363,13 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_CREATE_RESOURCE_CREDENTIAL,
     OP_GET_RESOURCE_CREDENTIAL,
     OP_DELETE_RESOURCE_CREDENTIAL,
+    OP_ALL_RESOURCE_LOG_KINDS,
+    OP_GET_RESOURCE_LOG_KIND,
+    OP_ALL_RESOURCE_LOG_SUBSCRIPTIONS,
+    OP_CREATE_RESOURCE_LOG_SUBSCRIPTION,
+    OP_GET_RESOURCE_LOG_SUBSCRIPTION,
+    OP_DELETE_RESOURCE_LOG_SUBSCRIPTION,
+    OP_URL_RESOURCE_LOG,
     OP_ALL_RESOURCE_SECRETS,
     OP_CREATE_RESOURCE_SECRET,
     OP_GET_RESOURCE_SECRET,

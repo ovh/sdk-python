@@ -42,7 +42,7 @@ class VrackApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_vracks calls GET /v1/vrack: List vRacks. Returns the service names of the vRacks of the account.
+        """list_vracks calls GET /v1/vrack: List vRacks
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -73,7 +73,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def get_vrack(self, service_name: str) -> models.VrackVrackWithIAM:
-        """get_vrack calls GET /v1/vrack/{serviceName}: Get a vRack. Returns the name and description of the vRack.
+        """get_vrack calls GET /v1/vrack/{serviceName}: Get a vRack
 
         Args:
             service_name: The internal name of your vrack
@@ -93,7 +93,7 @@ class VrackApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.VrackVrackWithIAM]:
-        """all_vracks iterates over GET /v1/vrack (List vRacks. Returns the service names of the vRacks of the account.).
+        """all_vracks iterates over GET /v1/vrack (List vRacks).
 
         It lists the IDs with list_vracks, then gets each object with get_vrack,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -112,7 +112,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def update_vrack(self, service_name: str, body: models.VrackVrackWritable) -> None:
-        """update_vrack calls PUT /v1/vrack/{serviceName}: Update a vRack. Updates the name or description of the vRack.
+        """update_vrack calls PUT /v1/vrack/{serviceName}: Update a vRack
 
         Args:
             service_name: The internal name of your vrack
@@ -166,7 +166,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_cloud_projects(self, service_name: str) -> list[str]:
-        """list_cloud_projects calls GET /v1/vrack/{serviceName}/cloudProject: List projects. Returns the identifiers of the Public Cloud projects attached to the vRack.
+        """list_cloud_projects calls GET /v1/vrack/{serviceName}/cloudProject: List attached Public Cloud projects
 
         Args:
             service_name: The internal name of your vrack
@@ -184,7 +184,7 @@ class VrackApi(_gen.SectionApi):
     def create_cloud_project(
         self, service_name: str, body: models.CreateCloudProjectRequest
     ) -> models.VrackTask:
-        """create_cloud_project calls POST /v1/vrack/{serviceName}/cloudProject: Attach a project. Attaches a Public Cloud project to the vRack. Returns the task that performs it.
+        """create_cloud_project calls POST /v1/vrack/{serviceName}/cloudProject: Attach a Public Cloud project
 
         Args:
             service_name: The internal name of your vrack
@@ -204,7 +204,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def get_cloud_project(self, service_name: str, project: str) -> models.VrackCloudProject:
-        """get_cloud_project calls GET /v1/vrack/{serviceName}/cloudProject/{project}: Get a project. Returns the attached Public Cloud project and its vRack.
+        """get_cloud_project calls GET /v1/vrack/{serviceName}/cloudProject/{project}: Get an attached Public Cloud project
 
         Args:
             service_name: The internal name of your vrack
@@ -222,7 +222,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_cloud_projects(self, service_name: str) -> t.Iterator[models.VrackCloudProject]:
-        """all_cloud_projects iterates over GET /v1/vrack/{serviceName}/cloudProject (List projects. Returns the identifiers of the Public Cloud projects attached to the vRack.).
+        """all_cloud_projects iterates over GET /v1/vrack/{serviceName}/cloudProject (List attached Public Cloud projects).
 
         It lists the IDs with list_cloud_projects, then gets each object with get_cloud_project,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -241,7 +241,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def delete_cloud_project(self, service_name: str, project: str) -> models.VrackTask:
-        """delete_cloud_project calls DELETE /v1/vrack/{serviceName}/cloudProject/{project}: Detach a project
+        """delete_cloud_project calls DELETE /v1/vrack/{serviceName}/cloudProject/{project}: Detach a Public Cloud project
 
         Detaches the Public Cloud project from the vRack. Returns the task that performs it.
 
@@ -283,7 +283,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_dedicated_clouds(self, service_name: str) -> list[str]:
-        """list_dedicated_clouds calls GET /v1/vrack/{serviceName}/dedicatedCloud: List services. Returns the Hosted Private Cloud services attached to the vRack.
+        """list_dedicated_clouds calls GET /v1/vrack/{serviceName}/dedicatedCloud: List attached Managed VMware vSphere services
 
         Args:
             service_name: The internal name of your vrack
@@ -301,7 +301,7 @@ class VrackApi(_gen.SectionApi):
     def create_dedicated_cloud(
         self, service_name: str, body: models.CreateDedicatedCloudRequest
     ) -> models.VrackTask:
-        """create_dedicated_cloud calls POST /v1/vrack/{serviceName}/dedicatedCloud: Attach a service
+        """create_dedicated_cloud calls POST /v1/vrack/{serviceName}/dedicatedCloud: Attach a Managed VMware vSphere service
 
         Attaches a Hosted Private Cloud service to the vRack. Returns the task that performs it.
 
@@ -324,7 +324,7 @@ class VrackApi(_gen.SectionApi):
     def get_dedicated_cloud(
         self, service_name: str, dedicated_cloud: str
     ) -> models.VrackDedicatedCloud:
-        """get_dedicated_cloud calls GET /v1/vrack/{serviceName}/dedicatedCloud/{dedicatedCloud}: Get a service. Returns the attached Hosted Private Cloud service and its vRack.
+        """get_dedicated_cloud calls GET /v1/vrack/{serviceName}/dedicatedCloud/{dedicatedCloud}: Get an attached Managed VMware vSphere service
 
         Args:
             service_name: The internal name of your vrack
@@ -342,7 +342,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_dedicated_clouds(self, service_name: str) -> t.Iterator[models.VrackDedicatedCloud]:
-        """all_dedicated_clouds iterates over GET /v1/vrack/{serviceName}/dedicatedCloud (List services. Returns the Hosted Private Cloud services attached to the vRack.).
+        """all_dedicated_clouds iterates over GET /v1/vrack/{serviceName}/dedicatedCloud (List attached Managed VMware vSphere services).
 
         It lists the IDs with list_dedicated_clouds, then gets each object with get_dedicated_cloud,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -361,7 +361,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def delete_dedicated_cloud(self, service_name: str, dedicated_cloud: str) -> models.VrackTask:
-        """delete_dedicated_cloud calls DELETE /v1/vrack/{serviceName}/dedicatedCloud/{dedicatedCloud}: Detach a service
+        """delete_dedicated_cloud calls DELETE /v1/vrack/{serviceName}/dedicatedCloud/{dedicatedCloud}: Detach a Managed VMware vSphere service
 
         Detaches the Hosted Private Cloud service from the vRack. Returns the task that performs it.
 
@@ -381,7 +381,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_dedicated_cloud_datacenters(self, service_name: str) -> list[str]:
-        """list_dedicated_cloud_datacenters calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter: List datacenters. Returns the Private Cloud datacenters attached to the vRack.
+        """list_dedicated_cloud_datacenters calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter: List attached Managed VMware vSphere datacenters
 
         Args:
             service_name: The internal name of your vrack
@@ -399,7 +399,7 @@ class VrackApi(_gen.SectionApi):
     def get_dedicated_cloud_datacenter(
         self, service_name: str, datacenter: str
     ) -> models.VrackPccDatacenter:
-        """get_dedicated_cloud_datacenter calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}: Get a datacenter. Returns the attached Private Cloud datacenter and its vRack.
+        """get_dedicated_cloud_datacenter calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}: Get an attached Managed VMware vSphere datacenter
 
         Args:
             service_name: The internal name of your vrack
@@ -419,7 +419,7 @@ class VrackApi(_gen.SectionApi):
     def all_dedicated_cloud_datacenters(
         self, service_name: str
     ) -> t.Iterator[models.VrackPccDatacenter]:
-        """all_dedicated_cloud_datacenters iterates over GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter (List datacenters. Returns the Private Cloud datacenters attached to the vRack.).
+        """all_dedicated_cloud_datacenters iterates over GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter (List attached Managed VMware vSphere datacenters).
 
         It lists the IDs with list_dedicated_cloud_datacenters, then gets each object with get_dedicated_cloud_datacenter,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -440,7 +440,7 @@ class VrackApi(_gen.SectionApi):
     def list_dedicated_cloud_datacenter_allowed_vracks(
         self, service_name: str, datacenter: str
     ) -> list[str]:
-        """list_dedicated_cloud_datacenter_allowed_vracks calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}/allowedVrack: List target vRacks. Returns the vRacks the Private Cloud datacenter can be moved to.
+        """list_dedicated_cloud_datacenter_allowed_vracks calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}/allowedVrack: List vRacks a datacenter can move to
 
         Args:
             service_name: The internal name of your vrack
@@ -460,7 +460,7 @@ class VrackApi(_gen.SectionApi):
     def move_dedicated_cloud_datacenter(
         self, service_name: str, datacenter: str, body: models.MoveDedicatedCloudDatacenterRequest
     ) -> models.VrackTask:
-        """move_dedicated_cloud_datacenter calls POST /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}/move: Move a datacenter
+        """move_dedicated_cloud_datacenter calls POST /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}/move: Move a Managed VMware vSphere datacenter
 
         Moves the Private Cloud datacenter to another vRack. Returns the task that performs it.
 
@@ -483,7 +483,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_dedicated_connects(self, service_name: str) -> list[str]:
-        """list_dedicated_connects calls GET /v1/vrack/{serviceName}/dedicatedConnect: List links. Returns the names of the Dedicated Connect links attached to the vRack.
+        """list_dedicated_connects calls GET /v1/vrack/{serviceName}/dedicatedConnect: List attached Dedicated Connect links
 
         Args:
             service_name: The internal name of your vrack
@@ -499,7 +499,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def get_dedicated_connect(self, service_name: str, name: str) -> models.VrackDedicatedConnect:
-        """get_dedicated_connect calls GET /v1/vrack/{serviceName}/dedicatedConnect/{name}: Get a link. Returns the name of the Dedicated Connect link.
+        """get_dedicated_connect calls GET /v1/vrack/{serviceName}/dedicatedConnect/{name}: Get a Dedicated Connect link
 
         Args:
             service_name: The internal name of your vrack
@@ -517,7 +517,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_dedicated_connects(self, service_name: str) -> t.Iterator[models.VrackDedicatedConnect]:
-        """all_dedicated_connects iterates over GET /v1/vrack/{serviceName}/dedicatedConnect (List links. Returns the names of the Dedicated Connect links attached to the vRack.).
+        """all_dedicated_connects iterates over GET /v1/vrack/{serviceName}/dedicatedConnect (List attached Dedicated Connect links).
 
         It lists the IDs with list_dedicated_connects, then gets each object with get_dedicated_connect,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -538,7 +538,7 @@ class VrackApi(_gen.SectionApi):
     def update_dedicated_connect(
         self, service_name: str, name: str, body: models.VrackDedicatedConnect
     ) -> None:
-        """update_dedicated_connect calls PUT /v1/vrack/{serviceName}/dedicatedConnect/{name}: Update a link. Updates the name of the Dedicated Connect link.
+        """update_dedicated_connect calls PUT /v1/vrack/{serviceName}/dedicatedConnect/{name}: Update a Dedicated Connect link
 
         Args:
             service_name: The internal name of your vrack
@@ -558,7 +558,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_dedicated_servers(self, service_name: str) -> list[str]:
-        """list_dedicated_servers calls GET /v1/vrack/{serviceName}/dedicatedServer: List servers (legacy)
+        """list_dedicated_servers calls GET /v1/vrack/{serviceName}/dedicatedServer: List attached dedicated servers (legacy)
 
         Returns the dedicated servers attached as a whole to the vRack, in the legacy mode.
         Attaching by interface replaces it.
@@ -579,7 +579,7 @@ class VrackApi(_gen.SectionApi):
     def create_dedicated_server(
         self, service_name: str, body: models.CreateDedicatedServerRequest
     ) -> models.VrackTask:
-        """create_dedicated_server calls POST /v1/vrack/{serviceName}/dedicatedServer: Attach a server (legacy)
+        """create_dedicated_server calls POST /v1/vrack/{serviceName}/dedicatedServer: Attach a dedicated server (legacy)
 
         Attaches a whole dedicated server to the vRack, in the legacy mode. Prefer attaching one of
         its interfaces. Returns the task that performs it.
@@ -604,7 +604,7 @@ class VrackApi(_gen.SectionApi):
     def get_dedicated_server(
         self, service_name: str, dedicated_server: str
     ) -> models.VrackDedicatedServer:
-        """get_dedicated_server calls GET /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}: Get a server link (legacy)
+        """get_dedicated_server calls GET /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}: Get an attached dedicated server (legacy)
 
         Returns the attached server and its vRack. This is the legacy whole-server link, not an
         interface link.
@@ -625,7 +625,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_dedicated_servers(self, service_name: str) -> t.Iterator[models.VrackDedicatedServer]:
-        """all_dedicated_servers iterates over GET /v1/vrack/{serviceName}/dedicatedServer (List servers (legacy)).
+        """all_dedicated_servers iterates over GET /v1/vrack/{serviceName}/dedicatedServer (List attached dedicated servers (legacy)).
 
         It lists the IDs with list_dedicated_servers, then gets each object with get_dedicated_server,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -644,7 +644,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def delete_dedicated_server(self, service_name: str, dedicated_server: str) -> models.VrackTask:
-        """delete_dedicated_server calls DELETE /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}: Detach a server (legacy)
+        """delete_dedicated_server calls DELETE /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}: Detach a dedicated server (legacy)
 
         Detaches a whole dedicated server from the vRack, in the legacy mode. Returns the task that
         performs it.
@@ -675,7 +675,7 @@ class VrackApi(_gen.SectionApi):
         period: models.DedicatedServerMrtgPeriodEnum | str,
         type: models.DedicatedServerMrtgTypeEnum | str,
     ) -> list[models.DedicatedServerMrtgTimestampValue]:
-        """list_dedicated_server_mrtgs calls GET /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}/mrtg: Get traffic graph values (deprecated)
+        """list_dedicated_server_mrtgs calls GET /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}/mrtg: Get dedicated server traffic values (deprecated)
 
         Returns the traffic, packets or errors measured on the vRack port of the server, for a
         period from hourly to yearly. Deprecated: use the dedicated server statistics instead.
@@ -705,7 +705,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_dedicated_server_interfaces(self, service_name: str) -> list[str]:
-        """list_dedicated_server_interfaces calls GET /v1/vrack/{serviceName}/dedicatedServerInterface: List server interfaces. Returns the dedicated server network interfaces attached to the vRack.
+        """list_dedicated_server_interfaces calls GET /v1/vrack/{serviceName}/dedicatedServerInterface: List attached dedicated server interfaces
 
         Args:
             service_name: The internal name of your vrack
@@ -723,7 +723,7 @@ class VrackApi(_gen.SectionApi):
     def create_dedicated_server_interface(
         self, service_name: str, body: models.CreateDedicatedServerInterfaceRequest
     ) -> models.VrackTask:
-        """create_dedicated_server_interface calls POST /v1/vrack/{serviceName}/dedicatedServerInterface: Attach a server interface
+        """create_dedicated_server_interface calls POST /v1/vrack/{serviceName}/dedicatedServerInterface: Attach a dedicated server interface
 
         Attaches a dedicated server network interface to the vRack. Returns the task that performs
         it.
@@ -748,7 +748,7 @@ class VrackApi(_gen.SectionApi):
     def get_dedicated_server_interface(
         self, service_name: str, dedicated_server_interface: str
     ) -> models.VrackDedicatedServerInterface:
-        """get_dedicated_server_interface calls GET /v1/vrack/{serviceName}/dedicatedServerInterface/{dedicatedServerInterface}: Get a server interface. Returns the attached interface and its vRack.
+        """get_dedicated_server_interface calls GET /v1/vrack/{serviceName}/dedicatedServerInterface/{dedicatedServerInterface}: Get an attached dedicated server interface
 
         Args:
             service_name: The internal name of your vrack
@@ -768,7 +768,7 @@ class VrackApi(_gen.SectionApi):
     def all_dedicated_server_interfaces(
         self, service_name: str
     ) -> t.Iterator[models.VrackDedicatedServerInterface]:
-        """all_dedicated_server_interfaces iterates over GET /v1/vrack/{serviceName}/dedicatedServerInterface (List server interfaces. Returns the dedicated server network interfaces attached to the vRack.).
+        """all_dedicated_server_interfaces iterates over GET /v1/vrack/{serviceName}/dedicatedServerInterface (List attached dedicated server interfaces).
 
         It lists the IDs with list_dedicated_server_interfaces, then gets each object with get_dedicated_server_interface,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -789,7 +789,7 @@ class VrackApi(_gen.SectionApi):
     def delete_dedicated_server_interface(
         self, service_name: str, dedicated_server_interface: str
     ) -> models.VrackTask:
-        """delete_dedicated_server_interface calls DELETE /v1/vrack/{serviceName}/dedicatedServerInterface/{dedicatedServerInterface}: Detach a server interface. Detaches the interface from the vRack. Returns the task that performs it.
+        """delete_dedicated_server_interface calls DELETE /v1/vrack/{serviceName}/dedicatedServerInterface/{dedicatedServerInterface}: Detach a dedicated server interface
 
         Args:
             service_name: The internal name of your vrack
@@ -809,7 +809,7 @@ class VrackApi(_gen.SectionApi):
     def list_dedicated_server_interface_details(
         self, service_name: str
     ) -> list[models.VrackAllowedDedicatedServerInterfaces]:
-        """list_dedicated_server_interface_details calls GET /v1/vrack/{serviceName}/dedicatedServerInterfaceDetails: List server interface details. Returns the attached interfaces with the server each one belongs to.
+        """list_dedicated_server_interface_details calls GET /v1/vrack/{serviceName}/dedicatedServerInterfaceDetails: List attached dedicated server interface details
 
         Args:
             service_name: The internal name of your vrack
@@ -863,7 +863,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_ips calls GET /v1/vrack/{serviceName}/ip: List blocks. Returns the Additional IPv4 blocks routed in the vRack.
+        """list_ips calls GET /v1/vrack/{serviceName}/ip: List attached Additional IPv4 blocks
 
         Args:
             service_name: The internal name of your vrack
@@ -879,7 +879,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def create_ip(self, service_name: str, body: models.CreateIPRequest) -> models.VrackTask:
-        """create_ip calls POST /v1/vrack/{serviceName}/ip: Attach a block
+        """create_ip calls POST /v1/vrack/{serviceName}/ip: Attach an Additional IPv4 block
 
         Routes an Additional IPv4 block in the vRack, in the given region. Returns the task that
         performs it.
@@ -901,7 +901,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def get_ip(self, service_name: str, ip: models.IPBlock) -> models.VrackIP:
-        """get_ip calls GET /v1/vrack/{serviceName}/ip/{ip}: Get a block. Returns the Additional IPv4 block, its gateway, its region and its public routing type.
+        """get_ip calls GET /v1/vrack/{serviceName}/ip/{ip}: Get an attached Additional IPv4 block
 
         Args:
             service_name: The internal name of your vrack
@@ -919,7 +919,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_ips(self, service_name: str) -> t.Iterator[models.VrackIP]:
-        """all_ips iterates over GET /v1/vrack/{serviceName}/ip (List blocks. Returns the Additional IPv4 blocks routed in the vRack.).
+        """all_ips iterates over GET /v1/vrack/{serviceName}/ip (List attached Additional IPv4 blocks).
 
         It lists the IDs with list_ips, then gets each object with get_ip,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -938,7 +938,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def delete_ip(self, service_name: str, ip: models.IPBlock) -> models.VrackTask:
-        """delete_ip calls DELETE /v1/vrack/{serviceName}/ip/{ip}: Detach a block. Removes the Additional IPv4 block from the vRack. Returns the task that performs it.
+        """delete_ip calls DELETE /v1/vrack/{serviceName}/ip/{ip}: Detach an Additional IPv4 block
 
         Args:
             service_name: The internal name of your vrack
@@ -956,7 +956,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_ip_loadbalancings(self, service_name: str) -> list[str]:
-        """list_ip_loadbalancings calls GET /v1/vrack/{serviceName}/ipLoadbalancing: List load balancers. Returns the IP Load Balancer services attached to the vRack.
+        """list_ip_loadbalancings calls GET /v1/vrack/{serviceName}/ipLoadbalancing: List attached IP Load Balancer services
 
         Args:
             service_name: The internal name of your vrack
@@ -974,7 +974,7 @@ class VrackApi(_gen.SectionApi):
     def create_ip_loadbalancing(
         self, service_name: str, body: models.CreateIPLoadbalancingRequest
     ) -> models.VrackTask:
-        """create_ip_loadbalancing calls POST /v1/vrack/{serviceName}/ipLoadbalancing: Attach a load balancer
+        """create_ip_loadbalancing calls POST /v1/vrack/{serviceName}/ipLoadbalancing: Attach an IP Load Balancer service
 
         Attaches an IP Load Balancer service to the vRack. Returns the task that performs it.
 
@@ -996,7 +996,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def get_ip_loadbalancing(self, service_name: str, ip_loadbalancing: str) -> models.VrackIplb:
-        """get_ip_loadbalancing calls GET /v1/vrack/{serviceName}/ipLoadbalancing/{ipLoadbalancing}: Get a load balancer. Returns the attached IP Load Balancer service and its vRack.
+        """get_ip_loadbalancing calls GET /v1/vrack/{serviceName}/ipLoadbalancing/{ipLoadbalancing}: Get an attached IP Load Balancer service
 
         Args:
             service_name: The internal name of your vrack
@@ -1014,7 +1014,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_ip_loadbalancings(self, service_name: str) -> t.Iterator[models.VrackIplb]:
-        """all_ip_loadbalancings iterates over GET /v1/vrack/{serviceName}/ipLoadbalancing (List load balancers. Returns the IP Load Balancer services attached to the vRack.).
+        """all_ip_loadbalancings iterates over GET /v1/vrack/{serviceName}/ipLoadbalancing (List attached IP Load Balancer services).
 
         It lists the IDs with list_ip_loadbalancings, then gets each object with get_ip_loadbalancing,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1033,7 +1033,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def delete_ip_loadbalancing(self, service_name: str, ip_loadbalancing: str) -> models.VrackTask:
-        """delete_ip_loadbalancing calls DELETE /v1/vrack/{serviceName}/ipLoadbalancing/{ipLoadbalancing}: Detach a load balancer
+        """delete_ip_loadbalancing calls DELETE /v1/vrack/{serviceName}/ipLoadbalancing/{ipLoadbalancing}: Detach an IP Load Balancer service
 
         Detaches the IP Load Balancer service from the vRack. Returns the task that performs it.
 
@@ -1053,7 +1053,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_ipv6s(self, service_name: str) -> list[models.IPv6Block]:
-        """list_ipv6s calls GET /v1/vrack/{serviceName}/ipv6: List blocks. Returns the Additional IPv6 blocks attached to the vRack.
+        """list_ipv6s calls GET /v1/vrack/{serviceName}/ipv6: List attached Additional IPv6 blocks
 
         Args:
             service_name: The internal name of your vrack
@@ -1069,7 +1069,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def create_ipv6(self, service_name: str, body: models.CreateIPv6Request) -> models.VrackTask:
-        """create_ipv6 calls POST /v1/vrack/{serviceName}/ipv6: Attach a block. Attaches an Additional IPv6 block to the vRack. Returns the task that performs it.
+        """create_ipv6 calls POST /v1/vrack/{serviceName}/ipv6: Attach an Additional IPv6 block
 
         Args:
             service_name: The internal name of your vrack
@@ -1088,7 +1088,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def get_ipv6(self, service_name: str, ipv6: models.IPv6Block) -> models.VrackIPv6:
-        """get_ipv6 calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}: Get a block. Returns the attached Additional IPv6 block.
+        """get_ipv6 calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}: Get an attached Additional IPv6 block
 
         Args:
             service_name: The internal name of your vrack
@@ -1106,7 +1106,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_ipv6s(self, service_name: str) -> t.Iterator[models.VrackIPv6]:
-        """all_ipv6s iterates over GET /v1/vrack/{serviceName}/ipv6 (List blocks. Returns the Additional IPv6 blocks attached to the vRack.).
+        """all_ipv6s iterates over GET /v1/vrack/{serviceName}/ipv6 (List attached Additional IPv6 blocks).
 
         It lists the IDs with list_ipv6s, then gets each object with get_ipv6,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1125,7 +1125,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def delete_ipv6(self, service_name: str, ipv6: models.IPv6Block) -> models.VrackTask:
-        """delete_ipv6 calls DELETE /v1/vrack/{serviceName}/ipv6/{ipv6}: Detach a block. Removes the Additional IPv6 block from the vRack. Returns the task that performs it.
+        """delete_ipv6 calls DELETE /v1/vrack/{serviceName}/ipv6/{ipv6}: Detach an Additional IPv6 block
 
         Args:
             service_name: The internal name of your vrack
@@ -1145,7 +1145,7 @@ class VrackApi(_gen.SectionApi):
     def list_ipv6_bridged_subranges(
         self, service_name: str, ipv6: models.IPv6Block
     ) -> list[models.IPv6Block]:
-        """list_ipv6_bridged_subranges calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange: List bridged subranges. Returns the subranges of the block bridged in the vRack.
+        """list_ipv6_bridged_subranges calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange: List bridged IPv6 subranges
 
         Args:
             service_name: The internal name of your vrack
@@ -1165,7 +1165,7 @@ class VrackApi(_gen.SectionApi):
     def get_ipv6_bridged_subrange(
         self, service_name: str, ipv6: models.IPv6Block, bridged_subrange: models.IPv6Block
     ) -> models.VrackBridgedSubrange:
-        """get_ipv6_bridged_subrange calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange/{bridgedSubrange}: Get a bridged subrange. Returns the subrange, its gateway and whether SLAAC is enabled.
+        """get_ipv6_bridged_subrange calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange/{bridgedSubrange}: Get a bridged IPv6 subrange
 
         Args:
             service_name: The internal name of your vrack
@@ -1187,7 +1187,7 @@ class VrackApi(_gen.SectionApi):
     def all_ipv6_bridged_subranges(
         self, service_name: str, ipv6: models.IPv6Block
     ) -> t.Iterator[models.VrackBridgedSubrange]:
-        """all_ipv6_bridged_subranges iterates over GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange (List bridged subranges. Returns the subranges of the block bridged in the vRack.).
+        """all_ipv6_bridged_subranges iterates over GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange (List bridged IPv6 subranges).
 
         It lists the IDs with list_ipv6_bridged_subranges, then gets each object with get_ipv6_bridged_subrange,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1241,7 +1241,7 @@ class VrackApi(_gen.SectionApi):
     def list_ipv6_routed_subranges(
         self, service_name: str, ipv6: models.IPv6Block
     ) -> list[models.IPv6Block]:
-        """list_ipv6_routed_subranges calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange: List routed subranges. Returns the subranges of the block routed in the vRack.
+        """list_ipv6_routed_subranges calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange: List routed IPv6 subranges
 
         Args:
             service_name: The internal name of your vrack
@@ -1264,7 +1264,7 @@ class VrackApi(_gen.SectionApi):
         ipv6: models.IPv6Block,
         body: models.CreateIPv6RoutedSubrangeRequest,
     ) -> models.VrackTask:
-        """create_ipv6_routed_subrange calls POST /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange: Route a subrange
+        """create_ipv6_routed_subrange calls POST /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange: Route an IPv6 subrange
 
         Routes a subrange of the block to a next hop. The next hop must belong to a bridged
         subrange. Returns the task that performs it.
@@ -1291,7 +1291,7 @@ class VrackApi(_gen.SectionApi):
     def get_ipv6_routed_subrange(
         self, service_name: str, ipv6: models.IPv6Block, routed_subrange: models.IPv6Block
     ) -> models.VrackRoutedSubrange:
-        """get_ipv6_routed_subrange calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange/{routedSubrange}: Get a routed subrange. Returns the subrange and its next hop.
+        """get_ipv6_routed_subrange calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange/{routedSubrange}: Get a routed IPv6 subrange
 
         Args:
             service_name: The internal name of your vrack
@@ -1313,7 +1313,7 @@ class VrackApi(_gen.SectionApi):
     def all_ipv6_routed_subranges(
         self, service_name: str, ipv6: models.IPv6Block
     ) -> t.Iterator[models.VrackRoutedSubrange]:
-        """all_ipv6_routed_subranges iterates over GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange (List routed subranges. Returns the subranges of the block routed in the vRack.).
+        """all_ipv6_routed_subranges iterates over GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange (List routed IPv6 subranges).
 
         It lists the IDs with list_ipv6_routed_subranges, then gets each object with get_ipv6_routed_subrange,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1336,7 +1336,7 @@ class VrackApi(_gen.SectionApi):
     def delete_ipv6_routed_subrange(
         self, service_name: str, ipv6: models.IPv6Block, routed_subrange: models.IPv6Block
     ) -> models.VrackTask:
-        """delete_ipv6_routed_subrange calls DELETE /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange/{routedSubrange}: Unroute a subrange. Removes the route of the subrange. Returns the task that performs it.
+        """delete_ipv6_routed_subrange calls DELETE /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange/{routedSubrange}: Unroute an IPv6 subrange
 
         Args:
             service_name: The internal name of your vrack
@@ -1360,7 +1360,7 @@ class VrackApi(_gen.SectionApi):
         "The API has deprecated this operation, to be removed on 2026-10-07.", category=None
     )
     def list_legacy_vracks(self, service_name: str) -> list[str]:
-        """list_legacy_vracks calls GET /v1/vrack/{serviceName}/legacyVrack: List legacy vRacks (deprecated). Returns the legacy vRacks (vrackXXXX) bridged in the vRack.
+        """list_legacy_vracks calls GET /v1/vrack/{serviceName}/legacyVrack: List attached legacy vRacks (deprecated)
 
         Args:
             service_name: The internal name of your vrack
@@ -1410,7 +1410,7 @@ class VrackApi(_gen.SectionApi):
         "The API has deprecated this operation, to be removed on 2026-10-07.", category=None
     )
     def get_legacy_vrack(self, service_name: str, legacy_vrack: str) -> models.VrackLegacyVrack:
-        """get_legacy_vrack calls GET /v1/vrack/{serviceName}/legacyVrack/{legacyVrack}: Get a legacy vRack (deprecated). Returns the bridged legacy vRack.
+        """get_legacy_vrack calls GET /v1/vrack/{serviceName}/legacyVrack/{legacyVrack}: Get an attached legacy vRack (deprecated)
 
         Args:
             service_name: The internal name of your vrack
@@ -1433,7 +1433,7 @@ class VrackApi(_gen.SectionApi):
         "The API has deprecated this operation, to be removed on 2026-10-07.", category=None
     )
     def all_legacy_vracks(self, service_name: str) -> t.Iterator[models.VrackLegacyVrack]:
-        """all_legacy_vracks iterates over GET /v1/vrack/{serviceName}/legacyVrack (List legacy vRacks (deprecated). Returns the legacy vRacks (vrackXXXX) bridged in the vRack.).
+        """all_legacy_vracks iterates over GET /v1/vrack/{serviceName}/legacyVrack (List attached legacy vRacks (deprecated)).
 
         It lists the IDs with list_legacy_vracks, then gets each object with get_legacy_vrack,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1477,7 +1477,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_ovh_cloud_connects(self, service_name: str) -> list[str]:
-        """list_ovh_cloud_connects calls GET /v1/vrack/{serviceName}/ovhCloudConnect: List services. Returns the identifiers of the OVHcloud Connect services attached to the vRack.
+        """list_ovh_cloud_connects calls GET /v1/vrack/{serviceName}/ovhCloudConnect: List attached OVHcloud Connect services
 
         Args:
             service_name: The internal name of your vrack
@@ -1495,7 +1495,7 @@ class VrackApi(_gen.SectionApi):
     def create_ovh_cloud_connect(
         self, service_name: str, body: models.CreateOvhCloudConnectRequest
     ) -> models.VrackTask:
-        """create_ovh_cloud_connect calls POST /v1/vrack/{serviceName}/ovhCloudConnect: Attach a service
+        """create_ovh_cloud_connect calls POST /v1/vrack/{serviceName}/ovhCloudConnect: Attach an OVHcloud Connect service
 
         Attaches an OVHcloud Connect service to the vRack. Returns the task that performs it.
 
@@ -1519,7 +1519,7 @@ class VrackApi(_gen.SectionApi):
     def get_ovh_cloud_connect(
         self, service_name: str, ovh_cloud_connect: str
     ) -> models.VrackOvhCloudConnect:
-        """get_ovh_cloud_connect calls GET /v1/vrack/{serviceName}/ovhCloudConnect/{ovhCloudConnect}: Get a service. Returns the attached OVHcloud Connect service and its vRack.
+        """get_ovh_cloud_connect calls GET /v1/vrack/{serviceName}/ovhCloudConnect/{ovhCloudConnect}: Get an attached OVHcloud Connect service
 
         Args:
             service_name: The internal name of your vrack
@@ -1537,7 +1537,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_ovh_cloud_connects(self, service_name: str) -> t.Iterator[models.VrackOvhCloudConnect]:
-        """all_ovh_cloud_connects iterates over GET /v1/vrack/{serviceName}/ovhCloudConnect (List services. Returns the identifiers of the OVHcloud Connect services attached to the vRack.).
+        """all_ovh_cloud_connects iterates over GET /v1/vrack/{serviceName}/ovhCloudConnect (List attached OVHcloud Connect services).
 
         It lists the IDs with list_ovh_cloud_connects, then gets each object with get_ovh_cloud_connect,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1558,7 +1558,7 @@ class VrackApi(_gen.SectionApi):
     def delete_ovh_cloud_connect(
         self, service_name: str, ovh_cloud_connect: str
     ) -> models.VrackTask:
-        """delete_ovh_cloud_connect calls DELETE /v1/vrack/{serviceName}/ovhCloudConnect/{ovhCloudConnect}: Detach a service
+        """delete_ovh_cloud_connect calls DELETE /v1/vrack/{serviceName}/ovhCloudConnect/{ovhCloudConnect}: Detach an OVHcloud Connect service
 
         Detaches the OVHcloud Connect service from the vRack. Returns the task that performs it.
 
@@ -1601,7 +1601,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_public_routing_priorities(self, service_name: str) -> list[str]:
-        """list_public_routing_priorities calls GET /v1/vrack/{serviceName}/publicRoutingPriority: List priorities. Returns the identifiers of the 3-AZ failover priorities of the vRack.
+        """list_public_routing_priorities calls GET /v1/vrack/{serviceName}/publicRoutingPriority: List 3-AZ failover priorities
 
         Args:
             service_name: The internal name of your vrack
@@ -1686,7 +1686,7 @@ class VrackApi(_gen.SectionApi):
     def all_public_routing_priorities(
         self, service_name: str
     ) -> t.Iterator[models.VrackPublicRoutingPriority]:
-        """all_public_routing_priorities iterates over GET /v1/vrack/{serviceName}/publicRoutingPriority (List priorities. Returns the identifiers of the 3-AZ failover priorities of the vRack.).
+        """all_public_routing_priorities iterates over GET /v1/vrack/{serviceName}/publicRoutingPriority (List 3-AZ failover priorities).
 
         It lists the IDs with list_public_routing_priorities, then gets each object with get_public_routing_priority,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1754,7 +1754,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_tasks(self, service_name: str) -> list[int]:
-        """list_tasks calls GET /v1/vrack/{serviceName}/task: List tasks. Returns the identifiers of the tasks run on the vRack.
+        """list_tasks calls GET /v1/vrack/{serviceName}/task: List vRack tasks
 
         Args:
             service_name: The internal name of your vrack
@@ -1770,7 +1770,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def get_task(self, service_name: str, task_id: int) -> models.VrackTask:
-        """get_task calls GET /v1/vrack/{serviceName}/task/{taskId}: Get a task. Returns the function, status, target and dates of the task.
+        """get_task calls GET /v1/vrack/{serviceName}/task/{taskId}: Get a vRack task
 
         Args:
             service_name: The internal name of your vrack
@@ -1788,7 +1788,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_tasks(self, service_name: str) -> t.Iterator[models.VrackTask]:
-        """all_tasks iterates over GET /v1/vrack/{serviceName}/task (List tasks. Returns the identifiers of the tasks run on the vRack.).
+        """all_tasks iterates over GET /v1/vrack/{serviceName}/task (List vRack tasks).
 
         It lists the IDs with list_tasks, then gets each object with get_task,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1826,7 +1826,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_vmware_cloud_director_virtual_data_centers(self, service_name: str) -> list[str]:
-        """list_vmware_cloud_director_virtual_data_centers calls GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter: List datacenters. Returns the Public VCF as-a-Service virtual datacenters attached to the vRack.
+        """list_vmware_cloud_director_virtual_data_centers calls GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter: List attached Public VCF virtual datacenters
 
         Args:
             service_name: The internal name of your vrack
@@ -1844,7 +1844,7 @@ class VrackApi(_gen.SectionApi):
     def create_vmware_cloud_director_virtual_data_center(
         self, service_name: str, body: models.CreateVmwareCloudDirectorVirtualDataCenterRequest
     ) -> models.VrackTask:
-        """create_vmware_cloud_director_virtual_data_center calls POST /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter: Attach a datacenter
+        """create_vmware_cloud_director_virtual_data_center calls POST /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter: Attach a Public VCF virtual datacenter
 
         Attaches a Public VCF as-a-Service virtual datacenter to the vRack. Returns the task that
         performs it.
@@ -1869,7 +1869,7 @@ class VrackApi(_gen.SectionApi):
     def get_vmware_cloud_director_virtual_data_center(
         self, service_name: str, vmware_cloud_director_virtual_data_center: str
     ) -> models.VrackVmwareCloudDirectorVirtualDataCenter:
-        """get_vmware_cloud_director_virtual_data_center calls GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter/{vmwareCloudDirectorVirtualDataCenter}: Get a datacenter. Returns the attached Public VCF virtual datacenter and its vRack.
+        """get_vmware_cloud_director_virtual_data_center calls GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter/{vmwareCloudDirectorVirtualDataCenter}: Get an attached Public VCF virtual datacenter
 
         Args:
             service_name: The internal name of your vrack
@@ -1889,7 +1889,7 @@ class VrackApi(_gen.SectionApi):
     def all_vmware_cloud_director_virtual_data_centers(
         self, service_name: str
     ) -> t.Iterator[models.VrackVmwareCloudDirectorVirtualDataCenter]:
-        """all_vmware_cloud_director_virtual_data_centers iterates over GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter (List datacenters. Returns the Public VCF as-a-Service virtual datacenters attached to the vRack.).
+        """all_vmware_cloud_director_virtual_data_centers iterates over GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter (List attached Public VCF virtual datacenters).
 
         It lists the IDs with list_vmware_cloud_director_virtual_data_centers, then gets each object with get_vmware_cloud_director_virtual_data_center,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -1912,7 +1912,7 @@ class VrackApi(_gen.SectionApi):
     def delete_vmware_cloud_director_virtual_data_center(
         self, service_name: str, vmware_cloud_director_virtual_data_center: str
     ) -> models.VrackTask:
-        """delete_vmware_cloud_director_virtual_data_center calls DELETE /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter/{vmwareCloudDirectorVirtualDataCenter}: Detach a datacenter
+        """delete_vmware_cloud_director_virtual_data_center calls DELETE /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter/{vmwareCloudDirectorVirtualDataCenter}: Detach a Public VCF virtual datacenter
 
         Detaches the Public VCF virtual datacenter from the vRack. Returns the task that performs
         it.
@@ -1933,7 +1933,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def list_vrack_services(self, service_name: str) -> list[str]:
-        """list_vrack_services calls GET /v1/vrack/{serviceName}/vrackServices: List vRack Services. Returns the vRack Services attached to the vRack.
+        """list_vrack_services calls GET /v1/vrack/{serviceName}/vrackServices: List attached vRack Services
 
         Args:
             service_name: The internal name of your vrack
@@ -1976,7 +1976,7 @@ class VrackApi(_gen.SectionApi):
     def get_vrack_services(
         self, service_name: str, vrack_services: str
     ) -> models.VrackVrackServices:
-        """get_vrack_services calls GET /v1/vrack/{serviceName}/vrackServices/{vrackServices}: Get a vRack Services. Returns the attached vRack Services and its vRack.
+        """get_vrack_services calls GET /v1/vrack/{serviceName}/vrackServices/{vrackServices}: Get an attached vRack Services
 
         Args:
             service_name: The internal name of your vrack
@@ -1994,7 +1994,7 @@ class VrackApi(_gen.SectionApi):
         )
 
     def all_vrack_services(self, service_name: str) -> t.Iterator[models.VrackVrackServices]:
-        """all_vrack_services iterates over GET /v1/vrack/{serviceName}/vrackServices (List vRack Services. Returns the vRack Services attached to the vRack.).
+        """all_vrack_services iterates over GET /v1/vrack/{serviceName}/vrackServices (List attached vRack Services).
 
         It lists the IDs with list_vrack_services, then gets each object with get_vrack_services,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2054,7 +2054,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_vracks calls GET /v1/vrack: List vRacks. Returns the service names of the vRacks of the account.
+        """list_vracks calls GET /v1/vrack: List vRacks
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -2085,7 +2085,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def get_vrack(self, service_name: str) -> models.VrackVrackWithIAM:
-        """get_vrack calls GET /v1/vrack/{serviceName}: Get a vRack. Returns the name and description of the vRack.
+        """get_vrack calls GET /v1/vrack/{serviceName}: Get a vRack
 
         Args:
             service_name: The internal name of your vrack
@@ -2105,7 +2105,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.VrackVrackWithIAM]:
-        """all_vracks iterates over GET /v1/vrack (List vRacks. Returns the service names of the vRacks of the account.).
+        """all_vracks iterates over GET /v1/vrack (List vRacks).
 
         It lists the IDs with list_vracks, then gets each object with get_vrack,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2124,7 +2124,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def update_vrack(self, service_name: str, body: models.VrackVrackWritable) -> None:
-        """update_vrack calls PUT /v1/vrack/{serviceName}: Update a vRack. Updates the name or description of the vRack.
+        """update_vrack calls PUT /v1/vrack/{serviceName}: Update a vRack
 
         Args:
             service_name: The internal name of your vrack
@@ -2178,7 +2178,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_cloud_projects(self, service_name: str) -> list[str]:
-        """list_cloud_projects calls GET /v1/vrack/{serviceName}/cloudProject: List projects. Returns the identifiers of the Public Cloud projects attached to the vRack.
+        """list_cloud_projects calls GET /v1/vrack/{serviceName}/cloudProject: List attached Public Cloud projects
 
         Args:
             service_name: The internal name of your vrack
@@ -2196,7 +2196,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def create_cloud_project(
         self, service_name: str, body: models.CreateCloudProjectRequest
     ) -> models.VrackTask:
-        """create_cloud_project calls POST /v1/vrack/{serviceName}/cloudProject: Attach a project. Attaches a Public Cloud project to the vRack. Returns the task that performs it.
+        """create_cloud_project calls POST /v1/vrack/{serviceName}/cloudProject: Attach a Public Cloud project
 
         Args:
             service_name: The internal name of your vrack
@@ -2216,7 +2216,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def get_cloud_project(self, service_name: str, project: str) -> models.VrackCloudProject:
-        """get_cloud_project calls GET /v1/vrack/{serviceName}/cloudProject/{project}: Get a project. Returns the attached Public Cloud project and its vRack.
+        """get_cloud_project calls GET /v1/vrack/{serviceName}/cloudProject/{project}: Get an attached Public Cloud project
 
         Args:
             service_name: The internal name of your vrack
@@ -2234,7 +2234,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     def all_cloud_projects(self, service_name: str) -> t.AsyncIterator[models.VrackCloudProject]:
-        """all_cloud_projects iterates over GET /v1/vrack/{serviceName}/cloudProject (List projects. Returns the identifiers of the Public Cloud projects attached to the vRack.).
+        """all_cloud_projects iterates over GET /v1/vrack/{serviceName}/cloudProject (List attached Public Cloud projects).
 
         It lists the IDs with list_cloud_projects, then gets each object with get_cloud_project,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2253,7 +2253,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def delete_cloud_project(self, service_name: str, project: str) -> models.VrackTask:
-        """delete_cloud_project calls DELETE /v1/vrack/{serviceName}/cloudProject/{project}: Detach a project
+        """delete_cloud_project calls DELETE /v1/vrack/{serviceName}/cloudProject/{project}: Detach a Public Cloud project
 
         Detaches the Public Cloud project from the vRack. Returns the task that performs it.
 
@@ -2297,7 +2297,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_dedicated_clouds(self, service_name: str) -> list[str]:
-        """list_dedicated_clouds calls GET /v1/vrack/{serviceName}/dedicatedCloud: List services. Returns the Hosted Private Cloud services attached to the vRack.
+        """list_dedicated_clouds calls GET /v1/vrack/{serviceName}/dedicatedCloud: List attached Managed VMware vSphere services
 
         Args:
             service_name: The internal name of your vrack
@@ -2315,7 +2315,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def create_dedicated_cloud(
         self, service_name: str, body: models.CreateDedicatedCloudRequest
     ) -> models.VrackTask:
-        """create_dedicated_cloud calls POST /v1/vrack/{serviceName}/dedicatedCloud: Attach a service
+        """create_dedicated_cloud calls POST /v1/vrack/{serviceName}/dedicatedCloud: Attach a Managed VMware vSphere service
 
         Attaches a Hosted Private Cloud service to the vRack. Returns the task that performs it.
 
@@ -2338,7 +2338,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_dedicated_cloud(
         self, service_name: str, dedicated_cloud: str
     ) -> models.VrackDedicatedCloud:
-        """get_dedicated_cloud calls GET /v1/vrack/{serviceName}/dedicatedCloud/{dedicatedCloud}: Get a service. Returns the attached Hosted Private Cloud service and its vRack.
+        """get_dedicated_cloud calls GET /v1/vrack/{serviceName}/dedicatedCloud/{dedicatedCloud}: Get an attached Managed VMware vSphere service
 
         Args:
             service_name: The internal name of your vrack
@@ -2358,7 +2358,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_dedicated_clouds(
         self, service_name: str
     ) -> t.AsyncIterator[models.VrackDedicatedCloud]:
-        """all_dedicated_clouds iterates over GET /v1/vrack/{serviceName}/dedicatedCloud (List services. Returns the Hosted Private Cloud services attached to the vRack.).
+        """all_dedicated_clouds iterates over GET /v1/vrack/{serviceName}/dedicatedCloud (List attached Managed VMware vSphere services).
 
         It lists the IDs with list_dedicated_clouds, then gets each object with get_dedicated_cloud,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2379,7 +2379,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def delete_dedicated_cloud(
         self, service_name: str, dedicated_cloud: str
     ) -> models.VrackTask:
-        """delete_dedicated_cloud calls DELETE /v1/vrack/{serviceName}/dedicatedCloud/{dedicatedCloud}: Detach a service
+        """delete_dedicated_cloud calls DELETE /v1/vrack/{serviceName}/dedicatedCloud/{dedicatedCloud}: Detach a Managed VMware vSphere service
 
         Detaches the Hosted Private Cloud service from the vRack. Returns the task that performs it.
 
@@ -2399,7 +2399,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_dedicated_cloud_datacenters(self, service_name: str) -> list[str]:
-        """list_dedicated_cloud_datacenters calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter: List datacenters. Returns the Private Cloud datacenters attached to the vRack.
+        """list_dedicated_cloud_datacenters calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter: List attached Managed VMware vSphere datacenters
 
         Args:
             service_name: The internal name of your vrack
@@ -2417,7 +2417,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_dedicated_cloud_datacenter(
         self, service_name: str, datacenter: str
     ) -> models.VrackPccDatacenter:
-        """get_dedicated_cloud_datacenter calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}: Get a datacenter. Returns the attached Private Cloud datacenter and its vRack.
+        """get_dedicated_cloud_datacenter calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}: Get an attached Managed VMware vSphere datacenter
 
         Args:
             service_name: The internal name of your vrack
@@ -2437,7 +2437,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_dedicated_cloud_datacenters(
         self, service_name: str
     ) -> t.AsyncIterator[models.VrackPccDatacenter]:
-        """all_dedicated_cloud_datacenters iterates over GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter (List datacenters. Returns the Private Cloud datacenters attached to the vRack.).
+        """all_dedicated_cloud_datacenters iterates over GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter (List attached Managed VMware vSphere datacenters).
 
         It lists the IDs with list_dedicated_cloud_datacenters, then gets each object with get_dedicated_cloud_datacenter,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2458,7 +2458,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def list_dedicated_cloud_datacenter_allowed_vracks(
         self, service_name: str, datacenter: str
     ) -> list[str]:
-        """list_dedicated_cloud_datacenter_allowed_vracks calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}/allowedVrack: List target vRacks. Returns the vRacks the Private Cloud datacenter can be moved to.
+        """list_dedicated_cloud_datacenter_allowed_vracks calls GET /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}/allowedVrack: List vRacks a datacenter can move to
 
         Args:
             service_name: The internal name of your vrack
@@ -2478,7 +2478,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def move_dedicated_cloud_datacenter(
         self, service_name: str, datacenter: str, body: models.MoveDedicatedCloudDatacenterRequest
     ) -> models.VrackTask:
-        """move_dedicated_cloud_datacenter calls POST /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}/move: Move a datacenter
+        """move_dedicated_cloud_datacenter calls POST /v1/vrack/{serviceName}/dedicatedCloudDatacenter/{datacenter}/move: Move a Managed VMware vSphere datacenter
 
         Moves the Private Cloud datacenter to another vRack. Returns the task that performs it.
 
@@ -2501,7 +2501,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_dedicated_connects(self, service_name: str) -> list[str]:
-        """list_dedicated_connects calls GET /v1/vrack/{serviceName}/dedicatedConnect: List links. Returns the names of the Dedicated Connect links attached to the vRack.
+        """list_dedicated_connects calls GET /v1/vrack/{serviceName}/dedicatedConnect: List attached Dedicated Connect links
 
         Args:
             service_name: The internal name of your vrack
@@ -2519,7 +2519,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_dedicated_connect(
         self, service_name: str, name: str
     ) -> models.VrackDedicatedConnect:
-        """get_dedicated_connect calls GET /v1/vrack/{serviceName}/dedicatedConnect/{name}: Get a link. Returns the name of the Dedicated Connect link.
+        """get_dedicated_connect calls GET /v1/vrack/{serviceName}/dedicatedConnect/{name}: Get a Dedicated Connect link
 
         Args:
             service_name: The internal name of your vrack
@@ -2539,7 +2539,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_dedicated_connects(
         self, service_name: str
     ) -> t.AsyncIterator[models.VrackDedicatedConnect]:
-        """all_dedicated_connects iterates over GET /v1/vrack/{serviceName}/dedicatedConnect (List links. Returns the names of the Dedicated Connect links attached to the vRack.).
+        """all_dedicated_connects iterates over GET /v1/vrack/{serviceName}/dedicatedConnect (List attached Dedicated Connect links).
 
         It lists the IDs with list_dedicated_connects, then gets each object with get_dedicated_connect,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2560,7 +2560,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def update_dedicated_connect(
         self, service_name: str, name: str, body: models.VrackDedicatedConnect
     ) -> None:
-        """update_dedicated_connect calls PUT /v1/vrack/{serviceName}/dedicatedConnect/{name}: Update a link. Updates the name of the Dedicated Connect link.
+        """update_dedicated_connect calls PUT /v1/vrack/{serviceName}/dedicatedConnect/{name}: Update a Dedicated Connect link
 
         Args:
             service_name: The internal name of your vrack
@@ -2580,7 +2580,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_dedicated_servers(self, service_name: str) -> list[str]:
-        """list_dedicated_servers calls GET /v1/vrack/{serviceName}/dedicatedServer: List servers (legacy)
+        """list_dedicated_servers calls GET /v1/vrack/{serviceName}/dedicatedServer: List attached dedicated servers (legacy)
 
         Returns the dedicated servers attached as a whole to the vRack, in the legacy mode.
         Attaching by interface replaces it.
@@ -2601,7 +2601,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def create_dedicated_server(
         self, service_name: str, body: models.CreateDedicatedServerRequest
     ) -> models.VrackTask:
-        """create_dedicated_server calls POST /v1/vrack/{serviceName}/dedicatedServer: Attach a server (legacy)
+        """create_dedicated_server calls POST /v1/vrack/{serviceName}/dedicatedServer: Attach a dedicated server (legacy)
 
         Attaches a whole dedicated server to the vRack, in the legacy mode. Prefer attaching one of
         its interfaces. Returns the task that performs it.
@@ -2626,7 +2626,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_dedicated_server(
         self, service_name: str, dedicated_server: str
     ) -> models.VrackDedicatedServer:
-        """get_dedicated_server calls GET /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}: Get a server link (legacy)
+        """get_dedicated_server calls GET /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}: Get an attached dedicated server (legacy)
 
         Returns the attached server and its vRack. This is the legacy whole-server link, not an
         interface link.
@@ -2649,7 +2649,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_dedicated_servers(
         self, service_name: str
     ) -> t.AsyncIterator[models.VrackDedicatedServer]:
-        """all_dedicated_servers iterates over GET /v1/vrack/{serviceName}/dedicatedServer (List servers (legacy)).
+        """all_dedicated_servers iterates over GET /v1/vrack/{serviceName}/dedicatedServer (List attached dedicated servers (legacy)).
 
         It lists the IDs with list_dedicated_servers, then gets each object with get_dedicated_server,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2670,7 +2670,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def delete_dedicated_server(
         self, service_name: str, dedicated_server: str
     ) -> models.VrackTask:
-        """delete_dedicated_server calls DELETE /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}: Detach a server (legacy)
+        """delete_dedicated_server calls DELETE /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}: Detach a dedicated server (legacy)
 
         Detaches a whole dedicated server from the vRack, in the legacy mode. Returns the task that
         performs it.
@@ -2701,7 +2701,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         period: models.DedicatedServerMrtgPeriodEnum | str,
         type: models.DedicatedServerMrtgTypeEnum | str,
     ) -> list[models.DedicatedServerMrtgTimestampValue]:
-        """list_dedicated_server_mrtgs calls GET /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}/mrtg: Get traffic graph values (deprecated)
+        """list_dedicated_server_mrtgs calls GET /v1/vrack/{serviceName}/dedicatedServer/{dedicatedServer}/mrtg: Get dedicated server traffic values (deprecated)
 
         Returns the traffic, packets or errors measured on the vRack port of the server, for a
         period from hourly to yearly. Deprecated: use the dedicated server statistics instead.
@@ -2731,7 +2731,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_dedicated_server_interfaces(self, service_name: str) -> list[str]:
-        """list_dedicated_server_interfaces calls GET /v1/vrack/{serviceName}/dedicatedServerInterface: List server interfaces. Returns the dedicated server network interfaces attached to the vRack.
+        """list_dedicated_server_interfaces calls GET /v1/vrack/{serviceName}/dedicatedServerInterface: List attached dedicated server interfaces
 
         Args:
             service_name: The internal name of your vrack
@@ -2749,7 +2749,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def create_dedicated_server_interface(
         self, service_name: str, body: models.CreateDedicatedServerInterfaceRequest
     ) -> models.VrackTask:
-        """create_dedicated_server_interface calls POST /v1/vrack/{serviceName}/dedicatedServerInterface: Attach a server interface
+        """create_dedicated_server_interface calls POST /v1/vrack/{serviceName}/dedicatedServerInterface: Attach a dedicated server interface
 
         Attaches a dedicated server network interface to the vRack. Returns the task that performs
         it.
@@ -2774,7 +2774,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_dedicated_server_interface(
         self, service_name: str, dedicated_server_interface: str
     ) -> models.VrackDedicatedServerInterface:
-        """get_dedicated_server_interface calls GET /v1/vrack/{serviceName}/dedicatedServerInterface/{dedicatedServerInterface}: Get a server interface. Returns the attached interface and its vRack.
+        """get_dedicated_server_interface calls GET /v1/vrack/{serviceName}/dedicatedServerInterface/{dedicatedServerInterface}: Get an attached dedicated server interface
 
         Args:
             service_name: The internal name of your vrack
@@ -2794,7 +2794,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_dedicated_server_interfaces(
         self, service_name: str
     ) -> t.AsyncIterator[models.VrackDedicatedServerInterface]:
-        """all_dedicated_server_interfaces iterates over GET /v1/vrack/{serviceName}/dedicatedServerInterface (List server interfaces. Returns the dedicated server network interfaces attached to the vRack.).
+        """all_dedicated_server_interfaces iterates over GET /v1/vrack/{serviceName}/dedicatedServerInterface (List attached dedicated server interfaces).
 
         It lists the IDs with list_dedicated_server_interfaces, then gets each object with get_dedicated_server_interface,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2815,7 +2815,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def delete_dedicated_server_interface(
         self, service_name: str, dedicated_server_interface: str
     ) -> models.VrackTask:
-        """delete_dedicated_server_interface calls DELETE /v1/vrack/{serviceName}/dedicatedServerInterface/{dedicatedServerInterface}: Detach a server interface. Detaches the interface from the vRack. Returns the task that performs it.
+        """delete_dedicated_server_interface calls DELETE /v1/vrack/{serviceName}/dedicatedServerInterface/{dedicatedServerInterface}: Detach a dedicated server interface
 
         Args:
             service_name: The internal name of your vrack
@@ -2835,7 +2835,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def list_dedicated_server_interface_details(
         self, service_name: str
     ) -> list[models.VrackAllowedDedicatedServerInterfaces]:
-        """list_dedicated_server_interface_details calls GET /v1/vrack/{serviceName}/dedicatedServerInterfaceDetails: List server interface details. Returns the attached interfaces with the server each one belongs to.
+        """list_dedicated_server_interface_details calls GET /v1/vrack/{serviceName}/dedicatedServerInterfaceDetails: List attached dedicated server interface details
 
         Args:
             service_name: The internal name of your vrack
@@ -2889,7 +2889,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_ips calls GET /v1/vrack/{serviceName}/ip: List blocks. Returns the Additional IPv4 blocks routed in the vRack.
+        """list_ips calls GET /v1/vrack/{serviceName}/ip: List attached Additional IPv4 blocks
 
         Args:
             service_name: The internal name of your vrack
@@ -2905,7 +2905,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def create_ip(self, service_name: str, body: models.CreateIPRequest) -> models.VrackTask:
-        """create_ip calls POST /v1/vrack/{serviceName}/ip: Attach a block
+        """create_ip calls POST /v1/vrack/{serviceName}/ip: Attach an Additional IPv4 block
 
         Routes an Additional IPv4 block in the vRack, in the given region. Returns the task that
         performs it.
@@ -2927,7 +2927,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def get_ip(self, service_name: str, ip: models.IPBlock) -> models.VrackIP:
-        """get_ip calls GET /v1/vrack/{serviceName}/ip/{ip}: Get a block. Returns the Additional IPv4 block, its gateway, its region and its public routing type.
+        """get_ip calls GET /v1/vrack/{serviceName}/ip/{ip}: Get an attached Additional IPv4 block
 
         Args:
             service_name: The internal name of your vrack
@@ -2945,7 +2945,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     def all_ips(self, service_name: str) -> t.AsyncIterator[models.VrackIP]:
-        """all_ips iterates over GET /v1/vrack/{serviceName}/ip (List blocks. Returns the Additional IPv4 blocks routed in the vRack.).
+        """all_ips iterates over GET /v1/vrack/{serviceName}/ip (List attached Additional IPv4 blocks).
 
         It lists the IDs with list_ips, then gets each object with get_ip,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -2964,7 +2964,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def delete_ip(self, service_name: str, ip: models.IPBlock) -> models.VrackTask:
-        """delete_ip calls DELETE /v1/vrack/{serviceName}/ip/{ip}: Detach a block. Removes the Additional IPv4 block from the vRack. Returns the task that performs it.
+        """delete_ip calls DELETE /v1/vrack/{serviceName}/ip/{ip}: Detach an Additional IPv4 block
 
         Args:
             service_name: The internal name of your vrack
@@ -2982,7 +2982,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_ip_loadbalancings(self, service_name: str) -> list[str]:
-        """list_ip_loadbalancings calls GET /v1/vrack/{serviceName}/ipLoadbalancing: List load balancers. Returns the IP Load Balancer services attached to the vRack.
+        """list_ip_loadbalancings calls GET /v1/vrack/{serviceName}/ipLoadbalancing: List attached IP Load Balancer services
 
         Args:
             service_name: The internal name of your vrack
@@ -3000,7 +3000,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def create_ip_loadbalancing(
         self, service_name: str, body: models.CreateIPLoadbalancingRequest
     ) -> models.VrackTask:
-        """create_ip_loadbalancing calls POST /v1/vrack/{serviceName}/ipLoadbalancing: Attach a load balancer
+        """create_ip_loadbalancing calls POST /v1/vrack/{serviceName}/ipLoadbalancing: Attach an IP Load Balancer service
 
         Attaches an IP Load Balancer service to the vRack. Returns the task that performs it.
 
@@ -3024,7 +3024,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_ip_loadbalancing(
         self, service_name: str, ip_loadbalancing: str
     ) -> models.VrackIplb:
-        """get_ip_loadbalancing calls GET /v1/vrack/{serviceName}/ipLoadbalancing/{ipLoadbalancing}: Get a load balancer. Returns the attached IP Load Balancer service and its vRack.
+        """get_ip_loadbalancing calls GET /v1/vrack/{serviceName}/ipLoadbalancing/{ipLoadbalancing}: Get an attached IP Load Balancer service
 
         Args:
             service_name: The internal name of your vrack
@@ -3042,7 +3042,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     def all_ip_loadbalancings(self, service_name: str) -> t.AsyncIterator[models.VrackIplb]:
-        """all_ip_loadbalancings iterates over GET /v1/vrack/{serviceName}/ipLoadbalancing (List load balancers. Returns the IP Load Balancer services attached to the vRack.).
+        """all_ip_loadbalancings iterates over GET /v1/vrack/{serviceName}/ipLoadbalancing (List attached IP Load Balancer services).
 
         It lists the IDs with list_ip_loadbalancings, then gets each object with get_ip_loadbalancing,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3063,7 +3063,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def delete_ip_loadbalancing(
         self, service_name: str, ip_loadbalancing: str
     ) -> models.VrackTask:
-        """delete_ip_loadbalancing calls DELETE /v1/vrack/{serviceName}/ipLoadbalancing/{ipLoadbalancing}: Detach a load balancer
+        """delete_ip_loadbalancing calls DELETE /v1/vrack/{serviceName}/ipLoadbalancing/{ipLoadbalancing}: Detach an IP Load Balancer service
 
         Detaches the IP Load Balancer service from the vRack. Returns the task that performs it.
 
@@ -3083,7 +3083,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_ipv6s(self, service_name: str) -> list[models.IPv6Block]:
-        """list_ipv6s calls GET /v1/vrack/{serviceName}/ipv6: List blocks. Returns the Additional IPv6 blocks attached to the vRack.
+        """list_ipv6s calls GET /v1/vrack/{serviceName}/ipv6: List attached Additional IPv6 blocks
 
         Args:
             service_name: The internal name of your vrack
@@ -3101,7 +3101,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def create_ipv6(
         self, service_name: str, body: models.CreateIPv6Request
     ) -> models.VrackTask:
-        """create_ipv6 calls POST /v1/vrack/{serviceName}/ipv6: Attach a block. Attaches an Additional IPv6 block to the vRack. Returns the task that performs it.
+        """create_ipv6 calls POST /v1/vrack/{serviceName}/ipv6: Attach an Additional IPv6 block
 
         Args:
             service_name: The internal name of your vrack
@@ -3120,7 +3120,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def get_ipv6(self, service_name: str, ipv6: models.IPv6Block) -> models.VrackIPv6:
-        """get_ipv6 calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}: Get a block. Returns the attached Additional IPv6 block.
+        """get_ipv6 calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}: Get an attached Additional IPv6 block
 
         Args:
             service_name: The internal name of your vrack
@@ -3138,7 +3138,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     def all_ipv6s(self, service_name: str) -> t.AsyncIterator[models.VrackIPv6]:
-        """all_ipv6s iterates over GET /v1/vrack/{serviceName}/ipv6 (List blocks. Returns the Additional IPv6 blocks attached to the vRack.).
+        """all_ipv6s iterates over GET /v1/vrack/{serviceName}/ipv6 (List attached Additional IPv6 blocks).
 
         It lists the IDs with list_ipv6s, then gets each object with get_ipv6,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3157,7 +3157,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def delete_ipv6(self, service_name: str, ipv6: models.IPv6Block) -> models.VrackTask:
-        """delete_ipv6 calls DELETE /v1/vrack/{serviceName}/ipv6/{ipv6}: Detach a block. Removes the Additional IPv6 block from the vRack. Returns the task that performs it.
+        """delete_ipv6 calls DELETE /v1/vrack/{serviceName}/ipv6/{ipv6}: Detach an Additional IPv6 block
 
         Args:
             service_name: The internal name of your vrack
@@ -3177,7 +3177,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def list_ipv6_bridged_subranges(
         self, service_name: str, ipv6: models.IPv6Block
     ) -> list[models.IPv6Block]:
-        """list_ipv6_bridged_subranges calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange: List bridged subranges. Returns the subranges of the block bridged in the vRack.
+        """list_ipv6_bridged_subranges calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange: List bridged IPv6 subranges
 
         Args:
             service_name: The internal name of your vrack
@@ -3197,7 +3197,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_ipv6_bridged_subrange(
         self, service_name: str, ipv6: models.IPv6Block, bridged_subrange: models.IPv6Block
     ) -> models.VrackBridgedSubrange:
-        """get_ipv6_bridged_subrange calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange/{bridgedSubrange}: Get a bridged subrange. Returns the subrange, its gateway and whether SLAAC is enabled.
+        """get_ipv6_bridged_subrange calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange/{bridgedSubrange}: Get a bridged IPv6 subrange
 
         Args:
             service_name: The internal name of your vrack
@@ -3219,7 +3219,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_ipv6_bridged_subranges(
         self, service_name: str, ipv6: models.IPv6Block
     ) -> t.AsyncIterator[models.VrackBridgedSubrange]:
-        """all_ipv6_bridged_subranges iterates over GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange (List bridged subranges. Returns the subranges of the block bridged in the vRack.).
+        """all_ipv6_bridged_subranges iterates over GET /v1/vrack/{serviceName}/ipv6/{ipv6}/bridgedSubrange (List bridged IPv6 subranges).
 
         It lists the IDs with list_ipv6_bridged_subranges, then gets each object with get_ipv6_bridged_subrange,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3273,7 +3273,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def list_ipv6_routed_subranges(
         self, service_name: str, ipv6: models.IPv6Block
     ) -> list[models.IPv6Block]:
-        """list_ipv6_routed_subranges calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange: List routed subranges. Returns the subranges of the block routed in the vRack.
+        """list_ipv6_routed_subranges calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange: List routed IPv6 subranges
 
         Args:
             service_name: The internal name of your vrack
@@ -3296,7 +3296,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         ipv6: models.IPv6Block,
         body: models.CreateIPv6RoutedSubrangeRequest,
     ) -> models.VrackTask:
-        """create_ipv6_routed_subrange calls POST /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange: Route a subrange
+        """create_ipv6_routed_subrange calls POST /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange: Route an IPv6 subrange
 
         Routes a subrange of the block to a next hop. The next hop must belong to a bridged
         subrange. Returns the task that performs it.
@@ -3323,7 +3323,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_ipv6_routed_subrange(
         self, service_name: str, ipv6: models.IPv6Block, routed_subrange: models.IPv6Block
     ) -> models.VrackRoutedSubrange:
-        """get_ipv6_routed_subrange calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange/{routedSubrange}: Get a routed subrange. Returns the subrange and its next hop.
+        """get_ipv6_routed_subrange calls GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange/{routedSubrange}: Get a routed IPv6 subrange
 
         Args:
             service_name: The internal name of your vrack
@@ -3345,7 +3345,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_ipv6_routed_subranges(
         self, service_name: str, ipv6: models.IPv6Block
     ) -> t.AsyncIterator[models.VrackRoutedSubrange]:
-        """all_ipv6_routed_subranges iterates over GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange (List routed subranges. Returns the subranges of the block routed in the vRack.).
+        """all_ipv6_routed_subranges iterates over GET /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange (List routed IPv6 subranges).
 
         It lists the IDs with list_ipv6_routed_subranges, then gets each object with get_ipv6_routed_subrange,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3368,7 +3368,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def delete_ipv6_routed_subrange(
         self, service_name: str, ipv6: models.IPv6Block, routed_subrange: models.IPv6Block
     ) -> models.VrackTask:
-        """delete_ipv6_routed_subrange calls DELETE /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange/{routedSubrange}: Unroute a subrange. Removes the route of the subrange. Returns the task that performs it.
+        """delete_ipv6_routed_subrange calls DELETE /v1/vrack/{serviceName}/ipv6/{ipv6}/routedSubrange/{routedSubrange}: Unroute an IPv6 subrange
 
         Args:
             service_name: The internal name of your vrack
@@ -3392,7 +3392,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         "The API has deprecated this operation, to be removed on 2026-10-07.", category=None
     )
     async def list_legacy_vracks(self, service_name: str) -> list[str]:
-        """list_legacy_vracks calls GET /v1/vrack/{serviceName}/legacyVrack: List legacy vRacks (deprecated). Returns the legacy vRacks (vrackXXXX) bridged in the vRack.
+        """list_legacy_vracks calls GET /v1/vrack/{serviceName}/legacyVrack: List attached legacy vRacks (deprecated)
 
         Args:
             service_name: The internal name of your vrack
@@ -3444,7 +3444,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_legacy_vrack(
         self, service_name: str, legacy_vrack: str
     ) -> models.VrackLegacyVrack:
-        """get_legacy_vrack calls GET /v1/vrack/{serviceName}/legacyVrack/{legacyVrack}: Get a legacy vRack (deprecated). Returns the bridged legacy vRack.
+        """get_legacy_vrack calls GET /v1/vrack/{serviceName}/legacyVrack/{legacyVrack}: Get an attached legacy vRack (deprecated)
 
         Args:
             service_name: The internal name of your vrack
@@ -3467,7 +3467,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         "The API has deprecated this operation, to be removed on 2026-10-07.", category=None
     )
     def all_legacy_vracks(self, service_name: str) -> t.AsyncIterator[models.VrackLegacyVrack]:
-        """all_legacy_vracks iterates over GET /v1/vrack/{serviceName}/legacyVrack (List legacy vRacks (deprecated). Returns the legacy vRacks (vrackXXXX) bridged in the vRack.).
+        """all_legacy_vracks iterates over GET /v1/vrack/{serviceName}/legacyVrack (List attached legacy vRacks (deprecated)).
 
         It lists the IDs with list_legacy_vracks, then gets each object with get_legacy_vrack,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3511,7 +3511,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_ovh_cloud_connects(self, service_name: str) -> list[str]:
-        """list_ovh_cloud_connects calls GET /v1/vrack/{serviceName}/ovhCloudConnect: List services. Returns the identifiers of the OVHcloud Connect services attached to the vRack.
+        """list_ovh_cloud_connects calls GET /v1/vrack/{serviceName}/ovhCloudConnect: List attached OVHcloud Connect services
 
         Args:
             service_name: The internal name of your vrack
@@ -3529,7 +3529,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def create_ovh_cloud_connect(
         self, service_name: str, body: models.CreateOvhCloudConnectRequest
     ) -> models.VrackTask:
-        """create_ovh_cloud_connect calls POST /v1/vrack/{serviceName}/ovhCloudConnect: Attach a service
+        """create_ovh_cloud_connect calls POST /v1/vrack/{serviceName}/ovhCloudConnect: Attach an OVHcloud Connect service
 
         Attaches an OVHcloud Connect service to the vRack. Returns the task that performs it.
 
@@ -3553,7 +3553,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_ovh_cloud_connect(
         self, service_name: str, ovh_cloud_connect: str
     ) -> models.VrackOvhCloudConnect:
-        """get_ovh_cloud_connect calls GET /v1/vrack/{serviceName}/ovhCloudConnect/{ovhCloudConnect}: Get a service. Returns the attached OVHcloud Connect service and its vRack.
+        """get_ovh_cloud_connect calls GET /v1/vrack/{serviceName}/ovhCloudConnect/{ovhCloudConnect}: Get an attached OVHcloud Connect service
 
         Args:
             service_name: The internal name of your vrack
@@ -3573,7 +3573,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_ovh_cloud_connects(
         self, service_name: str
     ) -> t.AsyncIterator[models.VrackOvhCloudConnect]:
-        """all_ovh_cloud_connects iterates over GET /v1/vrack/{serviceName}/ovhCloudConnect (List services. Returns the identifiers of the OVHcloud Connect services attached to the vRack.).
+        """all_ovh_cloud_connects iterates over GET /v1/vrack/{serviceName}/ovhCloudConnect (List attached OVHcloud Connect services).
 
         It lists the IDs with list_ovh_cloud_connects, then gets each object with get_ovh_cloud_connect,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3594,7 +3594,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def delete_ovh_cloud_connect(
         self, service_name: str, ovh_cloud_connect: str
     ) -> models.VrackTask:
-        """delete_ovh_cloud_connect calls DELETE /v1/vrack/{serviceName}/ovhCloudConnect/{ovhCloudConnect}: Detach a service
+        """delete_ovh_cloud_connect calls DELETE /v1/vrack/{serviceName}/ovhCloudConnect/{ovhCloudConnect}: Detach an OVHcloud Connect service
 
         Detaches the OVHcloud Connect service from the vRack. Returns the task that performs it.
 
@@ -3637,7 +3637,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_public_routing_priorities(self, service_name: str) -> list[str]:
-        """list_public_routing_priorities calls GET /v1/vrack/{serviceName}/publicRoutingPriority: List priorities. Returns the identifiers of the 3-AZ failover priorities of the vRack.
+        """list_public_routing_priorities calls GET /v1/vrack/{serviceName}/publicRoutingPriority: List 3-AZ failover priorities
 
         Args:
             service_name: The internal name of your vrack
@@ -3722,7 +3722,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_public_routing_priorities(
         self, service_name: str
     ) -> t.AsyncIterator[models.VrackPublicRoutingPriority]:
-        """all_public_routing_priorities iterates over GET /v1/vrack/{serviceName}/publicRoutingPriority (List priorities. Returns the identifiers of the 3-AZ failover priorities of the vRack.).
+        """all_public_routing_priorities iterates over GET /v1/vrack/{serviceName}/publicRoutingPriority (List 3-AZ failover priorities).
 
         It lists the IDs with list_public_routing_priorities, then gets each object with get_public_routing_priority,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3790,7 +3790,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_tasks(self, service_name: str) -> list[int]:
-        """list_tasks calls GET /v1/vrack/{serviceName}/task: List tasks. Returns the identifiers of the tasks run on the vRack.
+        """list_tasks calls GET /v1/vrack/{serviceName}/task: List vRack tasks
 
         Args:
             service_name: The internal name of your vrack
@@ -3806,7 +3806,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def get_task(self, service_name: str, task_id: int) -> models.VrackTask:
-        """get_task calls GET /v1/vrack/{serviceName}/task/{taskId}: Get a task. Returns the function, status, target and dates of the task.
+        """get_task calls GET /v1/vrack/{serviceName}/task/{taskId}: Get a vRack task
 
         Args:
             service_name: The internal name of your vrack
@@ -3824,7 +3824,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     def all_tasks(self, service_name: str) -> t.AsyncIterator[models.VrackTask]:
-        """all_tasks iterates over GET /v1/vrack/{serviceName}/task (List tasks. Returns the identifiers of the tasks run on the vRack.).
+        """all_tasks iterates over GET /v1/vrack/{serviceName}/task (List vRack tasks).
 
         It lists the IDs with list_tasks, then gets each object with get_task,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3862,7 +3862,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_vmware_cloud_director_virtual_data_centers(self, service_name: str) -> list[str]:
-        """list_vmware_cloud_director_virtual_data_centers calls GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter: List datacenters. Returns the Public VCF as-a-Service virtual datacenters attached to the vRack.
+        """list_vmware_cloud_director_virtual_data_centers calls GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter: List attached Public VCF virtual datacenters
 
         Args:
             service_name: The internal name of your vrack
@@ -3880,7 +3880,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def create_vmware_cloud_director_virtual_data_center(
         self, service_name: str, body: models.CreateVmwareCloudDirectorVirtualDataCenterRequest
     ) -> models.VrackTask:
-        """create_vmware_cloud_director_virtual_data_center calls POST /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter: Attach a datacenter
+        """create_vmware_cloud_director_virtual_data_center calls POST /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter: Attach a Public VCF virtual datacenter
 
         Attaches a Public VCF as-a-Service virtual datacenter to the vRack. Returns the task that
         performs it.
@@ -3905,7 +3905,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_vmware_cloud_director_virtual_data_center(
         self, service_name: str, vmware_cloud_director_virtual_data_center: str
     ) -> models.VrackVmwareCloudDirectorVirtualDataCenter:
-        """get_vmware_cloud_director_virtual_data_center calls GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter/{vmwareCloudDirectorVirtualDataCenter}: Get a datacenter. Returns the attached Public VCF virtual datacenter and its vRack.
+        """get_vmware_cloud_director_virtual_data_center calls GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter/{vmwareCloudDirectorVirtualDataCenter}: Get an attached Public VCF virtual datacenter
 
         Args:
             service_name: The internal name of your vrack
@@ -3925,7 +3925,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     def all_vmware_cloud_director_virtual_data_centers(
         self, service_name: str
     ) -> t.AsyncIterator[models.VrackVmwareCloudDirectorVirtualDataCenter]:
-        """all_vmware_cloud_director_virtual_data_centers iterates over GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter (List datacenters. Returns the Public VCF as-a-Service virtual datacenters attached to the vRack.).
+        """all_vmware_cloud_director_virtual_data_centers iterates over GET /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter (List attached Public VCF virtual datacenters).
 
         It lists the IDs with list_vmware_cloud_director_virtual_data_centers, then gets each object with get_vmware_cloud_director_virtual_data_center,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -3948,7 +3948,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def delete_vmware_cloud_director_virtual_data_center(
         self, service_name: str, vmware_cloud_director_virtual_data_center: str
     ) -> models.VrackTask:
-        """delete_vmware_cloud_director_virtual_data_center calls DELETE /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter/{vmwareCloudDirectorVirtualDataCenter}: Detach a datacenter
+        """delete_vmware_cloud_director_virtual_data_center calls DELETE /v1/vrack/{serviceName}/vmwareCloudDirectorVirtualDataCenter/{vmwareCloudDirectorVirtualDataCenter}: Detach a Public VCF virtual datacenter
 
         Detaches the Public VCF virtual datacenter from the vRack. Returns the task that performs
         it.
@@ -3969,7 +3969,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     async def list_vrack_services(self, service_name: str) -> list[str]:
-        """list_vrack_services calls GET /v1/vrack/{serviceName}/vrackServices: List vRack Services. Returns the vRack Services attached to the vRack.
+        """list_vrack_services calls GET /v1/vrack/{serviceName}/vrackServices: List attached vRack Services
 
         Args:
             service_name: The internal name of your vrack
@@ -4012,7 +4012,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
     async def get_vrack_services(
         self, service_name: str, vrack_services: str
     ) -> models.VrackVrackServices:
-        """get_vrack_services calls GET /v1/vrack/{serviceName}/vrackServices/{vrackServices}: Get a vRack Services. Returns the attached vRack Services and its vRack.
+        """get_vrack_services calls GET /v1/vrack/{serviceName}/vrackServices/{vrackServices}: Get an attached vRack Services
 
         Args:
             service_name: The internal name of your vrack
@@ -4030,7 +4030,7 @@ class AsyncVrackApi(_gen.AsyncSectionApi):
         )
 
     def all_vrack_services(self, service_name: str) -> t.AsyncIterator[models.VrackVrackServices]:
-        """all_vrack_services iterates over GET /v1/vrack/{serviceName}/vrackServices (List vRack Services. Returns the vRack Services attached to the vRack.).
+        """all_vrack_services iterates over GET /v1/vrack/{serviceName}/vrackServices (List attached vRack Services).
 
         It lists the IDs with list_vrack_services, then gets each object with get_vrack_services,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other

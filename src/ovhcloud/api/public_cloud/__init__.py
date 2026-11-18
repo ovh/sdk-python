@@ -10,10 +10,11 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.public_cloud``. Its types are in
 ``ovhcloud.api.public_cloud.models``.
 
-It has 191 operations, on the routes under /v2/publicCloud.
+It has 600 operations, on the routes under /v2/publicCloud.
 
-To start, list what the account has: all_projects, all_gateways, all_load_balancers, all_networks,
-all_public_ips, all_project_ranchers, all_security_groups, all_ssh_keys, and 45 more.
+To start, list what the account has: all_projects, all_gateways, all_load_balancers,
+all_project_managed_kubernetes, all_networks, all_public_ips, all_project_ranchers,
+all_security_groups, and 162 more.
 
 To find the method for a route, search index/public_cloud.jsonl: one line per method, with its
 route, its signature and the IAM actions it requires. It is at the root of the SDK repository, and

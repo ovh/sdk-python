@@ -199,6 +199,7 @@ __all__ = [
     "TelephonyConferenceParticipants",
     "TelephonyConferenceProperties",
     "TelephonyConferencePropertiesWritable",
+    "TelephonyConferenceReportAiContentEnum",
     "TelephonyConferenceReportStatusEnum",
     "TelephonyConferenceRoom",
     "TelephonyConferenceRoomWritable",
@@ -3750,6 +3751,11 @@ class TelephonyConferenceProperties(_gen.BaseModel):
     )
     """Whether conference is recorded"""
 
+    report_ai_content: TelephonyConferenceReportAiContentEnum | None = _p.Field(
+        default=None, validation_alias="reportAiContent", serialization_alias="reportAiContent"
+    )
+    """AI generated content (summary and/or transcript) appended to the conference report mail. Requires recordStatus and a reportStatus other than none; set it back to none before disabling them"""
+
     report_email: str | None = _p.Field(
         default=None, validation_alias="reportEmail", serialization_alias="reportEmail"
     )
@@ -3820,6 +3826,14 @@ class TelephonyConferencePropertiesWritable(_gen.BaseModel):
     )
     """Whether conference is recorded"""
 
+    report_ai_content: TelephonyConferenceReportAiContentEnum | str | None = _p.Field(
+        default=None,
+        validation_alias="reportAiContent",
+        serialization_alias="reportAiContent",
+        union_mode="left_to_right",
+    )
+    """AI generated content (summary and/or transcript) appended to the conference report mail. Requires recordStatus and a reportStatus other than none; set it back to none before disabling them"""
+
     report_email: str | None = _p.Field(
         default=None, validation_alias="reportEmail", serialization_alias="reportEmail"
     )
@@ -3837,6 +3851,18 @@ class TelephonyConferencePropertiesWritable(_gen.BaseModel):
         default=None, validation_alias="whiteLabelReport", serialization_alias="whiteLabelReport"
     )
     """True if you want to receive a white-labelled mail report of your conference"""
+
+
+class TelephonyConferenceReportAiContentEnum(_gen.OpenStrEnum):
+    """AI generated content added to the conference report
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    NONE = "none"
+    SUMMARY = "summary"
+    TRANSCRIPT = "transcript"
+    TRANSCRIPT_SUMMARY = "transcript+summary"
 
 
 class TelephonyConferenceReportStatusEnum(_gen.OpenStrEnum):
@@ -3906,6 +3932,11 @@ class TelephonyConferenceRoom(_gen.BaseModel):
         default=None, validation_alias="recordStatus", serialization_alias="recordStatus"
     )
     """Whether conference is recorded"""
+
+    report_ai_content: TelephonyConferenceReportAiContentEnum | None = _p.Field(
+        default=None, validation_alias="reportAiContent", serialization_alias="reportAiContent"
+    )
+    """AI generated content (summary and/or transcript) appended to the conference report mail. Requires recordStatus and a reportStatus other than none; set it back to none before disabling them"""
 
     report_email: str | None = _p.Field(
         default=None, validation_alias="reportEmail", serialization_alias="reportEmail"
@@ -3981,6 +4012,14 @@ class TelephonyConferenceRoomWritable(_gen.BaseModel):
         default=None, validation_alias="recordStatus", serialization_alias="recordStatus"
     )
     """Whether conference is recorded"""
+
+    report_ai_content: TelephonyConferenceReportAiContentEnum | str | None = _p.Field(
+        default=None,
+        validation_alias="reportAiContent",
+        serialization_alias="reportAiContent",
+        union_mode="left_to_right",
+    )
+    """AI generated content (summary and/or transcript) appended to the conference report mail. Requires recordStatus and a reportStatus other than none; set it back to none before disabling them"""
 
     report_email: str | None = _p.Field(
         default=None, validation_alias="reportEmail", serialization_alias="reportEmail"
@@ -9654,7 +9693,7 @@ class TelephonySoftphoneTokenInput(_gen.BaseModel):
 
 
 class TelephonySound(_gen.BaseModel):
-    """List sounds"""
+    """List sounds. Returns the identifiers of the sounds of the customer. Get a sound for its filename, description, size and download URL."""
 
     creation_date: datetime.datetime | None = _p.Field(
         default=None, validation_alias="creationDate", serialization_alias="creationDate"

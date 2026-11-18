@@ -26,12 +26,304 @@ class LicenseofficePrepaidApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 1 operation, on the routes under /v1/license/officePrepaid.
+    It has 12 operations, on the routes under /v1/license/officePrepaid.
+
+    To start, list what the account has: list_office_prepaids, list_tenant_pending_tasks,
+    list_tenant_usage_statistics.
 
     To find the method for a route, search index/licenseoffice_prepaid.jsonl: one line per method,
     with its route, its signature and the IAM actions it requires. It is at the root of the SDK
     repository, and in the installed package.
     """
+
+    def list_office_prepaids(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_office_prepaids calls GET /v1/license/officePrepaid: List prepaid users
+
+        Returns the service names of the prepaid users.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:get.
+        """
+        return self._call(
+            _r.OP_LIST_OFFICE_PREPAIDS,
+            query=(("iamTags", iam_tags),),
+            result=list[str],
+        )
+
+    def get_office_prepaid(
+        self, service_name: str
+    ) -> models.LicenseOfficePrepaidOfficeUserNativeWithIAM:
+        """get_office_prepaid calls GET /v1/license/officePrepaid/{serviceName}: Get a prepaid user
+
+        Returns the names, activation email, licenses and state of the prepaid user, and the service
+        names of the user and of its tenant. `isVirtual` tells whether it is a user slot or a real
+        user.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:get.
+        """
+        return self._call(
+            _r.OP_GET_OFFICE_PREPAID,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.LicenseOfficePrepaidOfficeUserNativeWithIAM,
+        )
+
+    def all_office_prepaids(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.LicenseOfficePrepaidOfficeUserNativeWithIAM]:
+        """all_office_prepaids iterates over GET /v1/license/officePrepaid (List prepaid users).
+
+        It lists the IDs with list_office_prepaids, then gets each object with get_office_prepaid,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        The two calls require the IAM action licenseOfficePrepaid:apiovh:get.
+        """
+        return self._each(
+            lambda: self.list_office_prepaids(
+                iam_tags=iam_tags,
+            ),
+            lambda listed_id: self.get_office_prepaid(listed_id),
+        )
+
+    def update_office_prepaid(
+        self, service_name: str, body: models.LicenseOfficePrepaidPutOfficeUserNative
+    ) -> None:
+        """update_office_prepaid calls PUT /v1/license/officePrepaid/{serviceName}: Update a prepaid user
+
+        Updates the first name, last name and activation email of the prepaid user.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:put.
+        """
+        return self._call(
+            _r.OP_UPDATE_OFFICE_PREPAID,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficePrepaidPutOfficeUserNative,
+        )
+
+    def change_password(
+        self, service_name: str, body: models.LicenseOfficePrepaidOfficeTenantPostChangePassword
+    ) -> models.LicenseOfficePrepaidOfficeTaskNative:
+        """change_password calls POST /v1/license/officePrepaid/{serviceName}/changePassword: Change a prepaid user password
+
+        Changes the password of the prepaid user and returns the task. Leave `password` empty to
+        receive a generated password by email. Set `shouldSendMail` to send the new password to
+        `notifyEmail`, the admin contact email by default.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:changePassword.
+        """
+        return self._call(
+            _r.OP_CHANGE_PASSWORD,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficePrepaidOfficeTenantPostChangePassword,
+            result=models.LicenseOfficePrepaidOfficeTaskNative,
+        )
+
+    def get_parent_tenant(self, service_name: str) -> models.LicenseOfficePrepaidOfficeTenantNative:
+        """get_parent_tenant calls GET /v1/license/officePrepaid/{serviceName}/parentTenant: Get the parent tenant
+
+        Returns the tenant of the prepaid user: display name, contact details, service type, status,
+        and whether the Microsoft Customer Agreement (MCA) is accepted.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:parentTenant/get.
+        """
+        return self._call(
+            _r.OP_GET_PARENT_TENANT,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.LicenseOfficePrepaidOfficeTenantNative,
+        )
+
+    def update_parent_tenant(
+        self,
+        service_name: str,
+        body: models.LicenseOfficePrepaidOfficeTenantPutParentTenantWritable,
+    ) -> None:
+        """update_parent_tenant calls PUT /v1/license/officePrepaid/{serviceName}/parentTenant: Update the parent tenant
+
+        Updates the display name of the tenant of the prepaid user.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:parentTenant/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PARENT_TENANT,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficePrepaidOfficeTenantPutParentTenantWritable,
+        )
+
+    def accept_agreement_parent_tenant(self, service_name: str) -> None:
+        """accept_agreement_parent_tenant calls POST /v1/license/officePrepaid/{serviceName}/parentTenant/acceptAgreement: Accept the Microsoft Customer Agreement
+
+        Accepts the Microsoft Customer Agreement (MCA) for the parent tenant.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:acceptAgreement.
+        """
+        return self._call(
+            _r.OP_ACCEPT_AGREEMENT_PARENT_TENANT,
+            path_params={
+                "serviceName": service_name,
+            },
+        )
+
+    def create_attestation_parent_tenant(
+        self, service_name: str, body: models.LicenseOfficePrepaidCreateAttestationPostPayload
+    ) -> models.LicenseOfficePrepaidCreateAttestationResponse:
+        """create_attestation_parent_tenant calls POST /v1/license/officePrepaid/{serviceName}/parentTenant/createAttestation: Create an MCA attestation
+
+        Creates a Microsoft Customer Agreement attestation for the parent tenant from the signatory
+        company, names, email address, phone number, country and language. Returns the attestation
+        ID and a link to the attestation that can be embedded in an iframe.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:createAttestation.
+        """
+        return self._call(
+            _r.OP_CREATE_ATTESTATION_PARENT_TENANT,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficePrepaidCreateAttestationPostPayload,
+            result=models.LicenseOfficePrepaidCreateAttestationResponse,
+        )
+
+    def list_tenant_pending_tasks(self, service_name: str) -> list[int]:
+        """list_tenant_pending_tasks calls GET /v1/license/officePrepaid/{serviceName}/tenantPendingTask: List parent tenant tasks
+
+        Returns the IDs of the pending tasks of the parent tenant.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:tenantPendingTask/get.
+        """
+        return self._call(
+            _r.OP_LIST_TENANT_PENDING_TASKS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[int],
+        )
+
+    def get_tenant_pending_task(
+        self, service_name: str, id: int
+    ) -> models.LicenseOfficePrepaidOfficeTaskNative:
+        """get_tenant_pending_task calls GET /v1/license/officePrepaid/{serviceName}/tenantPendingTask/{id}: Get a parent tenant task
+
+        Returns the function, status, creation date and completion date of the task.
+
+        Args:
+            service_name: Service name
+            id: Id
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:tenantPendingTask/get.
+        """
+        return self._call(
+            _r.OP_GET_TENANT_PENDING_TASK,
+            path_params={
+                "serviceName": service_name,
+                "id": id,
+            },
+            result=models.LicenseOfficePrepaidOfficeTaskNative,
+        )
+
+    def all_tenant_pending_tasks(
+        self, service_name: str
+    ) -> t.Iterator[models.LicenseOfficePrepaidOfficeTaskNative]:
+        """all_tenant_pending_tasks iterates over GET /v1/license/officePrepaid/{serviceName}/tenantPendingTask (List parent tenant tasks).
+
+        It lists the IDs with list_tenant_pending_tasks, then gets each object with get_tenant_pending_task,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service_name: Service name
+
+        The two calls require the IAM action licenseOfficePrepaid:apiovh:tenantPendingTask/get.
+        """
+        return self._each(
+            lambda: self.list_tenant_pending_tasks(
+                service_name,
+            ),
+            lambda listed_id: self.get_tenant_pending_task(service_name, listed_id),
+        )
+
+    def list_tenant_usage_statistics(
+        self,
+        service_name: str,
+        *,
+        from_: datetime.datetime | None | NotGiven = NOT_GIVEN,
+        to: datetime.datetime | None | NotGiven = NOT_GIVEN,
+    ) -> list[models.LicenseOfficePrepaidOfficeCurrentStatisticsNative]:
+        """list_tenant_usage_statistics calls GET /v1/license/officePrepaid/{serviceName}/tenantUsageStatistics: Get parent tenant usage statistics
+
+        Returns, for each day between `from` and `to`, the peak and end-of-day counts of activated
+        licenses of the parent tenant, by license type.
+
+        Args:
+            service_name: Service name
+            from_: Period's start point. (optional)
+            to: Period's end point. (optional)
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:tenantUsageStatistics/get.
+        """
+        return self._call(
+            _r.OP_LIST_TENANT_USAGE_STATISTICS,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(
+                ("from", from_),
+                ("to", to),
+            ),
+            result=list[models.LicenseOfficePrepaidOfficeCurrentStatisticsNative],
+        )
 
     def unconfigure(self, service_name: str) -> models.LicenseOfficePrepaidOfficeTaskNative:
         """unconfigure calls POST /v1/license/officePrepaid/{serviceName}/unconfigure: Unconfigure a prepaid user
@@ -58,12 +350,306 @@ class AsyncLicenseofficePrepaidApi(_gen.AsyncSectionApi):
 
     The methods of LicenseofficePrepaidApi, with await. Iterators are async: use ``async for``.
 
-    It has 1 operation, on the routes under /v1/license/officePrepaid.
+    It has 12 operations, on the routes under /v1/license/officePrepaid.
+
+    To start, list what the account has: list_office_prepaids, list_tenant_pending_tasks,
+    list_tenant_usage_statistics.
 
     To find the method for a route, search index/licenseoffice_prepaid.jsonl: one line per method,
     with its route, its signature and the IAM actions it requires. It is at the root of the SDK
     repository, and in the installed package.
     """
+
+    async def list_office_prepaids(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_office_prepaids calls GET /v1/license/officePrepaid: List prepaid users
+
+        Returns the service names of the prepaid users.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:get.
+        """
+        return await self._call(
+            _r.OP_LIST_OFFICE_PREPAIDS,
+            query=(("iamTags", iam_tags),),
+            result=list[str],
+        )
+
+    async def get_office_prepaid(
+        self, service_name: str
+    ) -> models.LicenseOfficePrepaidOfficeUserNativeWithIAM:
+        """get_office_prepaid calls GET /v1/license/officePrepaid/{serviceName}: Get a prepaid user
+
+        Returns the names, activation email, licenses and state of the prepaid user, and the service
+        names of the user and of its tenant. `isVirtual` tells whether it is a user slot or a real
+        user.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:get.
+        """
+        return await self._call(
+            _r.OP_GET_OFFICE_PREPAID,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.LicenseOfficePrepaidOfficeUserNativeWithIAM,
+        )
+
+    def all_office_prepaids(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.LicenseOfficePrepaidOfficeUserNativeWithIAM]:
+        """all_office_prepaids iterates over GET /v1/license/officePrepaid (List prepaid users).
+
+        It lists the IDs with list_office_prepaids, then gets each object with get_office_prepaid,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        The two calls require the IAM action licenseOfficePrepaid:apiovh:get.
+        """
+        return self._each(
+            lambda: self.list_office_prepaids(
+                iam_tags=iam_tags,
+            ),
+            lambda listed_id: self.get_office_prepaid(listed_id),
+        )
+
+    async def update_office_prepaid(
+        self, service_name: str, body: models.LicenseOfficePrepaidPutOfficeUserNative
+    ) -> None:
+        """update_office_prepaid calls PUT /v1/license/officePrepaid/{serviceName}: Update a prepaid user
+
+        Updates the first name, last name and activation email of the prepaid user.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:put.
+        """
+        return await self._call(
+            _r.OP_UPDATE_OFFICE_PREPAID,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficePrepaidPutOfficeUserNative,
+        )
+
+    async def change_password(
+        self, service_name: str, body: models.LicenseOfficePrepaidOfficeTenantPostChangePassword
+    ) -> models.LicenseOfficePrepaidOfficeTaskNative:
+        """change_password calls POST /v1/license/officePrepaid/{serviceName}/changePassword: Change a prepaid user password
+
+        Changes the password of the prepaid user and returns the task. Leave `password` empty to
+        receive a generated password by email. Set `shouldSendMail` to send the new password to
+        `notifyEmail`, the admin contact email by default.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:changePassword.
+        """
+        return await self._call(
+            _r.OP_CHANGE_PASSWORD,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficePrepaidOfficeTenantPostChangePassword,
+            result=models.LicenseOfficePrepaidOfficeTaskNative,
+        )
+
+    async def get_parent_tenant(
+        self, service_name: str
+    ) -> models.LicenseOfficePrepaidOfficeTenantNative:
+        """get_parent_tenant calls GET /v1/license/officePrepaid/{serviceName}/parentTenant: Get the parent tenant
+
+        Returns the tenant of the prepaid user: display name, contact details, service type, status,
+        and whether the Microsoft Customer Agreement (MCA) is accepted.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:parentTenant/get.
+        """
+        return await self._call(
+            _r.OP_GET_PARENT_TENANT,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.LicenseOfficePrepaidOfficeTenantNative,
+        )
+
+    async def update_parent_tenant(
+        self,
+        service_name: str,
+        body: models.LicenseOfficePrepaidOfficeTenantPutParentTenantWritable,
+    ) -> None:
+        """update_parent_tenant calls PUT /v1/license/officePrepaid/{serviceName}/parentTenant: Update the parent tenant
+
+        Updates the display name of the tenant of the prepaid user.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:parentTenant/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PARENT_TENANT,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficePrepaidOfficeTenantPutParentTenantWritable,
+        )
+
+    async def accept_agreement_parent_tenant(self, service_name: str) -> None:
+        """accept_agreement_parent_tenant calls POST /v1/license/officePrepaid/{serviceName}/parentTenant/acceptAgreement: Accept the Microsoft Customer Agreement
+
+        Accepts the Microsoft Customer Agreement (MCA) for the parent tenant.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:acceptAgreement.
+        """
+        return await self._call(
+            _r.OP_ACCEPT_AGREEMENT_PARENT_TENANT,
+            path_params={
+                "serviceName": service_name,
+            },
+        )
+
+    async def create_attestation_parent_tenant(
+        self, service_name: str, body: models.LicenseOfficePrepaidCreateAttestationPostPayload
+    ) -> models.LicenseOfficePrepaidCreateAttestationResponse:
+        """create_attestation_parent_tenant calls POST /v1/license/officePrepaid/{serviceName}/parentTenant/createAttestation: Create an MCA attestation
+
+        Creates a Microsoft Customer Agreement attestation for the parent tenant from the signatory
+        company, names, email address, phone number, country and language. Returns the attestation
+        ID and a link to the attestation that can be embedded in an iframe.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:createAttestation.
+        """
+        return await self._call(
+            _r.OP_CREATE_ATTESTATION_PARENT_TENANT,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.LicenseOfficePrepaidCreateAttestationPostPayload,
+            result=models.LicenseOfficePrepaidCreateAttestationResponse,
+        )
+
+    async def list_tenant_pending_tasks(self, service_name: str) -> list[int]:
+        """list_tenant_pending_tasks calls GET /v1/license/officePrepaid/{serviceName}/tenantPendingTask: List parent tenant tasks
+
+        Returns the IDs of the pending tasks of the parent tenant.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:tenantPendingTask/get.
+        """
+        return await self._call(
+            _r.OP_LIST_TENANT_PENDING_TASKS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[int],
+        )
+
+    async def get_tenant_pending_task(
+        self, service_name: str, id: int
+    ) -> models.LicenseOfficePrepaidOfficeTaskNative:
+        """get_tenant_pending_task calls GET /v1/license/officePrepaid/{serviceName}/tenantPendingTask/{id}: Get a parent tenant task
+
+        Returns the function, status, creation date and completion date of the task.
+
+        Args:
+            service_name: Service name
+            id: Id
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:tenantPendingTask/get.
+        """
+        return await self._call(
+            _r.OP_GET_TENANT_PENDING_TASK,
+            path_params={
+                "serviceName": service_name,
+                "id": id,
+            },
+            result=models.LicenseOfficePrepaidOfficeTaskNative,
+        )
+
+    def all_tenant_pending_tasks(
+        self, service_name: str
+    ) -> t.AsyncIterator[models.LicenseOfficePrepaidOfficeTaskNative]:
+        """all_tenant_pending_tasks iterates over GET /v1/license/officePrepaid/{serviceName}/tenantPendingTask (List parent tenant tasks).
+
+        It lists the IDs with list_tenant_pending_tasks, then gets each object with get_tenant_pending_task,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service_name: Service name
+
+        The two calls require the IAM action licenseOfficePrepaid:apiovh:tenantPendingTask/get.
+        """
+        return self._each(
+            lambda: self.list_tenant_pending_tasks(
+                service_name,
+            ),
+            lambda listed_id: self.get_tenant_pending_task(service_name, listed_id),
+        )
+
+    async def list_tenant_usage_statistics(
+        self,
+        service_name: str,
+        *,
+        from_: datetime.datetime | None | NotGiven = NOT_GIVEN,
+        to: datetime.datetime | None | NotGiven = NOT_GIVEN,
+    ) -> list[models.LicenseOfficePrepaidOfficeCurrentStatisticsNative]:
+        """list_tenant_usage_statistics calls GET /v1/license/officePrepaid/{serviceName}/tenantUsageStatistics: Get parent tenant usage statistics
+
+        Returns, for each day between `from` and `to`, the peak and end-of-day counts of activated
+        licenses of the parent tenant, by license type.
+
+        Args:
+            service_name: Service name
+            from_: Period's start point. (optional)
+            to: Period's end point. (optional)
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:tenantUsageStatistics/get.
+        """
+        return await self._call(
+            _r.OP_LIST_TENANT_USAGE_STATISTICS,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(
+                ("from", from_),
+                ("to", to),
+            ),
+            result=list[models.LicenseOfficePrepaidOfficeCurrentStatisticsNative],
+        )
 
     async def unconfigure(self, service_name: str) -> models.LicenseOfficePrepaidOfficeTaskNative:
         """unconfigure calls POST /v1/license/officePrepaid/{serviceName}/unconfigure: Unconfigure a prepaid user

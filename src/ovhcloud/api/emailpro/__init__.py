@@ -10,9 +10,10 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.emailpro``. Its types are in
 ``ovhcloud.api.emailpro.models``.
 
-It has 32 operations, on the routes under /v1/email/pro.
+It has 60 operations, on the routes under /v1/email/pro.
 
-To start, list what the account has: list_domain_dkim_selectors.
+To start, list what the account has: list_pros, list_accounts, list_domains, list_external_contacts,
+list_tasks, list_account_alias, list_account_full_access, list_account_send_as, and 5 more.
 
 To find the method for a route, search index/emailpro.jsonl: one line per method, with its route,
 its signature and the IAM actions it requires. It is at the root of the SDK repository, and in the

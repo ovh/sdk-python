@@ -10,9 +10,10 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.licenseoffice``. Its types are in
 ``ovhcloud.api.licenseoffice.models``.
 
-It has 8 operations, on the routes under /v1/license/office.
+It has 16 operations, on the routes under /v1/license/office.
 
-To start, list what the account has: list_users.
+To start, list what the account has: list_offices, list_domains, list_pending_tasks,
+list_usage_statistics, list_users.
 
 To find the method for a route, search index/licenseoffice.jsonl: one line per method, with its
 route, its signature and the IAM actions it requires. It is at the root of the SDK repository, and

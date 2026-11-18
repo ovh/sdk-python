@@ -17,7 +17,7 @@ from ..._core._gen import Operation
 #: The section key: the spec file name.
 SECTION_KEY = "dedicatedserver"
 #: The /v2 contract the section was generated from, sent as X-Schemas-Version.
-SCHEMAS_VERSION: str | None = None
+SCHEMAS_VERSION: str | None = "1.0"
 
 OP_LIST_SERVERS = Operation(
     name="dedicatedserver.list_servers",
@@ -59,6 +59,16 @@ OP_LIST_OS_AVAILABILITIES = Operation(
     schemas_version=None,
 )
 
+OP_LIST_REGION_AVAILABILITIES = Operation(
+    name="dedicatedserver.list_region_availabilities",
+    method="GET",
+    path="/v1/dedicated/server/region/availabilities",
+    summary="List server availability by region",
+    iam_actions=(),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_GET_VIRTUAL_NETWORK_INTERFACE_BY_UUID = Operation(
     name="dedicatedserver.get_virtual_network_interface_by_uuid",
     method="GET",
@@ -95,6 +105,46 @@ OP_AUTHENTICATION_SECRET = Operation(
     path="/v1/dedicated/server/{serviceName}/authenticationSecret",
     summary="Get access credentials",
     iam_actions=("dedicatedServer:apiovh:authenticationSecret/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_BACKUP_CLOUD_OFFER_DETAILS = Operation(
+    name="dedicatedserver.get_backup_cloud_offer_details",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/backupCloudOfferDetails",
+    summary="Get the cloud backup offer",
+    iam_actions=("dedicatedServer:apiovh:backupCloudOfferDetails/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_BIOS_SETTINGS = Operation(
+    name="dedicatedserver.get_bios_settings",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/biosSettings",
+    summary="Get the BIOS settings",
+    iam_actions=("dedicatedServer:apiovh:biosSettings/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_BIOS_SETTINGS_SGX = Operation(
+    name="dedicatedserver.get_bios_settings_sgx",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/biosSettings/sgx",
+    summary="Get the SGX settings",
+    iam_actions=("dedicatedServer:apiovh:biosSettings/sgx/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CONFIGURE_BIOS_SETTINGS_SGX = Operation(
+    name="dedicatedserver.configure_bios_settings_sgx",
+    method="POST",
+    path="/v1/dedicated/server/{serviceName}/biosSettings/sgx/configure",
+    summary="Configure SGX",
+    iam_actions=("dedicatedServer:apiovh:biosSettings/sgx/configure",),
     deprecated=False,
     schemas_version=None,
 )
@@ -175,6 +225,46 @@ OP_CONFIRM_TERMINATION = Operation(
     path="/v1/dedicated/server/{serviceName}/confirmTermination",
     summary="Confirm service termination",
     iam_actions=("dedicatedServer:apiovh:confirmTermination",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_FEATURES_BACKUP_CLOUD = Operation(
+    name="dedicatedserver.get_features_backup_cloud",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/features/backupCloud",
+    summary="Get the cloud backup",
+    iam_actions=("dedicatedServer:apiovh:features/backupCloud/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CREATE_FEATURES_BACKUP_CLOUD = Operation(
+    name="dedicatedserver.create_features_backup_cloud",
+    method="POST",
+    path="/v1/dedicated/server/{serviceName}/features/backupCloud",
+    summary="Create the cloud backup",
+    iam_actions=("dedicatedServer:apiovh:features/backupCloud/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_DELETE_FEATURES_BACKUP_CLOUD = Operation(
+    name="dedicatedserver.delete_features_backup_cloud",
+    method="DELETE",
+    path="/v1/dedicated/server/{serviceName}/features/backupCloud",
+    summary="Deactivate the cloud backup",
+    iam_actions=("dedicatedServer:apiovh:features/backupCloud/delete",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_PASSWORD_FEATURES_BACKUP_CLOUD = Operation(
+    name="dedicatedserver.password_features_backup_cloud",
+    method="POST",
+    path="/v1/dedicated/server/{serviceName}/features/backupCloud/password",
+    summary="Regenerate cloud backup passwords",
+    iam_actions=("dedicatedServer:apiovh:features/backupCloud/password/create",),
     deprecated=False,
     schemas_version=None,
 )
@@ -519,6 +609,79 @@ OP_WINDOWS_LICENSE = Operation(
     schemas_version=None,
 )
 
+OP_ALL_LOG_KINDS = Operation(
+    name="dedicatedserver.all_log_kinds",
+    method="GET",
+    path="/v2/dedicated/server/{serviceName}/log/kind",
+    summary="List log kinds",
+    iam_actions=("dedicatedServer:apiovh:log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_LOG_KIND = Operation(
+    name="dedicatedserver.get_log_kind",
+    method="GET",
+    path="/v2/dedicated/server/{serviceName}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("dedicatedServer:apiovh:log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_LOG_SUBSCRIPTIONS = Operation(
+    name="dedicatedserver.all_log_subscriptions",
+    method="GET",
+    path="/v2/dedicated/server/{serviceName}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("dedicatedServer:apiovh:log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_LOG_SUBSCRIPTION = Operation(
+    name="dedicatedserver.create_log_subscription",
+    method="POST",
+    path="/v2/dedicated/server/{serviceName}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=(
+        "dedicatedServer:apiovh:log/subscription",
+        "ldp:apiovh:output/graylog/stream/forwardTo",
+    ),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_LOG_SUBSCRIPTION = Operation(
+    name="dedicatedserver.get_log_subscription",
+    method="GET",
+    path="/v2/dedicated/server/{serviceName}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("dedicatedServer:apiovh:log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_LOG_SUBSCRIPTION = Operation(
+    name="dedicatedserver.delete_log_subscription",
+    method="DELETE",
+    path="/v2/dedicated/server/{serviceName}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("dedicatedServer:apiovh:log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_LOG = Operation(
+    name="dedicatedserver.url_log",
+    method="POST",
+    path="/v2/dedicated/server/{serviceName}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("dedicatedServer:apiovh:log/url",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
 OP_LIST_MRTGS = Operation(
     name="dedicatedserver.list_mrtgs",
     method="GET",
@@ -529,6 +692,56 @@ OP_LIST_MRTGS = Operation(
     schemas_version=None,
 )
 
+OP_LIST_NETWORK_INTERFACE_CONTROLLERS = Operation(
+    name="dedicatedserver.list_network_interface_controllers",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/networkInterfaceController",
+    summary="List network interface controllers",
+    iam_actions=("dedicatedServer:apiovh:networkInterfaceController/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_NETWORK_INTERFACE_CONTROLLER = Operation(
+    name="dedicatedserver.get_network_interface_controller",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/networkInterfaceController/{mac}",
+    summary="Get a network interface controller",
+    iam_actions=("dedicatedServer:apiovh:networkInterfaceController/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_NETWORK_INTERFACE_CONTROLLER_MRTGS = Operation(
+    name="dedicatedserver.list_network_interface_controller_mrtgs",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/networkInterfaceController/{mac}/mrtg",
+    summary="Get interface traffic statistics",
+    iam_actions=("dedicatedServer:apiovh:networkInterfaceController/mrtg/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_NETWORKING = Operation(
+    name="dedicatedserver.get_networking",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/networking",
+    summary="Get the network configuration",
+    iam_actions=("dedicatedServer:apiovh:networking/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_AGGREGATION_OLA = Operation(
+    name="dedicatedserver.aggregation_ola",
+    method="POST",
+    path="/v1/dedicated/server/{serviceName}/ola/aggregation",
+    summary="Aggregate network interfaces",
+    iam_actions=("dedicatedServer:apiovh:ola/aggregation/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_GROUP_OLA = Operation(
     name="dedicatedserver.group_ola",
     method="POST",
@@ -536,6 +749,16 @@ OP_GROUP_OLA = Operation(
     summary="Group network interfaces",
     iam_actions=("dedicatedServer:apiovh:ola/group/create",),
     deprecated=True,
+    schemas_version=None,
+)
+
+OP_RESET_OLA = Operation(
+    name="dedicatedserver.reset_ola",
+    method="POST",
+    path="/v1/dedicated/server/{serviceName}/ola/reset",
+    summary="Reset a network interface",
+    iam_actions=("dedicatedServer:apiovh:ola/reset",),
+    deprecated=False,
     schemas_version=None,
 )
 
@@ -675,6 +898,46 @@ OP_GET_ORDERABLE_USB_KEY = Operation(
     path="/v1/dedicated/server/{serviceName}/orderable/usbKey",
     summary="Get orderable USB keys",
     iam_actions=("dedicatedServer:apiovh:orderable/usbKey/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_PLANNED_CHANGES = Operation(
+    name="dedicatedserver.list_planned_changes",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/plannedChange",
+    summary="List planned changes",
+    iam_actions=("dedicatedServer:apiovh:plannedChange/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_PLANNED_CHANGE = Operation(
+    name="dedicatedserver.get_planned_change",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/plannedChange/{changeUuid}",
+    summary="Get a planned change",
+    iam_actions=("dedicatedServer:apiovh:plannedChange/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_PLANNED_INTERVENTIONS = Operation(
+    name="dedicatedserver.list_planned_interventions",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/plannedIntervention",
+    summary="List planned interventions",
+    iam_actions=("dedicatedServer:apiovh:plannedIntervention/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_PLANNED_INTERVENTION = Operation(
+    name="dedicatedserver.get_planned_intervention",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/plannedIntervention/{interventionId}",
+    summary="Get a planned intervention",
+    iam_actions=("dedicatedServer:apiovh:plannedIntervention/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -989,6 +1252,26 @@ OP_DELETE_VIRTUAL_MAC_VIRTUAL_ADDRESS = Operation(
     schemas_version=None,
 )
 
+OP_LIST_VIRTUAL_NETWORK_INTERFACES = Operation(
+    name="dedicatedserver.list_virtual_network_interfaces",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/virtualNetworkInterface",
+    summary="List virtual network interfaces",
+    iam_actions=("dedicatedServer:apiovh:virtualNetworkInterface/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_BY_SERVICE_NAME_VIRTUAL_NETWORK_INTERFACE_BY_UUID = Operation(
+    name="dedicatedserver.get_by_service_name_virtual_network_interface_by_uuid",
+    method="GET",
+    path="/v1/dedicated/server/{serviceName}/virtualNetworkInterface/{uuid}",
+    summary="Get a virtual network interface",
+    iam_actions=("dedicatedServer:apiovh:virtualNetworkInterface/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_UPDATE_VIRTUAL_NETWORK_INTERFACE = Operation(
     name="dedicatedserver.update_virtual_network_interface",
     method="PUT",
@@ -1033,7 +1316,7 @@ OP_GET_VRACK = Operation(
     name="dedicatedserver.get_vrack",
     method="GET",
     path="/v1/dedicated/server/{serviceName}/vrack/{vrack}",
-    summary="Get a server link (legacy)",
+    summary="Get an attached dedicated server (legacy)",
     iam_actions=("dedicatedServer:apiovh:vrack/get",),
     deprecated=False,
     schemas_version=None,
@@ -1043,7 +1326,7 @@ OP_DELETE_VRACK = Operation(
     name="dedicatedserver.delete_vrack",
     method="DELETE",
     path="/v1/dedicated/server/{serviceName}/vrack/{vrack}",
-    summary="Detach a server (legacy)",
+    summary="Detach a dedicated server (legacy)",
     iam_actions=("dedicatedServer:apiovh:vrack/delete",),
     deprecated=False,
     schemas_version=None,
@@ -1053,7 +1336,7 @@ OP_LIST_VRACK_MRTGS = Operation(
     name="dedicatedserver.list_vrack_mrtgs",
     method="GET",
     path="/v1/dedicated/server/{serviceName}/vrack/{vrack}/mrtg",
-    summary="Get traffic graph values (deprecated)",
+    summary="Get dedicated server traffic values (deprecated)",
     iam_actions=("dedicatedServer:apiovh:vrack/mrtg/get",),
     deprecated=True,
     schemas_version=None,
@@ -1064,10 +1347,15 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_LIST_DATACENTER_AVAILABILITIES,
     OP_GET_LOG,
     OP_LIST_OS_AVAILABILITIES,
+    OP_LIST_REGION_AVAILABILITIES,
     OP_GET_VIRTUAL_NETWORK_INTERFACE_BY_UUID,
     OP_GET_SERVER,
     OP_UPDATE_SERVER,
     OP_AUTHENTICATION_SECRET,
+    OP_GET_BACKUP_CLOUD_OFFER_DETAILS,
+    OP_GET_BIOS_SETTINGS,
+    OP_GET_BIOS_SETTINGS_SGX,
+    OP_CONFIGURE_BIOS_SETTINGS_SGX,
     OP_LIST_BOOTS,
     OP_GET_BOOT,
     OP_LIST_BOOT_OPTIONS,
@@ -1076,6 +1364,10 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_UPDATE_BURST,
     OP_CHANGE_CONTACT,
     OP_CONFIRM_TERMINATION,
+    OP_GET_FEATURES_BACKUP_CLOUD,
+    OP_CREATE_FEATURES_BACKUP_CLOUD,
+    OP_DELETE_FEATURES_BACKUP_CLOUD,
+    OP_PASSWORD_FEATURES_BACKUP_CLOUD,
     OP_GET_FEATURES_BACKUP_FTP,
     OP_CREATE_FEATURES_BACKUP_FTP,
     OP_DELETE_FEATURES_BACKUP_FTP,
@@ -1110,8 +1402,21 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_LIST_LICENSE_COMPLIANT_WINDOWS,
     OP_LIST_LICENSE_COMPLIANT_WINDOWS_SQL_SERVERS,
     OP_WINDOWS_LICENSE,
+    OP_ALL_LOG_KINDS,
+    OP_GET_LOG_KIND,
+    OP_ALL_LOG_SUBSCRIPTIONS,
+    OP_CREATE_LOG_SUBSCRIPTION,
+    OP_GET_LOG_SUBSCRIPTION,
+    OP_DELETE_LOG_SUBSCRIPTION,
+    OP_URL_LOG,
     OP_LIST_MRTGS,
+    OP_LIST_NETWORK_INTERFACE_CONTROLLERS,
+    OP_GET_NETWORK_INTERFACE_CONTROLLER,
+    OP_LIST_NETWORK_INTERFACE_CONTROLLER_MRTGS,
+    OP_GET_NETWORKING,
+    OP_AGGREGATION_OLA,
     OP_GROUP_OLA,
+    OP_RESET_OLA,
     OP_UNGROUP_OLA,
     OP_LIST_OPTIONS,
     OP_GET_OPTION,
@@ -1126,6 +1431,10 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_GET_ORDERABLE_PROFESSIONAL_USE,
     OP_GET_ORDERABLE_TRAFFIC,
     OP_GET_ORDERABLE_USB_KEY,
+    OP_LIST_PLANNED_CHANGES,
+    OP_GET_PLANNED_CHANGE,
+    OP_LIST_PLANNED_INTERVENTIONS,
+    OP_GET_PLANNED_INTERVENTION,
     OP_REBOOT,
     OP_REINSTALL,
     OP_LIST_SECONDARY_DNS_DOMAINS,
@@ -1157,6 +1466,8 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_CREATE_VIRTUAL_MAC_VIRTUAL_ADDRESS,
     OP_GET_VIRTUAL_MAC_VIRTUAL_ADDRESS,
     OP_DELETE_VIRTUAL_MAC_VIRTUAL_ADDRESS,
+    OP_LIST_VIRTUAL_NETWORK_INTERFACES,
+    OP_GET_BY_SERVICE_NAME_VIRTUAL_NETWORK_INTERFACE_BY_UUID,
     OP_UPDATE_VIRTUAL_NETWORK_INTERFACE,
     OP_DISABLE_VIRTUAL_NETWORK_INTERFACE,
     OP_ENABLE_VIRTUAL_NETWORK_INTERFACE,

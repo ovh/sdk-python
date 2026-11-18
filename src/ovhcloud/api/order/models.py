@@ -67,6 +67,7 @@ __all__ = [
     "PostCartServiceOptionSharepointRequest",
     "PostCartServiceOptionVdiRequest",
     "PostCartServiceOptionVmwareCloudDirectorRequest",
+    "PostCartServiceOptionVrackServicesRequest",
     "PostCartServiceOptionVrackRequest",
     "PostCartServiceOptionWebHostingRequest",
     "PostDedicatedCloudAdditionalBandwidthRequest",
@@ -1479,6 +1480,25 @@ class PostCartServiceOptionVmwareCloudDirectorRequest(_gen.BaseModel):
 
     plan_code: str = _p.Field(validation_alias="planCode", serialization_alias="planCode")
     """Identifier of the additional VMware Cloud Director offer"""
+
+    pricing_mode: str = _p.Field(validation_alias="pricingMode", serialization_alias="pricingMode")
+    """Pricing mode selected for the purchase of the product"""
+
+    quantity: int = _p.Field()
+    """Quantity of product desired"""
+
+
+class PostCartServiceOptionVrackServicesRequest(_gen.BaseModel):
+    """The request body of POST /v1/order/cartServiceOption/vrackServices/{serviceName}."""
+
+    cart_id: str = _p.Field(validation_alias="cartId", serialization_alias="cartId")
+    """Cart identifier"""
+
+    duration: str = _p.Field()
+    """Duration selected for the purchase of the product"""
+
+    plan_code: str = _p.Field(validation_alias="planCode", serialization_alias="planCode")
+    """Identifier of the additional vrackServices offer"""
 
     pricing_mode: str = _p.Field(validation_alias="pricingMode", serialization_alias="pricingMode")
     """Pricing mode selected for the purchase of the product"""

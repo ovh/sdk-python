@@ -26,11 +26,11 @@ class PublicCloudApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 191 operations, on the routes under /v2/publicCloud.
+    It has 600 operations, on the routes under /v2/publicCloud.
 
     To start, list what the account has: all_projects, all_gateways, all_load_balancers,
-    all_networks, all_public_ips, all_project_ranchers, all_security_groups, all_ssh_keys, and 45
-    more.
+    all_project_managed_kubernetes, all_networks, all_public_ips, all_project_ranchers,
+    all_security_groups, and 162 more.
 
     To find the method for a route, search index/public_cloud.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -76,405 +76,6 @@ class PublicCloudApi(_gen.SectionApi):
                 "projectId": project_id,
             },
             result=models.PublicCloudProjectProjectAsyncWithIAM,
-        )
-
-    def all_project_ai_agents_agents(
-        self, project_id: str
-    ) -> t.Iterator[models.PublicCloudAiAgentsAgent]:
-        """all_project_ai_agents_agents iterates over GET /v2/publicCloud/project/{projectId}/ai/agents/agent (List AI agents).
-
-        It yields one item at a time, and gets the next page only when the loop reaches it.
-        An error is raised and stops the loop.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/get.
-        """
-        return self._pages(
-            _r.OP_ALL_PROJECT_AI_AGENTS_AGENTS,
-            path_params={
-                "projectId": project_id,
-            },
-            item=models.PublicCloudAiAgentsAgent,
-        )
-
-    def create_project_ai_agents_agent(
-        self, project_id: str, body: models.PublicCloudAiAgentsAgentCreation
-    ) -> models.PublicCloudAiAgentsAgent:
-        """create_project_ai_agents_agent calls POST /v2/publicCloud/project/{projectId}/ai/agents/agent: Create an AI agent
-
-        Creates an AI agent: a hosted assistant that answers on its own URL, given by
-        `currentState.endpointUrl`, and reached with a token from the `token` action. An agent runs
-        a model with a persona, plus whatever tools, memory and channels its configuration gives it.
-        That configuration can come from a ready-made one published by OVHcloud, from a template of
-        your own, or from settings supplied here — or from none of them, leaving an agent that
-        cannot answer until it is given a model. Parts of it that OVHcloud manages are rejected
-        here; the `globalSettings` preset says which. This is the only point at which this API sets
-        an agent's configuration: from here on the agent holds its own and is configured through its
-        endpoint. Create it paused to finish preparing it before it answers anyone.
-
-        Args:
-            project_id: Project ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/create.
-        """
-        return self._call(
-            _r.OP_CREATE_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsAgentCreation,
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    def get_project_ai_agents_agent(
-        self, project_id: str, agent_id: str
-    ) -> models.PublicCloudAiAgentsAgent:
-        """get_project_ai_agents_agent calls GET /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}: Get an AI agent
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/get.
-        """
-        return self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    def update_project_ai_agents_agent(
-        self, project_id: str, agent_id: str, body: models.PublicCloudAiAgentsAgentUpdate
-    ) -> models.PublicCloudAiAgentsAgent:
-        """update_project_ai_agents_agent calls PUT /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}: Update an AI agent
-
-        `targetSpec.enabled` is mandatory, including on an update whose only intent is a rename.
-        Restating the agent's current running state changes nothing; stating the other one pauses or
-        resumes it. `targetSpec.name` is optional: omitting it, or restating the current name,
-        leaves it untouched. Any other name renames the agent and redeploys it, keeping its
-        identifier, its access tokens, its configuration and its data, and re-applying its paused
-        state. A name another agent in the project already holds is rejected. The configuration is
-        not settable here; it is read and changed through the agent itself.
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/edit.
-        """
-        return self._call(
-            _r.OP_UPDATE_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsAgentUpdate,
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    def delete_project_ai_agents_agent(
-        self, project_id: str, agent_id: str
-    ) -> models.PublicCloudAiAgentsAgent:
-        """delete_project_ai_agents_agent calls DELETE /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}: Delete an AI agent
-
-        Deletion is asynchronous: the response describes the agent with `resourceStatus: DELETING`.
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/delete.
-        """
-        return self._call(
-            _r.OP_DELETE_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    def redeploy_project_ai_agents_agent(
-        self, project_id: str, agent_id: str
-    ) -> models.PublicCloudAiAgentsAgent:
-        """redeploy_project_ai_agents_agent calls POST /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}/redeploy: Redeploy an AI agent, refreshing its runtime while keeping its data
-
-        Refreshes the agent's runtime without touching its configuration or the data it holds.
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/redeploy.
-        """
-        return self._call(
-            _r.OP_REDEPLOY_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    def token_project_ai_agents_agent(
-        self, project_id: str, agent_id: str, body: models.PublicCloudAiAgentsAgentTokenCreation
-    ) -> models.PublicCloudAiAgentsAgentToken:
-        """token_project_ai_agents_agent calls POST /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}/token: Issue a scoped access token for an AI agent
-
-        Returns a bearer token to present to the agent at `currentState.endpointUrl`. The token is
-        returned once, here, and is never readable afterwards. Both body fields are optional: send
-        `{}` for the defaults, which are the VIEWER role and the agent's own default lifetime. A
-        lifetime longer than the agent's own maximum is rejected.
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/token/create.
-        """
-        return self._call(
-            _r.OP_TOKEN_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsAgentTokenCreation,
-            result=models.PublicCloudAiAgentsAgentToken,
-        )
-
-    def get_project_ai_agents_preset_global_settings(
-        self, project_id: str
-    ) -> models.PublicCloudAiAgentsGlobalSettings:
-        """get_project_ai_agents_preset_global_settings calls GET /v2/publicCloud/project/{projectId}/ai/agents/preset/globalSettings: Get the AI agent configuration settings fixed by OVHcloud
-
-        Part of an AI agent's configuration is managed by OVHcloud rather than by you: how callers
-        authenticate to the agent, and whether the agent can run code. This route says which parts
-        those are, so a configuration can be prepared knowing what will be accepted — anything
-        OVHcloud manages is rejected if you set it yourself, whether on an agent or on a template.
-        What it reports does not change from one agent to the next.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/preset/globalSettings/get.
-        """
-        return self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_PRESET_GLOBAL_SETTINGS,
-            path_params={
-                "projectId": project_id,
-            },
-            result=models.PublicCloudAiAgentsGlobalSettings,
-        )
-
-    def get_project_ai_agents_preset_model_ai_endpoints_provider(
-        self, project_id: str
-    ) -> models.PublicCloudAiAgentsAIEndpointsPreset:
-        """get_project_ai_agents_preset_model_ai_endpoints_provider calls GET /v2/publicCloud/project/{projectId}/ai/agents/preset/model/aiEndpointsProvider: Get the OVHcloud AI Endpoints provider preset
-
-        States whether the OVHcloud AI Endpoints provider preset can be selected, whether OVHcloud
-        provisions its credential so the caller need not supply one, the base URL whose `/models`
-        sub-path lists the models available, and the model used when the caller names none.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action
-        publicCloudProject:apiovh:ai/agents/preset/model/aiEndpointsProvider/get.
-        """
-        return self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_PRESET_MODEL_AI_ENDPOINTS_PROVIDER,
-            path_params={
-                "projectId": project_id,
-            },
-            result=models.PublicCloudAiAgentsAIEndpointsPreset,
-        )
-
-    def all_project_ai_agents_preset_templates(
-        self, project_id: str
-    ) -> t.Iterator[models.PublicCloudAiAgentsTemplatePreset]:
-        """all_project_ai_agents_preset_templates iterates over GET /v2/publicCloud/project/{projectId}/ai/agents/preset/template (List built-in AI agent template presets).
-
-        It yields one item at a time, and gets the next page only when the loop reaches it.
-        An error is raised and stops the loop.
-
-        Presets are ready-made configurations OVHcloud publishes, offered alongside the templates a
-        caller writes for themselves. Pass a preset's `id` as `targetSpec.template.id` on an agent
-        creation to build an agent from it. Identifiers carry a reserved prefix, so a client can
-        tell a preset from a template of its own.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/preset/template/get.
-        """
-        return self._pages(
-            _r.OP_ALL_PROJECT_AI_AGENTS_PRESET_TEMPLATES,
-            path_params={
-                "projectId": project_id,
-            },
-            item=models.PublicCloudAiAgentsTemplatePreset,
-        )
-
-    def get_project_ai_agents_preset_template(
-        self, project_id: str, template_preset_id: str
-    ) -> models.PublicCloudAiAgentsTemplatePreset:
-        """get_project_ai_agents_preset_template calls GET /v2/publicCloud/project/{projectId}/ai/agents/preset/template/{templatePresetId}: Get an AI agent template preset
-
-        A preset is a ready-made configuration OVHcloud publishes, offered alongside the templates a
-        caller writes for themselves. Pass its `id` as `targetSpec.template.id` on an agent creation
-        to build an agent from it. The identifier carries a reserved prefix, so a client can tell a
-        preset from a template of its own.
-
-        Args:
-            project_id: Project ID
-            template_preset_id: Template preset ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/preset/template/get.
-        """
-        return self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_PRESET_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-                "templatePresetId": template_preset_id,
-            },
-            result=models.PublicCloudAiAgentsTemplatePreset,
-        )
-
-    def all_project_ai_agents_templates(
-        self, project_id: str
-    ) -> t.Iterator[models.PublicCloudAiAgentsTemplate]:
-        """all_project_ai_agents_templates iterates over GET /v2/publicCloud/project/{projectId}/ai/agents/template (List AI agent templates).
-
-        It yields one item at a time, and gets the next page only when the loop reaches it.
-        An error is raised and stops the loop.
-
-        The ready-made configurations OVHcloud publishes are absent from this list. They are served
-        by the `preset/template` node.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/get.
-        """
-        return self._pages(
-            _r.OP_ALL_PROJECT_AI_AGENTS_TEMPLATES,
-            path_params={
-                "projectId": project_id,
-            },
-            item=models.PublicCloudAiAgentsTemplate,
-        )
-
-    def create_project_ai_agents_template(
-        self, project_id: str, body: models.PublicCloudAiAgentsTemplateCreation
-    ) -> models.PublicCloudAiAgentsTemplate:
-        """create_project_ai_agents_template calls POST /v2/publicCloud/project/{projectId}/ai/agents/template: Create an AI agent template
-
-        Registers a reusable configuration that a later agent creation can name through
-        `targetSpec.template.id`. A template stores a configuration. It runs nothing by itself.
-        `targetSpec.name` must be unique within the project's namespace.
-
-        Args:
-            project_id: Project ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/create.
-        """
-        return self._call(
-            _r.OP_CREATE_PROJECT_AI_AGENTS_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsTemplateCreation,
-            result=models.PublicCloudAiAgentsTemplate,
-        )
-
-    def get_project_ai_agents_template(
-        self, project_id: str, template_id: str
-    ) -> models.PublicCloudAiAgentsTemplate:
-        """get_project_ai_agents_template calls GET /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}: Get an AI agent template
-
-        The ready-made configurations OVHcloud publishes are not returned here. They are served by
-        the `preset/template` node.
-
-        Args:
-            project_id: Project ID
-            template_id: Template ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/get.
-        """
-        return self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-                "templateId": template_id,
-            },
-            result=models.PublicCloudAiAgentsTemplate,
-        )
-
-    def update_project_ai_agents_template(
-        self, project_id: str, template_id: str, body: models.PublicCloudAiAgentsTemplateUpdate
-    ) -> models.PublicCloudAiAgentsTemplate:
-        """update_project_ai_agents_template calls PUT /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}: Update an AI agent template
-
-        Replaces the template's target spec as a whole: a field left out of the body is not
-        preserved, and `targetSpec.config` is mandatory. Secrets inside that configuration read back
-        as `[REDACTED]`. Send the sentinel back unchanged to keep the stored value. Configuration
-        blocks OVHcloud reserves or does not offer are left out of a read, and a body that does not
-        restate them drops them from the stored template. Agents already created from this template
-        are unaffected, since a template is read once, at agent creation time.
-
-        Args:
-            project_id: Project ID
-            template_id: Template ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/edit.
-        """
-        return self._call(
-            _r.OP_UPDATE_PROJECT_AI_AGENTS_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-                "templateId": template_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsTemplateUpdate,
-            result=models.PublicCloudAiAgentsTemplate,
-        )
-
-    def delete_project_ai_agents_template(
-        self, project_id: str, template_id: str
-    ) -> models.PublicCloudAiAgentsTemplate:
-        """delete_project_ai_agents_template calls DELETE /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}: Delete an AI agent template
-
-        Deletion is asynchronous: the response describes the template with `resourceStatus:
-        DELETING`. Agents already created from it are unaffected, since a template is read once, at
-        agent creation time.
-
-        Args:
-            project_id: Project ID
-            template_id: Template ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/delete.
-        """
-        return self._call(
-            _r.OP_DELETE_PROJECT_AI_AGENTS_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-                "templateId": template_id,
-            },
-            result=models.PublicCloudAiAgentsTemplate,
         )
 
     def all_instances(
@@ -568,6 +169,22 @@ class PublicCloudApi(_gen.SectionApi):
         instance. Supply the volumes to attach at boot. On a subsequent `PUT` the list is diffed to
         attach or detach volumes (see the `PUT` route). There is no imperative attach/detach
         endpoint.
+
+        Boot source: image or volume
+
+        An instance needs exactly one boot source:
+
+        - `targetSpec.image` — the instance boots from that image on the local disk of its flavor.
+        - one entry of `targetSpec.volumes` with `role: BOOT`, with `image` omitted — the instance
+          boots from that existing block storage volume. The volume must be bootable, `available`,
+          not multi-attach, and in the instance's region. A bootable volume can be created from an
+          image with `createFrom.imageId` on the block storage volume route. At most one entry may
+          be `BOOT`, and the other volumes of the list are attached once the instance is running.
+
+        Setting both an image and a boot volume, or neither, is rejected. The boot volume is chosen
+        at creation only: it cannot be detached or replaced afterward, and it is kept when the
+        instance is deleted. An instance booted from a volume has `image` set to null and cannot be
+        rebuilt: `PUT` rejects a new `image` or a change of `userData` for it.
 
         Declarative `shares`
 
@@ -685,7 +302,9 @@ class PublicCloudApi(_gen.SectionApi):
         - Resize (flavor) — changing `flavor` migrates the instance to the new flavor.
         - Volume attach / detach — done declaratively by diffing the `volumes` list: adding a volume
           reference attaches that volume, removing one detaches it. There is no imperative
-          attach/detach endpoint — the diff is the only mechanism.
+          attach/detach endpoint — the diff is the only mechanism. The boot volume of an instance
+          booted from a volume (`role: BOOT`) must stay in the list: it cannot be detached, and no
+          other volume can become `BOOT`.
         - Network attach / detach — done declaratively by diffing the `networks` list, whose entries
           are `{id?, subnetId?, ip?, autoAssignPublicIp?}`: a platform-assigned Ext-Net IP
           (`{"autoAssignPublicIp": true}`, at most one entry), a public IP the project already owns
@@ -708,7 +327,10 @@ class PublicCloudApi(_gen.SectionApi):
 
         `location`, `sshKeyName`, and `group` are set only at creation and are not part of the
         update. In particular, placement-group (`group`) membership cannot change post-create.
-        OpenStack/Nova server groups are immutable and there is deliberately no group `PUT`.
+        OpenStack/Nova server groups are immutable and there is deliberately no group `PUT`. The
+        boot source is fixed at creation too: an instance booted from a volume keeps `image` null,
+        so a `PUT` carrying an `image` or changing `userData` is rejected for it, since both require
+        a rebuild from an image.
 
         Destructive update (`userData`)
 
@@ -2638,6 +2260,10885 @@ class PublicCloudApi(_gen.SectionApi):
             result=models.PublicCloudLoadbalancerMember,
         )
 
+    def all_project_managed_analytics_availabilities(
+        self,
+        project_id: str,
+        *,
+        action: models.PublicCloudDatabaseAvailabilityActionEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        cluster_id: str | None | NotGiven = NOT_GIVEN,
+        target: models.PublicCloudDatabaseAvailabilityTargetEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.PublicCloudDatabaseAvailability]:
+        """all_project_managed_analytics_availabilities iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/availability (List Analytics availabilities).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the combinations of Analytics engine, version, plan and region that can be ordered,
+        with their specifications. Use clusterId with action and target to get the options available
+        for an existing service, for example the plans it can be updated to.
+
+        Args:
+            project_id: Project ID
+            action: Filter availabilities by action type (optional)
+            cluster_id: Restrict availabilities to a specific cluster (optional)
+            target: Filter availabilities by target type (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/availability/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITIES,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(
+                ("action", action),
+                ("clusterId", cluster_id),
+                ("target", target),
+            ),
+            item=models.PublicCloudDatabaseAvailability,
+        )
+
+    def all_project_managed_analytics_availability_suggestions(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseAvailabilitySuggestion]:
+        """all_project_managed_analytics_availability_suggestions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/availability/suggestion (List Analytics availability suggestions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns suggested combinations of Analytics engine, version, plan, flavor and region. The
+        default suggestion is marked.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/availability/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITY_SUGGESTIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseAvailabilitySuggestion,
+        )
+
+    def all_project_managed_analytics_backups(
+        self, project_id: str, *, service_id: str | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseBackup]:
+        """all_project_managed_analytics_backups iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/backup (List backups).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the backups of all analytics services of the project, across engines. Filter them by
+        service with the serviceId parameter.
+
+        Args:
+            project_id: Project ID
+            service_id: Filter backups by service identifier (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/backup/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_BACKUPS,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("serviceId", service_id),),
+            item=models.PublicCloudDatabaseBackup,
+        )
+
+    def get_project_managed_analytics_backup(
+        self, project_id: str, backup_id: str
+    ) -> models.PublicCloudDatabaseBackup:
+        """get_project_managed_analytics_backup calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/backup/{backupId}: Get a backup
+
+        Returns the backup type, size, status and storage regions, and the date until which
+        point-in-time recovery is available.
+
+        Args:
+            project_id: Project ID
+            backup_id: Backup ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/backup/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_BACKUP,
+            path_params={
+                "projectId": project_id,
+                "backupId": backup_id,
+            },
+            result=models.PublicCloudDatabaseBackup,
+        )
+
+    def all_project_managed_analytics_capabilities_disks(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesDiskType]:
+        """all_project_managed_analytics_capabilities_disks iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/disks (List Analytics disk types).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the disk types available for Analytics services, with their IOPS and throughput
+        specifications.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_DISKS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesDiskType,
+        )
+
+    def all_project_managed_analytics_capabilities_engines(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseEngineCapability]:
+        """all_project_managed_analytics_capabilities_engines iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/engines (List Analytics engines).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the available Analytics engines with their versions, default version and supported
+        TLS modes.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_ENGINES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseEngineCapability,
+        )
+
+    def all_project_managed_analytics_capabilities_flavors(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesFlavor]:
+        """all_project_managed_analytics_capabilities_flavors iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/flavors (List Analytics flavors).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the compute flavors available for Analytics services, with their technical
+        specifications and lifecycle.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_FLAVORS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesFlavor,
+        )
+
+    def all_project_managed_analytics_capabilities_options(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesOption]:
+        """all_project_managed_analytics_capabilities_options iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/options (List Analytics options).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the options available for Analytics services and their data type.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_OPTIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesOption,
+        )
+
+    def all_project_managed_analytics_capabilities_plans(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesPlan]:
+        """all_project_managed_analytics_capabilities_plans iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/plans (List Analytics plans).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the plans available for Analytics services, with their description and automatic
+        backup retention.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_PLANS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesPlan,
+        )
+
+    def all_project_managed_analytics_capabilities_regions(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesRegion]:
+        """all_project_managed_analytics_capabilities_regions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/regions (List Analytics regions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the regions available for Analytics services, with their type and lifecycle.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_REGIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesRegion,
+        )
+
+    def all_project_managed_analytics_clickhouses(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_clickhouses iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse (List ClickHouse services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the ClickHouse services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_analytics_clickhouse(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_clickhouse calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse: Create a ClickHouse service
+
+        Creates a ClickHouse service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_analytics_clickhouse(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_clickhouse calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}: Get a ClickHouse service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_analytics_clickhouse(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_clickhouse calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}: Update a ClickHouse service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_analytics_clickhouse(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_clickhouse calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}: Partially update a ClickHouse service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_analytics_clickhouse(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_clickhouse calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}: Delete a ClickHouse service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_analytics_clickhouse_certificates(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseCertificates:
+        """get_project_managed_analytics_clickhouse_certificates calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/certificates: Get the TLS certificates
+
+        Returns the CA certificate, in PEM format, used to verify the connection to the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/certificates/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CERTIFICATES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseCertificates,
+        )
+
+    def all_project_managed_analytics_clickhouse_current_queries(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCurrentQuery]:
+        """all_project_managed_analytics_clickhouse_current_queries iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries (List running queries).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the queries running on the service, with their client, user, state and duration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/currentQueries/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    def get_project_managed_analytics_clickhouse_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseCurrentQuery:
+        """get_project_managed_analytics_clickhouse_current_queries calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries/{queryPid}: Get a running query
+
+        Returns the SQL text, state and duration of a running query, identified by its process ID.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            limit: Maximum number of queries to return (optional)
+            offset: Number of queries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/currentQueries/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            result=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    def cancel_project_managed_analytics_clickhouse_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        body: models.PublicCloudDatabaseQueryCancelRequest,
+    ) -> models.PublicCloudDatabaseQueryCancelResult:
+        """cancel_project_managed_analytics_clickhouse_current_queries calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries/{queryPid}/cancel: Cancel a running query
+
+        Cancels a running query gracefully. Set terminate to true to force its termination instead.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/currentQueries/cancel.
+        """
+        return self._call(
+            _r.OP_CANCEL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseQueryCancelRequest,
+            result=models.PublicCloudDatabaseQueryCancelResult,
+        )
+
+    def all_project_managed_analytics_clickhouse_databases(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseDatabase]:
+        """all_project_managed_analytics_clickhouse_databases iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database (List databases).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the databases of the service, including the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/database/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseDatabase,
+        )
+
+    def create_project_managed_analytics_clickhouse_database(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseDatabaseCreation
+    ) -> models.PublicCloudDatabaseDatabase:
+        """create_project_managed_analytics_clickhouse_database calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database: Create a database
+
+        Creates a database with the given name.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/database/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseDatabaseCreation,
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def get_project_managed_analytics_clickhouse_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """get_project_managed_analytics_clickhouse_database calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database/{databaseId}: Get a database
+
+        Returns the database name and whether it is the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/database/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def delete_project_managed_analytics_clickhouse_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """delete_project_managed_analytics_clickhouse_database calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database/{databaseId}: Delete a database
+
+        Permanently deletes the database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/database/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def enable_writes_project_managed_analytics_clickhouse(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseTemporaryWriteDeadline:
+        """enable_writes_project_managed_analytics_clickhouse calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/enableWrites: Enable temporary writes
+
+        Enables temporary write permissions on a service locked in read-only mode because its disk
+        is full. Returns the date when they are revoked.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/enableWrites.
+        """
+        return self._call(
+            _r.OP_ENABLE_WRITES_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseTemporaryWriteDeadline,
+        )
+
+    def all_project_managed_analytics_clickhouse_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_clickhouse_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_analytics_clickhouse_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_clickhouse_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_analytics_clickhouse_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_clickhouse_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_analytics_clickhouse_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_clickhouse_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_clickhouse_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_clickhouse_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds ClickHouse emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_analytics_clickhouse_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_clickhouse_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_clickhouse_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_clickhouse_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the ClickHouse log subscriptions. Set `kind` to restrict the list
+        to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_analytics_clickhouse_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_clickhouse_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards ClickHouse logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_analytics_clickhouse_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_clickhouse_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_analytics_clickhouse_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_clickhouse_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding ClickHouse logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_analytics_clickhouse_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_clickhouse_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_clickhouse_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_clickhouse_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_analytics_clickhouse_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_clickhouse_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_analytics_clickhouse_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_clickhouse_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_clickhouse_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_clickhouse_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_clickhouse_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_clickhouse_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_clickhouse_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_clickhouse_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    def reset_project_managed_analytics_clickhouse_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_clickhouse_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_clickhouse_query_statistics(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.PublicCloudDatabaseQueryStatistic]:
+        """all_project_managed_analytics_clickhouse_query_statistics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/queryStatistics (List query statistics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns execution statistics for each query pattern: number of calls, rows and execution
+        times.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            limit: Maximum number of entries to return (optional)
+            offset: Number of entries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/queryStatistics/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            item=models.PublicCloudDatabaseQueryStatistic,
+        )
+
+    def all_project_managed_analytics_clickhouse_roles(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseRole]:
+        """all_project_managed_analytics_clickhouse_roles iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/roles (List roles).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the roles that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/roles/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseRole,
+        )
+
+    def get_project_managed_analytics_clickhouse_roles(
+        self, project_id: str, service_id: str, role_id: str
+    ) -> models.PublicCloudDatabaseRole:
+        """get_project_managed_analytics_clickhouse_roles calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/roles/{roleId}: Get a role
+
+        Returns a role that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            role_id: Role ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/roles/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "roleId": role_id,
+            },
+            result=models.PublicCloudDatabaseRole,
+        )
+
+    def all_project_managed_analytics_clickhouse_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseUserWithRoles]:
+        """all_project_managed_analytics_clickhouse_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their roles and status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def create_project_managed_analytics_clickhouse_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseUserCreation
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """create_project_managed_analytics_clickhouse_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user: Create a user
+
+        Creates a user and generates its password. The password is returned only on creation and on
+        password reset. Roles are assigned in the cluster and cannot be set through this API.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCreation,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def get_project_managed_analytics_clickhouse_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """get_project_managed_analytics_clickhouse_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its roles and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def update_project_managed_analytics_clickhouse_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """update_project_managed_analytics_clickhouse_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response. Roles are assigned in the cluster and cannot be changed through
+        this API.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def delete_project_managed_analytics_clickhouse_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """delete_project_managed_analytics_clickhouse_user calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def reset_password_project_managed_analytics_clickhouse_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """reset_password_project_managed_analytics_clickhouse_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def all_project_managed_analytics_grafanas(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_grafanas iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana (List Grafana services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the Grafana services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANAS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_analytics_grafana(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_grafana calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana: Create a Grafana service
+
+        Creates a Grafana service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_analytics_grafana(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_grafana calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}: Get a Grafana service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_analytics_grafana(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_grafana calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}: Update a Grafana service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_analytics_grafana(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_grafana calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}: Partially update a Grafana service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_analytics_grafana(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_grafana calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}: Delete a Grafana service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_grafana_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_grafana_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_analytics_grafana_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_grafana_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_analytics_grafana_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_grafana_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_analytics_grafana_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_grafana_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_grafana_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_grafana_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds Managed Dashboards emits, which can be forwarded to a
+        stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_analytics_grafana_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_grafana_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_grafana_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_grafana_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the Managed Dashboards log subscriptions. Set `kind` to restrict
+        the list to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_analytics_grafana_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_grafana_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Managed Dashboards logs of one kind to a Logs Data Platform stream. The
+        subscription is created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_analytics_grafana_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_grafana_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_analytics_grafana_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_grafana_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Managed Dashboards logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_analytics_grafana_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_grafana_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_grafana_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_grafana_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_analytics_grafana_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_grafana_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_analytics_grafana_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_grafana_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_grafana_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_grafana_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_grafana_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_grafana_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def all_project_managed_analytics_grafana_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseUser]:
+        """all_project_managed_analytics_grafana_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their status. Users are provisioned by the service and
+        cannot be created or deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUser,
+        )
+
+    def get_project_managed_analytics_grafana_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """get_project_managed_analytics_grafana_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}: Get a user
+
+        Returns the user and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def update_project_managed_analytics_grafana_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUser:
+        """update_project_managed_analytics_grafana_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def reset_password_project_managed_analytics_grafana_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """reset_password_project_managed_analytics_grafana_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def all_project_managed_analytics_kafkas(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_kafkas iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka (List Kafka services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the Kafka services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKAS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_analytics_kafka(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_kafka calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka: Create a Kafka service
+
+        Creates a Kafka service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_analytics_kafka(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_kafka calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}: Get a Kafka service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_analytics_kafka(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_kafka calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}: Update a Kafka service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_analytics_kafka(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_kafka calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}: Partially update a Kafka service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_analytics_kafka(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_kafka calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}: Delete a Kafka service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_kafka_acls(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseKafkaACL]:
+        """all_project_managed_analytics_kafka_acls iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl (List topic ACLs).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the topic ACL entries of the service, each granting a user a permission on a topic
+        name pattern.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/acl/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_ACLS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaACL,
+        )
+
+    def create_project_managed_analytics_kafka_acl(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseKafkaACLCreation
+    ) -> models.PublicCloudDatabaseKafkaACL:
+        """create_project_managed_analytics_kafka_acl calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl: Create a topic ACL
+
+        Grants a user a permission on the topics matching a name pattern. Use * to match all topics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/acl/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaACLCreation,
+            result=models.PublicCloudDatabaseKafkaACL,
+        )
+
+    def get_project_managed_analytics_kafka_acl(
+        self, project_id: str, service_id: str, acl_id: str
+    ) -> models.PublicCloudDatabaseKafkaACL:
+        """get_project_managed_analytics_kafka_acl calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl/{aclId}: Get a topic ACL
+
+        Returns the user, the topic name pattern and the permission of the ACL entry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            acl_id: Acl ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/acl/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "aclId": acl_id,
+            },
+            result=models.PublicCloudDatabaseKafkaACL,
+        )
+
+    def delete_project_managed_analytics_kafka_acl(
+        self, project_id: str, service_id: str, acl_id: str
+    ) -> models.PublicCloudDatabaseKafkaACL:
+        """delete_project_managed_analytics_kafka_acl calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl/{aclId}: Delete a topic ACL
+
+        Deletes the ACL entry and revokes the permission it granted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            acl_id: Acl ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/acl/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "aclId": acl_id,
+            },
+            result=models.PublicCloudDatabaseKafkaACL,
+        )
+
+    def get_project_managed_analytics_kafka_certificates(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseCertificates:
+        """get_project_managed_analytics_kafka_certificates calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/certificates: Get the TLS certificates
+
+        Returns the CA certificate, in PEM format, used to verify the connection to the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/certificates/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CERTIFICATES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseCertificates,
+        )
+
+    def all_project_managed_analytics_kafka_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_kafka_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_analytics_kafka_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_kafka_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_analytics_kafka_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_kafka_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_analytics_kafka_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_kafka_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_kafka_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_kafka_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds Kafka emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_analytics_kafka_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_kafka_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_kafka_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_kafka_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the Kafka log subscriptions. Set `kind` to restrict the list to
+        one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_analytics_kafka_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_kafka_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Kafka logs of one kind to a Logs Data Platform stream. The subscription is created
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_analytics_kafka_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_kafka_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_analytics_kafka_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_kafka_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Kafka logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_analytics_kafka_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_kafka_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_kafka_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_kafka_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_analytics_kafka_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_kafka_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_analytics_kafka_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_kafka_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_kafka_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_kafka_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_kafka_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_kafka_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_kafka_permissions(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseKafkaPermissions:
+        """get_project_managed_analytics_kafka_permissions calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/permissions: List ACL permissions
+
+        Returns the permission names available for topic ACLs and for Schema Registry ACLs.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/permissions/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_PERMISSIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseKafkaPermissions,
+        )
+
+    def get_project_managed_analytics_kafka_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_kafka_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    def reset_project_managed_analytics_kafka_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_kafka_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafka/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_kafka_schema_registry_acls(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseKafkaSchemaRegistryACL]:
+        """all_project_managed_analytics_kafka_schema_registry_acls iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl (List Schema Registry ACLs).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the Schema Registry ACL entries of the service, each granting a user a permission on
+        a resource pattern.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACLS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaSchemaRegistryACL,
+        )
+
+    def create_project_managed_analytics_kafka_schema_registry_acl(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseKafkaSchemaRegistryACLCreation,
+    ) -> models.PublicCloudDatabaseKafkaSchemaRegistryACL:
+        """create_project_managed_analytics_kafka_schema_registry_acl calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl: Create a Schema Registry ACL
+
+        Grants a user a permission on the Schema Registry resources matching a pattern. Use * to
+        match all subjects.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaSchemaRegistryACLCreation,
+            result=models.PublicCloudDatabaseKafkaSchemaRegistryACL,
+        )
+
+    def get_project_managed_analytics_kafka_schema_registry_acl(
+        self, project_id: str, service_id: str, schema_registry_acl_id: str
+    ) -> models.PublicCloudDatabaseKafkaSchemaRegistryACL:
+        """get_project_managed_analytics_kafka_schema_registry_acl calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl/{schemaRegistryAclId}: Get a Schema Registry ACL
+
+        Returns the user, the resource pattern and the permission of the ACL entry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            schema_registry_acl_id: Schema registry acl ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "schemaRegistryAclId": schema_registry_acl_id,
+            },
+            result=models.PublicCloudDatabaseKafkaSchemaRegistryACL,
+        )
+
+    def delete_project_managed_analytics_kafka_schema_registry_acl(
+        self, project_id: str, service_id: str, schema_registry_acl_id: str
+    ) -> models.PublicCloudDatabaseKafkaSchemaRegistryACL:
+        """delete_project_managed_analytics_kafka_schema_registry_acl calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl/{schemaRegistryAclId}: Delete a Schema Registry ACL
+
+        Deletes the ACL entry and revokes the permission it granted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            schema_registry_acl_id: Schema registry acl ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "schemaRegistryAclId": schema_registry_acl_id,
+            },
+            result=models.PublicCloudDatabaseKafkaSchemaRegistryACL,
+        )
+
+    def all_project_managed_analytics_kafka_topics(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseKafkaTopic]:
+        """all_project_managed_analytics_kafka_topics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic (List topics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the topics of the service with their partitions, replication and retention settings.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    def create_project_managed_analytics_kafka_topic(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseKafkaTopicCreation
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """create_project_managed_analytics_kafka_topic calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic: Create a topic
+
+        Creates a topic. By default it has 1 partition, a replication factor of 1 and a retention of
+        168 hours (7 days). The replication factor must not exceed the number of brokers.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaTopicCreation,
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    def get_project_managed_analytics_kafka_topic(
+        self, project_id: str, service_id: str, topic_id: str
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """get_project_managed_analytics_kafka_topic calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}: Get a topic
+
+        Returns the partitions, replication factor, minimum in-sync replicas and retention settings
+        of the topic.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            topic_id: Topic ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "topicId": topic_id,
+            },
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    def update_project_managed_analytics_kafka_topic(
+        self,
+        project_id: str,
+        service_id: str,
+        topic_id: str,
+        body: models.PublicCloudDatabaseKafkaTopicReplace,
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """update_project_managed_analytics_kafka_topic calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}: Update a topic
+
+        Updates the partitions, replication, minimum in-sync replicas and retention of the topic.
+        Every field is required. The number of partitions can only be increased.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            topic_id: Topic ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "topicId": topic_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaTopicReplace,
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    def patch_project_managed_analytics_kafka_topic(
+        self,
+        project_id: str,
+        service_id: str,
+        topic_id: str,
+        body: models.PublicCloudDatabaseKafkaTopicUpdate,
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """patch_project_managed_analytics_kafka_topic calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}: Partially update a topic
+
+        Partially updates the partitions, replication, minimum in-sync replicas or retention of the
+        topic. The number of partitions can only be increased.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            topic_id: Topic ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "topicId": topic_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaTopicUpdate,
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    def delete_project_managed_analytics_kafka_topic(
+        self, project_id: str, service_id: str, topic_id: str
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """delete_project_managed_analytics_kafka_topic calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}: Delete a topic
+
+        Permanently deletes the topic and its messages.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            topic_id: Topic ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "topicId": topic_id,
+            },
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    def all_project_managed_analytics_kafka_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseUser]:
+        """all_project_managed_analytics_kafka_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUser,
+        )
+
+    def create_project_managed_analytics_kafka_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseUserCreation
+    ) -> models.PublicCloudDatabaseUser:
+        """create_project_managed_analytics_kafka_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user: Create a user
+
+        Creates a user and generates its password. The password is returned only on creation and on
+        password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCreation,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def get_project_managed_analytics_kafka_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """get_project_managed_analytics_kafka_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}: Get a user
+
+        Returns the user and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def update_project_managed_analytics_kafka_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUser:
+        """update_project_managed_analytics_kafka_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def delete_project_managed_analytics_kafka_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """delete_project_managed_analytics_kafka_user calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def get_project_managed_analytics_kafka_user_access(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseKafkaUserAccess:
+        """get_project_managed_analytics_kafka_user_access calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}/access: Get the user certificate
+
+        Returns the client certificate, in PEM format, and its private key, used for SSL
+        authentication of the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/access/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_USER_ACCESS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseKafkaUserAccess,
+        )
+
+    def reset_password_project_managed_analytics_kafka_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """reset_password_project_managed_analytics_kafka_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def all_project_managed_analytics_kafka_connects(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_kafka_connects iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect (List Kafka Connect services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the Kafka Connect services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECTS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_analytics_kafka_connect(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_kafka_connect calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect: Create a Kafka Connect service
+
+        Creates a Kafka Connect service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_analytics_kafka_connect(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_kafka_connect calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}: Get a Kafka Connect service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_analytics_kafka_connect(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_kafka_connect calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}: Update a Kafka Connect service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_analytics_kafka_connect(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_kafka_connect calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}: Partially update a Kafka Connect service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_analytics_kafka_connect(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_kafka_connect calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}: Delete a Kafka Connect service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_kafka_connect_connectors(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseKafkaConnectConnector]:
+        """all_project_managed_analytics_kafka_connect_connectors iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector (List connectors).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the connectors of the service with their status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTORS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    def create_project_managed_analytics_kafka_connect_connector(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseKafkaConnectConnectorCreation,
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """create_project_managed_analytics_kafka_connect_connector calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector: Create a connector
+
+        Creates a connector of a type listed in the capabilities, with its configuration key-value
+        pairs.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaConnectConnectorCreation,
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    def get_project_managed_analytics_kafka_connect_connector(
+        self, project_id: str, service_id: str, connector_id: str
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """get_project_managed_analytics_kafka_connect_connector calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}: Get a connector
+
+        Returns the connector type, its configuration and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    def update_project_managed_analytics_kafka_connect_connector(
+        self,
+        project_id: str,
+        service_id: str,
+        connector_id: str,
+        body: models.PublicCloudDatabaseKafkaConnectConnectorReplace,
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """update_project_managed_analytics_kafka_connect_connector calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}: Update a connector configuration
+
+        Updates the configuration of the connector. Keys omitted from the request are removed.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaConnectConnectorReplace,
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    def patch_project_managed_analytics_kafka_connect_connector(
+        self,
+        project_id: str,
+        service_id: str,
+        connector_id: str,
+        body: models.PublicCloudDatabaseKafkaConnectConnectorStatusUpdate,
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """patch_project_managed_analytics_kafka_connect_connector calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}: Change the connector status
+
+        Pauses, resumes or restarts the connector, depending on the requested action.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaConnectConnectorStatusUpdate,
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    def delete_project_managed_analytics_kafka_connect_connector(
+        self, project_id: str, service_id: str, connector_id: str
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """delete_project_managed_analytics_kafka_connect_connector calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}: Delete a connector
+
+        Deletes the connector.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    def all_project_managed_analytics_kafka_connect_connector_tasks(
+        self, project_id: str, service_id: str, connector_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseKafkaConnectConnectorTask]:
+        """all_project_managed_analytics_kafka_connect_connector_tasks iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task (List connector tasks).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the tasks of the connector with their status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASKS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            item=models.PublicCloudDatabaseKafkaConnectConnectorTask,
+        )
+
+    def get_project_managed_analytics_kafka_connect_connector_task(
+        self, project_id: str, service_id: str, connector_id: str, task_id: int
+    ) -> models.PublicCloudDatabaseKafkaConnectConnectorTask:
+        """get_project_managed_analytics_kafka_connect_connector_task calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task/{taskId}: Get a connector task
+
+        Returns the status of the task and, when it failed, its error trace.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+            task_id: Task ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASK,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+                "taskId": task_id,
+            },
+            result=models.PublicCloudDatabaseKafkaConnectConnectorTask,
+        )
+
+    def restart_project_managed_analytics_kafka_connect_connector_task(
+        self, project_id: str, service_id: str, connector_id: str, task_id: int
+    ) -> models.PublicCloudDatabaseKafkaConnectConnectorTask:
+        """restart_project_managed_analytics_kafka_connect_connector_task calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task/{taskId}/restart: Restart a connector task
+
+        Restarts the task and returns it with its new status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+            task_id: Task ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/restart.
+        """
+        return self._call(
+            _r.OP_RESTART_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASK,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+                "taskId": task_id,
+            },
+            result=models.PublicCloudDatabaseKafkaConnectConnectorTask,
+        )
+
+    def all_project_managed_analytics_kafka_connect_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_kafka_connect_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_analytics_kafka_connect_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_kafka_connect_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_analytics_kafka_connect_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_kafka_connect_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_analytics_kafka_connect_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_kafka_connect_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_kafka_connect_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_kafka_connect_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds Kafka Connect emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_analytics_kafka_connect_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_kafka_connect_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_kafka_connect_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_kafka_connect_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the Kafka Connect log subscriptions. Set `kind` to restrict the
+        list to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_analytics_kafka_connect_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_kafka_connect_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Kafka Connect logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_analytics_kafka_connect_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_kafka_connect_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_analytics_kafka_connect_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_kafka_connect_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Kafka Connect logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_analytics_kafka_connect_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_kafka_connect_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_kafka_connect_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_kafka_connect_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_analytics_kafka_connect_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_kafka_connect_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_analytics_kafka_connect_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_kafka_connect_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_kafka_connect_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_kafka_connect_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_kafka_connect_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_kafka_connect_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_kafka_connect_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_kafka_connect_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    def reset_project_managed_analytics_kafka_connect_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_kafka_connect_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_kafka_connect_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseUser]:
+        """all_project_managed_analytics_kafka_connect_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUser,
+        )
+
+    def create_project_managed_analytics_kafka_connect_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseUserCreation
+    ) -> models.PublicCloudDatabaseUser:
+        """create_project_managed_analytics_kafka_connect_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user: Create a user
+
+        Creates a user and generates its password. The password is returned only on creation and on
+        password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCreation,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def get_project_managed_analytics_kafka_connect_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """get_project_managed_analytics_kafka_connect_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}: Get a user
+
+        Returns the user and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def update_project_managed_analytics_kafka_connect_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUser:
+        """update_project_managed_analytics_kafka_connect_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def delete_project_managed_analytics_kafka_connect_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """delete_project_managed_analytics_kafka_connect_user calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def reset_password_project_managed_analytics_kafka_connect_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """reset_password_project_managed_analytics_kafka_connect_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_makers(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_kafka_mirror_makers iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker (List Kafka MirrorMaker services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the Kafka MirrorMaker services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKERS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_analytics_kafka_mirror_maker(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_kafka_mirror_maker calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker: Create a Kafka MirrorMaker service
+
+        Creates a Kafka MirrorMaker service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_analytics_kafka_mirror_maker(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_kafka_mirror_maker calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}: Get a Kafka MirrorMaker service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_analytics_kafka_mirror_maker(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_kafka_mirror_maker calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}: Update a Kafka MirrorMaker service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_analytics_kafka_mirror_maker(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_kafka_mirror_maker calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}: Partially update a Kafka MirrorMaker service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_analytics_kafka_mirror_maker(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_kafka_mirror_maker calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}: Delete a Kafka MirrorMaker service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_kafka_mirror_maker_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_analytics_kafka_mirror_maker_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_kafka_mirror_maker_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_analytics_kafka_mirror_maker_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_kafka_mirror_maker_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_analytics_kafka_mirror_maker_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_kafka_mirror_maker_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_kafka_mirror_maker_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds Kafka MirrorMaker emits, which can be forwarded to a
+        stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_analytics_kafka_mirror_maker_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_kafka_mirror_maker_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_kafka_mirror_maker_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the Kafka MirrorMaker log subscriptions. Set `kind` to restrict
+        the list to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_analytics_kafka_mirror_maker_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_kafka_mirror_maker_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Kafka MirrorMaker logs of one kind to a Logs Data Platform stream. The subscription
+        is created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_analytics_kafka_mirror_maker_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_kafka_mirror_maker_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_analytics_kafka_mirror_maker_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_kafka_mirror_maker_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Kafka MirrorMaker logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_analytics_kafka_mirror_maker_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_kafka_mirror_maker_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_kafka_mirror_maker_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_analytics_kafka_mirror_maker_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_kafka_mirror_maker_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_analytics_kafka_mirror_maker_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_kafka_mirror_maker_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_kafka_mirror_maker_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_kafka_mirror_maker_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_kafka_mirror_maker_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_kafka_mirror_maker_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_kafka_mirror_maker_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    def reset_project_managed_analytics_kafka_mirror_maker_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_kafka_mirror_maker_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_replications(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseKafkaMirrorMakerReplication]:
+        """all_project_managed_analytics_kafka_mirror_maker_replications iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication (List replication flows).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the replication flows of the service, with their source and target integrations and
+        whether they are enabled.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    def create_project_managed_analytics_kafka_mirror_maker_replication(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseKafkaMirrorMakerReplicationCreation,
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """create_project_managed_analytics_kafka_mirror_maker_replication calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication: Create a replication flow
+
+        Creates a replication flow from a source integration to a target integration. Topics
+        matching the include patterns are replicated, except those matching the exclude patterns.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaMirrorMakerReplicationCreation,
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    def get_project_managed_analytics_kafka_mirror_maker_replication(
+        self, project_id: str, service_id: str, replication_id: str
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """get_project_managed_analytics_kafka_mirror_maker_replication calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}: Get a replication flow
+
+        Returns the source and target integrations of the flow, its topic patterns and its sync
+        settings.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            replication_id: Replication ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "replicationId": replication_id,
+            },
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    def update_project_managed_analytics_kafka_mirror_maker_replication(
+        self,
+        project_id: str,
+        service_id: str,
+        replication_id: str,
+        body: models.PublicCloudDatabaseKafkaMirrorMakerReplicationReplace,
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """update_project_managed_analytics_kafka_mirror_maker_replication calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}: Update a replication flow
+
+        Updates the topic patterns, sync settings and state of the flow. Every field is required.
+        The source and target integrations cannot be changed.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            replication_id: Replication ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "replicationId": replication_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaMirrorMakerReplicationReplace,
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    def patch_project_managed_analytics_kafka_mirror_maker_replication(
+        self,
+        project_id: str,
+        service_id: str,
+        replication_id: str,
+        body: models.PublicCloudDatabaseKafkaMirrorMakerReplicationUpdate,
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """patch_project_managed_analytics_kafka_mirror_maker_replication calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}: Partially update a replication flow
+
+        Partially updates the topic patterns, sync settings or state of the flow. The source and
+        target integrations cannot be changed.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            replication_id: Replication ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "replicationId": replication_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaMirrorMakerReplicationUpdate,
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    def delete_project_managed_analytics_kafka_mirror_maker_replication(
+        self, project_id: str, service_id: str, replication_id: str
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """delete_project_managed_analytics_kafka_mirror_maker_replication calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}: Delete a replication flow
+
+        Deletes the replication flow and stops the replication.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            replication_id: Replication ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "replicationId": replication_id,
+            },
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    def all_project_managed_analytics_opensearches(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_opensearches iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch (List OpenSearch services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the OpenSearch services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCHES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_analytics_opensearch(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_opensearch calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch: Create an OpenSearch service
+
+        Creates an OpenSearch service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_analytics_opensearch(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_opensearch calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}: Get an OpenSearch service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_analytics_opensearch(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_opensearch calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}: Update an OpenSearch service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_analytics_opensearch(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_opensearch calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}: Partially update an OpenSearch service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_analytics_opensearch(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_opensearch calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}: Delete an OpenSearch service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_opensearch_indexes(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseOpensearchIndex]:
+        """all_project_managed_analytics_opensearch_indexes iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/index (List indexes).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the indexes of the service with their document count, size and shards.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/index/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INDEXES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseOpensearchIndex,
+        )
+
+    def get_project_managed_analytics_opensearch_index(
+        self, project_id: str, service_id: str, index_id: str
+    ) -> models.PublicCloudDatabaseOpensearchIndex:
+        """get_project_managed_analytics_opensearch_index calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/index/{indexId}: Get an index
+
+        Returns the document count, the size in bytes and the primary and replica shard counts of
+        the index.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            index_id: Index ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/index/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INDEX,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "indexId": index_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchIndex,
+        )
+
+    def all_project_managed_analytics_opensearch_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_opensearch_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_analytics_opensearch_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_opensearch_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_analytics_opensearch_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_opensearch_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_analytics_opensearch_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_opensearch_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_opensearch_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_opensearch_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds OpenSearch emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_analytics_opensearch_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_opensearch_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_opensearch_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_opensearch_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the OpenSearch log subscriptions. Set `kind` to restrict the list
+        to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_analytics_opensearch_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_opensearch_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards OpenSearch logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/opensearch/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_analytics_opensearch_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_opensearch_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_analytics_opensearch_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_opensearch_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding OpenSearch logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/opensearch/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_analytics_opensearch_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_opensearch_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_opensearch_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_opensearch_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_analytics_opensearch_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_opensearch_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_analytics_opensearch_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_opensearch_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_opensearch_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_opensearch_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_analytics_opensearch_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_opensearch_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def all_project_managed_analytics_opensearch_patterns(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseOpensearchPattern]:
+        """all_project_managed_analytics_opensearch_patterns iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern (List index patterns).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the index patterns of the service with their maximum number of indexes.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/pattern/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERNS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseOpensearchPattern,
+        )
+
+    def create_project_managed_analytics_opensearch_pattern(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseOpensearchPatternCreation,
+    ) -> models.PublicCloudDatabaseOpensearchPattern:
+        """create_project_managed_analytics_opensearch_pattern calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern: Create an index pattern
+
+        Creates a glob pattern matching index names, with a maximum number of matching indexes. When
+        the limit is reached, the oldest indexes are deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/pattern/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseOpensearchPatternCreation,
+            result=models.PublicCloudDatabaseOpensearchPattern,
+        )
+
+    def get_project_managed_analytics_opensearch_pattern(
+        self, project_id: str, service_id: str, pattern_id: str
+    ) -> models.PublicCloudDatabaseOpensearchPattern:
+        """get_project_managed_analytics_opensearch_pattern calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern/{patternId}: Get an index pattern
+
+        Returns the glob pattern and the maximum number of indexes it keeps.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            pattern_id: Pattern ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/pattern/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "patternId": pattern_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchPattern,
+        )
+
+    def delete_project_managed_analytics_opensearch_pattern(
+        self, project_id: str, service_id: str, pattern_id: str
+    ) -> models.PublicCloudDatabaseOpensearchPattern:
+        """delete_project_managed_analytics_opensearch_pattern calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern/{patternId}: Delete an index pattern
+
+        Deletes the index pattern and the indexes matching it.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            pattern_id: Pattern ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/pattern/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "patternId": pattern_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchPattern,
+        )
+
+    def all_project_managed_analytics_opensearch_permissions(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_analytics_opensearch_permissions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/permissions (List user permissions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the permissions that can be granted to users on an index pattern.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/permissions/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PERMISSIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_analytics_opensearch_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_opensearch_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    def reset_project_managed_analytics_opensearch_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_opensearch_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/opensearch/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_opensearch_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseOpensearchUser]:
+        """all_project_managed_analytics_opensearch_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their ACL entries and status. Passwords are not
+        returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    def create_project_managed_analytics_opensearch_user(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseOpensearchUserCreation,
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """create_project_managed_analytics_opensearch_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user: Create a user
+
+        Creates a user with ACL entries, each granting a permission on an index pattern. The
+        generated password is returned only on creation and on password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseOpensearchUserCreation,
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    def get_project_managed_analytics_opensearch_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """get_project_managed_analytics_opensearch_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its ACL entries and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    def update_project_managed_analytics_opensearch_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseOpensearchUserReplace,
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """update_project_managed_analytics_opensearch_user calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}: Update a user
+
+        Updates the ACL entries of the user. The ACL list replaces the current entries. To reset the
+        password, use the resetPassword route of the user or a partial update with
+        credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseOpensearchUserReplace,
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    def patch_project_managed_analytics_opensearch_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseOpensearchUserUpdate,
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """patch_project_managed_analytics_opensearch_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}: Partially update a user
+
+        Partially updates the ACL entries of the user. The ACL list replaces the current entries.
+        Setting credentialsLastUpdatedAt resets the password and returns the new one.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseOpensearchUserUpdate,
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    def delete_project_managed_analytics_opensearch_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """delete_project_managed_analytics_opensearch_user calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    def reset_password_project_managed_analytics_opensearch_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """reset_password_project_managed_analytics_opensearch_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/opensearch/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    def all_project_managed_analytics_services(
+        self,
+        project_id: str,
+        *,
+        category: models.PublicCloudDatabaseCategoryEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_services iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/service (List services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the analytics services of the project, across all engines.
+
+        Args:
+            project_id: Project ID
+            category: Filter services by engine category (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/service/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_SERVICES,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("category", category),),
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_analytics_service(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_service calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/service/{serviceId}: Get a service
+
+        Returns an analytics service whatever its engine, with its target specification, current
+        state and running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/service/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_SERVICE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_availabilities(
+        self,
+        project_id: str,
+        *,
+        action: models.PublicCloudDatabaseAvailabilityActionEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        cluster_id: str | None | NotGiven = NOT_GIVEN,
+        target: models.PublicCloudDatabaseAvailabilityTargetEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.PublicCloudDatabaseAvailability]:
+        """all_project_managed_database_availabilities iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/availability (List Databases availabilities).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the combinations of Databases engine, version, plan and region that can be ordered,
+        with their specifications. Use clusterId with action and target to get the options available
+        for an existing service, for example the plans it can be updated to.
+
+        Args:
+            project_id: Project ID
+            action: Filter availabilities by action type (optional)
+            cluster_id: Restrict availabilities to a specific cluster (optional)
+            target: Filter availabilities by target type (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/availability/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITIES,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(
+                ("action", action),
+                ("clusterId", cluster_id),
+                ("target", target),
+            ),
+            item=models.PublicCloudDatabaseAvailability,
+        )
+
+    def all_project_managed_database_availability_suggestions(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseAvailabilitySuggestion]:
+        """all_project_managed_database_availability_suggestions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/availability/suggestion (List Databases availability suggestions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns suggested combinations of Databases engine, version, plan, flavor and region. The
+        default suggestion is marked.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/availability/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITY_SUGGESTIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseAvailabilitySuggestion,
+        )
+
+    def all_project_managed_database_backups(
+        self, project_id: str, *, service_id: str | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseBackup]:
+        """all_project_managed_database_backups iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/backup (List backups).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the backups of all database services of the project, across engines. Filter them by
+        service with the serviceId parameter.
+
+        Args:
+            project_id: Project ID
+            service_id: Filter backups by service identifier (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/backup/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_BACKUPS,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("serviceId", service_id),),
+            item=models.PublicCloudDatabaseBackup,
+        )
+
+    def get_project_managed_database_backup(
+        self, project_id: str, backup_id: str
+    ) -> models.PublicCloudDatabaseBackup:
+        """get_project_managed_database_backup calls GET /v2/publicCloud/project/{projectId}/managedDatabase/backup/{backupId}: Get a backup
+
+        Returns the backup type, size, status and storage regions, and the date until which
+        point-in-time recovery is available.
+
+        Args:
+            project_id: Project ID
+            backup_id: Backup ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/backup/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_BACKUP,
+            path_params={
+                "projectId": project_id,
+                "backupId": backup_id,
+            },
+            result=models.PublicCloudDatabaseBackup,
+        )
+
+    def all_project_managed_database_capabilities_disks(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesDiskType]:
+        """all_project_managed_database_capabilities_disks iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/disks (List Databases disk types).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the disk types available for Databases services, with their IOPS and throughput
+        specifications.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_DISKS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesDiskType,
+        )
+
+    def all_project_managed_database_capabilities_engines(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseEngineCapability]:
+        """all_project_managed_database_capabilities_engines iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/engines (List Databases engines).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the available Databases engines with their versions, default version and supported
+        TLS modes.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_ENGINES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseEngineCapability,
+        )
+
+    def all_project_managed_database_capabilities_flavors(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesFlavor]:
+        """all_project_managed_database_capabilities_flavors iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/flavors (List Databases flavors).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the compute flavors available for Databases services, with their technical
+        specifications and lifecycle.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_FLAVORS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesFlavor,
+        )
+
+    def all_project_managed_database_capabilities_options(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesOption]:
+        """all_project_managed_database_capabilities_options iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/options (List Databases options).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the options available for Databases services and their data type.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_OPTIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesOption,
+        )
+
+    def all_project_managed_database_capabilities_plans(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesPlan]:
+        """all_project_managed_database_capabilities_plans iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/plans (List Databases plans).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the plans available for Databases services, with their description and automatic
+        backup retention.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_PLANS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesPlan,
+        )
+
+    def all_project_managed_database_capabilities_regions(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCapabilitiesRegion]:
+        """all_project_managed_database_capabilities_regions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/regions (List Databases regions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the regions available for Databases services, with their type and lifecycle.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_REGIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesRegion,
+        )
+
+    def all_project_managed_database_mongodbs(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_mongodbs iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb (List MongoDB services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the MongoDB services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODBS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_database_mongodb(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_database_mongodb calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb: Create a MongoDB service
+
+        Creates a MongoDB service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_database_mongodb(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_mongodb calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}: Get a MongoDB service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_database_mongodb(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_database_mongodb calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}: Update a MongoDB service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_database_mongodb(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_database_mongodb calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}: Partially update a MongoDB service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_database_mongodb(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_database_mongodb calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}: Delete a MongoDB service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_mongodb_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_database_mongodb_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds MongoDB emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_database_mongodb_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_database_mongodb_log_kind calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_database_mongodb_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_database_mongodb_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the MongoDB log subscriptions. Set `kind` to restrict the list to
+        one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_database_mongodb_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_database_mongodb_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards MongoDB logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_database_mongodb_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_database_mongodb_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_database_mongodb_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_database_mongodb_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding MongoDB logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_database_mongodb_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_database_mongodb_log calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_DATABASE_MONGODB_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_database_mongodb_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_database_mongodb_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_database_mongodb_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_database_mongodb_maintenance calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_database_mongodb_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_database_mongodb_maintenance calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_database_mongodb_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_database_mongodb_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_database_mongodb_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_database_mongodb_metric calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_database_mongodb_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMongodbPrometheusEndpoint:
+        """get_project_managed_database_mongodb_prometheus calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the domain of the DNS SRV record that lists the scraping targets, and the username
+        for Prometheus authentication. The password is returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMongodbPrometheusEndpoint,
+        )
+
+    def reset_project_managed_database_mongodb_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_database_mongodb_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/mongodb/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_MONGODB_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def restore_project_managed_database_mongodb(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseRestoreRequest
+    ) -> models.PublicCloudDatabaseService:
+        """restore_project_managed_database_mongodb calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/restore: Restore the service
+
+        Restores the service from a backup, to the given pointInTime. Without pointInTime, the
+        latest backup is restored. The current data of the service is replaced and the restore is
+        asynchronous: follow resourceStatus until READY.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/restore.
+        """
+        return self._call(
+            _r.OP_RESTORE_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseRestoreRequest,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_mongodb_roles(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseRole]:
+        """all_project_managed_database_mongodb_roles iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/roles (List roles).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the roles that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/roles/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseRole,
+        )
+
+    def get_project_managed_database_mongodb_roles(
+        self, project_id: str, service_id: str, role_id: str
+    ) -> models.PublicCloudDatabaseRole:
+        """get_project_managed_database_mongodb_roles calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/roles/{roleId}: Get a role
+
+        Returns a role that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            role_id: Role ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/roles/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "roleId": role_id,
+            },
+            result=models.PublicCloudDatabaseRole,
+        )
+
+    def all_project_managed_database_mongodb_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseUserWithRoles]:
+        """all_project_managed_database_mongodb_users iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their roles and status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def create_project_managed_database_mongodb_user(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseUserWithRolesCreation,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """create_project_managed_database_mongodb_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user: Create a user
+
+        Creates a user with the given roles and generates its password. The password is returned
+        only on creation and on password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserWithRolesCreation,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def get_project_managed_database_mongodb_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """get_project_managed_database_mongodb_user calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its roles and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def update_project_managed_database_mongodb_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserReplace,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """update_project_managed_database_mongodb_user calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}: Update a user
+
+        Updates the roles of the user. The roles list replaces the current roles. To reset the
+        password, use the resetPassword route of the user or a partial update with
+        credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserReplace,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def patch_project_managed_database_mongodb_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserUpdate,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """patch_project_managed_database_mongodb_user calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}: Partially update a user
+
+        Partially updates the roles of the user. The roles list replaces the current roles. Setting
+        credentialsLastUpdatedAt resets the password and returns the new one.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserUpdate,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def delete_project_managed_database_mongodb_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """delete_project_managed_database_mongodb_user calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def reset_password_project_managed_database_mongodb_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """reset_password_project_managed_database_mongodb_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def all_project_managed_database_mysqls(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_mysqls iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql (List MySQL services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the MySQL services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQLS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_database_mysql(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_database_mysql calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql: Create a MySQL service
+
+        Creates a MySQL service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_database_mysql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_mysql calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}: Get a MySQL service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_database_mysql(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_database_mysql calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}: Update a MySQL service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_database_mysql(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_database_mysql calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}: Partially update a MySQL service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_database_mysql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_database_mysql calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}: Delete a MySQL service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_database_mysql_certificates(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseCertificates:
+        """get_project_managed_database_mysql_certificates calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/certificates: Get the TLS certificates
+
+        Returns the CA certificate, in PEM format, used to verify the connection to the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/certificates/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_CERTIFICATES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseCertificates,
+        )
+
+    def all_project_managed_database_mysql_current_queries(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCurrentQuery]:
+        """all_project_managed_database_mysql_current_queries iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries (List running queries).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the queries running on the service, with their client, user, state and duration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/currentQueries/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    def get_project_managed_database_mysql_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseCurrentQuery:
+        """get_project_managed_database_mysql_current_queries calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries/{queryPid}: Get a running query
+
+        Returns the SQL text, state and duration of a running query, identified by its process ID.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            limit: Maximum number of queries to return (optional)
+            offset: Number of queries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/currentQueries/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            result=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    def cancel_project_managed_database_mysql_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        body: models.PublicCloudDatabaseQueryCancelRequest,
+    ) -> models.PublicCloudDatabaseQueryCancelResult:
+        """cancel_project_managed_database_mysql_current_queries calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries/{queryPid}/cancel: Cancel a running query
+
+        Cancels a running query gracefully. Set terminate to true to force its termination instead.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/currentQueries/cancel.
+        """
+        return self._call(
+            _r.OP_CANCEL_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseQueryCancelRequest,
+            result=models.PublicCloudDatabaseQueryCancelResult,
+        )
+
+    def all_project_managed_database_mysql_databases(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseDatabase]:
+        """all_project_managed_database_mysql_databases iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database (List databases).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the databases of the service, including the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/database/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_DATABASES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseDatabase,
+        )
+
+    def create_project_managed_database_mysql_database(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseDatabaseCreation
+    ) -> models.PublicCloudDatabaseDatabase:
+        """create_project_managed_database_mysql_database calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database: Create a database
+
+        Creates a database with the given name.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/database/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseDatabaseCreation,
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def get_project_managed_database_mysql_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """get_project_managed_database_mysql_database calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database/{databaseId}: Get a database
+
+        Returns the database name and whether it is the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/database/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def delete_project_managed_database_mysql_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """delete_project_managed_database_mysql_database calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database/{databaseId}: Delete a database
+
+        Permanently deletes the database. The engine default database cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/database/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def enable_writes_project_managed_database_mysql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseTemporaryWriteDeadline:
+        """enable_writes_project_managed_database_mysql calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/enableWrites: Enable temporary writes
+
+        Enables temporary write permissions on a service locked in read-only mode because its disk
+        is full. Returns the date when they are revoked.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/enableWrites.
+        """
+        return self._call(
+            _r.OP_ENABLE_WRITES_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseTemporaryWriteDeadline,
+        )
+
+    def all_project_managed_database_mysql_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_database_mysql_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_database_mysql_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_database_mysql_integration calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_database_mysql_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_database_mysql_integration calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_database_mysql_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_database_mysql_integration calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_database_mysql_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_database_mysql_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds MySQL emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_database_mysql_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_database_mysql_log_kind calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_database_mysql_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_database_mysql_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the MySQL log subscriptions. Set `kind` to restrict the list to
+        one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_database_mysql_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_database_mysql_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards MySQL logs of one kind to a Logs Data Platform stream. The subscription is created
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_database_mysql_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_database_mysql_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_database_mysql_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_database_mysql_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding MySQL logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_database_mysql_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_database_mysql_log calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_DATABASE_MYSQL_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_database_mysql_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_database_mysql_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_database_mysql_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_database_mysql_maintenance calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_database_mysql_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_database_mysql_maintenance calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_database_mysql_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_database_mysql_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_database_mysql_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_database_mysql_metric calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_database_mysql_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_database_mysql_prometheus calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    def reset_project_managed_database_mysql_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_database_mysql_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/mysql/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_MYSQL_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_database_mysql_query_statistics(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.PublicCloudDatabaseQueryStatistic]:
+        """all_project_managed_database_mysql_query_statistics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/queryStatistics (List query statistics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns execution statistics for each query pattern: number of calls, rows and execution
+        times.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            limit: Maximum number of entries to return (optional)
+            offset: Number of entries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/queryStatistics/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            item=models.PublicCloudDatabaseQueryStatistic,
+        )
+
+    def reset_project_managed_database_mysql_query_statistics(
+        self, project_id: str, service_id: str
+    ) -> None:
+        """reset_project_managed_database_mysql_query_statistics calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/queryStatistics/reset: Reset query statistics
+
+        Resets all aggregated query statistics of the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/queryStatistics/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_MYSQL_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+        )
+
+    def all_project_managed_database_mysql_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseUser]:
+        """all_project_managed_database_mysql_users iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUser,
+        )
+
+    def create_project_managed_database_mysql_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseUserCreation
+    ) -> models.PublicCloudDatabaseUser:
+        """create_project_managed_database_mysql_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user: Create a user
+
+        Creates a user and generates its password. The password is returned only on creation and on
+        password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCreation,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def get_project_managed_database_mysql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """get_project_managed_database_mysql_user calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}: Get a user
+
+        Returns the user and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def update_project_managed_database_mysql_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUser:
+        """update_project_managed_database_mysql_user calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def delete_project_managed_database_mysql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """delete_project_managed_database_mysql_user calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def reset_password_project_managed_database_mysql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """reset_password_project_managed_database_mysql_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def all_project_managed_database_postgresqls(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_postgresqls iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql (List PostgreSQL services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the PostgreSQL services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQLS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_database_postgresql(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_database_postgresql calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql: Create a PostgreSQL service
+
+        Creates a PostgreSQL service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_database_postgresql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_postgresql calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}: Get a PostgreSQL service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_database_postgresql(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_database_postgresql calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}: Update a PostgreSQL service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_database_postgresql(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_database_postgresql calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}: Partially update a PostgreSQL service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_database_postgresql(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        delete_backups: bool | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_database_postgresql calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}: Delete a PostgreSQL service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted. By
+        default, the service's backups are kept, and a last backup is taken once the service is
+        stopped. They stay listed and can be forked until they expire, at the end of the retention
+        configured when the service was deleted. They are billed until they expire, then deleted.
+        Set `deleteBackups` to true to delete them with the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            delete_backups: Whether to also delete the service's backups. Defaults to false. (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("deleteBackups", delete_backups),),
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_database_postgresql_certificates(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseCertificates:
+        """get_project_managed_database_postgresql_certificates calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/certificates: Get the TLS certificates
+
+        Returns the CA certificate, in PEM format, used to verify the connection to the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/certificates/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CERTIFICATES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseCertificates,
+        )
+
+    def all_project_managed_database_postgresql_connection_pools(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabasePostgresqlConnectionPool]:
+        """all_project_managed_database_postgresql_connection_pools iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool (List connection pools).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the connection pools of the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOLS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    def create_project_managed_database_postgresql_connection_pool(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabasePostgresqlConnectionPoolCreation,
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """create_project_managed_database_postgresql_connection_pool calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool: Create a connection pool
+
+        Creates a connection pool on a database, with a pooling mode and a maximum number of server
+        connections. Without userId, a system user opens the server connections.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabasePostgresqlConnectionPoolCreation,
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    def get_project_managed_database_postgresql_connection_pool(
+        self, project_id: str, service_id: str, connection_pool_id: str
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """get_project_managed_database_postgresql_connection_pool calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}: Get a connection pool
+
+        Returns the connection pool settings and its connection URI.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connection_pool_id: Connection pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectionPoolId": connection_pool_id,
+            },
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    def update_project_managed_database_postgresql_connection_pool(
+        self,
+        project_id: str,
+        service_id: str,
+        connection_pool_id: str,
+        body: models.PublicCloudDatabasePostgresqlConnectionPoolReplace,
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """update_project_managed_database_postgresql_connection_pool calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}: Update a connection pool
+
+        Updates the database, pooling mode, size and user of the connection pool. Every field is
+        required. Setting userId to null removes the user assignment.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connection_pool_id: Connection pool ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectionPoolId": connection_pool_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabasePostgresqlConnectionPoolReplace,
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    def patch_project_managed_database_postgresql_connection_pool(
+        self,
+        project_id: str,
+        service_id: str,
+        connection_pool_id: str,
+        body: models.PublicCloudDatabasePostgresqlConnectionPoolUpdate,
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """patch_project_managed_database_postgresql_connection_pool calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}: Partially update a connection pool
+
+        Partially updates the database, pooling mode, size or user of the connection pool. Setting
+        userId to null removes the user assignment.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connection_pool_id: Connection pool ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectionPoolId": connection_pool_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabasePostgresqlConnectionPoolUpdate,
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    def delete_project_managed_database_postgresql_connection_pool(
+        self, project_id: str, service_id: str, connection_pool_id: str
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """delete_project_managed_database_postgresql_connection_pool calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}: Delete a connection pool
+
+        Deletes the connection pool.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connection_pool_id: Connection pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectionPoolId": connection_pool_id,
+            },
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    def all_project_managed_database_postgresql_current_queries(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseCurrentQuery]:
+        """all_project_managed_database_postgresql_current_queries iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries (List running queries).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the queries running on the service, with their client, user, state and duration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/currentQueries/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    def get_project_managed_database_postgresql_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseCurrentQuery:
+        """get_project_managed_database_postgresql_current_queries calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries/{queryPid}: Get a running query
+
+        Returns the SQL text, state and duration of a running query, identified by its process ID.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            limit: Maximum number of queries to return (optional)
+            offset: Number of queries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/currentQueries/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            result=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    def cancel_project_managed_database_postgresql_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        body: models.PublicCloudDatabaseQueryCancelRequest,
+    ) -> models.PublicCloudDatabaseQueryCancelResult:
+        """cancel_project_managed_database_postgresql_current_queries calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries/{queryPid}/cancel: Cancel a running query
+
+        Cancels a running query gracefully. Set terminate to true to force its termination instead.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/currentQueries/cancel.
+        """
+        return self._call(
+            _r.OP_CANCEL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseQueryCancelRequest,
+            result=models.PublicCloudDatabaseQueryCancelResult,
+        )
+
+    def all_project_managed_database_postgresql_databases(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseDatabase]:
+        """all_project_managed_database_postgresql_databases iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database (List databases).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the databases of the service, including the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/database/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseDatabase,
+        )
+
+    def create_project_managed_database_postgresql_database(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseDatabaseCreation
+    ) -> models.PublicCloudDatabaseDatabase:
+        """create_project_managed_database_postgresql_database calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database: Create a database
+
+        Creates a database with the given name.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/database/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseDatabaseCreation,
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def get_project_managed_database_postgresql_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """get_project_managed_database_postgresql_database calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database/{databaseId}: Get a database
+
+        Returns the database name and whether it is the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/database/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def delete_project_managed_database_postgresql_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """delete_project_managed_database_postgresql_database calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database/{databaseId}: Delete a database
+
+        Permanently deletes the database. The engine default database cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/database/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    def enable_writes_project_managed_database_postgresql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseTemporaryWriteDeadline:
+        """enable_writes_project_managed_database_postgresql calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/enableWrites: Enable temporary writes
+
+        Enables temporary write permissions on a service locked in read-only mode because its disk
+        is full. Returns the date when they are revoked.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/enableWrites.
+        """
+        return self._call(
+            _r.OP_ENABLE_WRITES_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseTemporaryWriteDeadline,
+        )
+
+    def all_project_managed_database_postgresql_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_database_postgresql_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_database_postgresql_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_database_postgresql_integration calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_database_postgresql_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_database_postgresql_integration calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_database_postgresql_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_database_postgresql_integration calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_database_postgresql_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_database_postgresql_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds PostgreSQL emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_database_postgresql_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_database_postgresql_log_kind calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_database_postgresql_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_database_postgresql_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the PostgreSQL log subscriptions. Set `kind` to restrict the list
+        to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_database_postgresql_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_database_postgresql_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards PostgreSQL logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/postgresql/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_database_postgresql_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_database_postgresql_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_database_postgresql_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_database_postgresql_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding PostgreSQL logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/postgresql/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_database_postgresql_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_database_postgresql_log calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_database_postgresql_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_database_postgresql_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_database_postgresql_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_database_postgresql_maintenance calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_database_postgresql_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_database_postgresql_maintenance calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_database_postgresql_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_database_postgresql_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_database_postgresql_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_database_postgresql_metric calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_database_postgresql_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_database_postgresql_prometheus calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    def reset_project_managed_database_postgresql_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_database_postgresql_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/postgresql/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_POSTGRESQL_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_database_postgresql_query_statistics(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.PublicCloudDatabaseQueryStatistic]:
+        """all_project_managed_database_postgresql_query_statistics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/queryStatistics (List query statistics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns execution statistics for each query pattern: number of calls, rows and execution
+        times.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            limit: Maximum number of entries to return (optional)
+            offset: Number of entries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/queryStatistics/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            item=models.PublicCloudDatabaseQueryStatistic,
+        )
+
+    def reset_project_managed_database_postgresql_query_statistics(
+        self, project_id: str, service_id: str
+    ) -> None:
+        """reset_project_managed_database_postgresql_query_statistics calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/queryStatistics/reset: Reset query statistics
+
+        Resets all aggregated query statistics of the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/queryStatistics/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_POSTGRESQL_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+        )
+
+    def all_project_managed_database_postgresql_roles(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseRole]:
+        """all_project_managed_database_postgresql_roles iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/roles (List roles).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the roles that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/roles/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseRole,
+        )
+
+    def get_project_managed_database_postgresql_roles(
+        self, project_id: str, service_id: str, role_id: str
+    ) -> models.PublicCloudDatabaseRole:
+        """get_project_managed_database_postgresql_roles calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/roles/{roleId}: Get a role
+
+        Returns a role that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            role_id: Role ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/roles/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "roleId": role_id,
+            },
+            result=models.PublicCloudDatabaseRole,
+        )
+
+    def all_project_managed_database_postgresql_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseUserWithRoles]:
+        """all_project_managed_database_postgresql_users iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their roles and status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def create_project_managed_database_postgresql_user(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseUserWithRolesCreation,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """create_project_managed_database_postgresql_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user: Create a user
+
+        Creates a user with the given roles and generates its password. The password is returned
+        only on creation and on password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserWithRolesCreation,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def get_project_managed_database_postgresql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """get_project_managed_database_postgresql_user calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its roles and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def update_project_managed_database_postgresql_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserReplace,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """update_project_managed_database_postgresql_user calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}: Update a user
+
+        Updates the roles of the user. The roles list replaces the current roles. To reset the
+        password, use the resetPassword route of the user or a partial update with
+        credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserReplace,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def patch_project_managed_database_postgresql_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserUpdate,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """patch_project_managed_database_postgresql_user calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}: Partially update a user
+
+        Partially updates the roles of the user. The roles list replaces the current roles. Setting
+        credentialsLastUpdatedAt resets the password and returns the new one.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserUpdate,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def delete_project_managed_database_postgresql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """delete_project_managed_database_postgresql_user calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def reset_password_project_managed_database_postgresql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """reset_password_project_managed_database_postgresql_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/postgresql/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def all_project_managed_database_services(
+        self,
+        project_id: str,
+        *,
+        category: models.PublicCloudDatabaseCategoryEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_services iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/service (List services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the database services of the project, across all engines.
+
+        Args:
+            project_id: Project ID
+            category: Filter services by engine category (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/service/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_SERVICES,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("category", category),),
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_database_service(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_service calls GET /v2/publicCloud/project/{projectId}/managedDatabase/service/{serviceId}: Get a service
+
+        Returns a database service whatever its engine, with its target specification, current state
+        and running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/service/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_SERVICE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_valkeys(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_valkeys iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey (List Valkey services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the Valkey services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEYS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    def create_project_managed_database_valkey(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_database_valkey calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey: Create a Valkey service
+
+        Creates a Valkey service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def get_project_managed_database_valkey(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_valkey calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}: Get a Valkey service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def update_project_managed_database_valkey(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_database_valkey calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}: Update a Valkey service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def patch_project_managed_database_valkey(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_database_valkey calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}: Partially update a Valkey service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def delete_project_managed_database_valkey(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_database_valkey calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}: Delete a Valkey service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_valkey_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_database_valkey_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    def create_project_managed_database_valkey_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_database_valkey_integration calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/integration/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def get_project_managed_database_valkey_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_database_valkey_integration calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/integration/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def delete_project_managed_database_valkey_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_database_valkey_integration calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/integration/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_database_valkey_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[str]:
+        """all_project_managed_database_valkey_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds Valkey emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    def get_project_managed_database_valkey_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_database_valkey_log_kind calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_database_valkey_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[str]:
+        """all_project_managed_database_valkey_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the Valkey log subscriptions. Set `kind` to restrict the list to
+        one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_project_managed_database_valkey_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_database_valkey_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Valkey logs of one kind to a Logs Data Platform stream. The subscription is created
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/subscription/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_project_managed_database_valkey_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_database_valkey_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_project_managed_database_valkey_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_database_valkey_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Valkey logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_project_managed_database_valkey_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_database_valkey_log calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_PROJECT_MANAGED_DATABASE_VALKEY_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_database_valkey_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_database_valkey_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def create_project_managed_database_valkey_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_database_valkey_maintenance calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/maintenance/apply.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def get_project_managed_database_valkey_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_database_valkey_maintenance calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/maintenance/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_database_valkey_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_database_valkey_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_database_valkey_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_database_valkey_metric calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/metric/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def get_project_managed_database_valkey_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_database_valkey_prometheus calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/prometheus/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    def reset_project_managed_database_valkey_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_database_valkey_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/valkey/prometheus/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_VALKEY_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_database_valkey_users(
+        self, project_id: str, service_id: str
+    ) -> t.Iterator[models.PublicCloudDatabaseValkeyUser]:
+        """all_project_managed_database_valkey_users iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the users of the service with their access rules and status. Passwords are not
+        returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    def create_project_managed_database_valkey_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseValkeyUserCreation
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """create_project_managed_database_valkey_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user: Create a user
+
+        Creates a user with access rules on command categories, commands, keys and Pub/Sub channels.
+        An empty keys or channels list grants no access. The generated password is returned only on
+        creation and on password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseValkeyUserCreation,
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    def get_project_managed_database_valkey_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """get_project_managed_database_valkey_user calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its access rules and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    def update_project_managed_database_valkey_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseValkeyUserReplace,
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """update_project_managed_database_valkey_user calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}: Update a user
+
+        Updates the access rules of the user. Each list replaces the current one, and an empty keys
+        or channels list revokes all access. To reset the password, use the resetPassword route of
+        the user or a partial update with credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseValkeyUserReplace,
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    def patch_project_managed_database_valkey_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseValkeyUserUpdate,
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """patch_project_managed_database_valkey_user calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}: Partially update a user
+
+        Partially updates the access rules of the user. Each list replaces the current one, and an
+        empty keys or channels list revokes all access. Setting credentialsLastUpdatedAt resets the
+        password and returns the new one.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/edit.
+        """
+        return self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseValkeyUserUpdate,
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    def delete_project_managed_database_valkey_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """delete_project_managed_database_valkey_user calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    def reset_password_project_managed_database_valkey_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """reset_password_project_managed_database_valkey_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/credentials/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    def all_project_managed_kubernetes(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudManagedKubernetesCluster]:
+        """all_project_managed_kubernetes iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes (List managed Kubernetes clusters).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def create_project_managed_kubernetes(
+        self, project_id: str, body: models.PublicCloudManagedKubernetesClusterCreation
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """create_project_managed_kubernetes calls POST /v2/publicCloud/project/{projectId}/managedKubernetes: Create a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedKubernetesClusterCreation,
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def get_project_managed_kubernetes(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """get_project_managed_kubernetes calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}: Get a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def update_project_managed_kubernetes(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        body: models.PublicCloudManagedKubernetesClusterUpdate,
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """update_project_managed_kubernetes calls PUT /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}: Update a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedKubernetesClusterUpdate,
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def delete_project_managed_kubernetes(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """delete_project_managed_kubernetes calls DELETE /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}: Delete a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def get_project_managed_kubernetes_capabilities_version(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesClusterVersions:
+        """get_project_managed_kubernetes_capabilities_version calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/capabilities/version: Get the versions of a managed Kubernetes cluster
+
+        Returns the full version deployed on the cluster, the patch versions of the current minor it
+        can update to, and the versions of the next minor it can upgrade to. Multi-minor jumps are
+        never returned.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:managedKubernetes/capabilities/version/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_CAPABILITIES_VERSION,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesClusterVersions,
+        )
+
+    def all_project_managed_kubernetes_events(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        *,
+        task_id: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.CommonEvent]:
+        """all_project_managed_kubernetes_events iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/event (List all events related to a managed Kubernetes cluster).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            task_id: Return only the events belonging to this task (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/event/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_EVENTS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            query=(("taskId", task_id),),
+            item=models.CommonEvent,
+        )
+
+    def get_project_managed_kubernetes_kubeconfig(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesKubeconfig:
+        """get_project_managed_kubernetes_kubeconfig calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/kubeconfig: Retrieve the cluster admin kubeconfig
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/kubeconfig/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_KUBECONFIG,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesKubeconfig,
+        )
+
+    def reset_project_managed_kubernetes_kubeconfig(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """reset_project_managed_kubernetes_kubeconfig calls POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/kubeconfig/reset: Reset the cluster admin kubeconfig
+
+        Rotates the cluster admin credentials asynchronously. The previous kubeconfig stops working.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/kubeconfig/reset.
+        """
+        return self._call(
+            _r.OP_RESET_PROJECT_MANAGED_KUBERNETES_KUBECONFIG,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def all_project_managed_kubernetes_nodepools(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> t.Iterator[models.PublicCloudManagedKubernetesNodepool]:
+        """all_project_managed_kubernetes_nodepools iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool (List nodepools of a managed Kubernetes cluster).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOLS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            item=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    def create_project_managed_kubernetes_nodepool(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        body: models.PublicCloudManagedKubernetesNodepoolCreation,
+    ) -> models.PublicCloudManagedKubernetesNodepool:
+        """create_project_managed_kubernetes_nodepool calls POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool: Create a nodepool in a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/create.
+        """
+        return self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedKubernetesNodepoolCreation,
+            result=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    def get_project_managed_kubernetes_nodepool(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str
+    ) -> models.PublicCloudManagedKubernetesNodepool:
+        """get_project_managed_kubernetes_nodepool calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}: Get a nodepool of a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            result=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    def update_project_managed_kubernetes_nodepool(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        node_pool_id: str,
+        body: models.PublicCloudManagedKubernetesNodepoolUpdate,
+    ) -> models.PublicCloudManagedKubernetesNodepool:
+        """update_project_managed_kubernetes_nodepool calls PUT /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}: Update a nodepool of a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedKubernetesNodepoolUpdate,
+            result=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    def delete_project_managed_kubernetes_nodepool(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str
+    ) -> models.PublicCloudManagedKubernetesNodepool:
+        """delete_project_managed_kubernetes_nodepool calls DELETE /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}: Delete a nodepool of a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            result=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    def all_project_managed_kubernetes_nodepool_events(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        node_pool_id: str,
+        *,
+        task_id: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.CommonEvent]:
+        """all_project_managed_kubernetes_nodepool_events iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/event (List all events related to a managed Kubernetes cluster nodepool).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            task_id: Return only the events belonging to this task (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/event/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_EVENTS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            query=(("taskId", task_id),),
+            item=models.CommonEvent,
+        )
+
+    def all_project_managed_kubernetes_nodepool_nodes(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        node_pool_id: str,
+        *,
+        include_deleted: bool | None | NotGiven = NOT_GIVEN,
+        resource_status: models.PublicCloudManagedKubernetesNodeResourceStatusEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.PublicCloudManagedKubernetesNode]:
+        """all_project_managed_kubernetes_nodepool_nodes iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/node (List nodes of a managed Kubernetes cluster nodepool).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Deleted nodes kept in retention are excluded unless includeDeleted is true.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            include_deleted: Include deleted nodes still kept in retention (optional)
+            resource_status: Return only the nodes in this lifecycle status. Filtering on DELETED requires includeDeleted set to true, otherwise the request returns 400. (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/node/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_NODES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            query=(
+                ("includeDeleted", include_deleted),
+                ("resourceStatus", resource_status),
+            ),
+            item=models.PublicCloudManagedKubernetesNode,
+        )
+
+    def get_project_managed_kubernetes_nodepool_node(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str, node_id: str
+    ) -> models.PublicCloudManagedKubernetesNode:
+        """get_project_managed_kubernetes_nodepool_node calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/node/{nodeId}: Get a node of a managed Kubernetes cluster nodepool
+
+        A deleted node kept in retention is returned with resourceStatus DELETED until it expires,
+        after which the call returns 404.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            node_id: Node ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/node/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL_NODE,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+                "nodeId": node_id,
+            },
+            result=models.PublicCloudManagedKubernetesNode,
+        )
+
+    def all_project_managed_kubernetes_nodepool_tasks(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str
+    ) -> t.Iterator[models.CommonTask]:
+        """all_project_managed_kubernetes_nodepool_tasks iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/task (List all tasks related to a managed Kubernetes cluster nodepool).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/task/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_TASKS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            item=models.CommonTask,
+        )
+
+    def get_project_managed_kubernetes_nodepool_task(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str, task_id: str
+    ) -> models.CommonTask:
+        """get_project_managed_kubernetes_nodepool_task calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/task/{taskId}: Get a specific task related to a managed Kubernetes cluster nodepool
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            task_id: Task ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/task/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL_TASK,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+                "taskId": task_id,
+            },
+            result=models.CommonTask,
+        )
+
+    def restart_project_managed_kubernetes(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """restart_project_managed_kubernetes calls POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/restart: Restart the control plane of a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/restart.
+        """
+        return self._call(
+            _r.OP_RESTART_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def all_project_managed_kubernetes_tasks(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> t.Iterator[models.CommonTask]:
+        """all_project_managed_kubernetes_tasks iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/task (List all tasks related to a managed Kubernetes cluster).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/task/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_TASKS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            item=models.CommonTask,
+        )
+
+    def get_project_managed_kubernetes_task(
+        self, project_id: str, managed_kubernetes_id: str, task_id: str
+    ) -> models.CommonTask:
+        """get_project_managed_kubernetes_task calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/task/{taskId}: Get a specific task related to a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            task_id: Task ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/task/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_TASK,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "taskId": task_id,
+            },
+            result=models.CommonTask,
+        )
+
+    def get_project_managed_kubernetes_usage_etcd(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesEtcdUsage:
+        """get_project_managed_kubernetes_usage_etcd calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/usage/etcd: Get the etcd database usage and quota for a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/usage/etcd/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_USAGE_ETCD,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesEtcdUsage,
+        )
+
     def all_networks(
         self, project_id: str, *, region: str | None | NotGiven = NOT_GIVEN
     ) -> t.Iterator[models.PublicCloudNetworkNetwork]:
@@ -3612,6 +14113,103 @@ class PublicCloudApi(_gen.SectionApi):
             },
             query=(("region", region),),
             item=models.PublicCloudReferenceLoadbalancerFlavor,
+        )
+
+    def all_project_reference_managed_kubernetes_flavors(
+        self, project_id: str, region: str
+    ) -> t.Iterator[models.PublicCloudManagedKubernetesFlavor]:
+        """all_project_reference_managed_kubernetes_flavors iterates over GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/flavor (List Kubernetes node flavors).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the node flavors available for node pools in a region, with their category,
+        resources and status. Requires a region.
+
+        Args:
+            project_id: Project ID
+            region: Region to list flavors for. Flavor availability varies by region. An unknown region returns 404.
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedKubernetes/flavor/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_FLAVORS,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("region", region),),
+            item=models.PublicCloudManagedKubernetesFlavor,
+        )
+
+    def all_project_reference_managed_kubernetes_plans(
+        self, project_id: str, region: str
+    ) -> t.Iterator[models.PublicCloudManagedKubernetesPlan]:
+        """all_project_reference_managed_kubernetes_plans iterates over GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/plan (List Kubernetes cluster plans).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the plans available for cluster creation in a region, with their control plane
+        characteristics and limits. Requires a region.
+
+        Args:
+            project_id: Project ID
+            region: Region to list plans for. Plan availability varies by region. An unknown region returns 404.
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedKubernetes/plan/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_PLANS,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("region", region),),
+            item=models.PublicCloudManagedKubernetesPlan,
+        )
+
+    def all_project_reference_managed_kubernetes_regions(
+        self, project_id: str
+    ) -> t.Iterator[models.PublicCloudManagedKubernetesRegion]:
+        """all_project_reference_managed_kubernetes_regions iterates over GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/region (List Kubernetes cluster regions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the regions where a cluster can be created, with their availability zones and the
+        plans offered there.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedKubernetes/region/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_REGIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedKubernetesRegion,
+        )
+
+    def get_project_reference_managed_kubernetes_version(
+        self, project_id: str
+    ) -> models.PublicCloudManagedKubernetesVersionCatalog:
+        """get_project_reference_managed_kubernetes_version calls GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/version: List Kubernetes versions
+
+        Returns the minor versions available for cluster creation, newest first, and the default
+        version. Creation resolves a minor version to its latest patch.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedKubernetes/version/get.
+        """
+        return self._call(
+            _r.OP_GET_PROJECT_REFERENCE_MANAGED_KUBERNETES_VERSION,
+            path_params={
+                "projectId": project_id,
+            },
+            result=models.PublicCloudManagedKubernetesVersionCatalog,
         )
 
     def all_product_availability(
@@ -5289,11 +15887,11 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
 
     The methods of PublicCloudApi, with await. Iterators are async: use ``async for``.
 
-    It has 191 operations, on the routes under /v2/publicCloud.
+    It has 600 operations, on the routes under /v2/publicCloud.
 
     To start, list what the account has: all_projects, all_gateways, all_load_balancers,
-    all_networks, all_public_ips, all_project_ranchers, all_security_groups, all_ssh_keys, and 45
-    more.
+    all_project_managed_kubernetes, all_networks, all_public_ips, all_project_ranchers,
+    all_security_groups, and 162 more.
 
     To find the method for a route, search index/public_cloud.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -5339,405 +15937,6 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
                 "projectId": project_id,
             },
             result=models.PublicCloudProjectProjectAsyncWithIAM,
-        )
-
-    def all_project_ai_agents_agents(
-        self, project_id: str
-    ) -> t.AsyncIterator[models.PublicCloudAiAgentsAgent]:
-        """all_project_ai_agents_agents iterates over GET /v2/publicCloud/project/{projectId}/ai/agents/agent (List AI agents).
-
-        It yields one item at a time, and gets the next page only when the loop reaches it.
-        An error is raised and stops the loop. Use it with ``async for``.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/get.
-        """
-        return self._pages(
-            _r.OP_ALL_PROJECT_AI_AGENTS_AGENTS,
-            path_params={
-                "projectId": project_id,
-            },
-            item=models.PublicCloudAiAgentsAgent,
-        )
-
-    async def create_project_ai_agents_agent(
-        self, project_id: str, body: models.PublicCloudAiAgentsAgentCreation
-    ) -> models.PublicCloudAiAgentsAgent:
-        """create_project_ai_agents_agent calls POST /v2/publicCloud/project/{projectId}/ai/agents/agent: Create an AI agent
-
-        Creates an AI agent: a hosted assistant that answers on its own URL, given by
-        `currentState.endpointUrl`, and reached with a token from the `token` action. An agent runs
-        a model with a persona, plus whatever tools, memory and channels its configuration gives it.
-        That configuration can come from a ready-made one published by OVHcloud, from a template of
-        your own, or from settings supplied here — or from none of them, leaving an agent that
-        cannot answer until it is given a model. Parts of it that OVHcloud manages are rejected
-        here; the `globalSettings` preset says which. This is the only point at which this API sets
-        an agent's configuration: from here on the agent holds its own and is configured through its
-        endpoint. Create it paused to finish preparing it before it answers anyone.
-
-        Args:
-            project_id: Project ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/create.
-        """
-        return await self._call(
-            _r.OP_CREATE_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsAgentCreation,
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    async def get_project_ai_agents_agent(
-        self, project_id: str, agent_id: str
-    ) -> models.PublicCloudAiAgentsAgent:
-        """get_project_ai_agents_agent calls GET /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}: Get an AI agent
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/get.
-        """
-        return await self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    async def update_project_ai_agents_agent(
-        self, project_id: str, agent_id: str, body: models.PublicCloudAiAgentsAgentUpdate
-    ) -> models.PublicCloudAiAgentsAgent:
-        """update_project_ai_agents_agent calls PUT /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}: Update an AI agent
-
-        `targetSpec.enabled` is mandatory, including on an update whose only intent is a rename.
-        Restating the agent's current running state changes nothing; stating the other one pauses or
-        resumes it. `targetSpec.name` is optional: omitting it, or restating the current name,
-        leaves it untouched. Any other name renames the agent and redeploys it, keeping its
-        identifier, its access tokens, its configuration and its data, and re-applying its paused
-        state. A name another agent in the project already holds is rejected. The configuration is
-        not settable here; it is read and changed through the agent itself.
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/edit.
-        """
-        return await self._call(
-            _r.OP_UPDATE_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsAgentUpdate,
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    async def delete_project_ai_agents_agent(
-        self, project_id: str, agent_id: str
-    ) -> models.PublicCloudAiAgentsAgent:
-        """delete_project_ai_agents_agent calls DELETE /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}: Delete an AI agent
-
-        Deletion is asynchronous: the response describes the agent with `resourceStatus: DELETING`.
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/delete.
-        """
-        return await self._call(
-            _r.OP_DELETE_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    async def redeploy_project_ai_agents_agent(
-        self, project_id: str, agent_id: str
-    ) -> models.PublicCloudAiAgentsAgent:
-        """redeploy_project_ai_agents_agent calls POST /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}/redeploy: Redeploy an AI agent, refreshing its runtime while keeping its data
-
-        Refreshes the agent's runtime without touching its configuration or the data it holds.
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/redeploy.
-        """
-        return await self._call(
-            _r.OP_REDEPLOY_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            result=models.PublicCloudAiAgentsAgent,
-        )
-
-    async def token_project_ai_agents_agent(
-        self, project_id: str, agent_id: str, body: models.PublicCloudAiAgentsAgentTokenCreation
-    ) -> models.PublicCloudAiAgentsAgentToken:
-        """token_project_ai_agents_agent calls POST /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}/token: Issue a scoped access token for an AI agent
-
-        Returns a bearer token to present to the agent at `currentState.endpointUrl`. The token is
-        returned once, here, and is never readable afterwards. Both body fields are optional: send
-        `{}` for the defaults, which are the VIEWER role and the agent's own default lifetime. A
-        lifetime longer than the agent's own maximum is rejected.
-
-        Args:
-            project_id: Project ID
-            agent_id: Agent ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/agent/token/create.
-        """
-        return await self._call(
-            _r.OP_TOKEN_PROJECT_AI_AGENTS_AGENT,
-            path_params={
-                "projectId": project_id,
-                "agentId": agent_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsAgentTokenCreation,
-            result=models.PublicCloudAiAgentsAgentToken,
-        )
-
-    async def get_project_ai_agents_preset_global_settings(
-        self, project_id: str
-    ) -> models.PublicCloudAiAgentsGlobalSettings:
-        """get_project_ai_agents_preset_global_settings calls GET /v2/publicCloud/project/{projectId}/ai/agents/preset/globalSettings: Get the AI agent configuration settings fixed by OVHcloud
-
-        Part of an AI agent's configuration is managed by OVHcloud rather than by you: how callers
-        authenticate to the agent, and whether the agent can run code. This route says which parts
-        those are, so a configuration can be prepared knowing what will be accepted — anything
-        OVHcloud manages is rejected if you set it yourself, whether on an agent or on a template.
-        What it reports does not change from one agent to the next.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/preset/globalSettings/get.
-        """
-        return await self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_PRESET_GLOBAL_SETTINGS,
-            path_params={
-                "projectId": project_id,
-            },
-            result=models.PublicCloudAiAgentsGlobalSettings,
-        )
-
-    async def get_project_ai_agents_preset_model_ai_endpoints_provider(
-        self, project_id: str
-    ) -> models.PublicCloudAiAgentsAIEndpointsPreset:
-        """get_project_ai_agents_preset_model_ai_endpoints_provider calls GET /v2/publicCloud/project/{projectId}/ai/agents/preset/model/aiEndpointsProvider: Get the OVHcloud AI Endpoints provider preset
-
-        States whether the OVHcloud AI Endpoints provider preset can be selected, whether OVHcloud
-        provisions its credential so the caller need not supply one, the base URL whose `/models`
-        sub-path lists the models available, and the model used when the caller names none.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action
-        publicCloudProject:apiovh:ai/agents/preset/model/aiEndpointsProvider/get.
-        """
-        return await self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_PRESET_MODEL_AI_ENDPOINTS_PROVIDER,
-            path_params={
-                "projectId": project_id,
-            },
-            result=models.PublicCloudAiAgentsAIEndpointsPreset,
-        )
-
-    def all_project_ai_agents_preset_templates(
-        self, project_id: str
-    ) -> t.AsyncIterator[models.PublicCloudAiAgentsTemplatePreset]:
-        """all_project_ai_agents_preset_templates iterates over GET /v2/publicCloud/project/{projectId}/ai/agents/preset/template (List built-in AI agent template presets).
-
-        It yields one item at a time, and gets the next page only when the loop reaches it.
-        An error is raised and stops the loop. Use it with ``async for``.
-
-        Presets are ready-made configurations OVHcloud publishes, offered alongside the templates a
-        caller writes for themselves. Pass a preset's `id` as `targetSpec.template.id` on an agent
-        creation to build an agent from it. Identifiers carry a reserved prefix, so a client can
-        tell a preset from a template of its own.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/preset/template/get.
-        """
-        return self._pages(
-            _r.OP_ALL_PROJECT_AI_AGENTS_PRESET_TEMPLATES,
-            path_params={
-                "projectId": project_id,
-            },
-            item=models.PublicCloudAiAgentsTemplatePreset,
-        )
-
-    async def get_project_ai_agents_preset_template(
-        self, project_id: str, template_preset_id: str
-    ) -> models.PublicCloudAiAgentsTemplatePreset:
-        """get_project_ai_agents_preset_template calls GET /v2/publicCloud/project/{projectId}/ai/agents/preset/template/{templatePresetId}: Get an AI agent template preset
-
-        A preset is a ready-made configuration OVHcloud publishes, offered alongside the templates a
-        caller writes for themselves. Pass its `id` as `targetSpec.template.id` on an agent creation
-        to build an agent from it. The identifier carries a reserved prefix, so a client can tell a
-        preset from a template of its own.
-
-        Args:
-            project_id: Project ID
-            template_preset_id: Template preset ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/preset/template/get.
-        """
-        return await self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_PRESET_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-                "templatePresetId": template_preset_id,
-            },
-            result=models.PublicCloudAiAgentsTemplatePreset,
-        )
-
-    def all_project_ai_agents_templates(
-        self, project_id: str
-    ) -> t.AsyncIterator[models.PublicCloudAiAgentsTemplate]:
-        """all_project_ai_agents_templates iterates over GET /v2/publicCloud/project/{projectId}/ai/agents/template (List AI agent templates).
-
-        It yields one item at a time, and gets the next page only when the loop reaches it.
-        An error is raised and stops the loop. Use it with ``async for``.
-
-        The ready-made configurations OVHcloud publishes are absent from this list. They are served
-        by the `preset/template` node.
-
-        Args:
-            project_id: Project ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/get.
-        """
-        return self._pages(
-            _r.OP_ALL_PROJECT_AI_AGENTS_TEMPLATES,
-            path_params={
-                "projectId": project_id,
-            },
-            item=models.PublicCloudAiAgentsTemplate,
-        )
-
-    async def create_project_ai_agents_template(
-        self, project_id: str, body: models.PublicCloudAiAgentsTemplateCreation
-    ) -> models.PublicCloudAiAgentsTemplate:
-        """create_project_ai_agents_template calls POST /v2/publicCloud/project/{projectId}/ai/agents/template: Create an AI agent template
-
-        Registers a reusable configuration that a later agent creation can name through
-        `targetSpec.template.id`. A template stores a configuration. It runs nothing by itself.
-        `targetSpec.name` must be unique within the project's namespace.
-
-        Args:
-            project_id: Project ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/create.
-        """
-        return await self._call(
-            _r.OP_CREATE_PROJECT_AI_AGENTS_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsTemplateCreation,
-            result=models.PublicCloudAiAgentsTemplate,
-        )
-
-    async def get_project_ai_agents_template(
-        self, project_id: str, template_id: str
-    ) -> models.PublicCloudAiAgentsTemplate:
-        """get_project_ai_agents_template calls GET /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}: Get an AI agent template
-
-        The ready-made configurations OVHcloud publishes are not returned here. They are served by
-        the `preset/template` node.
-
-        Args:
-            project_id: Project ID
-            template_id: Template ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/get.
-        """
-        return await self._call(
-            _r.OP_GET_PROJECT_AI_AGENTS_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-                "templateId": template_id,
-            },
-            result=models.PublicCloudAiAgentsTemplate,
-        )
-
-    async def update_project_ai_agents_template(
-        self, project_id: str, template_id: str, body: models.PublicCloudAiAgentsTemplateUpdate
-    ) -> models.PublicCloudAiAgentsTemplate:
-        """update_project_ai_agents_template calls PUT /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}: Update an AI agent template
-
-        Replaces the template's target spec as a whole: a field left out of the body is not
-        preserved, and `targetSpec.config` is mandatory. Secrets inside that configuration read back
-        as `[REDACTED]`. Send the sentinel back unchanged to keep the stored value. Configuration
-        blocks OVHcloud reserves or does not offer are left out of a read, and a body that does not
-        restate them drops them from the stored template. Agents already created from this template
-        are unaffected, since a template is read once, at agent creation time.
-
-        Args:
-            project_id: Project ID
-            template_id: Template ID
-            body: the request body
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/edit.
-        """
-        return await self._call(
-            _r.OP_UPDATE_PROJECT_AI_AGENTS_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-                "templateId": template_id,
-            },
-            body=body,
-            body_type=models.PublicCloudAiAgentsTemplateUpdate,
-            result=models.PublicCloudAiAgentsTemplate,
-        )
-
-    async def delete_project_ai_agents_template(
-        self, project_id: str, template_id: str
-    ) -> models.PublicCloudAiAgentsTemplate:
-        """delete_project_ai_agents_template calls DELETE /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}: Delete an AI agent template
-
-        Deletion is asynchronous: the response describes the template with `resourceStatus:
-        DELETING`. Agents already created from it are unaffected, since a template is read once, at
-        agent creation time.
-
-        Args:
-            project_id: Project ID
-            template_id: Template ID
-
-        Requires the IAM action publicCloudProject:apiovh:ai/agents/template/delete.
-        """
-        return await self._call(
-            _r.OP_DELETE_PROJECT_AI_AGENTS_TEMPLATE,
-            path_params={
-                "projectId": project_id,
-                "templateId": template_id,
-            },
-            result=models.PublicCloudAiAgentsTemplate,
         )
 
     def all_instances(
@@ -5831,6 +16030,22 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
         instance. Supply the volumes to attach at boot. On a subsequent `PUT` the list is diffed to
         attach or detach volumes (see the `PUT` route). There is no imperative attach/detach
         endpoint.
+
+        Boot source: image or volume
+
+        An instance needs exactly one boot source:
+
+        - `targetSpec.image` — the instance boots from that image on the local disk of its flavor.
+        - one entry of `targetSpec.volumes` with `role: BOOT`, with `image` omitted — the instance
+          boots from that existing block storage volume. The volume must be bootable, `available`,
+          not multi-attach, and in the instance's region. A bootable volume can be created from an
+          image with `createFrom.imageId` on the block storage volume route. At most one entry may
+          be `BOOT`, and the other volumes of the list are attached once the instance is running.
+
+        Setting both an image and a boot volume, or neither, is rejected. The boot volume is chosen
+        at creation only: it cannot be detached or replaced afterward, and it is kept when the
+        instance is deleted. An instance booted from a volume has `image` set to null and cannot be
+        rebuilt: `PUT` rejects a new `image` or a change of `userData` for it.
 
         Declarative `shares`
 
@@ -5950,7 +16165,9 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
         - Resize (flavor) — changing `flavor` migrates the instance to the new flavor.
         - Volume attach / detach — done declaratively by diffing the `volumes` list: adding a volume
           reference attaches that volume, removing one detaches it. There is no imperative
-          attach/detach endpoint — the diff is the only mechanism.
+          attach/detach endpoint — the diff is the only mechanism. The boot volume of an instance
+          booted from a volume (`role: BOOT`) must stay in the list: it cannot be detached, and no
+          other volume can become `BOOT`.
         - Network attach / detach — done declaratively by diffing the `networks` list, whose entries
           are `{id?, subnetId?, ip?, autoAssignPublicIp?}`: a platform-assigned Ext-Net IP
           (`{"autoAssignPublicIp": true}`, at most one entry), a public IP the project already owns
@@ -5973,7 +16190,10 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
 
         `location`, `sshKeyName`, and `group` are set only at creation and are not part of the
         update. In particular, placement-group (`group`) membership cannot change post-create.
-        OpenStack/Nova server groups are immutable and there is deliberately no group `PUT`.
+        OpenStack/Nova server groups are immutable and there is deliberately no group `PUT`. The
+        boot source is fixed at creation too: an instance booted from a volume keeps `image` null,
+        so a `PUT` carrying an `image` or changing `userData` is rejected for it, since both require
+        a rebuild from an image.
 
         Destructive update (`userData`)
 
@@ -7907,6 +18127,10885 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
             result=models.PublicCloudLoadbalancerMember,
         )
 
+    def all_project_managed_analytics_availabilities(
+        self,
+        project_id: str,
+        *,
+        action: models.PublicCloudDatabaseAvailabilityActionEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        cluster_id: str | None | NotGiven = NOT_GIVEN,
+        target: models.PublicCloudDatabaseAvailabilityTargetEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseAvailability]:
+        """all_project_managed_analytics_availabilities iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/availability (List Analytics availabilities).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the combinations of Analytics engine, version, plan and region that can be ordered,
+        with their specifications. Use clusterId with action and target to get the options available
+        for an existing service, for example the plans it can be updated to.
+
+        Args:
+            project_id: Project ID
+            action: Filter availabilities by action type (optional)
+            cluster_id: Restrict availabilities to a specific cluster (optional)
+            target: Filter availabilities by target type (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/availability/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITIES,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(
+                ("action", action),
+                ("clusterId", cluster_id),
+                ("target", target),
+            ),
+            item=models.PublicCloudDatabaseAvailability,
+        )
+
+    def all_project_managed_analytics_availability_suggestions(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseAvailabilitySuggestion]:
+        """all_project_managed_analytics_availability_suggestions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/availability/suggestion (List Analytics availability suggestions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns suggested combinations of Analytics engine, version, plan, flavor and region. The
+        default suggestion is marked.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/availability/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITY_SUGGESTIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseAvailabilitySuggestion,
+        )
+
+    def all_project_managed_analytics_backups(
+        self, project_id: str, *, service_id: str | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseBackup]:
+        """all_project_managed_analytics_backups iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/backup (List backups).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the backups of all analytics services of the project, across engines. Filter them by
+        service with the serviceId parameter.
+
+        Args:
+            project_id: Project ID
+            service_id: Filter backups by service identifier (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/backup/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_BACKUPS,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("serviceId", service_id),),
+            item=models.PublicCloudDatabaseBackup,
+        )
+
+    async def get_project_managed_analytics_backup(
+        self, project_id: str, backup_id: str
+    ) -> models.PublicCloudDatabaseBackup:
+        """get_project_managed_analytics_backup calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/backup/{backupId}: Get a backup
+
+        Returns the backup type, size, status and storage regions, and the date until which
+        point-in-time recovery is available.
+
+        Args:
+            project_id: Project ID
+            backup_id: Backup ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/backup/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_BACKUP,
+            path_params={
+                "projectId": project_id,
+                "backupId": backup_id,
+            },
+            result=models.PublicCloudDatabaseBackup,
+        )
+
+    def all_project_managed_analytics_capabilities_disks(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesDiskType]:
+        """all_project_managed_analytics_capabilities_disks iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/disks (List Analytics disk types).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the disk types available for Analytics services, with their IOPS and throughput
+        specifications.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_DISKS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesDiskType,
+        )
+
+    def all_project_managed_analytics_capabilities_engines(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseEngineCapability]:
+        """all_project_managed_analytics_capabilities_engines iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/engines (List Analytics engines).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the available Analytics engines with their versions, default version and supported
+        TLS modes.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_ENGINES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseEngineCapability,
+        )
+
+    def all_project_managed_analytics_capabilities_flavors(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesFlavor]:
+        """all_project_managed_analytics_capabilities_flavors iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/flavors (List Analytics flavors).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the compute flavors available for Analytics services, with their technical
+        specifications and lifecycle.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_FLAVORS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesFlavor,
+        )
+
+    def all_project_managed_analytics_capabilities_options(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesOption]:
+        """all_project_managed_analytics_capabilities_options iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/options (List Analytics options).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the options available for Analytics services and their data type.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_OPTIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesOption,
+        )
+
+    def all_project_managed_analytics_capabilities_plans(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesPlan]:
+        """all_project_managed_analytics_capabilities_plans iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/plans (List Analytics plans).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the plans available for Analytics services, with their description and automatic
+        backup retention.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_PLANS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesPlan,
+        )
+
+    def all_project_managed_analytics_capabilities_regions(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesRegion]:
+        """all_project_managed_analytics_capabilities_regions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/regions (List Analytics regions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the regions available for Analytics services, with their type and lifecycle.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_REGIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesRegion,
+        )
+
+    def all_project_managed_analytics_clickhouses(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_clickhouses iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse (List ClickHouse services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the ClickHouse services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_analytics_clickhouse(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_clickhouse calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse: Create a ClickHouse service
+
+        Creates a ClickHouse service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_analytics_clickhouse(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_clickhouse calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}: Get a ClickHouse service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_analytics_clickhouse(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_clickhouse calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}: Update a ClickHouse service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_analytics_clickhouse(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_clickhouse calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}: Partially update a ClickHouse service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_analytics_clickhouse(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_clickhouse calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}: Delete a ClickHouse service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_analytics_clickhouse_certificates(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseCertificates:
+        """get_project_managed_analytics_clickhouse_certificates calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/certificates: Get the TLS certificates
+
+        Returns the CA certificate, in PEM format, used to verify the connection to the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/certificates/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CERTIFICATES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseCertificates,
+        )
+
+    def all_project_managed_analytics_clickhouse_current_queries(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCurrentQuery]:
+        """all_project_managed_analytics_clickhouse_current_queries iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries (List running queries).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the queries running on the service, with their client, user, state and duration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/currentQueries/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    async def get_project_managed_analytics_clickhouse_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseCurrentQuery:
+        """get_project_managed_analytics_clickhouse_current_queries calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries/{queryPid}: Get a running query
+
+        Returns the SQL text, state and duration of a running query, identified by its process ID.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            limit: Maximum number of queries to return (optional)
+            offset: Number of queries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/currentQueries/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            result=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    async def cancel_project_managed_analytics_clickhouse_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        body: models.PublicCloudDatabaseQueryCancelRequest,
+    ) -> models.PublicCloudDatabaseQueryCancelResult:
+        """cancel_project_managed_analytics_clickhouse_current_queries calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries/{queryPid}/cancel: Cancel a running query
+
+        Cancels a running query gracefully. Set terminate to true to force its termination instead.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/currentQueries/cancel.
+        """
+        return await self._call(
+            _r.OP_CANCEL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseQueryCancelRequest,
+            result=models.PublicCloudDatabaseQueryCancelResult,
+        )
+
+    def all_project_managed_analytics_clickhouse_databases(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseDatabase]:
+        """all_project_managed_analytics_clickhouse_databases iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database (List databases).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the databases of the service, including the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/database/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def create_project_managed_analytics_clickhouse_database(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseDatabaseCreation
+    ) -> models.PublicCloudDatabaseDatabase:
+        """create_project_managed_analytics_clickhouse_database calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database: Create a database
+
+        Creates a database with the given name.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/database/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseDatabaseCreation,
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def get_project_managed_analytics_clickhouse_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """get_project_managed_analytics_clickhouse_database calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database/{databaseId}: Get a database
+
+        Returns the database name and whether it is the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/database/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def delete_project_managed_analytics_clickhouse_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """delete_project_managed_analytics_clickhouse_database calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database/{databaseId}: Delete a database
+
+        Permanently deletes the database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/database/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def enable_writes_project_managed_analytics_clickhouse(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseTemporaryWriteDeadline:
+        """enable_writes_project_managed_analytics_clickhouse calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/enableWrites: Enable temporary writes
+
+        Enables temporary write permissions on a service locked in read-only mode because its disk
+        is full. Returns the date when they are revoked.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/enableWrites.
+        """
+        return await self._call(
+            _r.OP_ENABLE_WRITES_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseTemporaryWriteDeadline,
+        )
+
+    def all_project_managed_analytics_clickhouse_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_clickhouse_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_analytics_clickhouse_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_clickhouse_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_analytics_clickhouse_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_clickhouse_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_analytics_clickhouse_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_clickhouse_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_clickhouse_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_clickhouse_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds ClickHouse emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_analytics_clickhouse_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_clickhouse_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_clickhouse_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_clickhouse_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the ClickHouse log subscriptions. Set `kind` to restrict the list
+        to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_analytics_clickhouse_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_clickhouse_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards ClickHouse logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_analytics_clickhouse_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_clickhouse_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_analytics_clickhouse_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_clickhouse_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding ClickHouse logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_analytics_clickhouse_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_clickhouse_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_clickhouse_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_clickhouse_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_analytics_clickhouse_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_clickhouse_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_analytics_clickhouse_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_clickhouse_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_clickhouse_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_clickhouse_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_clickhouse_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_clickhouse_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_clickhouse_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_clickhouse_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    async def reset_project_managed_analytics_clickhouse_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_clickhouse_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_clickhouse_query_statistics(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseQueryStatistic]:
+        """all_project_managed_analytics_clickhouse_query_statistics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/queryStatistics (List query statistics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns execution statistics for each query pattern: number of calls, rows and execution
+        times.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            limit: Maximum number of entries to return (optional)
+            offset: Number of entries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/queryStatistics/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            item=models.PublicCloudDatabaseQueryStatistic,
+        )
+
+    def all_project_managed_analytics_clickhouse_roles(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseRole]:
+        """all_project_managed_analytics_clickhouse_roles iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/roles (List roles).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the roles that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/roles/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseRole,
+        )
+
+    async def get_project_managed_analytics_clickhouse_roles(
+        self, project_id: str, service_id: str, role_id: str
+    ) -> models.PublicCloudDatabaseRole:
+        """get_project_managed_analytics_clickhouse_roles calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/roles/{roleId}: Get a role
+
+        Returns a role that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            role_id: Role ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/roles/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "roleId": role_id,
+            },
+            result=models.PublicCloudDatabaseRole,
+        )
+
+    def all_project_managed_analytics_clickhouse_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseUserWithRoles]:
+        """all_project_managed_analytics_clickhouse_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their roles and status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def create_project_managed_analytics_clickhouse_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseUserCreation
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """create_project_managed_analytics_clickhouse_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user: Create a user
+
+        Creates a user and generates its password. The password is returned only on creation and on
+        password reset. Roles are assigned in the cluster and cannot be set through this API.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCreation,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def get_project_managed_analytics_clickhouse_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """get_project_managed_analytics_clickhouse_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its roles and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def update_project_managed_analytics_clickhouse_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """update_project_managed_analytics_clickhouse_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response. Roles are assigned in the cluster and cannot be changed through
+        this API.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def delete_project_managed_analytics_clickhouse_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """delete_project_managed_analytics_clickhouse_user calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/clickhouse/user/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def reset_password_project_managed_analytics_clickhouse_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """reset_password_project_managed_analytics_clickhouse_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/clickhouse/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def all_project_managed_analytics_grafanas(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_grafanas iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana (List Grafana services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the Grafana services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANAS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_analytics_grafana(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_grafana calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana: Create a Grafana service
+
+        Creates a Grafana service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_analytics_grafana(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_grafana calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}: Get a Grafana service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_analytics_grafana(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_grafana calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}: Update a Grafana service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_analytics_grafana(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_grafana calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}: Partially update a Grafana service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_analytics_grafana(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_grafana calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}: Delete a Grafana service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_grafana_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_grafana_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_analytics_grafana_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_grafana_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_analytics_grafana_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_grafana_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_analytics_grafana_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_grafana_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_grafana_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_grafana_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds Managed Dashboards emits, which can be forwarded to a
+        stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_analytics_grafana_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_grafana_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_grafana_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_grafana_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the Managed Dashboards log subscriptions. Set `kind` to restrict
+        the list to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_analytics_grafana_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_grafana_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Managed Dashboards logs of one kind to a Logs Data Platform stream. The
+        subscription is created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_analytics_grafana_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_grafana_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_analytics_grafana_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_grafana_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Managed Dashboards logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_analytics_grafana_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_grafana_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_grafana_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_grafana_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_analytics_grafana_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_grafana_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_analytics_grafana_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_grafana_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_grafana_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_grafana_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_grafana_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_grafana_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def all_project_managed_analytics_grafana_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseUser]:
+        """all_project_managed_analytics_grafana_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their status. Users are provisioned by the service and
+        cannot be created or deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUser,
+        )
+
+    async def get_project_managed_analytics_grafana_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """get_project_managed_analytics_grafana_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}: Get a user
+
+        Returns the user and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def update_project_managed_analytics_grafana_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUser:
+        """update_project_managed_analytics_grafana_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def reset_password_project_managed_analytics_grafana_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """reset_password_project_managed_analytics_grafana_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/grafana/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def all_project_managed_analytics_kafkas(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_kafkas iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka (List Kafka services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the Kafka services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKAS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_analytics_kafka(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_kafka calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka: Create a Kafka service
+
+        Creates a Kafka service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_analytics_kafka(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_kafka calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}: Get a Kafka service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_analytics_kafka(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_kafka calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}: Update a Kafka service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_analytics_kafka(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_kafka calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}: Partially update a Kafka service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_analytics_kafka(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_kafka calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}: Delete a Kafka service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_kafka_acls(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseKafkaACL]:
+        """all_project_managed_analytics_kafka_acls iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl (List topic ACLs).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the topic ACL entries of the service, each granting a user a permission on a topic
+        name pattern.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/acl/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_ACLS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaACL,
+        )
+
+    async def create_project_managed_analytics_kafka_acl(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseKafkaACLCreation
+    ) -> models.PublicCloudDatabaseKafkaACL:
+        """create_project_managed_analytics_kafka_acl calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl: Create a topic ACL
+
+        Grants a user a permission on the topics matching a name pattern. Use * to match all topics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/acl/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaACLCreation,
+            result=models.PublicCloudDatabaseKafkaACL,
+        )
+
+    async def get_project_managed_analytics_kafka_acl(
+        self, project_id: str, service_id: str, acl_id: str
+    ) -> models.PublicCloudDatabaseKafkaACL:
+        """get_project_managed_analytics_kafka_acl calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl/{aclId}: Get a topic ACL
+
+        Returns the user, the topic name pattern and the permission of the ACL entry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            acl_id: Acl ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/acl/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "aclId": acl_id,
+            },
+            result=models.PublicCloudDatabaseKafkaACL,
+        )
+
+    async def delete_project_managed_analytics_kafka_acl(
+        self, project_id: str, service_id: str, acl_id: str
+    ) -> models.PublicCloudDatabaseKafkaACL:
+        """delete_project_managed_analytics_kafka_acl calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl/{aclId}: Delete a topic ACL
+
+        Deletes the ACL entry and revokes the permission it granted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            acl_id: Acl ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/acl/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "aclId": acl_id,
+            },
+            result=models.PublicCloudDatabaseKafkaACL,
+        )
+
+    async def get_project_managed_analytics_kafka_certificates(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseCertificates:
+        """get_project_managed_analytics_kafka_certificates calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/certificates: Get the TLS certificates
+
+        Returns the CA certificate, in PEM format, used to verify the connection to the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/certificates/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CERTIFICATES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseCertificates,
+        )
+
+    def all_project_managed_analytics_kafka_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_kafka_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_analytics_kafka_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_kafka_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_analytics_kafka_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_kafka_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_analytics_kafka_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_kafka_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_kafka_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_kafka_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds Kafka emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_analytics_kafka_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_kafka_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_kafka_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_kafka_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the Kafka log subscriptions. Set `kind` to restrict the list to
+        one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_analytics_kafka_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_kafka_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Kafka logs of one kind to a Logs Data Platform stream. The subscription is created
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_analytics_kafka_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_kafka_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_analytics_kafka_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_kafka_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Kafka logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_analytics_kafka_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_kafka_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_kafka_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_kafka_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_analytics_kafka_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_kafka_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_analytics_kafka_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_kafka_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_kafka_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_kafka_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_kafka_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_kafka_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_kafka_permissions(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseKafkaPermissions:
+        """get_project_managed_analytics_kafka_permissions calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/permissions: List ACL permissions
+
+        Returns the permission names available for topic ACLs and for Schema Registry ACLs.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/permissions/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_PERMISSIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseKafkaPermissions,
+        )
+
+    async def get_project_managed_analytics_kafka_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_kafka_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    async def reset_project_managed_analytics_kafka_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_kafka_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafka/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_kafka_schema_registry_acls(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseKafkaSchemaRegistryACL]:
+        """all_project_managed_analytics_kafka_schema_registry_acls iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl (List Schema Registry ACLs).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the Schema Registry ACL entries of the service, each granting a user a permission on
+        a resource pattern.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACLS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaSchemaRegistryACL,
+        )
+
+    async def create_project_managed_analytics_kafka_schema_registry_acl(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseKafkaSchemaRegistryACLCreation,
+    ) -> models.PublicCloudDatabaseKafkaSchemaRegistryACL:
+        """create_project_managed_analytics_kafka_schema_registry_acl calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl: Create a Schema Registry ACL
+
+        Grants a user a permission on the Schema Registry resources matching a pattern. Use * to
+        match all subjects.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaSchemaRegistryACLCreation,
+            result=models.PublicCloudDatabaseKafkaSchemaRegistryACL,
+        )
+
+    async def get_project_managed_analytics_kafka_schema_registry_acl(
+        self, project_id: str, service_id: str, schema_registry_acl_id: str
+    ) -> models.PublicCloudDatabaseKafkaSchemaRegistryACL:
+        """get_project_managed_analytics_kafka_schema_registry_acl calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl/{schemaRegistryAclId}: Get a Schema Registry ACL
+
+        Returns the user, the resource pattern and the permission of the ACL entry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            schema_registry_acl_id: Schema registry acl ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "schemaRegistryAclId": schema_registry_acl_id,
+            },
+            result=models.PublicCloudDatabaseKafkaSchemaRegistryACL,
+        )
+
+    async def delete_project_managed_analytics_kafka_schema_registry_acl(
+        self, project_id: str, service_id: str, schema_registry_acl_id: str
+    ) -> models.PublicCloudDatabaseKafkaSchemaRegistryACL:
+        """delete_project_managed_analytics_kafka_schema_registry_acl calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl/{schemaRegistryAclId}: Delete a Schema Registry ACL
+
+        Deletes the ACL entry and revokes the permission it granted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            schema_registry_acl_id: Schema registry acl ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "schemaRegistryAclId": schema_registry_acl_id,
+            },
+            result=models.PublicCloudDatabaseKafkaSchemaRegistryACL,
+        )
+
+    def all_project_managed_analytics_kafka_topics(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseKafkaTopic]:
+        """all_project_managed_analytics_kafka_topics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic (List topics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the topics of the service with their partitions, replication and retention settings.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    async def create_project_managed_analytics_kafka_topic(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseKafkaTopicCreation
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """create_project_managed_analytics_kafka_topic calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic: Create a topic
+
+        Creates a topic. By default it has 1 partition, a replication factor of 1 and a retention of
+        168 hours (7 days). The replication factor must not exceed the number of brokers.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaTopicCreation,
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    async def get_project_managed_analytics_kafka_topic(
+        self, project_id: str, service_id: str, topic_id: str
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """get_project_managed_analytics_kafka_topic calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}: Get a topic
+
+        Returns the partitions, replication factor, minimum in-sync replicas and retention settings
+        of the topic.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            topic_id: Topic ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "topicId": topic_id,
+            },
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    async def update_project_managed_analytics_kafka_topic(
+        self,
+        project_id: str,
+        service_id: str,
+        topic_id: str,
+        body: models.PublicCloudDatabaseKafkaTopicReplace,
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """update_project_managed_analytics_kafka_topic calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}: Update a topic
+
+        Updates the partitions, replication, minimum in-sync replicas and retention of the topic.
+        Every field is required. The number of partitions can only be increased.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            topic_id: Topic ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "topicId": topic_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaTopicReplace,
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    async def patch_project_managed_analytics_kafka_topic(
+        self,
+        project_id: str,
+        service_id: str,
+        topic_id: str,
+        body: models.PublicCloudDatabaseKafkaTopicUpdate,
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """patch_project_managed_analytics_kafka_topic calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}: Partially update a topic
+
+        Partially updates the partitions, replication, minimum in-sync replicas or retention of the
+        topic. The number of partitions can only be increased.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            topic_id: Topic ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "topicId": topic_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaTopicUpdate,
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    async def delete_project_managed_analytics_kafka_topic(
+        self, project_id: str, service_id: str, topic_id: str
+    ) -> models.PublicCloudDatabaseKafkaTopic:
+        """delete_project_managed_analytics_kafka_topic calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}: Delete a topic
+
+        Permanently deletes the topic and its messages.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            topic_id: Topic ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/topic/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "topicId": topic_id,
+            },
+            result=models.PublicCloudDatabaseKafkaTopic,
+        )
+
+    def all_project_managed_analytics_kafka_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseUser]:
+        """all_project_managed_analytics_kafka_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUser,
+        )
+
+    async def create_project_managed_analytics_kafka_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseUserCreation
+    ) -> models.PublicCloudDatabaseUser:
+        """create_project_managed_analytics_kafka_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user: Create a user
+
+        Creates a user and generates its password. The password is returned only on creation and on
+        password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCreation,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def get_project_managed_analytics_kafka_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """get_project_managed_analytics_kafka_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}: Get a user
+
+        Returns the user and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def update_project_managed_analytics_kafka_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUser:
+        """update_project_managed_analytics_kafka_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def delete_project_managed_analytics_kafka_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """delete_project_managed_analytics_kafka_user calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def get_project_managed_analytics_kafka_user_access(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseKafkaUserAccess:
+        """get_project_managed_analytics_kafka_user_access calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}/access: Get the user certificate
+
+        Returns the client certificate, in PEM format, and its private key, used for SSL
+        authentication of the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/access/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_USER_ACCESS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseKafkaUserAccess,
+        )
+
+    async def reset_password_project_managed_analytics_kafka_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """reset_password_project_managed_analytics_kafka_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafka/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def all_project_managed_analytics_kafka_connects(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_kafka_connects iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect (List Kafka Connect services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the Kafka Connect services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECTS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_analytics_kafka_connect(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_kafka_connect calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect: Create a Kafka Connect service
+
+        Creates a Kafka Connect service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_analytics_kafka_connect(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_kafka_connect calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}: Get a Kafka Connect service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_analytics_kafka_connect(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_kafka_connect calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}: Update a Kafka Connect service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_analytics_kafka_connect(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_kafka_connect calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}: Partially update a Kafka Connect service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_analytics_kafka_connect(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_kafka_connect calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}: Delete a Kafka Connect service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_kafka_connect_connectors(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseKafkaConnectConnector]:
+        """all_project_managed_analytics_kafka_connect_connectors iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector (List connectors).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the connectors of the service with their status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTORS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    async def create_project_managed_analytics_kafka_connect_connector(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseKafkaConnectConnectorCreation,
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """create_project_managed_analytics_kafka_connect_connector calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector: Create a connector
+
+        Creates a connector of a type listed in the capabilities, with its configuration key-value
+        pairs.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaConnectConnectorCreation,
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_connector(
+        self, project_id: str, service_id: str, connector_id: str
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """get_project_managed_analytics_kafka_connect_connector calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}: Get a connector
+
+        Returns the connector type, its configuration and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    async def update_project_managed_analytics_kafka_connect_connector(
+        self,
+        project_id: str,
+        service_id: str,
+        connector_id: str,
+        body: models.PublicCloudDatabaseKafkaConnectConnectorReplace,
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """update_project_managed_analytics_kafka_connect_connector calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}: Update a connector configuration
+
+        Updates the configuration of the connector. Keys omitted from the request are removed.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaConnectConnectorReplace,
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    async def patch_project_managed_analytics_kafka_connect_connector(
+        self,
+        project_id: str,
+        service_id: str,
+        connector_id: str,
+        body: models.PublicCloudDatabaseKafkaConnectConnectorStatusUpdate,
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """patch_project_managed_analytics_kafka_connect_connector calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}: Change the connector status
+
+        Pauses, resumes or restarts the connector, depending on the requested action.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaConnectConnectorStatusUpdate,
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    async def delete_project_managed_analytics_kafka_connect_connector(
+        self, project_id: str, service_id: str, connector_id: str
+    ) -> models.PublicCloudDatabaseKafkaConnectConnector:
+        """delete_project_managed_analytics_kafka_connect_connector calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}: Delete a connector
+
+        Deletes the connector.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            result=models.PublicCloudDatabaseKafkaConnectConnector,
+        )
+
+    def all_project_managed_analytics_kafka_connect_connector_tasks(
+        self, project_id: str, service_id: str, connector_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseKafkaConnectConnectorTask]:
+        """all_project_managed_analytics_kafka_connect_connector_tasks iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task (List connector tasks).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the tasks of the connector with their status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASKS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+            },
+            item=models.PublicCloudDatabaseKafkaConnectConnectorTask,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_connector_task(
+        self, project_id: str, service_id: str, connector_id: str, task_id: int
+    ) -> models.PublicCloudDatabaseKafkaConnectConnectorTask:
+        """get_project_managed_analytics_kafka_connect_connector_task calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task/{taskId}: Get a connector task
+
+        Returns the status of the task and, when it failed, its error trace.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+            task_id: Task ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASK,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+                "taskId": task_id,
+            },
+            result=models.PublicCloudDatabaseKafkaConnectConnectorTask,
+        )
+
+    async def restart_project_managed_analytics_kafka_connect_connector_task(
+        self, project_id: str, service_id: str, connector_id: str, task_id: int
+    ) -> models.PublicCloudDatabaseKafkaConnectConnectorTask:
+        """restart_project_managed_analytics_kafka_connect_connector_task calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task/{taskId}/restart: Restart a connector task
+
+        Restarts the task and returns it with its new status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connector_id: Connector ID
+            task_id: Task ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/restart.
+        """
+        return await self._call(
+            _r.OP_RESTART_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASK,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectorId": connector_id,
+                "taskId": task_id,
+            },
+            result=models.PublicCloudDatabaseKafkaConnectConnectorTask,
+        )
+
+    def all_project_managed_analytics_kafka_connect_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_kafka_connect_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_analytics_kafka_connect_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_kafka_connect_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_kafka_connect_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_analytics_kafka_connect_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_kafka_connect_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_kafka_connect_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_kafka_connect_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds Kafka Connect emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_kafka_connect_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_kafka_connect_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_kafka_connect_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the Kafka Connect log subscriptions. Set `kind` to restrict the
+        list to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_analytics_kafka_connect_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_kafka_connect_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Kafka Connect logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_kafka_connect_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_analytics_kafka_connect_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_kafka_connect_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Kafka Connect logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_analytics_kafka_connect_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_kafka_connect_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_kafka_connect_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_kafka_connect_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_analytics_kafka_connect_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_kafka_connect_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_kafka_connect_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_kafka_connect_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_kafka_connect_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_kafka_connect_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_kafka_connect_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    async def reset_project_managed_analytics_kafka_connect_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_kafka_connect_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_kafka_connect_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseUser]:
+        """all_project_managed_analytics_kafka_connect_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUser,
+        )
+
+    async def create_project_managed_analytics_kafka_connect_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseUserCreation
+    ) -> models.PublicCloudDatabaseUser:
+        """create_project_managed_analytics_kafka_connect_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user: Create a user
+
+        Creates a user and generates its password. The password is returned only on creation and on
+        password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCreation,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def get_project_managed_analytics_kafka_connect_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """get_project_managed_analytics_kafka_connect_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}: Get a user
+
+        Returns the user and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def update_project_managed_analytics_kafka_connect_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUser:
+        """update_project_managed_analytics_kafka_connect_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def delete_project_managed_analytics_kafka_connect_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """delete_project_managed_analytics_kafka_connect_user calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaConnect/user/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def reset_password_project_managed_analytics_kafka_connect_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """reset_password_project_managed_analytics_kafka_connect_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaConnect/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_makers(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_kafka_mirror_makers iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker (List Kafka MirrorMaker services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the Kafka MirrorMaker services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKERS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_analytics_kafka_mirror_maker(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_kafka_mirror_maker calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker: Create a Kafka MirrorMaker service
+
+        Creates a Kafka MirrorMaker service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_analytics_kafka_mirror_maker(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_kafka_mirror_maker calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}: Get a Kafka MirrorMaker service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_analytics_kafka_mirror_maker(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_kafka_mirror_maker calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}: Update a Kafka MirrorMaker service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_analytics_kafka_mirror_maker(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_kafka_mirror_maker calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}: Partially update a Kafka MirrorMaker service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_analytics_kafka_mirror_maker(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_kafka_mirror_maker calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}: Delete a Kafka MirrorMaker service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_kafka_mirror_maker_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_analytics_kafka_mirror_maker_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_kafka_mirror_maker_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_analytics_kafka_mirror_maker_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_kafka_mirror_maker_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_analytics_kafka_mirror_maker_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_kafka_mirror_maker_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_kafka_mirror_maker_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds Kafka MirrorMaker emits, which can be forwarded to a
+        stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_analytics_kafka_mirror_maker_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_kafka_mirror_maker_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_kafka_mirror_maker_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the Kafka MirrorMaker log subscriptions. Set `kind` to restrict
+        the list to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_analytics_kafka_mirror_maker_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_kafka_mirror_maker_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Kafka MirrorMaker logs of one kind to a Logs Data Platform stream. The subscription
+        is created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_analytics_kafka_mirror_maker_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_kafka_mirror_maker_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_analytics_kafka_mirror_maker_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_kafka_mirror_maker_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Kafka MirrorMaker logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_analytics_kafka_mirror_maker_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_kafka_mirror_maker_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_kafka_mirror_maker_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_analytics_kafka_mirror_maker_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_kafka_mirror_maker_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_analytics_kafka_mirror_maker_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_kafka_mirror_maker_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_kafka_mirror_maker_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_kafka_mirror_maker_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_kafka_mirror_maker_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_kafka_mirror_maker_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_kafka_mirror_maker_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/kafkaMirrorMaker/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    async def reset_project_managed_analytics_kafka_mirror_maker_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_kafka_mirror_maker_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_kafka_mirror_maker_replications(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseKafkaMirrorMakerReplication]:
+        """all_project_managed_analytics_kafka_mirror_maker_replications iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication (List replication flows).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the replication flows of the service, with their source and target integrations and
+        whether they are enabled.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    async def create_project_managed_analytics_kafka_mirror_maker_replication(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseKafkaMirrorMakerReplicationCreation,
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """create_project_managed_analytics_kafka_mirror_maker_replication calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication: Create a replication flow
+
+        Creates a replication flow from a source integration to a target integration. Topics
+        matching the include patterns are replicated, except those matching the exclude patterns.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaMirrorMakerReplicationCreation,
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    async def get_project_managed_analytics_kafka_mirror_maker_replication(
+        self, project_id: str, service_id: str, replication_id: str
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """get_project_managed_analytics_kafka_mirror_maker_replication calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}: Get a replication flow
+
+        Returns the source and target integrations of the flow, its topic patterns and its sync
+        settings.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            replication_id: Replication ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "replicationId": replication_id,
+            },
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    async def update_project_managed_analytics_kafka_mirror_maker_replication(
+        self,
+        project_id: str,
+        service_id: str,
+        replication_id: str,
+        body: models.PublicCloudDatabaseKafkaMirrorMakerReplicationReplace,
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """update_project_managed_analytics_kafka_mirror_maker_replication calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}: Update a replication flow
+
+        Updates the topic patterns, sync settings and state of the flow. Every field is required.
+        The source and target integrations cannot be changed.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            replication_id: Replication ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "replicationId": replication_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaMirrorMakerReplicationReplace,
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    async def patch_project_managed_analytics_kafka_mirror_maker_replication(
+        self,
+        project_id: str,
+        service_id: str,
+        replication_id: str,
+        body: models.PublicCloudDatabaseKafkaMirrorMakerReplicationUpdate,
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """patch_project_managed_analytics_kafka_mirror_maker_replication calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}: Partially update a replication flow
+
+        Partially updates the topic patterns, sync settings or state of the flow. The source and
+        target integrations cannot be changed.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            replication_id: Replication ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "replicationId": replication_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseKafkaMirrorMakerReplicationUpdate,
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    async def delete_project_managed_analytics_kafka_mirror_maker_replication(
+        self, project_id: str, service_id: str, replication_id: str
+    ) -> models.PublicCloudDatabaseKafkaMirrorMakerReplication:
+        """delete_project_managed_analytics_kafka_mirror_maker_replication calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}: Delete a replication flow
+
+        Deletes the replication flow and stops the replication.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            replication_id: Replication ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "replicationId": replication_id,
+            },
+            result=models.PublicCloudDatabaseKafkaMirrorMakerReplication,
+        )
+
+    def all_project_managed_analytics_opensearches(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_opensearches iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch (List OpenSearch services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the OpenSearch services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCHES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_analytics_opensearch(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_analytics_opensearch calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch: Create an OpenSearch service
+
+        Creates an OpenSearch service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_analytics_opensearch(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_opensearch calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}: Get an OpenSearch service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_analytics_opensearch(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_analytics_opensearch calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}: Update an OpenSearch service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_analytics_opensearch(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_analytics_opensearch calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}: Partially update an OpenSearch service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_analytics_opensearch(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_analytics_opensearch calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}: Delete an OpenSearch service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_analytics_opensearch_indexes(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseOpensearchIndex]:
+        """all_project_managed_analytics_opensearch_indexes iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/index (List indexes).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the indexes of the service with their document count, size and shards.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/index/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INDEXES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseOpensearchIndex,
+        )
+
+    async def get_project_managed_analytics_opensearch_index(
+        self, project_id: str, service_id: str, index_id: str
+    ) -> models.PublicCloudDatabaseOpensearchIndex:
+        """get_project_managed_analytics_opensearch_index calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/index/{indexId}: Get an index
+
+        Returns the document count, the size in bytes and the primary and replica shard counts of
+        the index.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            index_id: Index ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/index/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INDEX,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "indexId": index_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchIndex,
+        )
+
+    def all_project_managed_analytics_opensearch_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_analytics_opensearch_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_analytics_opensearch_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_analytics_opensearch_integration calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_analytics_opensearch_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_analytics_opensearch_integration calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_analytics_opensearch_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_analytics_opensearch_integration calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_analytics_opensearch_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_opensearch_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds OpenSearch emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_analytics_opensearch_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_analytics_opensearch_log_kind calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_analytics_opensearch_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_opensearch_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the OpenSearch log subscriptions. Set `kind` to restrict the list
+        to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_analytics_opensearch_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_analytics_opensearch_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards OpenSearch logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/opensearch/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_analytics_opensearch_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_analytics_opensearch_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_analytics_opensearch_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_analytics_opensearch_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding OpenSearch logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/opensearch/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_analytics_opensearch_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_analytics_opensearch_log calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_analytics_opensearch_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_analytics_opensearch_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_analytics_opensearch_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_analytics_opensearch_maintenance calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_analytics_opensearch_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_analytics_opensearch_maintenance calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_analytics_opensearch_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_analytics_opensearch_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_analytics_opensearch_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_analytics_opensearch_metric calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    def all_project_managed_analytics_opensearch_patterns(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseOpensearchPattern]:
+        """all_project_managed_analytics_opensearch_patterns iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern (List index patterns).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the index patterns of the service with their maximum number of indexes.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/pattern/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERNS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseOpensearchPattern,
+        )
+
+    async def create_project_managed_analytics_opensearch_pattern(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseOpensearchPatternCreation,
+    ) -> models.PublicCloudDatabaseOpensearchPattern:
+        """create_project_managed_analytics_opensearch_pattern calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern: Create an index pattern
+
+        Creates a glob pattern matching index names, with a maximum number of matching indexes. When
+        the limit is reached, the oldest indexes are deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/pattern/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseOpensearchPatternCreation,
+            result=models.PublicCloudDatabaseOpensearchPattern,
+        )
+
+    async def get_project_managed_analytics_opensearch_pattern(
+        self, project_id: str, service_id: str, pattern_id: str
+    ) -> models.PublicCloudDatabaseOpensearchPattern:
+        """get_project_managed_analytics_opensearch_pattern calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern/{patternId}: Get an index pattern
+
+        Returns the glob pattern and the maximum number of indexes it keeps.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            pattern_id: Pattern ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/pattern/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "patternId": pattern_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchPattern,
+        )
+
+    async def delete_project_managed_analytics_opensearch_pattern(
+        self, project_id: str, service_id: str, pattern_id: str
+    ) -> models.PublicCloudDatabaseOpensearchPattern:
+        """delete_project_managed_analytics_opensearch_pattern calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern/{patternId}: Delete an index pattern
+
+        Deletes the index pattern and the indexes matching it.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            pattern_id: Pattern ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/pattern/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "patternId": pattern_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchPattern,
+        )
+
+    def all_project_managed_analytics_opensearch_permissions(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_analytics_opensearch_permissions iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/permissions (List user permissions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the permissions that can be granted to users on an index pattern.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/permissions/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PERMISSIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_analytics_opensearch_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_analytics_opensearch_prometheus calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    async def reset_project_managed_analytics_opensearch_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_analytics_opensearch_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/opensearch/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_analytics_opensearch_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseOpensearchUser]:
+        """all_project_managed_analytics_opensearch_users iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their ACL entries and status. Passwords are not
+        returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    async def create_project_managed_analytics_opensearch_user(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseOpensearchUserCreation,
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """create_project_managed_analytics_opensearch_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user: Create a user
+
+        Creates a user with ACL entries, each granting a permission on an index pattern. The
+        generated password is returned only on creation and on password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseOpensearchUserCreation,
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    async def get_project_managed_analytics_opensearch_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """get_project_managed_analytics_opensearch_user calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its ACL entries and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    async def update_project_managed_analytics_opensearch_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseOpensearchUserReplace,
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """update_project_managed_analytics_opensearch_user calls PUT /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}: Update a user
+
+        Updates the ACL entries of the user. The ACL list replaces the current entries. To reset the
+        password, use the resetPassword route of the user or a partial update with
+        credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseOpensearchUserReplace,
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    async def patch_project_managed_analytics_opensearch_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseOpensearchUserUpdate,
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """patch_project_managed_analytics_opensearch_user calls PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}: Partially update a user
+
+        Partially updates the ACL entries of the user. The ACL list replaces the current entries.
+        Setting credentialsLastUpdatedAt resets the password and returns the new one.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseOpensearchUserUpdate,
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    async def delete_project_managed_analytics_opensearch_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """delete_project_managed_analytics_opensearch_user calls DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/opensearch/user/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    async def reset_password_project_managed_analytics_opensearch_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseOpensearchUser:
+        """reset_password_project_managed_analytics_opensearch_user calls POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:analytics/opensearch/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseOpensearchUser,
+        )
+
+    def all_project_managed_analytics_services(
+        self,
+        project_id: str,
+        *,
+        category: models.PublicCloudDatabaseCategoryEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_analytics_services iterates over GET /v2/publicCloud/project/{projectId}/managedAnalytics/service (List services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the analytics services of the project, across all engines.
+
+        Args:
+            project_id: Project ID
+            category: Filter services by engine category (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/service/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_ANALYTICS_SERVICES,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("category", category),),
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_analytics_service(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_analytics_service calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/service/{serviceId}: Get a service
+
+        Returns an analytics service whatever its engine, with its target specification, current
+        state and running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/service/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_ANALYTICS_SERVICE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_availabilities(
+        self,
+        project_id: str,
+        *,
+        action: models.PublicCloudDatabaseAvailabilityActionEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        cluster_id: str | None | NotGiven = NOT_GIVEN,
+        target: models.PublicCloudDatabaseAvailabilityTargetEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseAvailability]:
+        """all_project_managed_database_availabilities iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/availability (List Databases availabilities).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the combinations of Databases engine, version, plan and region that can be ordered,
+        with their specifications. Use clusterId with action and target to get the options available
+        for an existing service, for example the plans it can be updated to.
+
+        Args:
+            project_id: Project ID
+            action: Filter availabilities by action type (optional)
+            cluster_id: Restrict availabilities to a specific cluster (optional)
+            target: Filter availabilities by target type (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/availability/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITIES,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(
+                ("action", action),
+                ("clusterId", cluster_id),
+                ("target", target),
+            ),
+            item=models.PublicCloudDatabaseAvailability,
+        )
+
+    def all_project_managed_database_availability_suggestions(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseAvailabilitySuggestion]:
+        """all_project_managed_database_availability_suggestions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/availability/suggestion (List Databases availability suggestions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns suggested combinations of Databases engine, version, plan, flavor and region. The
+        default suggestion is marked.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/availability/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITY_SUGGESTIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseAvailabilitySuggestion,
+        )
+
+    def all_project_managed_database_backups(
+        self, project_id: str, *, service_id: str | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseBackup]:
+        """all_project_managed_database_backups iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/backup (List backups).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the backups of all database services of the project, across engines. Filter them by
+        service with the serviceId parameter.
+
+        Args:
+            project_id: Project ID
+            service_id: Filter backups by service identifier (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/backup/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_BACKUPS,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("serviceId", service_id),),
+            item=models.PublicCloudDatabaseBackup,
+        )
+
+    async def get_project_managed_database_backup(
+        self, project_id: str, backup_id: str
+    ) -> models.PublicCloudDatabaseBackup:
+        """get_project_managed_database_backup calls GET /v2/publicCloud/project/{projectId}/managedDatabase/backup/{backupId}: Get a backup
+
+        Returns the backup type, size, status and storage regions, and the date until which
+        point-in-time recovery is available.
+
+        Args:
+            project_id: Project ID
+            backup_id: Backup ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/backup/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_BACKUP,
+            path_params={
+                "projectId": project_id,
+                "backupId": backup_id,
+            },
+            result=models.PublicCloudDatabaseBackup,
+        )
+
+    def all_project_managed_database_capabilities_disks(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesDiskType]:
+        """all_project_managed_database_capabilities_disks iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/disks (List Databases disk types).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the disk types available for Databases services, with their IOPS and throughput
+        specifications.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_DISKS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesDiskType,
+        )
+
+    def all_project_managed_database_capabilities_engines(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseEngineCapability]:
+        """all_project_managed_database_capabilities_engines iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/engines (List Databases engines).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the available Databases engines with their versions, default version and supported
+        TLS modes.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_ENGINES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseEngineCapability,
+        )
+
+    def all_project_managed_database_capabilities_flavors(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesFlavor]:
+        """all_project_managed_database_capabilities_flavors iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/flavors (List Databases flavors).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the compute flavors available for Databases services, with their technical
+        specifications and lifecycle.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_FLAVORS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesFlavor,
+        )
+
+    def all_project_managed_database_capabilities_options(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesOption]:
+        """all_project_managed_database_capabilities_options iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/options (List Databases options).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the options available for Databases services and their data type.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_OPTIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesOption,
+        )
+
+    def all_project_managed_database_capabilities_plans(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesPlan]:
+        """all_project_managed_database_capabilities_plans iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/plans (List Databases plans).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the plans available for Databases services, with their description and automatic
+        backup retention.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_PLANS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesPlan,
+        )
+
+    def all_project_managed_database_capabilities_regions(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCapabilitiesRegion]:
+        """all_project_managed_database_capabilities_regions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/regions (List Databases regions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the regions available for Databases services, with their type and lifecycle.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_REGIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseCapabilitiesRegion,
+        )
+
+    def all_project_managed_database_mongodbs(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_mongodbs iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb (List MongoDB services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the MongoDB services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODBS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_database_mongodb(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_database_mongodb calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb: Create a MongoDB service
+
+        Creates a MongoDB service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_database_mongodb(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_mongodb calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}: Get a MongoDB service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_database_mongodb(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_database_mongodb calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}: Update a MongoDB service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_database_mongodb(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_database_mongodb calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}: Partially update a MongoDB service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_database_mongodb(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_database_mongodb calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}: Delete a MongoDB service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_mongodb_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_database_mongodb_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds MongoDB emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_database_mongodb_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_database_mongodb_log_kind calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_database_mongodb_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_database_mongodb_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the MongoDB log subscriptions. Set `kind` to restrict the list to
+        one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_database_mongodb_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_database_mongodb_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards MongoDB logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_database_mongodb_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_database_mongodb_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_database_mongodb_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_database_mongodb_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding MongoDB logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_database_mongodb_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_database_mongodb_log calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_DATABASE_MONGODB_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_database_mongodb_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_database_mongodb_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_database_mongodb_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_database_mongodb_maintenance calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_database_mongodb_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_database_mongodb_maintenance calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_database_mongodb_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_database_mongodb_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_database_mongodb_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_database_mongodb_metric calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_database_mongodb_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMongodbPrometheusEndpoint:
+        """get_project_managed_database_mongodb_prometheus calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the domain of the DNS SRV record that lists the scraping targets, and the username
+        for Prometheus authentication. The password is returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMongodbPrometheusEndpoint,
+        )
+
+    async def reset_project_managed_database_mongodb_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_database_mongodb_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/mongodb/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_MONGODB_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    async def restore_project_managed_database_mongodb(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseRestoreRequest
+    ) -> models.PublicCloudDatabaseService:
+        """restore_project_managed_database_mongodb calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/restore: Restore the service
+
+        Restores the service from a backup, to the given pointInTime. Without pointInTime, the
+        latest backup is restored. The current data of the service is replaced and the restore is
+        asynchronous: follow resourceStatus until READY.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/restore.
+        """
+        return await self._call(
+            _r.OP_RESTORE_PROJECT_MANAGED_DATABASE_MONGODB,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseRestoreRequest,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_mongodb_roles(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseRole]:
+        """all_project_managed_database_mongodb_roles iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/roles (List roles).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the roles that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/roles/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseRole,
+        )
+
+    async def get_project_managed_database_mongodb_roles(
+        self, project_id: str, service_id: str, role_id: str
+    ) -> models.PublicCloudDatabaseRole:
+        """get_project_managed_database_mongodb_roles calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/roles/{roleId}: Get a role
+
+        Returns a role that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            role_id: Role ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/roles/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "roleId": role_id,
+            },
+            result=models.PublicCloudDatabaseRole,
+        )
+
+    def all_project_managed_database_mongodb_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseUserWithRoles]:
+        """all_project_managed_database_mongodb_users iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their roles and status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def create_project_managed_database_mongodb_user(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseUserWithRolesCreation,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """create_project_managed_database_mongodb_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user: Create a user
+
+        Creates a user with the given roles and generates its password. The password is returned
+        only on creation and on password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserWithRolesCreation,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def get_project_managed_database_mongodb_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """get_project_managed_database_mongodb_user calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its roles and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def update_project_managed_database_mongodb_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserReplace,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """update_project_managed_database_mongodb_user calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}: Update a user
+
+        Updates the roles of the user. The roles list replaces the current roles. To reset the
+        password, use the resetPassword route of the user or a partial update with
+        credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserReplace,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def patch_project_managed_database_mongodb_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserUpdate,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """patch_project_managed_database_mongodb_user calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}: Partially update a user
+
+        Partially updates the roles of the user. The roles list replaces the current roles. Setting
+        credentialsLastUpdatedAt resets the password and returns the new one.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserUpdate,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def delete_project_managed_database_mongodb_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """delete_project_managed_database_mongodb_user calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def reset_password_project_managed_database_mongodb_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """reset_password_project_managed_database_mongodb_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mongodb/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def all_project_managed_database_mysqls(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_mysqls iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql (List MySQL services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the MySQL services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQLS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_database_mysql(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_database_mysql calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql: Create a MySQL service
+
+        Creates a MySQL service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_database_mysql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_mysql calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}: Get a MySQL service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_database_mysql(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_database_mysql calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}: Update a MySQL service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_database_mysql(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_database_mysql calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}: Partially update a MySQL service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_database_mysql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_database_mysql calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}: Delete a MySQL service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_database_mysql_certificates(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseCertificates:
+        """get_project_managed_database_mysql_certificates calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/certificates: Get the TLS certificates
+
+        Returns the CA certificate, in PEM format, used to verify the connection to the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/certificates/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_CERTIFICATES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseCertificates,
+        )
+
+    def all_project_managed_database_mysql_current_queries(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCurrentQuery]:
+        """all_project_managed_database_mysql_current_queries iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries (List running queries).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the queries running on the service, with their client, user, state and duration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/currentQueries/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    async def get_project_managed_database_mysql_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseCurrentQuery:
+        """get_project_managed_database_mysql_current_queries calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries/{queryPid}: Get a running query
+
+        Returns the SQL text, state and duration of a running query, identified by its process ID.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            limit: Maximum number of queries to return (optional)
+            offset: Number of queries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/currentQueries/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            result=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    async def cancel_project_managed_database_mysql_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        body: models.PublicCloudDatabaseQueryCancelRequest,
+    ) -> models.PublicCloudDatabaseQueryCancelResult:
+        """cancel_project_managed_database_mysql_current_queries calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries/{queryPid}/cancel: Cancel a running query
+
+        Cancels a running query gracefully. Set terminate to true to force its termination instead.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/currentQueries/cancel.
+        """
+        return await self._call(
+            _r.OP_CANCEL_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseQueryCancelRequest,
+            result=models.PublicCloudDatabaseQueryCancelResult,
+        )
+
+    def all_project_managed_database_mysql_databases(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseDatabase]:
+        """all_project_managed_database_mysql_databases iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database (List databases).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the databases of the service, including the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/database/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_DATABASES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def create_project_managed_database_mysql_database(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseDatabaseCreation
+    ) -> models.PublicCloudDatabaseDatabase:
+        """create_project_managed_database_mysql_database calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database: Create a database
+
+        Creates a database with the given name.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/database/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseDatabaseCreation,
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def get_project_managed_database_mysql_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """get_project_managed_database_mysql_database calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database/{databaseId}: Get a database
+
+        Returns the database name and whether it is the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/database/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def delete_project_managed_database_mysql_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """delete_project_managed_database_mysql_database calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database/{databaseId}: Delete a database
+
+        Permanently deletes the database. The engine default database cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/database/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def enable_writes_project_managed_database_mysql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseTemporaryWriteDeadline:
+        """enable_writes_project_managed_database_mysql calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/enableWrites: Enable temporary writes
+
+        Enables temporary write permissions on a service locked in read-only mode because its disk
+        is full. Returns the date when they are revoked.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/enableWrites.
+        """
+        return await self._call(
+            _r.OP_ENABLE_WRITES_PROJECT_MANAGED_DATABASE_MYSQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseTemporaryWriteDeadline,
+        )
+
+    def all_project_managed_database_mysql_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_database_mysql_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_database_mysql_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_database_mysql_integration calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_database_mysql_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_database_mysql_integration calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_database_mysql_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_database_mysql_integration calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_database_mysql_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_database_mysql_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds MySQL emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_database_mysql_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_database_mysql_log_kind calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_database_mysql_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_database_mysql_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the MySQL log subscriptions. Set `kind` to restrict the list to
+        one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_database_mysql_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_database_mysql_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards MySQL logs of one kind to a Logs Data Platform stream. The subscription is created
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_database_mysql_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_database_mysql_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_database_mysql_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_database_mysql_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding MySQL logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_database_mysql_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_database_mysql_log calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_DATABASE_MYSQL_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_database_mysql_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_database_mysql_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_database_mysql_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_database_mysql_maintenance calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_database_mysql_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_database_mysql_maintenance calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_database_mysql_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_database_mysql_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_database_mysql_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_database_mysql_metric calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_database_mysql_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_database_mysql_prometheus calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    async def reset_project_managed_database_mysql_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_database_mysql_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/mysql/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_MYSQL_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_database_mysql_query_statistics(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseQueryStatistic]:
+        """all_project_managed_database_mysql_query_statistics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/queryStatistics (List query statistics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns execution statistics for each query pattern: number of calls, rows and execution
+        times.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            limit: Maximum number of entries to return (optional)
+            offset: Number of entries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/queryStatistics/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            item=models.PublicCloudDatabaseQueryStatistic,
+        )
+
+    async def reset_project_managed_database_mysql_query_statistics(
+        self, project_id: str, service_id: str
+    ) -> None:
+        """reset_project_managed_database_mysql_query_statistics calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/queryStatistics/reset: Reset query statistics
+
+        Resets all aggregated query statistics of the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/queryStatistics/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_MYSQL_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+        )
+
+    def all_project_managed_database_mysql_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseUser]:
+        """all_project_managed_database_mysql_users iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUser,
+        )
+
+    async def create_project_managed_database_mysql_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseUserCreation
+    ) -> models.PublicCloudDatabaseUser:
+        """create_project_managed_database_mysql_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user: Create a user
+
+        Creates a user and generates its password. The password is returned only on creation and on
+        password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCreation,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def get_project_managed_database_mysql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """get_project_managed_database_mysql_user calls GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}: Get a user
+
+        Returns the user and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def update_project_managed_database_mysql_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserCredentialsUpdate,
+    ) -> models.PublicCloudDatabaseUser:
+        """update_project_managed_database_mysql_user calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}: Reset user credentials
+
+        Resets the password of the user when credentialsLastUpdatedAt is set. The new password is
+        returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserCredentialsUpdate,
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def delete_project_managed_database_mysql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """delete_project_managed_database_mysql_user calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    async def reset_password_project_managed_database_mysql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUser:
+        """reset_password_project_managed_database_mysql_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/mysql/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUser,
+        )
+
+    def all_project_managed_database_postgresqls(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_postgresqls iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql (List PostgreSQL services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the PostgreSQL services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQLS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_database_postgresql(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_database_postgresql calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql: Create a PostgreSQL service
+
+        Creates a PostgreSQL service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_database_postgresql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_postgresql calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}: Get a PostgreSQL service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_database_postgresql(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_database_postgresql calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}: Update a PostgreSQL service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_database_postgresql(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_database_postgresql calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}: Partially update a PostgreSQL service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_database_postgresql(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        delete_backups: bool | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_database_postgresql calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}: Delete a PostgreSQL service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted. By
+        default, the service's backups are kept, and a last backup is taken once the service is
+        stopped. They stay listed and can be forked until they expire, at the end of the retention
+        configured when the service was deleted. They are billed until they expire, then deleted.
+        Set `deleteBackups` to true to delete them with the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            delete_backups: Whether to also delete the service's backups. Defaults to false. (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("deleteBackups", delete_backups),),
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_database_postgresql_certificates(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseCertificates:
+        """get_project_managed_database_postgresql_certificates calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/certificates: Get the TLS certificates
+
+        Returns the CA certificate, in PEM format, used to verify the connection to the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/certificates/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CERTIFICATES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseCertificates,
+        )
+
+    def all_project_managed_database_postgresql_connection_pools(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabasePostgresqlConnectionPool]:
+        """all_project_managed_database_postgresql_connection_pools iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool (List connection pools).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the connection pools of the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOLS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    async def create_project_managed_database_postgresql_connection_pool(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabasePostgresqlConnectionPoolCreation,
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """create_project_managed_database_postgresql_connection_pool calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool: Create a connection pool
+
+        Creates a connection pool on a database, with a pooling mode and a maximum number of server
+        connections. Without userId, a system user opens the server connections.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabasePostgresqlConnectionPoolCreation,
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    async def get_project_managed_database_postgresql_connection_pool(
+        self, project_id: str, service_id: str, connection_pool_id: str
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """get_project_managed_database_postgresql_connection_pool calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}: Get a connection pool
+
+        Returns the connection pool settings and its connection URI.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connection_pool_id: Connection pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectionPoolId": connection_pool_id,
+            },
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    async def update_project_managed_database_postgresql_connection_pool(
+        self,
+        project_id: str,
+        service_id: str,
+        connection_pool_id: str,
+        body: models.PublicCloudDatabasePostgresqlConnectionPoolReplace,
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """update_project_managed_database_postgresql_connection_pool calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}: Update a connection pool
+
+        Updates the database, pooling mode, size and user of the connection pool. Every field is
+        required. Setting userId to null removes the user assignment.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connection_pool_id: Connection pool ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectionPoolId": connection_pool_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabasePostgresqlConnectionPoolReplace,
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    async def patch_project_managed_database_postgresql_connection_pool(
+        self,
+        project_id: str,
+        service_id: str,
+        connection_pool_id: str,
+        body: models.PublicCloudDatabasePostgresqlConnectionPoolUpdate,
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """patch_project_managed_database_postgresql_connection_pool calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}: Partially update a connection pool
+
+        Partially updates the database, pooling mode, size or user of the connection pool. Setting
+        userId to null removes the user assignment.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connection_pool_id: Connection pool ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectionPoolId": connection_pool_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabasePostgresqlConnectionPoolUpdate,
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    async def delete_project_managed_database_postgresql_connection_pool(
+        self, project_id: str, service_id: str, connection_pool_id: str
+    ) -> models.PublicCloudDatabasePostgresqlConnectionPool:
+        """delete_project_managed_database_postgresql_connection_pool calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}: Delete a connection pool
+
+        Deletes the connection pool.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            connection_pool_id: Connection pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/connectionPool/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "connectionPoolId": connection_pool_id,
+            },
+            result=models.PublicCloudDatabasePostgresqlConnectionPool,
+        )
+
+    def all_project_managed_database_postgresql_current_queries(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseCurrentQuery]:
+        """all_project_managed_database_postgresql_current_queries iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries (List running queries).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the queries running on the service, with their client, user, state and duration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/currentQueries/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    async def get_project_managed_database_postgresql_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseCurrentQuery:
+        """get_project_managed_database_postgresql_current_queries calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries/{queryPid}: Get a running query
+
+        Returns the SQL text, state and duration of a running query, identified by its process ID.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            limit: Maximum number of queries to return (optional)
+            offset: Number of queries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/currentQueries/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            result=models.PublicCloudDatabaseCurrentQuery,
+        )
+
+    async def cancel_project_managed_database_postgresql_current_queries(
+        self,
+        project_id: str,
+        service_id: str,
+        query_pid: int,
+        body: models.PublicCloudDatabaseQueryCancelRequest,
+    ) -> models.PublicCloudDatabaseQueryCancelResult:
+        """cancel_project_managed_database_postgresql_current_queries calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries/{queryPid}/cancel: Cancel a running query
+
+        Cancels a running query gracefully. Set terminate to true to force its termination instead.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            query_pid: Query pid
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/currentQueries/cancel.
+        """
+        return await self._call(
+            _r.OP_CANCEL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "queryPid": query_pid,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseQueryCancelRequest,
+            result=models.PublicCloudDatabaseQueryCancelResult,
+        )
+
+    def all_project_managed_database_postgresql_databases(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseDatabase]:
+        """all_project_managed_database_postgresql_databases iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database (List databases).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the databases of the service, including the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/database/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def create_project_managed_database_postgresql_database(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseDatabaseCreation
+    ) -> models.PublicCloudDatabaseDatabase:
+        """create_project_managed_database_postgresql_database calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database: Create a database
+
+        Creates a database with the given name.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/database/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseDatabaseCreation,
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def get_project_managed_database_postgresql_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """get_project_managed_database_postgresql_database calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database/{databaseId}: Get a database
+
+        Returns the database name and whether it is the engine default database.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/database/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def delete_project_managed_database_postgresql_database(
+        self, project_id: str, service_id: str, database_id: str
+    ) -> models.PublicCloudDatabaseDatabase:
+        """delete_project_managed_database_postgresql_database calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database/{databaseId}: Delete a database
+
+        Permanently deletes the database. The engine default database cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            database_id: Database ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/database/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "databaseId": database_id,
+            },
+            result=models.PublicCloudDatabaseDatabase,
+        )
+
+    async def enable_writes_project_managed_database_postgresql(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseTemporaryWriteDeadline:
+        """enable_writes_project_managed_database_postgresql calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/enableWrites: Enable temporary writes
+
+        Enables temporary write permissions on a service locked in read-only mode because its disk
+        is full. Returns the date when they are revoked.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/enableWrites.
+        """
+        return await self._call(
+            _r.OP_ENABLE_WRITES_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseTemporaryWriteDeadline,
+        )
+
+    def all_project_managed_database_postgresql_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_database_postgresql_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_database_postgresql_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_database_postgresql_integration calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_database_postgresql_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_database_postgresql_integration calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_database_postgresql_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_database_postgresql_integration calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_database_postgresql_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_database_postgresql_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds PostgreSQL emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_database_postgresql_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_database_postgresql_log_kind calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_database_postgresql_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_database_postgresql_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the PostgreSQL log subscriptions. Set `kind` to restrict the list
+        to one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_database_postgresql_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_database_postgresql_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards PostgreSQL logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/postgresql/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_database_postgresql_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_database_postgresql_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_database_postgresql_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_database_postgresql_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding PostgreSQL logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/postgresql/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_database_postgresql_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_database_postgresql_log calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_database_postgresql_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_database_postgresql_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_database_postgresql_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_database_postgresql_maintenance calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_database_postgresql_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_database_postgresql_maintenance calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_database_postgresql_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_database_postgresql_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_database_postgresql_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_database_postgresql_metric calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_database_postgresql_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_database_postgresql_prometheus calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    async def reset_project_managed_database_postgresql_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_database_postgresql_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/postgresql/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_POSTGRESQL_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_database_postgresql_query_statistics(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        limit: int | None | NotGiven = NOT_GIVEN,
+        offset: int | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseQueryStatistic]:
+        """all_project_managed_database_postgresql_query_statistics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/queryStatistics (List query statistics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns execution statistics for each query pattern: number of calls, rows and execution
+        times.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            limit: Maximum number of entries to return (optional)
+            offset: Number of entries to skip before returning results (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/queryStatistics/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(
+                ("limit", limit),
+                ("offset", offset),
+            ),
+            item=models.PublicCloudDatabaseQueryStatistic,
+        )
+
+    async def reset_project_managed_database_postgresql_query_statistics(
+        self, project_id: str, service_id: str
+    ) -> None:
+        """reset_project_managed_database_postgresql_query_statistics calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/queryStatistics/reset: Reset query statistics
+
+        Resets all aggregated query statistics of the service.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/queryStatistics/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_POSTGRESQL_QUERY_STATISTICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+        )
+
+    def all_project_managed_database_postgresql_roles(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseRole]:
+        """all_project_managed_database_postgresql_roles iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/roles (List roles).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the roles that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/roles/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseRole,
+        )
+
+    async def get_project_managed_database_postgresql_roles(
+        self, project_id: str, service_id: str, role_id: str
+    ) -> models.PublicCloudDatabaseRole:
+        """get_project_managed_database_postgresql_roles calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/roles/{roleId}: Get a role
+
+        Returns a role that can be assigned to users.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            role_id: Role ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/roles/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_ROLES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "roleId": role_id,
+            },
+            result=models.PublicCloudDatabaseRole,
+        )
+
+    def all_project_managed_database_postgresql_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseUserWithRoles]:
+        """all_project_managed_database_postgresql_users iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their roles and status. Passwords are not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def create_project_managed_database_postgresql_user(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseUserWithRolesCreation,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """create_project_managed_database_postgresql_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user: Create a user
+
+        Creates a user with the given roles and generates its password. The password is returned
+        only on creation and on password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserWithRolesCreation,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def get_project_managed_database_postgresql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """get_project_managed_database_postgresql_user calls GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its roles and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def update_project_managed_database_postgresql_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserReplace,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """update_project_managed_database_postgresql_user calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}: Update a user
+
+        Updates the roles of the user. The roles list replaces the current roles. To reset the
+        password, use the resetPassword route of the user or a partial update with
+        credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserReplace,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def patch_project_managed_database_postgresql_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseUserUpdate,
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """patch_project_managed_database_postgresql_user calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}: Partially update a user
+
+        Partially updates the roles of the user. The roles list replaces the current roles. Setting
+        credentialsLastUpdatedAt resets the password and returns the new one.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseUserUpdate,
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def delete_project_managed_database_postgresql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """delete_project_managed_database_postgresql_user calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/postgresql/user/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    async def reset_password_project_managed_database_postgresql_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseUserWithRoles:
+        """reset_password_project_managed_database_postgresql_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/postgresql/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseUserWithRoles,
+        )
+
+    def all_project_managed_database_services(
+        self,
+        project_id: str,
+        *,
+        category: models.PublicCloudDatabaseCategoryEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_services iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/service (List services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the database services of the project, across all engines.
+
+        Args:
+            project_id: Project ID
+            category: Filter services by engine category (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/service/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_SERVICES,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("category", category),),
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_database_service(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_service calls GET /v2/publicCloud/project/{projectId}/managedDatabase/service/{serviceId}: Get a service
+
+        Returns a database service whatever its engine, with its target specification, current state
+        and running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/service/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_SERVICE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_valkeys(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseService]:
+        """all_project_managed_database_valkeys iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey (List Valkey services).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the Valkey services of the project.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEYS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudDatabaseService,
+        )
+
+    async def create_project_managed_database_valkey(
+        self, project_id: str, body: models.PublicCloudDatabaseServiceCreationWritable
+    ) -> models.PublicCloudDatabaseService:
+        """create_project_managed_database_valkey calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey: Create a Valkey service
+
+        Creates a Valkey service from a plan, a flavor and an engine version. Creation is
+        asynchronous: follow resourceStatus until READY. Set forkSourceServiceId to create it from a
+        backup of another service.
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceCreationWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def get_project_managed_database_valkey(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """get_project_managed_database_valkey calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}: Get a Valkey service
+
+        Returns the target specification of the service, its current state and its running tasks.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def update_project_managed_database_valkey(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseServiceReplace
+    ) -> models.PublicCloudDatabaseService:
+        """update_project_managed_database_valkey calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}: Update a Valkey service
+
+        Updates the target specification of the service, for example its plan, flavor, version or
+        number of nodes. Every field is required: the request describes the whole configuration. A
+        new target specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceReplace,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def patch_project_managed_database_valkey(
+        self,
+        project_id: str,
+        service_id: str,
+        body: models.PublicCloudDatabaseServiceUpdateWritable,
+    ) -> models.PublicCloudDatabaseService:
+        """patch_project_managed_database_valkey calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}: Partially update a Valkey service
+
+        Partially updates the target specification of the service, for example its plan, flavor,
+        version or number of nodes. Omitted fields keep their current value. A new target
+        specification is accepted only in READY status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseServiceUpdateWritable,
+            result=models.PublicCloudDatabaseService,
+        )
+
+    async def delete_project_managed_database_valkey(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseService:
+        """delete_project_managed_database_valkey calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}: Delete a Valkey service
+
+        Deletes the service. A service with deletion protection enabled cannot be deleted.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseService,
+        )
+
+    def all_project_managed_database_valkey_integrations(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseIntegration]:
+        """all_project_managed_database_valkey_integrations iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration (List integrations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the integrations of the service with other services.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/integration/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def create_project_managed_database_valkey_integration(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseIntegrationCreation
+    ) -> models.PublicCloudDatabaseIntegration:
+        """create_project_managed_database_valkey_integration calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration: Create an integration
+
+        Integrates the service with another database or analytics service. sourceServiceId must be
+        the identifier of this service. Compatible engine pairs are listed on the capabilities
+        endpoint.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/integration/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseIntegrationCreation,
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def get_project_managed_database_valkey_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """get_project_managed_database_valkey_integration calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration/{integrationId}: Get an integration
+
+        Returns the integration type, its source and destination services and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/integration/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    async def delete_project_managed_database_valkey_integration(
+        self, project_id: str, service_id: str, integration_id: str
+    ) -> models.PublicCloudDatabaseIntegration:
+        """delete_project_managed_database_valkey_integration calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration/{integrationId}: Delete an integration
+
+        Deletes the integration.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            integration_id: Integration ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/integration/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "integrationId": integration_id,
+            },
+            result=models.PublicCloudDatabaseIntegration,
+        )
+
+    def all_project_managed_database_valkey_log_kinds(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_database_valkey_log_kinds iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds Valkey emits, which can be forwarded to a stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_LOG_KINDS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=str,
+        )
+
+    async def get_project_managed_database_valkey_log_kind(
+        self, project_id: str, service_id: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_project_managed_database_valkey_log_kind calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            name: Name
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_LOG_KIND,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_project_managed_database_valkey_log_subscriptions(
+        self,
+        project_id: str,
+        service_id: str,
+        *,
+        kind: models.PublicCloudDatabaseKindEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[str]:
+        """all_project_managed_database_valkey_log_subscriptions iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the Valkey log subscriptions. Set `kind` to restrict the list to
+        one log kind.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            kind: Filter subscriptions by log kind (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTIONS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_project_managed_database_valkey_log_subscription(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_project_managed_database_valkey_log_subscription calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription: Create a log subscription
+
+        Forwards Valkey logs of one kind to a Logs Data Platform stream. The subscription is created
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/subscription/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_project_managed_database_valkey_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_project_managed_database_valkey_log_subscription calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_project_managed_database_valkey_log_subscription(
+        self, project_id: str, service_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_project_managed_database_valkey_log_subscription calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Valkey logs to the stream.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_project_managed_database_valkey_log(
+        self, project_id: str, service_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_project_managed_database_valkey_log calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_PROJECT_MANAGED_DATABASE_VALKEY_LOG,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
+    def all_project_managed_database_valkey_maintenances(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMaintenanceWindow]:
+        """all_project_managed_database_valkey_maintenances iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance (List maintenances).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the maintenances of the service, with their schedule and status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/maintenance/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCES,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def create_project_managed_database_valkey_maintenance(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """create_project_managed_database_valkey_maintenance calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance: Apply a maintenance
+
+        Applies a scheduled maintenance immediately, instead of waiting for its scheduled time.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/maintenance/apply.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    async def get_project_managed_database_valkey_maintenance(
+        self, project_id: str, service_id: str, maintenance_id: str
+    ) -> models.PublicCloudDatabaseMaintenanceWindow:
+        """get_project_managed_database_valkey_maintenance calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance/{maintenanceId}: Get a maintenance
+
+        Returns the operations planned by a maintenance, its schedule and its status.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            maintenance_id: Maintenance ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/maintenance/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCE,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "maintenanceId": maintenance_id,
+            },
+            result=models.PublicCloudDatabaseMaintenanceWindow,
+        )
+
+    def all_project_managed_database_valkey_metrics(
+        self, project_id: str, service_id: str, *, extended: bool | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseMetric]:
+        """all_project_managed_database_valkey_metrics iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/metric (List metrics).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the metrics available for the service. Set extended to true to include
+        engine-specific metrics.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            extended: Display engine-specific metrics (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/metric/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_METRICS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            query=(("extended", extended),),
+            item=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_database_valkey_metric(
+        self,
+        project_id: str,
+        service_id: str,
+        metric_name: str,
+        *,
+        period: models.PublicCloudDatabaseMetricPeriodEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> models.PublicCloudDatabaseMetric:
+        """get_project_managed_database_valkey_metric calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/metric/{metricName}: Get a metric
+
+        Returns the values of a metric for each node of the service, over the requested period.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            metric_name: Metric name
+            period: Time period over which to retrieve metric values (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/metric/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_METRIC,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "metricName": metric_name,
+            },
+            query=(("period", period),),
+            result=models.PublicCloudDatabaseMetric,
+        )
+
+    async def get_project_managed_database_valkey_prometheus(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusEndpoint:
+        """get_project_managed_database_valkey_prometheus calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/prometheus: Get the Prometheus endpoint
+
+        Returns the scraping targets and the username for Prometheus authentication. The password is
+        returned only by a credentials reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/prometheus/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_PROMETHEUS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusEndpoint,
+        )
+
+    async def reset_project_managed_database_valkey_prometheus_credentials(
+        self, project_id: str, service_id: str
+    ) -> models.PublicCloudDatabasePrometheusAccess:
+        """reset_project_managed_database_valkey_prometheus_credentials calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/prometheus/credentials/reset: Reset the Prometheus credentials
+
+        Resets the Prometheus password. The previous password stops working immediately and the new
+        credentials are returned in the response.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:database/valkey/prometheus/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_DATABASE_VALKEY_PROMETHEUS_CREDENTIALS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            result=models.PublicCloudDatabasePrometheusAccess,
+        )
+
+    def all_project_managed_database_valkey_users(
+        self, project_id: str, service_id: str
+    ) -> t.AsyncIterator[models.PublicCloudDatabaseValkeyUser]:
+        """all_project_managed_database_valkey_users iterates over GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user (List users).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the users of the service with their access rules and status. Passwords are not
+        returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_USERS,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            item=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    async def create_project_managed_database_valkey_user(
+        self, project_id: str, service_id: str, body: models.PublicCloudDatabaseValkeyUserCreation
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """create_project_managed_database_valkey_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user: Create a user
+
+        Creates a user with access rules on command categories, commands, keys and Pub/Sub channels.
+        An empty keys or channels list grants no access. The generated password is returned only on
+        creation and on password reset.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseValkeyUserCreation,
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    async def get_project_managed_database_valkey_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """get_project_managed_database_valkey_user calls GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}: Get a user
+
+        Returns the user, its access rules and its status. The password is not returned.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    async def update_project_managed_database_valkey_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseValkeyUserReplace,
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """update_project_managed_database_valkey_user calls PUT /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}: Update a user
+
+        Updates the access rules of the user. Each list replaces the current one, and an empty keys
+        or channels list revokes all access. To reset the password, use the resetPassword route of
+        the user or a partial update with credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseValkeyUserReplace,
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    async def patch_project_managed_database_valkey_user(
+        self,
+        project_id: str,
+        service_id: str,
+        user_id: str,
+        body: models.PublicCloudDatabaseValkeyUserUpdate,
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """patch_project_managed_database_valkey_user calls PATCH /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}: Partially update a user
+
+        Partially updates the access rules of the user. Each list replaces the current one, and an
+        empty keys or channels list revokes all access. Setting credentialsLastUpdatedAt resets the
+        password and returns the new one.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/edit.
+        """
+        return await self._call(
+            _r.OP_PATCH_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            body=body,
+            body_type=models.PublicCloudDatabaseValkeyUserUpdate,
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    async def delete_project_managed_database_valkey_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """delete_project_managed_database_valkey_user calls DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}: Delete a user
+
+        Permanently deletes the user.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    async def reset_password_project_managed_database_valkey_user(
+        self, project_id: str, service_id: str, user_id: str
+    ) -> models.PublicCloudDatabaseValkeyUser:
+        """reset_password_project_managed_database_valkey_user calls POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}/resetPassword: Reset the password of a user
+
+        Generates a new password for the user and returns it in the response. Reading the user never
+        returns it. The previous password stops working once the new one is applied, and
+        credentialsLastUpdatedAt becomes the date of this reset. This is the same reset as a partial
+        update of the user that sets credentialsLastUpdatedAt.
+
+        Args:
+            project_id: Project ID
+            service_id: Service ID
+            user_id: User ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/valkey/user/credentials/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+            path_params={
+                "projectId": project_id,
+                "serviceId": service_id,
+                "userId": user_id,
+            },
+            result=models.PublicCloudDatabaseValkeyUser,
+        )
+
+    def all_project_managed_kubernetes(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedKubernetesCluster]:
+        """all_project_managed_kubernetes iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes (List managed Kubernetes clusters).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    async def create_project_managed_kubernetes(
+        self, project_id: str, body: models.PublicCloudManagedKubernetesClusterCreation
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """create_project_managed_kubernetes calls POST /v2/publicCloud/project/{projectId}/managedKubernetes: Create a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedKubernetesClusterCreation,
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    async def get_project_managed_kubernetes(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """get_project_managed_kubernetes calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}: Get a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    async def update_project_managed_kubernetes(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        body: models.PublicCloudManagedKubernetesClusterUpdate,
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """update_project_managed_kubernetes calls PUT /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}: Update a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedKubernetesClusterUpdate,
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    async def delete_project_managed_kubernetes(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """delete_project_managed_kubernetes calls DELETE /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}: Delete a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    async def get_project_managed_kubernetes_capabilities_version(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesClusterVersions:
+        """get_project_managed_kubernetes_capabilities_version calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/capabilities/version: Get the versions of a managed Kubernetes cluster
+
+        Returns the full version deployed on the cluster, the patch versions of the current minor it
+        can update to, and the versions of the next minor it can upgrade to. Multi-minor jumps are
+        never returned.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action
+        publicCloudProject:apiovh:managedKubernetes/capabilities/version/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_CAPABILITIES_VERSION,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesClusterVersions,
+        )
+
+    def all_project_managed_kubernetes_events(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        *,
+        task_id: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.CommonEvent]:
+        """all_project_managed_kubernetes_events iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/event (List all events related to a managed Kubernetes cluster).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            task_id: Return only the events belonging to this task (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/event/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_EVENTS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            query=(("taskId", task_id),),
+            item=models.CommonEvent,
+        )
+
+    async def get_project_managed_kubernetes_kubeconfig(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesKubeconfig:
+        """get_project_managed_kubernetes_kubeconfig calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/kubeconfig: Retrieve the cluster admin kubeconfig
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/kubeconfig/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_KUBECONFIG,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesKubeconfig,
+        )
+
+    async def reset_project_managed_kubernetes_kubeconfig(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """reset_project_managed_kubernetes_kubeconfig calls POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/kubeconfig/reset: Reset the cluster admin kubeconfig
+
+        Rotates the cluster admin credentials asynchronously. The previous kubeconfig stops working.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/kubeconfig/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_PROJECT_MANAGED_KUBERNETES_KUBECONFIG,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def all_project_managed_kubernetes_nodepools(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedKubernetesNodepool]:
+        """all_project_managed_kubernetes_nodepools iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool (List nodepools of a managed Kubernetes cluster).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOLS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            item=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    async def create_project_managed_kubernetes_nodepool(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        body: models.PublicCloudManagedKubernetesNodepoolCreation,
+    ) -> models.PublicCloudManagedKubernetesNodepool:
+        """create_project_managed_kubernetes_nodepool calls POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool: Create a nodepool in a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedKubernetesNodepoolCreation,
+            result=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    async def get_project_managed_kubernetes_nodepool(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str
+    ) -> models.PublicCloudManagedKubernetesNodepool:
+        """get_project_managed_kubernetes_nodepool calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}: Get a nodepool of a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            result=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    async def update_project_managed_kubernetes_nodepool(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        node_pool_id: str,
+        body: models.PublicCloudManagedKubernetesNodepoolUpdate,
+    ) -> models.PublicCloudManagedKubernetesNodepool:
+        """update_project_managed_kubernetes_nodepool calls PUT /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}: Update a nodepool of a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            body=body,
+            body_type=models.PublicCloudManagedKubernetesNodepoolUpdate,
+            result=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    async def delete_project_managed_kubernetes_nodepool(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str
+    ) -> models.PublicCloudManagedKubernetesNodepool:
+        """delete_project_managed_kubernetes_nodepool calls DELETE /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}: Delete a nodepool of a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            result=models.PublicCloudManagedKubernetesNodepool,
+        )
+
+    def all_project_managed_kubernetes_nodepool_events(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        node_pool_id: str,
+        *,
+        task_id: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.CommonEvent]:
+        """all_project_managed_kubernetes_nodepool_events iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/event (List all events related to a managed Kubernetes cluster nodepool).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            task_id: Return only the events belonging to this task (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/event/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_EVENTS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            query=(("taskId", task_id),),
+            item=models.CommonEvent,
+        )
+
+    def all_project_managed_kubernetes_nodepool_nodes(
+        self,
+        project_id: str,
+        managed_kubernetes_id: str,
+        node_pool_id: str,
+        *,
+        include_deleted: bool | None | NotGiven = NOT_GIVEN,
+        resource_status: models.PublicCloudManagedKubernetesNodeResourceStatusEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.PublicCloudManagedKubernetesNode]:
+        """all_project_managed_kubernetes_nodepool_nodes iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/node (List nodes of a managed Kubernetes cluster nodepool).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Deleted nodes kept in retention are excluded unless includeDeleted is true.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            include_deleted: Include deleted nodes still kept in retention (optional)
+            resource_status: Return only the nodes in this lifecycle status. Filtering on DELETED requires includeDeleted set to true, otherwise the request returns 400. (optional)
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/node/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_NODES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            query=(
+                ("includeDeleted", include_deleted),
+                ("resourceStatus", resource_status),
+            ),
+            item=models.PublicCloudManagedKubernetesNode,
+        )
+
+    async def get_project_managed_kubernetes_nodepool_node(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str, node_id: str
+    ) -> models.PublicCloudManagedKubernetesNode:
+        """get_project_managed_kubernetes_nodepool_node calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/node/{nodeId}: Get a node of a managed Kubernetes cluster nodepool
+
+        A deleted node kept in retention is returned with resourceStatus DELETED until it expires,
+        after which the call returns 404.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            node_id: Node ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/node/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL_NODE,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+                "nodeId": node_id,
+            },
+            result=models.PublicCloudManagedKubernetesNode,
+        )
+
+    def all_project_managed_kubernetes_nodepool_tasks(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str
+    ) -> t.AsyncIterator[models.CommonTask]:
+        """all_project_managed_kubernetes_nodepool_tasks iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/task (List all tasks related to a managed Kubernetes cluster nodepool).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/task/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_TASKS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+            },
+            item=models.CommonTask,
+        )
+
+    async def get_project_managed_kubernetes_nodepool_task(
+        self, project_id: str, managed_kubernetes_id: str, node_pool_id: str, task_id: str
+    ) -> models.CommonTask:
+        """get_project_managed_kubernetes_nodepool_task calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/task/{taskId}: Get a specific task related to a managed Kubernetes cluster nodepool
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            node_pool_id: Node pool ID
+            task_id: Task ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/nodepool/task/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL_TASK,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "nodePoolId": node_pool_id,
+                "taskId": task_id,
+            },
+            result=models.CommonTask,
+        )
+
+    async def restart_project_managed_kubernetes(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesCluster:
+        """restart_project_managed_kubernetes calls POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/restart: Restart the control plane of a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/restart.
+        """
+        return await self._call(
+            _r.OP_RESTART_PROJECT_MANAGED_KUBERNETES,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesCluster,
+        )
+
+    def all_project_managed_kubernetes_tasks(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> t.AsyncIterator[models.CommonTask]:
+        """all_project_managed_kubernetes_tasks iterates over GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/task (List all tasks related to a managed Kubernetes cluster).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/task/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_MANAGED_KUBERNETES_TASKS,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            item=models.CommonTask,
+        )
+
+    async def get_project_managed_kubernetes_task(
+        self, project_id: str, managed_kubernetes_id: str, task_id: str
+    ) -> models.CommonTask:
+        """get_project_managed_kubernetes_task calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/task/{taskId}: Get a specific task related to a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+            task_id: Task ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/task/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_TASK,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+                "taskId": task_id,
+            },
+            result=models.CommonTask,
+        )
+
+    async def get_project_managed_kubernetes_usage_etcd(
+        self, project_id: str, managed_kubernetes_id: str
+    ) -> models.PublicCloudManagedKubernetesEtcdUsage:
+        """get_project_managed_kubernetes_usage_etcd calls GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/usage/etcd: Get the etcd database usage and quota for a managed Kubernetes cluster
+
+        Args:
+            project_id: Project ID
+            managed_kubernetes_id: Managed kubernetes ID
+
+        Requires the IAM action publicCloudProject:apiovh:managedKubernetes/usage/etcd/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_MANAGED_KUBERNETES_USAGE_ETCD,
+            path_params={
+                "projectId": project_id,
+                "managedKubernetesId": managed_kubernetes_id,
+            },
+            result=models.PublicCloudManagedKubernetesEtcdUsage,
+        )
+
     def all_networks(
         self, project_id: str, *, region: str | None | NotGiven = NOT_GIVEN
     ) -> t.AsyncIterator[models.PublicCloudNetworkNetwork]:
@@ -8895,6 +29994,103 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
             },
             query=(("region", region),),
             item=models.PublicCloudReferenceLoadbalancerFlavor,
+        )
+
+    def all_project_reference_managed_kubernetes_flavors(
+        self, project_id: str, region: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedKubernetesFlavor]:
+        """all_project_reference_managed_kubernetes_flavors iterates over GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/flavor (List Kubernetes node flavors).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the node flavors available for node pools in a region, with their category,
+        resources and status. Requires a region.
+
+        Args:
+            project_id: Project ID
+            region: Region to list flavors for. Flavor availability varies by region. An unknown region returns 404.
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedKubernetes/flavor/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_FLAVORS,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("region", region),),
+            item=models.PublicCloudManagedKubernetesFlavor,
+        )
+
+    def all_project_reference_managed_kubernetes_plans(
+        self, project_id: str, region: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedKubernetesPlan]:
+        """all_project_reference_managed_kubernetes_plans iterates over GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/plan (List Kubernetes cluster plans).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the plans available for cluster creation in a region, with their control plane
+        characteristics and limits. Requires a region.
+
+        Args:
+            project_id: Project ID
+            region: Region to list plans for. Plan availability varies by region. An unknown region returns 404.
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedKubernetes/plan/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_PLANS,
+            path_params={
+                "projectId": project_id,
+            },
+            query=(("region", region),),
+            item=models.PublicCloudManagedKubernetesPlan,
+        )
+
+    def all_project_reference_managed_kubernetes_regions(
+        self, project_id: str
+    ) -> t.AsyncIterator[models.PublicCloudManagedKubernetesRegion]:
+        """all_project_reference_managed_kubernetes_regions iterates over GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/region (List Kubernetes cluster regions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the regions where a cluster can be created, with their availability zones and the
+        plans offered there.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedKubernetes/region/get.
+        """
+        return self._pages(
+            _r.OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_REGIONS,
+            path_params={
+                "projectId": project_id,
+            },
+            item=models.PublicCloudManagedKubernetesRegion,
+        )
+
+    async def get_project_reference_managed_kubernetes_version(
+        self, project_id: str
+    ) -> models.PublicCloudManagedKubernetesVersionCatalog:
+        """get_project_reference_managed_kubernetes_version calls GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/version: List Kubernetes versions
+
+        Returns the minor versions available for cluster creation, newest first, and the default
+        version. Creation resolves a minor version to its latest patch.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:reference/managedKubernetes/version/get.
+        """
+        return await self._call(
+            _r.OP_GET_PROJECT_REFERENCE_MANAGED_KUBERNETES_VERSION,
+            path_params={
+                "projectId": project_id,
+            },
+            result=models.PublicCloudManagedKubernetesVersionCatalog,
         )
 
     def all_product_availability(

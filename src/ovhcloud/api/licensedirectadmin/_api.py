@@ -41,7 +41,10 @@ class LicensedirectadminApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_directadmins calls GET /v1/license/directadmin: List available services
+        """list_directadmins calls GET /v1/license/directadmin: List your DirectAdmin licenses
+
+        Returns the names of the DirectAdmin licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -59,6 +62,8 @@ class LicensedirectadminApi(_gen.SectionApi):
     ) -> list[models.LicenseDirectAdminOrderConfiguration]:
         """list_orderable_versions calls GET /v1/license/directadmin/orderableVersions: Get the orderable DirectAdmin versions
 
+        Returns the versions that can be ordered for the given IP, grouped by service type.
+
         Args:
             ip: Your license Ip
 
@@ -71,7 +76,10 @@ class LicensedirectadminApi(_gen.SectionApi):
         )
 
     def get_directadmin(self, service_name: str) -> models.LicenseDirectadminDirectAdminWithIAM:
-        """get_directadmin calls GET /v1/license/directadmin/{serviceName}: Get this object properties
+        """get_directadmin calls GET /v1/license/directadmin/{serviceName}: Get a DirectAdmin license
+
+        Returns the license ID, version, status, IP address, client ID, operating system and
+        creation date.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -91,7 +99,7 @@ class LicensedirectadminApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseDirectadminDirectAdminWithIAM]:
-        """all_directadmins iterates over GET /v1/license/directadmin (List available services).
+        """all_directadmins iterates over GET /v1/license/directadmin (List your DirectAdmin licenses).
 
         It lists the IDs with list_directadmins, then gets each object with get_directadmin,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -112,7 +120,10 @@ class LicensedirectadminApi(_gen.SectionApi):
     def update_directadmin(
         self, service_name: str, body: models.LicenseDirectadminDirectAdminWritable
     ) -> None:
-        """update_directadmin calls PUT /v1/license/directadmin/{serviceName}: Alter this object properties
+        """update_directadmin calls PUT /v1/license/directadmin/{serviceName}: Update a DirectAdmin license
+
+        Changes the settings that can be modified: the operating system and the automatic deletion
+        at expiration.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -130,7 +141,10 @@ class LicensedirectadminApi(_gen.SectionApi):
         )
 
     def list_allowed_destination_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_allowed_destination_ips calls GET /v1/license/directadmin/{serviceName}/allowedDestinationIp: Returns an array of ips where the license can be moved to
+        """list_allowed_destination_ips calls GET /v1/license/directadmin/{serviceName}/allowedDestinationIp: List the IPs a DirectAdmin license can be moved to
+
+        Returns the IP blocks that can receive the license, so you can pick the destination of a
+        move.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -148,7 +162,9 @@ class LicensedirectadminApi(_gen.SectionApi):
     def get_can_license_be_moved_to(
         self, service_name: str, destination_ip: models.IPv4
     ) -> models.LicenseChangeIPStatus:
-        """get_can_license_be_moved_to calls GET /v1/license/directadmin/{serviceName}/canLicenseBeMovedTo: Will tell if the ip can accept the license
+        """get_can_license_be_moved_to calls GET /v1/license/directadmin/{serviceName}/canLicenseBeMovedTo: Check whether a DirectAdmin license can be moved to an IP
+
+        Returns whether the destination IP can receive the license, with the reason when it cannot.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -166,7 +182,9 @@ class LicensedirectadminApi(_gen.SectionApi):
         )
 
     def change_ip(self, service_name: str, body: models.ChangeIPRequest) -> models.LicenseTask:
-        """change_ip calls POST /v1/license/directadmin/{serviceName}/changeIp: Move this license to another Ip
+        """change_ip calls POST /v1/license/directadmin/{serviceName}/changeIp: Move a DirectAdmin license to another IP
+
+        Starts the move of the license to the given IP and returns the task that performs it.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -185,7 +203,9 @@ class LicensedirectadminApi(_gen.SectionApi):
         )
 
     def change_os(self, service_name: str, body: models.ChangeOsRequest) -> models.LicenseTask:
-        """change_os calls POST /v1/license/directadmin/{serviceName}/changeOs: Change the Operating System for a license
+        """change_os calls POST /v1/license/directadmin/{serviceName}/changeOs: Change the operating system of a DirectAdmin license
+
+        Sets the operating system and returns the task that performs the change.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -272,7 +292,10 @@ class LicensedirectadminApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/directadmin/{serviceName}/tasks: tasks linked to this license
+        """list_tasks calls GET /v1/license/directadmin/{serviceName}/tasks: List the tasks of a DirectAdmin license
+
+        Returns the IDs of the tasks linked to the license, which can be filtered by status and
+        action.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -294,7 +317,10 @@ class LicensedirectadminApi(_gen.SectionApi):
         )
 
     def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/directadmin/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/directadmin/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -318,7 +344,7 @@ class LicensedirectadminApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/directadmin/{serviceName}/tasks (tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/directadmin/{serviceName}/tasks (List the tasks of a DirectAdmin license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -380,7 +406,10 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_directadmins calls GET /v1/license/directadmin: List available services
+        """list_directadmins calls GET /v1/license/directadmin: List your DirectAdmin licenses
+
+        Returns the names of the DirectAdmin licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -398,6 +427,8 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
     ) -> list[models.LicenseDirectAdminOrderConfiguration]:
         """list_orderable_versions calls GET /v1/license/directadmin/orderableVersions: Get the orderable DirectAdmin versions
 
+        Returns the versions that can be ordered for the given IP, grouped by service type.
+
         Args:
             ip: Your license Ip
 
@@ -412,7 +443,10 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
     async def get_directadmin(
         self, service_name: str
     ) -> models.LicenseDirectadminDirectAdminWithIAM:
-        """get_directadmin calls GET /v1/license/directadmin/{serviceName}: Get this object properties
+        """get_directadmin calls GET /v1/license/directadmin/{serviceName}: Get a DirectAdmin license
+
+        Returns the license ID, version, status, IP address, client ID, operating system and
+        creation date.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -432,7 +466,7 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseDirectadminDirectAdminWithIAM]:
-        """all_directadmins iterates over GET /v1/license/directadmin (List available services).
+        """all_directadmins iterates over GET /v1/license/directadmin (List your DirectAdmin licenses).
 
         It lists the IDs with list_directadmins, then gets each object with get_directadmin,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -453,7 +487,10 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
     async def update_directadmin(
         self, service_name: str, body: models.LicenseDirectadminDirectAdminWritable
     ) -> None:
-        """update_directadmin calls PUT /v1/license/directadmin/{serviceName}: Alter this object properties
+        """update_directadmin calls PUT /v1/license/directadmin/{serviceName}: Update a DirectAdmin license
+
+        Changes the settings that can be modified: the operating system and the automatic deletion
+        at expiration.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -471,7 +508,10 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
         )
 
     async def list_allowed_destination_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_allowed_destination_ips calls GET /v1/license/directadmin/{serviceName}/allowedDestinationIp: Returns an array of ips where the license can be moved to
+        """list_allowed_destination_ips calls GET /v1/license/directadmin/{serviceName}/allowedDestinationIp: List the IPs a DirectAdmin license can be moved to
+
+        Returns the IP blocks that can receive the license, so you can pick the destination of a
+        move.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -489,7 +529,9 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
     async def get_can_license_be_moved_to(
         self, service_name: str, destination_ip: models.IPv4
     ) -> models.LicenseChangeIPStatus:
-        """get_can_license_be_moved_to calls GET /v1/license/directadmin/{serviceName}/canLicenseBeMovedTo: Will tell if the ip can accept the license
+        """get_can_license_be_moved_to calls GET /v1/license/directadmin/{serviceName}/canLicenseBeMovedTo: Check whether a DirectAdmin license can be moved to an IP
+
+        Returns whether the destination IP can receive the license, with the reason when it cannot.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -509,7 +551,9 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
     async def change_ip(
         self, service_name: str, body: models.ChangeIPRequest
     ) -> models.LicenseTask:
-        """change_ip calls POST /v1/license/directadmin/{serviceName}/changeIp: Move this license to another Ip
+        """change_ip calls POST /v1/license/directadmin/{serviceName}/changeIp: Move a DirectAdmin license to another IP
+
+        Starts the move of the license to the given IP and returns the task that performs it.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -530,7 +574,9 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
     async def change_os(
         self, service_name: str, body: models.ChangeOsRequest
     ) -> models.LicenseTask:
-        """change_os calls POST /v1/license/directadmin/{serviceName}/changeOs: Change the Operating System for a license
+        """change_os calls POST /v1/license/directadmin/{serviceName}/changeOs: Change the operating system of a DirectAdmin license
+
+        Sets the operating system and returns the task that performs the change.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -621,7 +667,10 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/directadmin/{serviceName}/tasks: tasks linked to this license
+        """list_tasks calls GET /v1/license/directadmin/{serviceName}/tasks: List the tasks of a DirectAdmin license
+
+        Returns the IDs of the tasks linked to the license, which can be filtered by status and
+        action.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -643,7 +692,10 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
         )
 
     async def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/directadmin/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/directadmin/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your DirectAdmin license
@@ -667,7 +719,7 @@ class AsyncLicensedirectadminApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/directadmin/{serviceName}/tasks (tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/directadmin/{serviceName}/tasks (List the tasks of a DirectAdmin license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other

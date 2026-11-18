@@ -41,7 +41,10 @@ class LicensepleskApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_plesks calls GET /v1/license/plesk: List available services
+        """list_plesks calls GET /v1/license/plesk: List your Plesk licenses
+
+        Returns the names of the Plesk licenses of the account; each name is the service name used
+        by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -57,7 +60,10 @@ class LicensepleskApi(_gen.SectionApi):
     def list_orderable_versions(
         self, ip: models.IPv4
     ) -> list[models.LicensePleskOrderConfiguration]:
-        """list_orderable_versions calls GET /v1/license/plesk/orderableVersions: Get the orderable Plesk versions and their associated compatibilities
+        """list_orderable_versions calls GET /v1/license/plesk/orderableVersions: Get the orderable Plesk versions
+
+        Returns, for the given IP, the versions and their compliant domain numbers, language packs,
+        antivirus, application sets and potential problems.
 
         Args:
             ip: Your license Ip
@@ -71,7 +77,10 @@ class LicensepleskApi(_gen.SectionApi):
         )
 
     def get_plesk(self, service_name: str) -> models.LicensePleskPleskWithIAM:
-        """get_plesk calls GET /v1/license/plesk/{serviceName}: Get this object properties
+        """get_plesk calls GET /v1/license/plesk/{serviceName}: Get a Plesk license
+
+        Returns the license ID, version, status, IP address, domain number and the license, product
+        and information keys.
 
         Args:
             service_name: The name of your Plesk license
@@ -91,7 +100,7 @@ class LicensepleskApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicensePleskPleskWithIAM]:
-        """all_plesks iterates over GET /v1/license/plesk (List available services).
+        """all_plesks iterates over GET /v1/license/plesk (List your Plesk licenses).
 
         It lists the IDs with list_plesks, then gets each object with get_plesk,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -110,7 +119,9 @@ class LicensepleskApi(_gen.SectionApi):
         )
 
     def update_plesk(self, service_name: str, body: models.LicensePleskPleskWritable) -> None:
-        """update_plesk calls PUT /v1/license/plesk/{serviceName}: Alter this object properties
+        """update_plesk calls PUT /v1/license/plesk/{serviceName}: Update a Plesk license
+
+        Changes the settings that can be modified: the automatic deletion at expiration.
 
         Args:
             service_name: The name of your Plesk license
@@ -128,7 +139,10 @@ class LicensepleskApi(_gen.SectionApi):
         )
 
     def list_allowed_destination_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_allowed_destination_ips calls GET /v1/license/plesk/{serviceName}/allowedDestinationIp: Returns an array of ips where the license can be moved to
+        """list_allowed_destination_ips calls GET /v1/license/plesk/{serviceName}/allowedDestinationIp: List the IPs a Plesk license can be moved to
+
+        Returns the IP blocks that can receive the license, so you can pick the destination of a
+        move.
 
         Args:
             service_name: The name of your Plesk license
@@ -146,7 +160,9 @@ class LicensepleskApi(_gen.SectionApi):
     def get_can_license_be_moved_to(
         self, service_name: str, destination_ip: models.IPv4
     ) -> models.LicenseChangeIPStatus:
-        """get_can_license_be_moved_to calls GET /v1/license/plesk/{serviceName}/canLicenseBeMovedTo: Will tell if the ip can accept the license
+        """get_can_license_be_moved_to calls GET /v1/license/plesk/{serviceName}/canLicenseBeMovedTo: Check whether a Plesk license can be moved to an IP
+
+        Returns whether the destination IP can receive the license, with the reason when it cannot.
 
         Args:
             service_name: The name of your Plesk license
@@ -164,7 +180,9 @@ class LicensepleskApi(_gen.SectionApi):
         )
 
     def change_ip(self, service_name: str, body: models.ChangeIPRequest) -> models.LicenseTask:
-        """change_ip calls POST /v1/license/plesk/{serviceName}/changeIp: Move this license to another Ip
+        """change_ip calls POST /v1/license/plesk/{serviceName}/changeIp: Move a Plesk license to another IP
+
+        Starts the move of the license to the given IP and returns the task that performs it.
 
         Args:
             service_name: The name of your Plesk license
@@ -205,7 +223,10 @@ class LicensepleskApi(_gen.SectionApi):
         )
 
     def list_options(self, service_name: str) -> list[models.LicenseOptionLabel]:
-        """list_options calls GET /v1/license/plesk/{serviceName}/option: options attached to this license
+        """list_options calls GET /v1/license/plesk/{serviceName}/option: List the options of a Plesk license
+
+        Returns the labels of the options attached to the license; get an option for its version,
+        quantity and expiration date.
 
         Args:
             service_name: The name of your Plesk license
@@ -223,7 +244,10 @@ class LicensepleskApi(_gen.SectionApi):
     def get_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseOption:
-        """get_option calls GET /v1/license/plesk/{serviceName}/option/{label}: Get this object properties
+        """get_option calls GET /v1/license/plesk/{serviceName}/option/{label}: Get an option of a license
+
+        Returns the label, version, quantity, expiration date and whether the option can be
+        released.
 
         Args:
             service_name: The name of your Plesk license
@@ -241,7 +265,7 @@ class LicensepleskApi(_gen.SectionApi):
         )
 
     def all_options(self, service_name: str) -> t.Iterator[models.LicenseOption]:
-        """all_options iterates over GET /v1/license/plesk/{serviceName}/option (options attached to this license).
+        """all_options iterates over GET /v1/license/plesk/{serviceName}/option (List the options of a Plesk license).
 
         It lists the IDs with list_options, then gets each object with get_option,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -262,7 +286,9 @@ class LicensepleskApi(_gen.SectionApi):
     def delete_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseTask:
-        """delete_option calls DELETE /v1/license/plesk/{serviceName}/option/{label}: release this Option
+        """delete_option calls DELETE /v1/license/plesk/{serviceName}/option/{label}: Release an option from a license
+
+        Removes the option from the license and returns the task that performs the release.
 
         Args:
             service_name: The name of your Plesk license
@@ -326,7 +352,10 @@ class LicensepleskApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/plesk/{serviceName}/tasks: tasks linked to this license
+        """list_tasks calls GET /v1/license/plesk/{serviceName}/tasks: List the tasks of a Plesk license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade, an option change or an IP change.
 
         Args:
             service_name: The name of your Plesk license
@@ -348,7 +377,10 @@ class LicensepleskApi(_gen.SectionApi):
         )
 
     def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/plesk/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/plesk/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your Plesk license
@@ -372,7 +404,7 @@ class LicensepleskApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/plesk/{serviceName}/tasks (tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/plesk/{serviceName}/tasks (List the tasks of a Plesk license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -434,7 +466,10 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_plesks calls GET /v1/license/plesk: List available services
+        """list_plesks calls GET /v1/license/plesk: List your Plesk licenses
+
+        Returns the names of the Plesk licenses of the account; each name is the service name used
+        by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -450,7 +485,10 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
     async def list_orderable_versions(
         self, ip: models.IPv4
     ) -> list[models.LicensePleskOrderConfiguration]:
-        """list_orderable_versions calls GET /v1/license/plesk/orderableVersions: Get the orderable Plesk versions and their associated compatibilities
+        """list_orderable_versions calls GET /v1/license/plesk/orderableVersions: Get the orderable Plesk versions
+
+        Returns, for the given IP, the versions and their compliant domain numbers, language packs,
+        antivirus, application sets and potential problems.
 
         Args:
             ip: Your license Ip
@@ -464,7 +502,10 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         )
 
     async def get_plesk(self, service_name: str) -> models.LicensePleskPleskWithIAM:
-        """get_plesk calls GET /v1/license/plesk/{serviceName}: Get this object properties
+        """get_plesk calls GET /v1/license/plesk/{serviceName}: Get a Plesk license
+
+        Returns the license ID, version, status, IP address, domain number and the license, product
+        and information keys.
 
         Args:
             service_name: The name of your Plesk license
@@ -484,7 +525,7 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicensePleskPleskWithIAM]:
-        """all_plesks iterates over GET /v1/license/plesk (List available services).
+        """all_plesks iterates over GET /v1/license/plesk (List your Plesk licenses).
 
         It lists the IDs with list_plesks, then gets each object with get_plesk,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -503,7 +544,9 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         )
 
     async def update_plesk(self, service_name: str, body: models.LicensePleskPleskWritable) -> None:
-        """update_plesk calls PUT /v1/license/plesk/{serviceName}: Alter this object properties
+        """update_plesk calls PUT /v1/license/plesk/{serviceName}: Update a Plesk license
+
+        Changes the settings that can be modified: the automatic deletion at expiration.
 
         Args:
             service_name: The name of your Plesk license
@@ -521,7 +564,10 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         )
 
     async def list_allowed_destination_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_allowed_destination_ips calls GET /v1/license/plesk/{serviceName}/allowedDestinationIp: Returns an array of ips where the license can be moved to
+        """list_allowed_destination_ips calls GET /v1/license/plesk/{serviceName}/allowedDestinationIp: List the IPs a Plesk license can be moved to
+
+        Returns the IP blocks that can receive the license, so you can pick the destination of a
+        move.
 
         Args:
             service_name: The name of your Plesk license
@@ -539,7 +585,9 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
     async def get_can_license_be_moved_to(
         self, service_name: str, destination_ip: models.IPv4
     ) -> models.LicenseChangeIPStatus:
-        """get_can_license_be_moved_to calls GET /v1/license/plesk/{serviceName}/canLicenseBeMovedTo: Will tell if the ip can accept the license
+        """get_can_license_be_moved_to calls GET /v1/license/plesk/{serviceName}/canLicenseBeMovedTo: Check whether a Plesk license can be moved to an IP
+
+        Returns whether the destination IP can receive the license, with the reason when it cannot.
 
         Args:
             service_name: The name of your Plesk license
@@ -559,7 +607,9 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
     async def change_ip(
         self, service_name: str, body: models.ChangeIPRequest
     ) -> models.LicenseTask:
-        """change_ip calls POST /v1/license/plesk/{serviceName}/changeIp: Move this license to another Ip
+        """change_ip calls POST /v1/license/plesk/{serviceName}/changeIp: Move a Plesk license to another IP
+
+        Starts the move of the license to the given IP and returns the task that performs it.
 
         Args:
             service_name: The name of your Plesk license
@@ -602,7 +652,10 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         )
 
     async def list_options(self, service_name: str) -> list[models.LicenseOptionLabel]:
-        """list_options calls GET /v1/license/plesk/{serviceName}/option: options attached to this license
+        """list_options calls GET /v1/license/plesk/{serviceName}/option: List the options of a Plesk license
+
+        Returns the labels of the options attached to the license; get an option for its version,
+        quantity and expiration date.
 
         Args:
             service_name: The name of your Plesk license
@@ -620,7 +673,10 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
     async def get_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseOption:
-        """get_option calls GET /v1/license/plesk/{serviceName}/option/{label}: Get this object properties
+        """get_option calls GET /v1/license/plesk/{serviceName}/option/{label}: Get an option of a license
+
+        Returns the label, version, quantity, expiration date and whether the option can be
+        released.
 
         Args:
             service_name: The name of your Plesk license
@@ -638,7 +694,7 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         )
 
     def all_options(self, service_name: str) -> t.AsyncIterator[models.LicenseOption]:
-        """all_options iterates over GET /v1/license/plesk/{serviceName}/option (options attached to this license).
+        """all_options iterates over GET /v1/license/plesk/{serviceName}/option (List the options of a Plesk license).
 
         It lists the IDs with list_options, then gets each object with get_option,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -659,7 +715,9 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
     async def delete_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseTask:
-        """delete_option calls DELETE /v1/license/plesk/{serviceName}/option/{label}: release this Option
+        """delete_option calls DELETE /v1/license/plesk/{serviceName}/option/{label}: Release an option from a license
+
+        Removes the option from the license and returns the task that performs the release.
 
         Args:
             service_name: The name of your Plesk license
@@ -725,7 +783,10 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/plesk/{serviceName}/tasks: tasks linked to this license
+        """list_tasks calls GET /v1/license/plesk/{serviceName}/tasks: List the tasks of a Plesk license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade, an option change or an IP change.
 
         Args:
             service_name: The name of your Plesk license
@@ -747,7 +808,10 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         )
 
     async def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/plesk/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/plesk/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your Plesk license
@@ -771,7 +835,7 @@ class AsyncLicensepleskApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/plesk/{serviceName}/tasks (tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/plesk/{serviceName}/tasks (List the tasks of a Plesk license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other

@@ -39,166 +39,6 @@ OP_GET_PROJECT = Operation(
     schemas_version="1.0",
 )
 
-OP_ALL_PROJECT_AI_AGENTS_AGENTS = Operation(
-    name="public_cloud.all_project_ai_agents_agents",
-    method="GET",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/agent",
-    summary="List AI agents",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/agent/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_CREATE_PROJECT_AI_AGENTS_AGENT = Operation(
-    name="public_cloud.create_project_ai_agents_agent",
-    method="POST",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/agent",
-    summary="Create an AI agent",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/agent/create",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_GET_PROJECT_AI_AGENTS_AGENT = Operation(
-    name="public_cloud.get_project_ai_agents_agent",
-    method="GET",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}",
-    summary="Get an AI agent",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/agent/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_UPDATE_PROJECT_AI_AGENTS_AGENT = Operation(
-    name="public_cloud.update_project_ai_agents_agent",
-    method="PUT",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}",
-    summary="Update an AI agent",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/agent/edit",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_DELETE_PROJECT_AI_AGENTS_AGENT = Operation(
-    name="public_cloud.delete_project_ai_agents_agent",
-    method="DELETE",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}",
-    summary="Delete an AI agent",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/agent/delete",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_REDEPLOY_PROJECT_AI_AGENTS_AGENT = Operation(
-    name="public_cloud.redeploy_project_ai_agents_agent",
-    method="POST",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}/redeploy",
-    summary="Redeploy an AI agent, refreshing its runtime while keeping its data",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/agent/redeploy",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_TOKEN_PROJECT_AI_AGENTS_AGENT = Operation(
-    name="public_cloud.token_project_ai_agents_agent",
-    method="POST",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}/token",
-    summary="Issue a scoped access token for an AI agent",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/agent/token/create",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_GET_PROJECT_AI_AGENTS_PRESET_GLOBAL_SETTINGS = Operation(
-    name="public_cloud.get_project_ai_agents_preset_global_settings",
-    method="GET",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/preset/globalSettings",
-    summary="Get the AI agent configuration settings fixed by OVHcloud",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/preset/globalSettings/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_GET_PROJECT_AI_AGENTS_PRESET_MODEL_AI_ENDPOINTS_PROVIDER = Operation(
-    name="public_cloud.get_project_ai_agents_preset_model_ai_endpoints_provider",
-    method="GET",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/preset/model/aiEndpointsProvider",
-    summary="Get the OVHcloud AI Endpoints provider preset",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/preset/model/aiEndpointsProvider/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_ALL_PROJECT_AI_AGENTS_PRESET_TEMPLATES = Operation(
-    name="public_cloud.all_project_ai_agents_preset_templates",
-    method="GET",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/preset/template",
-    summary="List built-in AI agent template presets",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/preset/template/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_GET_PROJECT_AI_AGENTS_PRESET_TEMPLATE = Operation(
-    name="public_cloud.get_project_ai_agents_preset_template",
-    method="GET",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/preset/template/{templatePresetId}",
-    summary="Get an AI agent template preset",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/preset/template/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_ALL_PROJECT_AI_AGENTS_TEMPLATES = Operation(
-    name="public_cloud.all_project_ai_agents_templates",
-    method="GET",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/template",
-    summary="List AI agent templates",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/template/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_CREATE_PROJECT_AI_AGENTS_TEMPLATE = Operation(
-    name="public_cloud.create_project_ai_agents_template",
-    method="POST",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/template",
-    summary="Create an AI agent template",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/template/create",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_GET_PROJECT_AI_AGENTS_TEMPLATE = Operation(
-    name="public_cloud.get_project_ai_agents_template",
-    method="GET",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}",
-    summary="Get an AI agent template",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/template/get",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_UPDATE_PROJECT_AI_AGENTS_TEMPLATE = Operation(
-    name="public_cloud.update_project_ai_agents_template",
-    method="PUT",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}",
-    summary="Update an AI agent template",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/template/edit",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
-OP_DELETE_PROJECT_AI_AGENTS_TEMPLATE = Operation(
-    name="public_cloud.delete_project_ai_agents_template",
-    method="DELETE",
-    path="/v2/publicCloud/project/{projectId}/ai/agents/template/{templateId}",
-    summary="Delete an AI agent template",
-    iam_actions=("publicCloudProject:apiovh:ai/agents/template/delete",),
-    deprecated=False,
-    schemas_version="1.0",
-)
-
 OP_ALL_INSTANCES = Operation(
     name="public_cloud.all_instances",
     method="GET",
@@ -869,6 +709,4218 @@ OP_DELETE_LOAD_BALANCER_POOL_MEMBER = Operation(
     schemas_version="1.0",
 )
 
+OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITIES = Operation(
+    name="public_cloud.all_project_managed_analytics_availabilities",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/availability",
+    summary="List Analytics availabilities",
+    iam_actions=("publicCloudProject:apiovh:analytics/availability/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITY_SUGGESTIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_availability_suggestions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/availability/suggestion",
+    summary="List Analytics availability suggestions",
+    iam_actions=("publicCloudProject:apiovh:analytics/availability/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_BACKUPS = Operation(
+    name="public_cloud.all_project_managed_analytics_backups",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/backup",
+    summary="List backups",
+    iam_actions=("publicCloudProject:apiovh:analytics/backup/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_BACKUP = Operation(
+    name="public_cloud.get_project_managed_analytics_backup",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/backup/{backupId}",
+    summary="Get a backup",
+    iam_actions=("publicCloudProject:apiovh:analytics/backup/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_DISKS = Operation(
+    name="public_cloud.all_project_managed_analytics_capabilities_disks",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/disks",
+    summary="List Analytics disk types",
+    iam_actions=("publicCloudProject:apiovh:analytics/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_ENGINES = Operation(
+    name="public_cloud.all_project_managed_analytics_capabilities_engines",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/engines",
+    summary="List Analytics engines",
+    iam_actions=("publicCloudProject:apiovh:analytics/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_FLAVORS = Operation(
+    name="public_cloud.all_project_managed_analytics_capabilities_flavors",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/flavors",
+    summary="List Analytics flavors",
+    iam_actions=("publicCloudProject:apiovh:analytics/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_OPTIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_capabilities_options",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/options",
+    summary="List Analytics options",
+    iam_actions=("publicCloudProject:apiovh:analytics/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_PLANS = Operation(
+    name="public_cloud.all_project_managed_analytics_capabilities_plans",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/plans",
+    summary="List Analytics plans",
+    iam_actions=("publicCloudProject:apiovh:analytics/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_REGIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_capabilities_regions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/regions",
+    summary="List Analytics regions",
+    iam_actions=("publicCloudProject:apiovh:analytics/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSES = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouses",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse",
+    summary="List ClickHouse services",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE = Operation(
+    name="public_cloud.create_project_managed_analytics_clickhouse",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse",
+    summary="Create a ClickHouse service",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}",
+    summary="Get a ClickHouse service",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE = Operation(
+    name="public_cloud.update_project_managed_analytics_clickhouse",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}",
+    summary="Update a ClickHouse service",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE = Operation(
+    name="public_cloud.patch_project_managed_analytics_clickhouse",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}",
+    summary="Partially update a ClickHouse service",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE = Operation(
+    name="public_cloud.delete_project_managed_analytics_clickhouse",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}",
+    summary="Delete a ClickHouse service",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CERTIFICATES = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_certificates",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/certificates",
+    summary="Get the TLS certificates",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/certificates/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_current_queries",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries",
+    summary="List running queries",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/currentQueries/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_current_queries",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries/{queryPid}",
+    summary="Get a running query",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/currentQueries/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CANCEL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES = Operation(
+    name="public_cloud.cancel_project_managed_analytics_clickhouse_current_queries",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries/{queryPid}/cancel",
+    summary="Cancel a running query",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/currentQueries/cancel",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASES = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_databases",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database",
+    summary="List databases",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/database/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE = Operation(
+    name="public_cloud.create_project_managed_analytics_clickhouse_database",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database",
+    summary="Create a database",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/database/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_database",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database/{databaseId}",
+    summary="Get a database",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/database/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE = Operation(
+    name="public_cloud.delete_project_managed_analytics_clickhouse_database",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database/{databaseId}",
+    summary="Delete a database",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/database/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ENABLE_WRITES_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE = Operation(
+    name="public_cloud.enable_writes_project_managed_analytics_clickhouse",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/enableWrites",
+    summary="Enable temporary writes",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/enableWrites",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_analytics_clickhouse_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_analytics_clickhouse_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_analytics_clickhouse_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_analytics_clickhouse_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG = Operation(
+    name="public_cloud.url_project_managed_analytics_clickhouse_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_analytics_clickhouse_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_METRICS = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_METRIC = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_analytics_clickhouse_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/prometheus/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_QUERY_STATISTICS = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_query_statistics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/queryStatistics",
+    summary="List query statistics",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/queryStatistics/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_ROLES = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_roles",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/roles",
+    summary="List roles",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/roles/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_ROLES = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_roles",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/roles/{roleId}",
+    summary="Get a role",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/roles/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USERS = Operation(
+    name="public_cloud.all_project_managed_analytics_clickhouse_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER = Operation(
+    name="public_cloud.create_project_managed_analytics_clickhouse_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user",
+    summary="Create a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/user/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER = Operation(
+    name="public_cloud.get_project_managed_analytics_clickhouse_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER = Operation(
+    name="public_cloud.update_project_managed_analytics_clickhouse_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}",
+    summary="Reset user credentials",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER = Operation(
+    name="public_cloud.delete_project_managed_analytics_clickhouse_user",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}",
+    summary="Delete a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/user/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER = Operation(
+    name="public_cloud.reset_password_project_managed_analytics_clickhouse_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/clickhouse/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANAS = Operation(
+    name="public_cloud.all_project_managed_analytics_grafanas",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana",
+    summary="List Grafana services",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA = Operation(
+    name="public_cloud.create_project_managed_analytics_grafana",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana",
+    summary="Create a Grafana service",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA = Operation(
+    name="public_cloud.get_project_managed_analytics_grafana",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}",
+    summary="Get a Grafana service",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_GRAFANA = Operation(
+    name="public_cloud.update_project_managed_analytics_grafana",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}",
+    summary="Update a Grafana service",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_GRAFANA = Operation(
+    name="public_cloud.patch_project_managed_analytics_grafana",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}",
+    summary="Partially update a Grafana service",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA = Operation(
+    name="public_cloud.delete_project_managed_analytics_grafana",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}",
+    summary="Delete a Grafana service",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_grafana_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_analytics_grafana_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_analytics_grafana_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_analytics_grafana_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_analytics_grafana_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_analytics_grafana_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_grafana_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_analytics_grafana_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_analytics_grafana_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_analytics_grafana_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG = Operation(
+    name="public_cloud.url_project_managed_analytics_grafana_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_analytics_grafana_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_analytics_grafana_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_analytics_grafana_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_METRICS = Operation(
+    name="public_cloud.all_project_managed_analytics_grafana_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_METRIC = Operation(
+    name="public_cloud.get_project_managed_analytics_grafana_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_USERS = Operation(
+    name="public_cloud.all_project_managed_analytics_grafana_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER = Operation(
+    name="public_cloud.get_project_managed_analytics_grafana_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER = Operation(
+    name="public_cloud.update_project_managed_analytics_grafana_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}",
+    summary="Reset user credentials",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER = Operation(
+    name="public_cloud.reset_password_project_managed_analytics_grafana_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/grafana/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKAS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafkas",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka",
+    summary="List Kafka services",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka",
+    summary="Create a Kafka service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}",
+    summary="Get a Kafka service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA = Operation(
+    name="public_cloud.update_project_managed_analytics_kafka",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}",
+    summary="Update a Kafka service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA = Operation(
+    name="public_cloud.patch_project_managed_analytics_kafka",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}",
+    summary="Partially update a Kafka service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}",
+    summary="Delete a Kafka service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_ACLS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_acls",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl",
+    summary="List topic ACLs",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/acl/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_acl",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl",
+    summary="Create a topic ACL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/acl/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_acl",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl/{aclId}",
+    summary="Get a topic ACL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/acl/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_acl",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl/{aclId}",
+    summary="Delete a topic ACL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/acl/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CERTIFICATES = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_certificates",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/certificates",
+    summary="Get the TLS certificates",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/certificates/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG = Operation(
+    name="public_cloud.url_project_managed_analytics_kafka_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_METRICS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_METRIC = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_PERMISSIONS = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_permissions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/permissions",
+    summary="List ACL permissions",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/permissions/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_analytics_kafka_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/prometheus/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACLS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_schema_registry_acls",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl",
+    summary="List Schema Registry ACLs",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_schema_registry_acl",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl",
+    summary="Create a Schema Registry ACL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_schema_registry_acl",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl/{schemaRegistryAclId}",
+    summary="Get a Schema Registry ACL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_schema_registry_acl",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl/{schemaRegistryAclId}",
+    summary="Delete a Schema Registry ACL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/schemaRegistryAcl/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPICS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_topics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic",
+    summary="List topics",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/topic/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_topic",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic",
+    summary="Create a topic",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/topic/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_topic",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}",
+    summary="Get a topic",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/topic/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC = Operation(
+    name="public_cloud.update_project_managed_analytics_kafka_topic",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}",
+    summary="Update a topic",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/topic/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC = Operation(
+    name="public_cloud.patch_project_managed_analytics_kafka_topic",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}",
+    summary="Partially update a topic",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/topic/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_topic",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId}",
+    summary="Delete a topic",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/topic/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_USERS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user",
+    summary="Create a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/user/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_USER = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER = Operation(
+    name="public_cloud.update_project_managed_analytics_kafka_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}",
+    summary="Reset user credentials",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_user",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}",
+    summary="Delete a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/user/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_USER_ACCESS = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_user_access",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}/access",
+    summary="Get the user certificate",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/user/access/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_KAFKA_USER = Operation(
+    name="public_cloud.reset_password_project_managed_analytics_kafka_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafka/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECTS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connects",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect",
+    summary="List Kafka Connect services",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_connect",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect",
+    summary="Create a Kafka Connect service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}",
+    summary="Get a Kafka Connect service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT = Operation(
+    name="public_cloud.update_project_managed_analytics_kafka_connect",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}",
+    summary="Update a Kafka Connect service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT = Operation(
+    name="public_cloud.patch_project_managed_analytics_kafka_connect",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}",
+    summary="Partially update a Kafka Connect service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_connect",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}",
+    summary="Delete a Kafka Connect service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTORS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connect_connectors",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector",
+    summary="List connectors",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_connect_connector",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector",
+    summary="Create a connector",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_connector",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}",
+    summary="Get a connector",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR = Operation(
+    name="public_cloud.update_project_managed_analytics_kafka_connect_connector",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}",
+    summary="Update a connector configuration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR = Operation(
+    name="public_cloud.patch_project_managed_analytics_kafka_connect_connector",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}",
+    summary="Change the connector status",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_connect_connector",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}",
+    summary="Delete a connector",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASKS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connect_connector_tasks",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task",
+    summary="List connector tasks",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASK = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_connector_task",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task/{taskId}",
+    summary="Get a connector task",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESTART_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASK = Operation(
+    name="public_cloud.restart_project_managed_analytics_kafka_connect_connector_task",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task/{taskId}/restart",
+    summary="Restart a connector task",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/connector/task/restart",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connect_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_connect_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_connect_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connect_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connect_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_connect_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_connect_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG = Operation(
+    name="public_cloud.url_project_managed_analytics_kafka_connect_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connect_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_connect_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_METRICS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connect_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_METRIC = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_analytics_kafka_connect_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/prometheus/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USERS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_connect_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_connect_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user",
+    summary="Create a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/user/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_connect_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER = Operation(
+    name="public_cloud.update_project_managed_analytics_kafka_connect_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}",
+    summary="Reset user credentials",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_connect_user",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}",
+    summary="Delete a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/user/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER = Operation(
+    name="public_cloud.reset_password_project_managed_analytics_kafka_connect_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaConnect/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKERS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_mirror_makers",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker",
+    summary="List Kafka MirrorMaker services",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_mirror_maker",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker",
+    summary="Create a Kafka MirrorMaker service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_mirror_maker",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}",
+    summary="Get a Kafka MirrorMaker service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER = Operation(
+    name="public_cloud.update_project_managed_analytics_kafka_mirror_maker",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}",
+    summary="Update a Kafka MirrorMaker service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER = Operation(
+    name="public_cloud.patch_project_managed_analytics_kafka_mirror_maker",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}",
+    summary="Partially update a Kafka MirrorMaker service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_mirror_maker",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}",
+    summary="Delete a Kafka MirrorMaker service",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_mirror_maker_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_mirror_maker_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_mirror_maker_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_mirror_maker_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_mirror_maker_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_mirror_maker_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_mirror_maker_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_mirror_maker_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_mirror_maker_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_mirror_maker_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG = Operation(
+    name="public_cloud.url_project_managed_analytics_kafka_mirror_maker_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_mirror_maker_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_mirror_maker_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_mirror_maker_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_METRICS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_mirror_maker_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_METRIC = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_mirror_maker_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_mirror_maker_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_analytics_kafka_mirror_maker_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=(
+        "publicCloudProject:apiovh:analytics/kafkaMirrorMaker/prometheus/credentials/reset",
+    ),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_kafka_mirror_maker_replications",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication",
+    summary="List replication flows",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION = Operation(
+    name="public_cloud.create_project_managed_analytics_kafka_mirror_maker_replication",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication",
+    summary="Create a replication flow",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION = Operation(
+    name="public_cloud.get_project_managed_analytics_kafka_mirror_maker_replication",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}",
+    summary="Get a replication flow",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION = Operation(
+    name="public_cloud.update_project_managed_analytics_kafka_mirror_maker_replication",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}",
+    summary="Update a replication flow",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION = Operation(
+    name="public_cloud.patch_project_managed_analytics_kafka_mirror_maker_replication",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}",
+    summary="Partially update a replication flow",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION = Operation(
+    name="public_cloud.delete_project_managed_analytics_kafka_mirror_maker_replication",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId}",
+    summary="Delete a replication flow",
+    iam_actions=("publicCloudProject:apiovh:analytics/kafkaMirrorMaker/replication/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCHES = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearches",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch",
+    summary="List OpenSearch services",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH = Operation(
+    name="public_cloud.create_project_managed_analytics_opensearch",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch",
+    summary="Create an OpenSearch service",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}",
+    summary="Get an OpenSearch service",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH = Operation(
+    name="public_cloud.update_project_managed_analytics_opensearch",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}",
+    summary="Update an OpenSearch service",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_OPENSEARCH = Operation(
+    name="public_cloud.patch_project_managed_analytics_opensearch",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}",
+    summary="Partially update an OpenSearch service",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH = Operation(
+    name="public_cloud.delete_project_managed_analytics_opensearch",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}",
+    summary="Delete an OpenSearch service",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INDEXES = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_indexes",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/index",
+    summary="List indexes",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/index/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INDEX = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_index",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/index/{indexId}",
+    summary="Get an index",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/index/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_analytics_opensearch_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_analytics_opensearch_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_analytics_opensearch_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_analytics_opensearch_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG = Operation(
+    name="public_cloud.url_project_managed_analytics_opensearch_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_analytics_opensearch_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_METRICS = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_METRIC = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERNS = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_patterns",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern",
+    summary="List index patterns",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/pattern/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN = Operation(
+    name="public_cloud.create_project_managed_analytics_opensearch_pattern",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern",
+    summary="Create an index pattern",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/pattern/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_pattern",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern/{patternId}",
+    summary="Get an index pattern",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/pattern/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN = Operation(
+    name="public_cloud.delete_project_managed_analytics_opensearch_pattern",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern/{patternId}",
+    summary="Delete an index pattern",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/pattern/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PERMISSIONS = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_permissions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/permissions",
+    summary="List user permissions",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/permissions/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_analytics_opensearch_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/prometheus/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USERS = Operation(
+    name="public_cloud.all_project_managed_analytics_opensearch_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER = Operation(
+    name="public_cloud.create_project_managed_analytics_opensearch_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user",
+    summary="Create a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/user/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER = Operation(
+    name="public_cloud.get_project_managed_analytics_opensearch_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER = Operation(
+    name="public_cloud.update_project_managed_analytics_opensearch_user",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}",
+    summary="Update a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER = Operation(
+    name="public_cloud.patch_project_managed_analytics_opensearch_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}",
+    summary="Partially update a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER = Operation(
+    name="public_cloud.delete_project_managed_analytics_opensearch_user",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}",
+    summary="Delete a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/user/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER = Operation(
+    name="public_cloud.reset_password_project_managed_analytics_opensearch_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:analytics/opensearch/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_ANALYTICS_SERVICES = Operation(
+    name="public_cloud.all_project_managed_analytics_services",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/service",
+    summary="List services",
+    iam_actions=("publicCloudProject:apiovh:analytics/service/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_ANALYTICS_SERVICE = Operation(
+    name="public_cloud.get_project_managed_analytics_service",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/service/{serviceId}",
+    summary="Get a service",
+    iam_actions=("publicCloudProject:apiovh:analytics/service/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITIES = Operation(
+    name="public_cloud.all_project_managed_database_availabilities",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/availability",
+    summary="List Databases availabilities",
+    iam_actions=("publicCloudProject:apiovh:database/availability/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITY_SUGGESTIONS = Operation(
+    name="public_cloud.all_project_managed_database_availability_suggestions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/availability/suggestion",
+    summary="List Databases availability suggestions",
+    iam_actions=("publicCloudProject:apiovh:database/availability/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_BACKUPS = Operation(
+    name="public_cloud.all_project_managed_database_backups",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/backup",
+    summary="List backups",
+    iam_actions=("publicCloudProject:apiovh:database/backup/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_BACKUP = Operation(
+    name="public_cloud.get_project_managed_database_backup",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/backup/{backupId}",
+    summary="Get a backup",
+    iam_actions=("publicCloudProject:apiovh:database/backup/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_DISKS = Operation(
+    name="public_cloud.all_project_managed_database_capabilities_disks",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/capabilities/disks",
+    summary="List Databases disk types",
+    iam_actions=("publicCloudProject:apiovh:database/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_ENGINES = Operation(
+    name="public_cloud.all_project_managed_database_capabilities_engines",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/capabilities/engines",
+    summary="List Databases engines",
+    iam_actions=("publicCloudProject:apiovh:database/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_FLAVORS = Operation(
+    name="public_cloud.all_project_managed_database_capabilities_flavors",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/capabilities/flavors",
+    summary="List Databases flavors",
+    iam_actions=("publicCloudProject:apiovh:database/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_OPTIONS = Operation(
+    name="public_cloud.all_project_managed_database_capabilities_options",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/capabilities/options",
+    summary="List Databases options",
+    iam_actions=("publicCloudProject:apiovh:database/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_PLANS = Operation(
+    name="public_cloud.all_project_managed_database_capabilities_plans",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/capabilities/plans",
+    summary="List Databases plans",
+    iam_actions=("publicCloudProject:apiovh:database/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_REGIONS = Operation(
+    name="public_cloud.all_project_managed_database_capabilities_regions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/capabilities/regions",
+    summary="List Databases regions",
+    iam_actions=("publicCloudProject:apiovh:database/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MONGODBS = Operation(
+    name="public_cloud.all_project_managed_database_mongodbs",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb",
+    summary="List MongoDB services",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB = Operation(
+    name="public_cloud.create_project_managed_database_mongodb",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb",
+    summary="Create a MongoDB service",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MONGODB = Operation(
+    name="public_cloud.get_project_managed_database_mongodb",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}",
+    summary="Get a MongoDB service",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_MONGODB = Operation(
+    name="public_cloud.update_project_managed_database_mongodb",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}",
+    summary="Update a MongoDB service",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_DATABASE_MONGODB = Operation(
+    name="public_cloud.patch_project_managed_database_mongodb",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}",
+    summary="Partially update a MongoDB service",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB = Operation(
+    name="public_cloud.delete_project_managed_database_mongodb",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}",
+    summary="Delete a MongoDB service",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_database_mongodb_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_database_mongodb_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_database_mongodb_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_database_mongodb_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_database_mongodb_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_database_mongodb_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_DATABASE_MONGODB_LOG = Operation(
+    name="public_cloud.url_project_managed_database_mongodb_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_database_mongodb_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_database_mongodb_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_database_mongodb_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_METRICS = Operation(
+    name="public_cloud.all_project_managed_database_mongodb_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_METRIC = Operation(
+    name="public_cloud.get_project_managed_database_mongodb_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_database_mongodb_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_DATABASE_MONGODB_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_database_mongodb_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/prometheus/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESTORE_PROJECT_MANAGED_DATABASE_MONGODB = Operation(
+    name="public_cloud.restore_project_managed_database_mongodb",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/restore",
+    summary="Restore the service",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/restore",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_ROLES = Operation(
+    name="public_cloud.all_project_managed_database_mongodb_roles",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/roles",
+    summary="List roles",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/roles/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_ROLES = Operation(
+    name="public_cloud.get_project_managed_database_mongodb_roles",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/roles/{roleId}",
+    summary="Get a role",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/roles/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_USERS = Operation(
+    name="public_cloud.all_project_managed_database_mongodb_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_USER = Operation(
+    name="public_cloud.create_project_managed_database_mongodb_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user",
+    summary="Create a user",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/user/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_USER = Operation(
+    name="public_cloud.get_project_managed_database_mongodb_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_MONGODB_USER = Operation(
+    name="public_cloud.update_project_managed_database_mongodb_user",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}",
+    summary="Update a user",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_DATABASE_MONGODB_USER = Operation(
+    name="public_cloud.patch_project_managed_database_mongodb_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}",
+    summary="Partially update a user",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB_USER = Operation(
+    name="public_cloud.delete_project_managed_database_mongodb_user",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}",
+    summary="Delete a user",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/user/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_MONGODB_USER = Operation(
+    name="public_cloud.reset_password_project_managed_database_mongodb_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:database/mongodb/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQLS = Operation(
+    name="public_cloud.all_project_managed_database_mysqls",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql",
+    summary="List MySQL services",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL = Operation(
+    name="public_cloud.create_project_managed_database_mysql",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql",
+    summary="Create a MySQL service",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL = Operation(
+    name="public_cloud.get_project_managed_database_mysql",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}",
+    summary="Get a MySQL service",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_MYSQL = Operation(
+    name="public_cloud.update_project_managed_database_mysql",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}",
+    summary="Update a MySQL service",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_DATABASE_MYSQL = Operation(
+    name="public_cloud.patch_project_managed_database_mysql",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}",
+    summary="Partially update a MySQL service",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL = Operation(
+    name="public_cloud.delete_project_managed_database_mysql",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}",
+    summary="Delete a MySQL service",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_CERTIFICATES = Operation(
+    name="public_cloud.get_project_managed_database_mysql_certificates",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/certificates",
+    summary="Get the TLS certificates",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/certificates/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES = Operation(
+    name="public_cloud.all_project_managed_database_mysql_current_queries",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries",
+    summary="List running queries",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/currentQueries/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES = Operation(
+    name="public_cloud.get_project_managed_database_mysql_current_queries",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries/{queryPid}",
+    summary="Get a running query",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/currentQueries/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CANCEL_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES = Operation(
+    name="public_cloud.cancel_project_managed_database_mysql_current_queries",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries/{queryPid}/cancel",
+    summary="Cancel a running query",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/currentQueries/cancel",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_DATABASES = Operation(
+    name="public_cloud.all_project_managed_database_mysql_databases",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database",
+    summary="List databases",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/database/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE = Operation(
+    name="public_cloud.create_project_managed_database_mysql_database",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database",
+    summary="Create a database",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/database/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE = Operation(
+    name="public_cloud.get_project_managed_database_mysql_database",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database/{databaseId}",
+    summary="Get a database",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/database/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE = Operation(
+    name="public_cloud.delete_project_managed_database_mysql_database",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database/{databaseId}",
+    summary="Delete a database",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/database/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ENABLE_WRITES_PROJECT_MANAGED_DATABASE_MYSQL = Operation(
+    name="public_cloud.enable_writes_project_managed_database_mysql",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/enableWrites",
+    summary="Enable temporary writes",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/enableWrites",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_database_mysql_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_database_mysql_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_database_mysql_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_database_mysql_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_database_mysql_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_database_mysql_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_database_mysql_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_database_mysql_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_database_mysql_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_database_mysql_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_DATABASE_MYSQL_LOG = Operation(
+    name="public_cloud.url_project_managed_database_mysql_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_database_mysql_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_database_mysql_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_database_mysql_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_METRICS = Operation(
+    name="public_cloud.all_project_managed_database_mysql_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_METRIC = Operation(
+    name="public_cloud.get_project_managed_database_mysql_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_database_mysql_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_DATABASE_MYSQL_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_database_mysql_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/prometheus/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_QUERY_STATISTICS = Operation(
+    name="public_cloud.all_project_managed_database_mysql_query_statistics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/queryStatistics",
+    summary="List query statistics",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/queryStatistics/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_DATABASE_MYSQL_QUERY_STATISTICS = Operation(
+    name="public_cloud.reset_project_managed_database_mysql_query_statistics",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/queryStatistics/reset",
+    summary="Reset query statistics",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/queryStatistics/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_USERS = Operation(
+    name="public_cloud.all_project_managed_database_mysql_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_USER = Operation(
+    name="public_cloud.create_project_managed_database_mysql_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user",
+    summary="Create a user",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/user/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_USER = Operation(
+    name="public_cloud.get_project_managed_database_mysql_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_MYSQL_USER = Operation(
+    name="public_cloud.update_project_managed_database_mysql_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}",
+    summary="Reset user credentials",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_USER = Operation(
+    name="public_cloud.delete_project_managed_database_mysql_user",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}",
+    summary="Delete a user",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/user/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_MYSQL_USER = Operation(
+    name="public_cloud.reset_password_project_managed_database_mysql_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:database/mysql/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQLS = Operation(
+    name="public_cloud.all_project_managed_database_postgresqls",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql",
+    summary="List PostgreSQL services",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL = Operation(
+    name="public_cloud.create_project_managed_database_postgresql",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql",
+    summary="Create a PostgreSQL service",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL = Operation(
+    name="public_cloud.get_project_managed_database_postgresql",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}",
+    summary="Get a PostgreSQL service",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL = Operation(
+    name="public_cloud.update_project_managed_database_postgresql",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}",
+    summary="Update a PostgreSQL service",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL = Operation(
+    name="public_cloud.patch_project_managed_database_postgresql",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}",
+    summary="Partially update a PostgreSQL service",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL = Operation(
+    name="public_cloud.delete_project_managed_database_postgresql",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}",
+    summary="Delete a PostgreSQL service",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CERTIFICATES = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_certificates",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/certificates",
+    summary="Get the TLS certificates",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/certificates/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOLS = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_connection_pools",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool",
+    summary="List connection pools",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/connectionPool/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL = Operation(
+    name="public_cloud.create_project_managed_database_postgresql_connection_pool",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool",
+    summary="Create a connection pool",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/connectionPool/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_connection_pool",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}",
+    summary="Get a connection pool",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/connectionPool/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL = Operation(
+    name="public_cloud.update_project_managed_database_postgresql_connection_pool",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}",
+    summary="Update a connection pool",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/connectionPool/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL = Operation(
+    name="public_cloud.patch_project_managed_database_postgresql_connection_pool",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}",
+    summary="Partially update a connection pool",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/connectionPool/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL = Operation(
+    name="public_cloud.delete_project_managed_database_postgresql_connection_pool",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId}",
+    summary="Delete a connection pool",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/connectionPool/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_current_queries",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries",
+    summary="List running queries",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/currentQueries/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_current_queries",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries/{queryPid}",
+    summary="Get a running query",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/currentQueries/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CANCEL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES = Operation(
+    name="public_cloud.cancel_project_managed_database_postgresql_current_queries",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries/{queryPid}/cancel",
+    summary="Cancel a running query",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/currentQueries/cancel",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASES = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_databases",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database",
+    summary="List databases",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/database/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE = Operation(
+    name="public_cloud.create_project_managed_database_postgresql_database",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database",
+    summary="Create a database",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/database/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_database",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database/{databaseId}",
+    summary="Get a database",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/database/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE = Operation(
+    name="public_cloud.delete_project_managed_database_postgresql_database",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database/{databaseId}",
+    summary="Delete a database",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/database/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ENABLE_WRITES_PROJECT_MANAGED_DATABASE_POSTGRESQL = Operation(
+    name="public_cloud.enable_writes_project_managed_database_postgresql",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/enableWrites",
+    summary="Enable temporary writes",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/enableWrites",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_database_postgresql_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_database_postgresql_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_database_postgresql_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_database_postgresql_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG = Operation(
+    name="public_cloud.url_project_managed_database_postgresql_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_database_postgresql_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_METRICS = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_METRIC = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_DATABASE_POSTGRESQL_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_database_postgresql_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/prometheus/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_QUERY_STATISTICS = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_query_statistics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/queryStatistics",
+    summary="List query statistics",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/queryStatistics/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_DATABASE_POSTGRESQL_QUERY_STATISTICS = Operation(
+    name="public_cloud.reset_project_managed_database_postgresql_query_statistics",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/queryStatistics/reset",
+    summary="Reset query statistics",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/queryStatistics/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_ROLES = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_roles",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/roles",
+    summary="List roles",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/roles/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_ROLES = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_roles",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/roles/{roleId}",
+    summary="Get a role",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/roles/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_USERS = Operation(
+    name="public_cloud.all_project_managed_database_postgresql_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER = Operation(
+    name="public_cloud.create_project_managed_database_postgresql_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user",
+    summary="Create a user",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/user/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER = Operation(
+    name="public_cloud.get_project_managed_database_postgresql_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER = Operation(
+    name="public_cloud.update_project_managed_database_postgresql_user",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}",
+    summary="Update a user",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER = Operation(
+    name="public_cloud.patch_project_managed_database_postgresql_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}",
+    summary="Partially update a user",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER = Operation(
+    name="public_cloud.delete_project_managed_database_postgresql_user",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}",
+    summary="Delete a user",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/user/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER = Operation(
+    name="public_cloud.reset_password_project_managed_database_postgresql_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:database/postgresql/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_SERVICES = Operation(
+    name="public_cloud.all_project_managed_database_services",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/service",
+    summary="List services",
+    iam_actions=("publicCloudProject:apiovh:database/service/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_SERVICE = Operation(
+    name="public_cloud.get_project_managed_database_service",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/service/{serviceId}",
+    summary="Get a service",
+    iam_actions=("publicCloudProject:apiovh:database/service/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_VALKEYS = Operation(
+    name="public_cloud.all_project_managed_database_valkeys",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey",
+    summary="List Valkey services",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY = Operation(
+    name="public_cloud.create_project_managed_database_valkey",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey",
+    summary="Create a Valkey service",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_VALKEY = Operation(
+    name="public_cloud.get_project_managed_database_valkey",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}",
+    summary="Get a Valkey service",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_VALKEY = Operation(
+    name="public_cloud.update_project_managed_database_valkey",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}",
+    summary="Update a Valkey service",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_DATABASE_VALKEY = Operation(
+    name="public_cloud.patch_project_managed_database_valkey",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}",
+    summary="Partially update a Valkey service",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY = Operation(
+    name="public_cloud.delete_project_managed_database_valkey",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}",
+    summary="Delete a Valkey service",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATIONS = Operation(
+    name="public_cloud.all_project_managed_database_valkey_integrations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration",
+    summary="List integrations",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION = Operation(
+    name="public_cloud.create_project_managed_database_valkey_integration",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration",
+    summary="Create an integration",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/integration/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION = Operation(
+    name="public_cloud.get_project_managed_database_valkey_integration",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration/{integrationId}",
+    summary="Get an integration",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/integration/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION = Operation(
+    name="public_cloud.delete_project_managed_database_valkey_integration",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration/{integrationId}",
+    summary="Delete an integration",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/integration/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_LOG_KINDS = Operation(
+    name="public_cloud.all_project_managed_database_valkey_log_kinds",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/kind",
+    summary="List log kinds",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_LOG_KIND = Operation(
+    name="public_cloud.get_project_managed_database_valkey_log_kind",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/log/kind/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTIONS = Operation(
+    name="public_cloud.all_project_managed_database_valkey_log_subscriptions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.create_project_managed_database_valkey_log_subscription",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/log/subscription/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.get_project_managed_database_valkey_log_subscription",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/log/subscription/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION = Operation(
+    name="public_cloud.delete_project_managed_database_valkey_log_subscription",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/log/subscription/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_URL_PROJECT_MANAGED_DATABASE_VALKEY_LOG = Operation(
+    name="public_cloud.url_project_managed_database_valkey_log",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/log/url/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCES = Operation(
+    name="public_cloud.all_project_managed_database_valkey_maintenances",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance",
+    summary="List maintenances",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCE = Operation(
+    name="public_cloud.create_project_managed_database_valkey_maintenance",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance",
+    summary="Apply a maintenance",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/maintenance/apply",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCE = Operation(
+    name="public_cloud.get_project_managed_database_valkey_maintenance",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance/{maintenanceId}",
+    summary="Get a maintenance",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/maintenance/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_METRICS = Operation(
+    name="public_cloud.all_project_managed_database_valkey_metrics",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/metric",
+    summary="List metrics",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_METRIC = Operation(
+    name="public_cloud.get_project_managed_database_valkey_metric",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/metric/{metricName}",
+    summary="Get a metric",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/metric/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_PROMETHEUS = Operation(
+    name="public_cloud.get_project_managed_database_valkey_prometheus",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/prometheus",
+    summary="Get the Prometheus endpoint",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/prometheus/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_DATABASE_VALKEY_PROMETHEUS_CREDENTIALS = Operation(
+    name="public_cloud.reset_project_managed_database_valkey_prometheus_credentials",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/prometheus/credentials/reset",
+    summary="Reset the Prometheus credentials",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/prometheus/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_USERS = Operation(
+    name="public_cloud.all_project_managed_database_valkey_users",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user",
+    summary="List users",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_USER = Operation(
+    name="public_cloud.create_project_managed_database_valkey_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user",
+    summary="Create a user",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/user/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_USER = Operation(
+    name="public_cloud.get_project_managed_database_valkey_user",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}",
+    summary="Get a user",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/user/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_DATABASE_VALKEY_USER = Operation(
+    name="public_cloud.update_project_managed_database_valkey_user",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}",
+    summary="Update a user",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_PATCH_PROJECT_MANAGED_DATABASE_VALKEY_USER = Operation(
+    name="public_cloud.patch_project_managed_database_valkey_user",
+    method="PATCH",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}",
+    summary="Partially update a user",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/user/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_USER = Operation(
+    name="public_cloud.delete_project_managed_database_valkey_user",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}",
+    summary="Delete a user",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/user/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_VALKEY_USER = Operation(
+    name="public_cloud.reset_password_project_managed_database_valkey_user",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}/resetPassword",
+    summary="Reset the password of a user",
+    iam_actions=("publicCloudProject:apiovh:database/valkey/user/credentials/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_KUBERNETES = Operation(
+    name="public_cloud.all_project_managed_kubernetes",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes",
+    summary="List managed Kubernetes clusters",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_KUBERNETES = Operation(
+    name="public_cloud.create_project_managed_kubernetes",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes",
+    summary="Create a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_KUBERNETES = Operation(
+    name="public_cloud.get_project_managed_kubernetes",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}",
+    summary="Get a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_KUBERNETES = Operation(
+    name="public_cloud.update_project_managed_kubernetes",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}",
+    summary="Update a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_KUBERNETES = Operation(
+    name="public_cloud.delete_project_managed_kubernetes",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}",
+    summary="Delete a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_KUBERNETES_CAPABILITIES_VERSION = Operation(
+    name="public_cloud.get_project_managed_kubernetes_capabilities_version",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/capabilities/version",
+    summary="Get the versions of a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/capabilities/version/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_KUBERNETES_EVENTS = Operation(
+    name="public_cloud.all_project_managed_kubernetes_events",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/event",
+    summary="List all events related to a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/event/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_KUBERNETES_KUBECONFIG = Operation(
+    name="public_cloud.get_project_managed_kubernetes_kubeconfig",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/kubeconfig",
+    summary="Retrieve the cluster admin kubeconfig",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/kubeconfig/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESET_PROJECT_MANAGED_KUBERNETES_KUBECONFIG = Operation(
+    name="public_cloud.reset_project_managed_kubernetes_kubeconfig",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/kubeconfig/reset",
+    summary="Reset the cluster admin kubeconfig",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/kubeconfig/reset",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOLS = Operation(
+    name="public_cloud.all_project_managed_kubernetes_nodepools",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool",
+    summary="List nodepools of a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_PROJECT_MANAGED_KUBERNETES_NODEPOOL = Operation(
+    name="public_cloud.create_project_managed_kubernetes_nodepool",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool",
+    summary="Create a nodepool in a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL = Operation(
+    name="public_cloud.get_project_managed_kubernetes_nodepool",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}",
+    summary="Get a nodepool of a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_UPDATE_PROJECT_MANAGED_KUBERNETES_NODEPOOL = Operation(
+    name="public_cloud.update_project_managed_kubernetes_nodepool",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}",
+    summary="Update a nodepool of a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_PROJECT_MANAGED_KUBERNETES_NODEPOOL = Operation(
+    name="public_cloud.delete_project_managed_kubernetes_nodepool",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}",
+    summary="Delete a nodepool of a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_EVENTS = Operation(
+    name="public_cloud.all_project_managed_kubernetes_nodepool_events",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/event",
+    summary="List all events related to a managed Kubernetes cluster nodepool",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/event/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_NODES = Operation(
+    name="public_cloud.all_project_managed_kubernetes_nodepool_nodes",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/node",
+    summary="List nodes of a managed Kubernetes cluster nodepool",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/node/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL_NODE = Operation(
+    name="public_cloud.get_project_managed_kubernetes_nodepool_node",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/node/{nodeId}",
+    summary="Get a node of a managed Kubernetes cluster nodepool",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/node/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_TASKS = Operation(
+    name="public_cloud.all_project_managed_kubernetes_nodepool_tasks",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/task",
+    summary="List all tasks related to a managed Kubernetes cluster nodepool",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/task/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL_TASK = Operation(
+    name="public_cloud.get_project_managed_kubernetes_nodepool_task",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/task/{taskId}",
+    summary="Get a specific task related to a managed Kubernetes cluster nodepool",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/nodepool/task/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_RESTART_PROJECT_MANAGED_KUBERNETES = Operation(
+    name="public_cloud.restart_project_managed_kubernetes",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/restart",
+    summary="Restart the control plane of a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/restart",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_MANAGED_KUBERNETES_TASKS = Operation(
+    name="public_cloud.all_project_managed_kubernetes_tasks",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/task",
+    summary="List all tasks related to a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/task/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_KUBERNETES_TASK = Operation(
+    name="public_cloud.get_project_managed_kubernetes_task",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/task/{taskId}",
+    summary="Get a specific task related to a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/task/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_MANAGED_KUBERNETES_USAGE_ETCD = Operation(
+    name="public_cloud.get_project_managed_kubernetes_usage_etcd",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/usage/etcd",
+    summary="Get the etcd database usage and quota for a managed Kubernetes cluster",
+    iam_actions=("publicCloudProject:apiovh:managedKubernetes/usage/etcd/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
 OP_ALL_NETWORKS = Operation(
     name="public_cloud.all_networks",
     method="GET",
@@ -1265,6 +5317,46 @@ OP_ALL_LOAD_BALANCER_FLAVORS = Operation(
     path="/v2/publicCloud/project/{projectId}/reference/loadbalancer/flavor",
     summary="List load balancer flavors",
     iam_actions=("publicCloudProject:apiovh:reference/loadbalancer/flavor/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_FLAVORS = Operation(
+    name="public_cloud.all_project_reference_managed_kubernetes_flavors",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/reference/managedKubernetes/flavor",
+    summary="List Kubernetes node flavors",
+    iam_actions=("publicCloudProject:apiovh:reference/managedKubernetes/flavor/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_PLANS = Operation(
+    name="public_cloud.all_project_reference_managed_kubernetes_plans",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/reference/managedKubernetes/plan",
+    summary="List Kubernetes cluster plans",
+    iam_actions=("publicCloudProject:apiovh:reference/managedKubernetes/plan/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_REGIONS = Operation(
+    name="public_cloud.all_project_reference_managed_kubernetes_regions",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/reference/managedKubernetes/region",
+    summary="List Kubernetes cluster regions",
+    iam_actions=("publicCloudProject:apiovh:reference/managedKubernetes/region/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_PROJECT_REFERENCE_MANAGED_KUBERNETES_VERSION = Operation(
+    name="public_cloud.get_project_reference_managed_kubernetes_version",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/reference/managedKubernetes/version",
+    summary="List Kubernetes versions",
+    iam_actions=("publicCloudProject:apiovh:reference/managedKubernetes/version/get",),
     deprecated=False,
     schemas_version="1.0",
 )
@@ -1932,22 +6024,6 @@ OP_ALL_REFERENCE_RANCHER_VERSIONS = Operation(
 OPERATIONS: tuple[Operation, ...] = (
     OP_ALL_PROJECTS,
     OP_GET_PROJECT,
-    OP_ALL_PROJECT_AI_AGENTS_AGENTS,
-    OP_CREATE_PROJECT_AI_AGENTS_AGENT,
-    OP_GET_PROJECT_AI_AGENTS_AGENT,
-    OP_UPDATE_PROJECT_AI_AGENTS_AGENT,
-    OP_DELETE_PROJECT_AI_AGENTS_AGENT,
-    OP_REDEPLOY_PROJECT_AI_AGENTS_AGENT,
-    OP_TOKEN_PROJECT_AI_AGENTS_AGENT,
-    OP_GET_PROJECT_AI_AGENTS_PRESET_GLOBAL_SETTINGS,
-    OP_GET_PROJECT_AI_AGENTS_PRESET_MODEL_AI_ENDPOINTS_PROVIDER,
-    OP_ALL_PROJECT_AI_AGENTS_PRESET_TEMPLATES,
-    OP_GET_PROJECT_AI_AGENTS_PRESET_TEMPLATE,
-    OP_ALL_PROJECT_AI_AGENTS_TEMPLATES,
-    OP_CREATE_PROJECT_AI_AGENTS_TEMPLATE,
-    OP_GET_PROJECT_AI_AGENTS_TEMPLATE,
-    OP_UPDATE_PROJECT_AI_AGENTS_TEMPLATE,
-    OP_DELETE_PROJECT_AI_AGENTS_TEMPLATE,
     OP_ALL_INSTANCES,
     OP_CREATE_INSTANCE,
     OP_GET_INSTANCE,
@@ -2015,6 +6091,427 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_GET_LOAD_BALANCER_POOL_MEMBER,
     OP_EDIT_LOAD_BALANCER_POOL_MEMBER,
     OP_DELETE_LOAD_BALANCER_POOL_MEMBER,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITIES,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITY_SUGGESTIONS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_BACKUPS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_BACKUP,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_DISKS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_ENGINES,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_FLAVORS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_OPTIONS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_PLANS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_REGIONS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CERTIFICATES,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+    OP_CANCEL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_CURRENT_QUERIES,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_DATABASE,
+    OP_ENABLE_WRITES_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_LOG,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_METRICS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_METRIC,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_PROMETHEUS_CREDENTIALS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_QUERY_STATISTICS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_ROLES,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_ROLES,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USERS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_CLICKHOUSE_USER,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANAS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_ANALYTICS_GRAFANA_LOG,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_METRICS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_METRIC,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_GRAFANA_USERS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_GRAFANA_USER,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKAS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_ACLS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_ACL,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CERTIFICATES,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_LOG,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_METRICS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_METRIC,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_PERMISSIONS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_PROMETHEUS_CREDENTIALS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACLS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_SCHEMA_REGISTRY_ACL,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPICS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_TOPIC,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_USERS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_USER_ACCESS,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_KAFKA_USER,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECTS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTORS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASKS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASK,
+    OP_RESTART_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_CONNECTOR_TASK,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_LOG,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_METRICS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_METRIC,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_PROMETHEUS_CREDENTIALS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USERS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_KAFKA_CONNECT_USER,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKERS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_LOG,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_METRICS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_METRIC,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_PROMETHEUS_CREDENTIALS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_KAFKA_MIRROR_MAKER_REPLICATION,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCHES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INDEXES,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INDEX,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_LOG,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_METRICS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_METRIC,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERNS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PATTERN,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PERMISSIONS,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_PROMETHEUS_CREDENTIALS,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USERS,
+    OP_CREATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+    OP_UPDATE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+    OP_PATCH_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+    OP_DELETE_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_ANALYTICS_OPENSEARCH_USER,
+    OP_ALL_PROJECT_MANAGED_ANALYTICS_SERVICES,
+    OP_GET_PROJECT_MANAGED_ANALYTICS_SERVICE,
+    OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITIES,
+    OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITY_SUGGESTIONS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_BACKUPS,
+    OP_GET_PROJECT_MANAGED_DATABASE_BACKUP,
+    OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_DISKS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_ENGINES,
+    OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_FLAVORS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_OPTIONS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_PLANS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_REGIONS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MONGODBS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB,
+    OP_GET_PROJECT_MANAGED_DATABASE_MONGODB,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_MONGODB,
+    OP_PATCH_PROJECT_MANAGED_DATABASE_MONGODB,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_DATABASE_MONGODB_LOG,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_METRICS,
+    OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_METRIC,
+    OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_DATABASE_MONGODB_PROMETHEUS_CREDENTIALS,
+    OP_RESTORE_PROJECT_MANAGED_DATABASE_MONGODB,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_ROLES,
+    OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_ROLES,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MONGODB_USERS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+    OP_GET_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+    OP_PATCH_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_MONGODB_USER,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQLS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_MYSQL,
+    OP_PATCH_PROJECT_MANAGED_DATABASE_MYSQL,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_CERTIFICATES,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+    OP_CANCEL_PROJECT_MANAGED_DATABASE_MYSQL_CURRENT_QUERIES,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_DATABASES,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_DATABASE,
+    OP_ENABLE_WRITES_PROJECT_MANAGED_DATABASE_MYSQL,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_DATABASE_MYSQL_LOG,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_METRICS,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_METRIC,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_DATABASE_MYSQL_PROMETHEUS_CREDENTIALS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_QUERY_STATISTICS,
+    OP_RESET_PROJECT_MANAGED_DATABASE_MYSQL_QUERY_STATISTICS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_MYSQL_USERS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+    OP_GET_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_MYSQL_USER,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQLS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+    OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CERTIFICATES,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOLS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+    OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_CONNECTION_POOL,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+    OP_CANCEL_PROJECT_MANAGED_DATABASE_POSTGRESQL_CURRENT_QUERIES,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASES,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_DATABASE,
+    OP_ENABLE_WRITES_PROJECT_MANAGED_DATABASE_POSTGRESQL,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_DATABASE_POSTGRESQL_LOG,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_METRICS,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_METRIC,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_DATABASE_POSTGRESQL_PROMETHEUS_CREDENTIALS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_QUERY_STATISTICS,
+    OP_RESET_PROJECT_MANAGED_DATABASE_POSTGRESQL_QUERY_STATISTICS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_ROLES,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_ROLES,
+    OP_ALL_PROJECT_MANAGED_DATABASE_POSTGRESQL_USERS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+    OP_GET_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+    OP_PATCH_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_POSTGRESQL_USER,
+    OP_ALL_PROJECT_MANAGED_DATABASE_SERVICES,
+    OP_GET_PROJECT_MANAGED_DATABASE_SERVICE,
+    OP_ALL_PROJECT_MANAGED_DATABASE_VALKEYS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY,
+    OP_GET_PROJECT_MANAGED_DATABASE_VALKEY,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_VALKEY,
+    OP_PATCH_PROJECT_MANAGED_DATABASE_VALKEY,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY,
+    OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATIONS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+    OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_INTEGRATION,
+    OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_LOG_KINDS,
+    OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_LOG_KIND,
+    OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTIONS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+    OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_LOG_SUBSCRIPTION,
+    OP_URL_PROJECT_MANAGED_DATABASE_VALKEY_LOG,
+    OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCES,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCE,
+    OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_MAINTENANCE,
+    OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_METRICS,
+    OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_METRIC,
+    OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_PROMETHEUS,
+    OP_RESET_PROJECT_MANAGED_DATABASE_VALKEY_PROMETHEUS_CREDENTIALS,
+    OP_ALL_PROJECT_MANAGED_DATABASE_VALKEY_USERS,
+    OP_CREATE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+    OP_GET_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+    OP_UPDATE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+    OP_PATCH_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+    OP_DELETE_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+    OP_RESET_PASSWORD_PROJECT_MANAGED_DATABASE_VALKEY_USER,
+    OP_ALL_PROJECT_MANAGED_KUBERNETES,
+    OP_CREATE_PROJECT_MANAGED_KUBERNETES,
+    OP_GET_PROJECT_MANAGED_KUBERNETES,
+    OP_UPDATE_PROJECT_MANAGED_KUBERNETES,
+    OP_DELETE_PROJECT_MANAGED_KUBERNETES,
+    OP_GET_PROJECT_MANAGED_KUBERNETES_CAPABILITIES_VERSION,
+    OP_ALL_PROJECT_MANAGED_KUBERNETES_EVENTS,
+    OP_GET_PROJECT_MANAGED_KUBERNETES_KUBECONFIG,
+    OP_RESET_PROJECT_MANAGED_KUBERNETES_KUBECONFIG,
+    OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOLS,
+    OP_CREATE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+    OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+    OP_UPDATE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+    OP_DELETE_PROJECT_MANAGED_KUBERNETES_NODEPOOL,
+    OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_EVENTS,
+    OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_NODES,
+    OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL_NODE,
+    OP_ALL_PROJECT_MANAGED_KUBERNETES_NODEPOOL_TASKS,
+    OP_GET_PROJECT_MANAGED_KUBERNETES_NODEPOOL_TASK,
+    OP_RESTART_PROJECT_MANAGED_KUBERNETES,
+    OP_ALL_PROJECT_MANAGED_KUBERNETES_TASKS,
+    OP_GET_PROJECT_MANAGED_KUBERNETES_TASK,
+    OP_GET_PROJECT_MANAGED_KUBERNETES_USAGE_ETCD,
     OP_ALL_NETWORKS,
     OP_CREATE_NETWORK,
     OP_GET_NETWORK,
@@ -2055,6 +6552,10 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_ALL_IMAGES,
     OP_GET_IMAGE,
     OP_ALL_LOAD_BALANCER_FLAVORS,
+    OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_FLAVORS,
+    OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_PLANS,
+    OP_ALL_PROJECT_REFERENCE_MANAGED_KUBERNETES_REGIONS,
+    OP_GET_PROJECT_REFERENCE_MANAGED_KUBERNETES_VERSION,
     OP_ALL_PRODUCT_AVAILABILITY,
     OP_GET_PROJECT_REFERENCE_RANCHER_ELIGIBILITY,
     OP_ALL_PROJECT_REFERENCE_RANCHER_PLANS,

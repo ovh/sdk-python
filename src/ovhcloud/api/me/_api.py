@@ -26,7 +26,7 @@ class MeApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 361 operations, on the routes under /v1/me.
+    It has 362 operations, on the routes under /v1/me.
 
     To start, list what the account has: list_agreements, list_bills, list_consents, list_contacts,
     list_corrective_invoices, list_deposits, list_deposit_requests, list_documents, and 76 more.
@@ -3674,6 +3674,13 @@ class MeApi(_gen.SectionApi):
         """
         return self._call(
             _r.OP_DELETE_IDENTITY_PROVIDER,
+        )
+
+    def get_identity_provider_saml_service_provider_info(self) -> models.AuthServiceProviderInfo:
+        """get_identity_provider_saml_service_provider_info calls GET /v1/me/identity/provider/samlServiceProviderInfo: Get information related to OVHcloud as a SAMLv2 service provider"""
+        return self._call(
+            _r.OP_GET_IDENTITY_PROVIDER_SAML_SERVICE_PROVIDER_INFO,
+            result=models.AuthServiceProviderInfo,
         )
 
     def list_identity_users(self) -> list[str]:
@@ -7622,7 +7629,7 @@ class AsyncMeApi(_gen.AsyncSectionApi):
 
     The methods of MeApi, with await. Iterators are async: use ``async for``.
 
-    It has 361 operations, on the routes under /v1/me.
+    It has 362 operations, on the routes under /v1/me.
 
     To start, list what the account has: list_agreements, list_bills, list_consents, list_contacts,
     list_corrective_invoices, list_deposits, list_deposit_requests, list_documents, and 76 more.
@@ -11316,6 +11323,15 @@ class AsyncMeApi(_gen.AsyncSectionApi):
         """
         return await self._call(
             _r.OP_DELETE_IDENTITY_PROVIDER,
+        )
+
+    async def get_identity_provider_saml_service_provider_info(
+        self,
+    ) -> models.AuthServiceProviderInfo:
+        """get_identity_provider_saml_service_provider_info calls GET /v1/me/identity/provider/samlServiceProviderInfo: Get information related to OVHcloud as a SAMLv2 service provider"""
+        return await self._call(
+            _r.OP_GET_IDENTITY_PROVIDER_SAML_SERVICE_PROVIDER_INFO,
+            result=models.AuthServiceProviderInfo,
         )
 
     async def list_identity_users(self) -> list[str]:

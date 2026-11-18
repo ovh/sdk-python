@@ -44,7 +44,7 @@ class DedicatedCloudApi(_gen.SectionApi):
     ) -> list[str]:
         """list_dedicated_clouds calls GET /v1/dedicatedCloud: List Managed VMware vSphere services
 
-        Returns the names of your services. Filter by IAM tags with `iamTags`.
+        Returns the names of the services of the account. Filter by IAM tags with `iamTags`.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -392,6 +392,9 @@ class DedicatedCloudApi(_gen.SectionApi):
 
     def list_allowed_networks(self, service_name: str) -> list[int]:
         """list_allowed_networks calls GET /v1/dedicatedCloud/{serviceName}/allowedNetwork: List allowed networks
+
+        Returns the IDs of the networks allowed through the infrastructure firewall. They apply only
+        when the service access policy is `filtered`.
 
         Args:
             service_name: Domain of the service
@@ -2334,6 +2337,9 @@ class DedicatedCloudApi(_gen.SectionApi):
     ) -> models.DedicatedCloudTask:
         """remove_datacenter_filer calls POST /v1/dedicatedCloud/{serviceName}/datacenter/{datacenterId}/filer/{filerId}/remove: Remove a datastore
 
+        Removes the datastore and its data: move the virtual machines first. Returns a task to track
+        progress.
+
         Args:
             service_name: Domain of the service
             datacenter_id: Id of the Datacenter
@@ -2649,6 +2655,8 @@ class DedicatedCloudApi(_gen.SectionApi):
     ) -> models.DedicatedCloudHostLocation:
         """get_datacenter_host_location calls GET /v1/dedicatedCloud/{serviceName}/datacenter/{datacenterId}/host/{hostId}/location: Get the host location
 
+        Returns the OVHcloud datacenter, room and rack of the host, not its vSphere datacenter.
+
         Args:
             service_name: Domain of the service
             datacenter_id: Id of the Datacenter
@@ -2670,6 +2678,9 @@ class DedicatedCloudApi(_gen.SectionApi):
         self, service_name: str, datacenter_id: int, host_id: int
     ) -> models.DedicatedCloudTask:
         """remove_datacenter_host calls POST /v1/dedicatedCloud/{serviceName}/datacenter/{datacenterId}/host/{hostId}/remove: Remove a host
+
+        Removes the host from the datacenter. To replace a faulty host instead, request a spare with
+        `addHostSpare`. Returns a task to track progress.
 
         Args:
             service_name: Domain of the service
@@ -2971,6 +2982,9 @@ class DedicatedCloudApi(_gen.SectionApi):
         self, service_name: str, datacenter_id: int
     ) -> models.DedicatedCloudTask:
         """create_datacenter_nsxt_edge calls POST /v1/dedicatedCloud/{serviceName}/datacenter/{datacenterId}/nsxtEdge: Create an edge node
+
+        Adds an NSX-T edge node to the datacenter, up to the maximum given by
+        `nsxtEdgesScalingCapabilities`. Returns a task to track progress.
 
         Args:
             service_name: Domain of the service
@@ -4664,6 +4678,9 @@ class DedicatedCloudApi(_gen.SectionApi):
     def remove_filer(self, service_name: str, filer_id: int) -> models.DedicatedCloudTask:
         """remove_filer calls POST /v1/dedicatedCloud/{serviceName}/filer/{filerId}/remove: Remove a datastore
 
+        Removes the datastore and its data: move the virtual machines first. Returns a task to track
+        progress.
+
         Args:
             service_name: Domain of the service
             filer_id: Filer Id
@@ -5003,6 +5020,9 @@ class DedicatedCloudApi(_gen.SectionApi):
 
     def disable_hcx(self, service_name: str) -> models.DedicatedCloudTask:
         """disable_hcx calls POST /v1/dedicatedCloud/{serviceName}/hcx/disable: Disable HCX
+
+        Disables the HCX option. To enable it again, order the option with
+        `/order/cart/{cartId}/privateCloud`. Returns a task to track progress.
 
         Args:
             service_name: Domain of the service
@@ -5831,7 +5851,8 @@ class DedicatedCloudApi(_gen.SectionApi):
     ) -> models.DedicatedCloudLogSubscriptionResponse:
         """create_log_subscription calls POST /v1/dedicatedCloud/{serviceName}/log/subscription: Create a log subscription
 
-        Sends the logs of a kind to a Logs Data Platform stream. Returns the operation ID.
+        Sends the logs of a kind to a Logs Data Platform stream. The log forwarder option must be
+        enabled first. Returns the operation ID.
 
         Args:
             service_name: Domain of the service
@@ -7133,6 +7154,9 @@ class DedicatedCloudApi(_gen.SectionApi):
     def delete_user(self, service_name: str, user_id: int) -> models.DedicatedCloudTask:
         """delete_user calls DELETE /v1/dedicatedCloud/{serviceName}/user/{userId}: Delete a user
 
+        Deletes the user. To block its access without deleting it, use `disable` instead. Returns a
+        task to track progress.
+
         Args:
             service_name: Domain of the service
             user_id: the userId path parameter
@@ -7933,7 +7957,7 @@ class DedicatedCloudApi(_gen.SectionApi):
         )
 
     def get_vrack(self, service_name: str, vrack: str) -> models.VrackDedicatedCloud:
-        """get_vrack calls GET /v1/dedicatedCloud/{serviceName}/vrack/{vrack}: Get a service. Returns the attached Hosted Private Cloud service and its vRack.
+        """get_vrack calls GET /v1/dedicatedCloud/{serviceName}/vrack/{vrack}: Get an attached Managed VMware vSphere service
 
         Args:
             service_name: Domain of the service
@@ -7970,7 +7994,7 @@ class DedicatedCloudApi(_gen.SectionApi):
         )
 
     def delete_vrack(self, service_name: str, vrack: str) -> models.VrackTask:
-        """delete_vrack calls DELETE /v1/dedicatedCloud/{serviceName}/vrack/{vrack}: Detach a service
+        """delete_vrack calls DELETE /v1/dedicatedCloud/{serviceName}/vrack/{vrack}: Detach a Managed VMware vSphere service
 
         Detaches the Hosted Private Cloud service from the vRack. Returns the task that performs it.
 
@@ -8283,7 +8307,7 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_dedicated_clouds calls GET /v1/dedicatedCloud: List Managed VMware vSphere services
 
-        Returns the names of your services. Filter by IAM tags with `iamTags`.
+        Returns the names of the services of the account. Filter by IAM tags with `iamTags`.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -8635,6 +8659,9 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
 
     async def list_allowed_networks(self, service_name: str) -> list[int]:
         """list_allowed_networks calls GET /v1/dedicatedCloud/{serviceName}/allowedNetwork: List allowed networks
+
+        Returns the IDs of the networks allowed through the infrastructure firewall. They apply only
+        when the service access policy is `filtered`.
 
         Args:
             service_name: Domain of the service
@@ -10585,6 +10612,9 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
     ) -> models.DedicatedCloudTask:
         """remove_datacenter_filer calls POST /v1/dedicatedCloud/{serviceName}/datacenter/{datacenterId}/filer/{filerId}/remove: Remove a datastore
 
+        Removes the datastore and its data: move the virtual machines first. Returns a task to track
+        progress.
+
         Args:
             service_name: Domain of the service
             datacenter_id: Id of the Datacenter
@@ -10900,6 +10930,8 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
     ) -> models.DedicatedCloudHostLocation:
         """get_datacenter_host_location calls GET /v1/dedicatedCloud/{serviceName}/datacenter/{datacenterId}/host/{hostId}/location: Get the host location
 
+        Returns the OVHcloud datacenter, room and rack of the host, not its vSphere datacenter.
+
         Args:
             service_name: Domain of the service
             datacenter_id: Id of the Datacenter
@@ -10921,6 +10953,9 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
         self, service_name: str, datacenter_id: int, host_id: int
     ) -> models.DedicatedCloudTask:
         """remove_datacenter_host calls POST /v1/dedicatedCloud/{serviceName}/datacenter/{datacenterId}/host/{hostId}/remove: Remove a host
+
+        Removes the host from the datacenter. To replace a faulty host instead, request a spare with
+        `addHostSpare`. Returns a task to track progress.
 
         Args:
             service_name: Domain of the service
@@ -11222,6 +11257,9 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
         self, service_name: str, datacenter_id: int
     ) -> models.DedicatedCloudTask:
         """create_datacenter_nsxt_edge calls POST /v1/dedicatedCloud/{serviceName}/datacenter/{datacenterId}/nsxtEdge: Create an edge node
+
+        Adds an NSX-T edge node to the datacenter, up to the maximum given by
+        `nsxtEdgesScalingCapabilities`. Returns a task to track progress.
 
         Args:
             service_name: Domain of the service
@@ -12915,6 +12953,9 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
     async def remove_filer(self, service_name: str, filer_id: int) -> models.DedicatedCloudTask:
         """remove_filer calls POST /v1/dedicatedCloud/{serviceName}/filer/{filerId}/remove: Remove a datastore
 
+        Removes the datastore and its data: move the virtual machines first. Returns a task to track
+        progress.
+
         Args:
             service_name: Domain of the service
             filer_id: Filer Id
@@ -13254,6 +13295,9 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
 
     async def disable_hcx(self, service_name: str) -> models.DedicatedCloudTask:
         """disable_hcx calls POST /v1/dedicatedCloud/{serviceName}/hcx/disable: Disable HCX
+
+        Disables the HCX option. To enable it again, order the option with
+        `/order/cart/{cartId}/privateCloud`. Returns a task to track progress.
 
         Args:
             service_name: Domain of the service
@@ -14084,7 +14128,8 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
     ) -> models.DedicatedCloudLogSubscriptionResponse:
         """create_log_subscription calls POST /v1/dedicatedCloud/{serviceName}/log/subscription: Create a log subscription
 
-        Sends the logs of a kind to a Logs Data Platform stream. Returns the operation ID.
+        Sends the logs of a kind to a Logs Data Platform stream. The log forwarder option must be
+        enabled first. Returns the operation ID.
 
         Args:
             service_name: Domain of the service
@@ -15396,6 +15441,9 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
     async def delete_user(self, service_name: str, user_id: int) -> models.DedicatedCloudTask:
         """delete_user calls DELETE /v1/dedicatedCloud/{serviceName}/user/{userId}: Delete a user
 
+        Deletes the user. To block its access without deleting it, use `disable` instead. Returns a
+        task to track progress.
+
         Args:
             service_name: Domain of the service
             user_id: the userId path parameter
@@ -16200,7 +16248,7 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
         )
 
     async def get_vrack(self, service_name: str, vrack: str) -> models.VrackDedicatedCloud:
-        """get_vrack calls GET /v1/dedicatedCloud/{serviceName}/vrack/{vrack}: Get a service. Returns the attached Hosted Private Cloud service and its vRack.
+        """get_vrack calls GET /v1/dedicatedCloud/{serviceName}/vrack/{vrack}: Get an attached Managed VMware vSphere service
 
         Args:
             service_name: Domain of the service
@@ -16237,7 +16285,7 @@ class AsyncDedicatedCloudApi(_gen.AsyncSectionApi):
         )
 
     async def delete_vrack(self, service_name: str, vrack: str) -> models.VrackTask:
-        """delete_vrack calls DELETE /v1/dedicatedCloud/{serviceName}/vrack/{vrack}: Detach a service
+        """delete_vrack calls DELETE /v1/dedicatedCloud/{serviceName}/vrack/{vrack}: Detach a Managed VMware vSphere service
 
         Detaches the Hosted Private Cloud service from the vRack. Returns the task that performs it.
 

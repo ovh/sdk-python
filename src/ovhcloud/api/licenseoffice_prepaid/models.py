@@ -21,9 +21,670 @@ import pydantic as _p
 from ..._core import _gen
 
 __all__ = [
+    "IAMResourceMetadata",
+    "IAMResourceMetadataStateEnum",
+    "IAMResourceTagFilter",
+    "IAMResourceTagFilterOperatorEnum",
+    "LicenseOfficePrepaidCountryEnum",
+    "LicenseOfficePrepaidCountryUppercaseEnum",
+    "LicenseOfficePrepaidLicenseEnum",
+    "LicenseOfficePrepaidOfficeCurrentStatisticsNative",
     "LicenseOfficePrepaidOfficeTaskNative",
+    "LicenseOfficePrepaidOfficeTenantNative",
+    "LicenseOfficePrepaidOfficeTenantPostChangePassword",
+    "LicenseOfficePrepaidOfficeTenantPutParentTenantWritable",
+    "LicenseOfficePrepaidOfficeUserNativeWithIAM",
+    "LicenseOfficePrepaidPutOfficeUserNative",
+    "LicenseOfficePrepaidServiceStateEnum",
+    "LicenseOfficePrepaidServiceTypeEnum",
+    "LicenseOfficePrepaidStatisticsLineNative",
     "LicenseOfficePrepaidTaskStatusEnum",
+    "LicenseOfficePrepaidUserStateEnum",
+    "LicenseOfficePrepaidCreateAttestationPostPayload",
+    "LicenseOfficePrepaidCreateAttestationResponse",
+    "NichandleLanguageEnum",
+    "PhoneNumber",
 ]
+
+
+class IAMResourceMetadata(_gen.BaseModel):
+    """IAM resource metadata embedded in services models"""
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Resource display name
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the resource
+
+    Read-only: the API sets it.
+    """
+
+    state: IAMResourceMetadataStateEnum | None = _p.Field(default=None)
+    """Resource state
+
+    Read-only: the API sets it.
+    """
+
+    tags: dict[str, str] | None = _p.Field(default=None)
+    """Resource tags. Tags that were internally computed are prefixed with ovh:
+
+    Read-only: the API sets it.
+    """
+
+    urn: str | None = _p.Field(default=None)
+    """Unique resource name used in policies
+
+    Read-only: the API sets it.
+    """
+
+
+class IAMResourceMetadataStateEnum(_gen.OpenStrEnum):
+    """Resource state
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EXPIRED = "EXPIRED"
+    IN_CREATION = "IN_CREATION"
+    OK = "OK"
+    SUSPENDED = "SUSPENDED"
+
+
+class IAMResourceTagFilter(_gen.BaseModel):
+    """Resource tag filter"""
+
+    operator: IAMResourceTagFilterOperatorEnum | None = _p.Field(default=None)
+    """Operator to use in order to filter on the value (defaults to 'EQ')
+
+    Read-only: the API sets it.
+    """
+
+    value: str | None = _p.Field(default=None)
+    """Value to use in order to filter tags
+
+    Read-only: the API sets it.
+    """
+
+
+class IAMResourceTagFilterOperatorEnum(_gen.OpenStrEnum):
+    """Operator that can be used in order to filter resources tags
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EQ = "EQ"
+    EXISTS = "EXISTS"
+    ILIKE = "ILIKE"
+    LIKE = "LIKE"
+    NEQ = "NEQ"
+    NEXISTS = "NEXISTS"
+
+
+class LicenseOfficePrepaidCountryEnum(_gen.OpenStrEnum):
+    """ISO country codes
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AC = "ac"
+    AD = "ad"
+    AE = "ae"
+    AF = "af"
+    AG = "ag"
+    AI = "ai"
+    AL = "al"
+    AM = "am"
+    AN = "an"
+    AO = "ao"
+    AQ = "aq"
+    AR = "ar"
+    AS = "as"
+    AT = "at"
+    AU = "au"
+    AW = "aw"
+    AX = "ax"
+    AZ = "az"
+    BA = "ba"
+    BB = "bb"
+    BD = "bd"
+    BE = "be"
+    BF = "bf"
+    BG = "bg"
+    BH = "bh"
+    BI = "bi"
+    BJ = "bj"
+    BL = "bl"
+    BM = "bm"
+    BN = "bn"
+    BO = "bo"
+    BQ = "bq"
+    BR = "br"
+    BS = "bs"
+    BT = "bt"
+    BV = "bv"
+    BW = "bw"
+    BY = "by"
+    BZ = "bz"
+    CA = "ca"
+    CC = "cc"
+    CD = "cd"
+    CF = "cf"
+    CG = "cg"
+    CH = "ch"
+    CI = "ci"
+    CK = "ck"
+    CL = "cl"
+    CM = "cm"
+    CN = "cn"
+    CO = "co"
+    CR = "cr"
+    CS = "cs"
+    CU = "cu"
+    CV = "cv"
+    CW = "cw"
+    CX = "cx"
+    CY = "cy"
+    CZ = "cz"
+    DE = "de"
+    DJ = "dj"
+    DK = "dk"
+    DM = "dm"
+    DO = "do"
+    DZ = "dz"
+    EC = "ec"
+    EE = "ee"
+    EG = "eg"
+    EH = "eh"
+    ER = "er"
+    ES = "es"
+    ET = "et"
+    FC = "fc"
+    FD = "fd"
+    FI = "fi"
+    FJ = "fj"
+    FK = "fk"
+    FM = "fm"
+    FO = "fo"
+    FR = "fr"
+    FX = "fx"
+    GA = "ga"
+    GB = "gb"
+    GD = "gd"
+    GE = "ge"
+    GF = "gf"
+    GG = "gg"
+    GH = "gh"
+    GI = "gi"
+    GL = "gl"
+    GM = "gm"
+    GN = "gn"
+    GP = "gp"
+    GQ = "gq"
+    GR = "gr"
+    GS = "gs"
+    GT = "gt"
+    GU = "gu"
+    GW = "gw"
+    GY = "gy"
+    HK = "hk"
+    HM = "hm"
+    HN = "hn"
+    HR = "hr"
+    HT = "ht"
+    HU = "hu"
+    ID = "id"
+    IE = "ie"
+    IL = "il"
+    IM = "im"
+    IN = "in"
+    IO = "io"
+    IQ = "iq"
+    IR = "ir"
+    IS = "is"
+    IT = "it"
+    JE = "je"
+    JM = "jm"
+    JO = "jo"
+    JP = "jp"
+    KE = "ke"
+    KG = "kg"
+    KH = "kh"
+    KI = "ki"
+    KM = "km"
+    KN = "kn"
+    KP = "kp"
+    KR = "kr"
+    KW = "kw"
+    KY = "ky"
+    KZ = "kz"
+    LA = "la"
+    LB = "lb"
+    LC = "lc"
+    LI = "li"
+    LK = "lk"
+    LR = "lr"
+    LS = "ls"
+    LT = "lt"
+    LU = "lu"
+    LV = "lv"
+    LY = "ly"
+    MA = "ma"
+    MC = "mc"
+    MD = "md"
+    ME = "me"
+    MF = "mf"
+    MG = "mg"
+    MH = "mh"
+    MK = "mk"
+    ML = "ml"
+    MM = "mm"
+    MN = "mn"
+    MO = "mo"
+    MP = "mp"
+    MQ = "mq"
+    MR = "mr"
+    MS = "ms"
+    MT = "mt"
+    MU = "mu"
+    MV = "mv"
+    MW = "mw"
+    MX = "mx"
+    MY = "my"
+    MZ = "mz"
+    NA = "na"
+    NC = "nc"
+    NE = "ne"
+    NF = "nf"
+    NG = "ng"
+    NI = "ni"
+    NL = "nl"
+    NO = "no"
+    NP = "np"
+    NR = "nr"
+    NU = "nu"
+    NZ = "nz"
+    OM = "om"
+    PA = "pa"
+    PE = "pe"
+    PF = "pf"
+    PG = "pg"
+    PH = "ph"
+    PK = "pk"
+    PL = "pl"
+    PM = "pm"
+    PN = "pn"
+    PR = "pr"
+    PS = "ps"
+    PT = "pt"
+    PW = "pw"
+    PY = "py"
+    QA = "qa"
+    QC = "qc"
+    RE = "re"
+    RO = "ro"
+    RS = "rs"
+    RU = "ru"
+    RW = "rw"
+    SA = "sa"
+    SB = "sb"
+    SC = "sc"
+    SD = "sd"
+    SE = "se"
+    SG = "sg"
+    SH = "sh"
+    SI = "si"
+    SJ = "sj"
+    SK = "sk"
+    SL = "sl"
+    SM = "sm"
+    SN = "sn"
+    SO = "so"
+    SR = "sr"
+    SS = "ss"
+    ST = "st"
+    SV = "sv"
+    SX = "sx"
+    SY = "sy"
+    SZ = "sz"
+    TC = "tc"
+    TD = "td"
+    TF = "tf"
+    TG = "tg"
+    TH = "th"
+    TJ = "tj"
+    TK = "tk"
+    TL = "tl"
+    TM = "tm"
+    TN = "tn"
+    TO = "to"
+    TP = "tp"
+    TR = "tr"
+    TT = "tt"
+    TV = "tv"
+    TW = "tw"
+    TZ = "tz"
+    UA = "ua"
+    UG = "ug"
+    UK = "uk"
+    UM = "um"
+    US = "us"
+    UY = "uy"
+    UZ = "uz"
+    VA = "va"
+    VC = "vc"
+    VE = "ve"
+    VG = "vg"
+    VI = "vi"
+    VN = "vn"
+    VU = "vu"
+    WE = "we"
+    WF = "wf"
+    WS = "ws"
+    YE = "ye"
+    YT = "yt"
+    YU = "yu"
+    ZA = "za"
+    ZM = "zm"
+    ZW = "zw"
+
+
+class LicenseOfficePrepaidCountryUppercaseEnum(_gen.OpenStrEnum):
+    """ISO country codes
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AC = "AC"
+    AD = "AD"
+    AE = "AE"
+    AF = "AF"
+    AG = "AG"
+    AI = "AI"
+    AL = "AL"
+    AM = "AM"
+    AN = "AN"
+    AO = "AO"
+    AQ = "AQ"
+    AR = "AR"
+    AS = "AS"
+    AT = "AT"
+    AU = "AU"
+    AW = "AW"
+    AX = "AX"
+    AZ = "AZ"
+    BA = "BA"
+    BB = "BB"
+    BD = "BD"
+    BE = "BE"
+    BF = "BF"
+    BG = "BG"
+    BH = "BH"
+    BI = "BI"
+    BJ = "BJ"
+    BL = "BL"
+    BM = "BM"
+    BN = "BN"
+    BO = "BO"
+    BQ = "BQ"
+    BR = "BR"
+    BS = "BS"
+    BT = "BT"
+    BV = "BV"
+    BW = "BW"
+    BY = "BY"
+    BZ = "BZ"
+    CA = "CA"
+    CC = "CC"
+    CD = "CD"
+    CF = "CF"
+    CG = "CG"
+    CH = "CH"
+    CI = "CI"
+    CK = "CK"
+    CL = "CL"
+    CM = "CM"
+    CN = "CN"
+    CO = "CO"
+    CR = "CR"
+    CS = "CS"
+    CU = "CU"
+    CV = "CV"
+    CW = "CW"
+    CX = "CX"
+    CY = "CY"
+    CZ = "CZ"
+    DE = "DE"
+    DJ = "DJ"
+    DK = "DK"
+    DM = "DM"
+    DO = "DO"
+    DZ = "DZ"
+    EC = "EC"
+    EE = "EE"
+    EG = "EG"
+    EH = "EH"
+    ER = "ER"
+    ES = "ES"
+    ET = "ET"
+    FC = "FC"
+    FD = "FD"
+    FI = "FI"
+    FJ = "FJ"
+    FK = "FK"
+    FM = "FM"
+    FO = "FO"
+    FR = "FR"
+    FX = "FX"
+    GA = "GA"
+    GB = "GB"
+    GD = "GD"
+    GE = "GE"
+    GF = "GF"
+    GG = "GG"
+    GH = "GH"
+    GI = "GI"
+    GL = "GL"
+    GM = "GM"
+    GN = "GN"
+    GP = "GP"
+    GQ = "GQ"
+    GR = "GR"
+    GS = "GS"
+    GT = "GT"
+    GU = "GU"
+    GW = "GW"
+    GY = "GY"
+    HK = "HK"
+    HM = "HM"
+    HN = "HN"
+    HR = "HR"
+    HT = "HT"
+    HU = "HU"
+    ID = "ID"
+    IE = "IE"
+    IL = "IL"
+    IM = "IM"
+    IN = "IN"
+    IO = "IO"
+    IQ = "IQ"
+    IR = "IR"
+    IS = "IS"
+    IT = "IT"
+    JE = "JE"
+    JM = "JM"
+    JO = "JO"
+    JP = "JP"
+    KE = "KE"
+    KG = "KG"
+    KH = "KH"
+    KI = "KI"
+    KM = "KM"
+    KN = "KN"
+    KP = "KP"
+    KR = "KR"
+    KW = "KW"
+    KY = "KY"
+    KZ = "KZ"
+    LA = "LA"
+    LB = "LB"
+    LC = "LC"
+    LI = "LI"
+    LK = "LK"
+    LR = "LR"
+    LS = "LS"
+    LT = "LT"
+    LU = "LU"
+    LV = "LV"
+    LY = "LY"
+    MA = "MA"
+    MC = "MC"
+    MD = "MD"
+    ME = "ME"
+    MF = "MF"
+    MG = "MG"
+    MH = "MH"
+    MK = "MK"
+    ML = "ML"
+    MM = "MM"
+    MN = "MN"
+    MO = "MO"
+    MP = "MP"
+    MQ = "MQ"
+    MR = "MR"
+    MS = "MS"
+    MT = "MT"
+    MU = "MU"
+    MV = "MV"
+    MW = "MW"
+    MX = "MX"
+    MY = "MY"
+    MZ = "MZ"
+    NA = "NA"
+    NC = "NC"
+    NE = "NE"
+    NF = "NF"
+    NG = "NG"
+    NI = "NI"
+    NL = "NL"
+    NO = "NO"
+    NP = "NP"
+    NR = "NR"
+    NU = "NU"
+    NZ = "NZ"
+    OM = "OM"
+    PA = "PA"
+    PE = "PE"
+    PF = "PF"
+    PG = "PG"
+    PH = "PH"
+    PK = "PK"
+    PL = "PL"
+    PM = "PM"
+    PN = "PN"
+    PR = "PR"
+    PS = "PS"
+    PT = "PT"
+    PW = "PW"
+    PY = "PY"
+    QA = "QA"
+    QC = "QC"
+    RE = "RE"
+    RO = "RO"
+    RS = "RS"
+    RU = "RU"
+    RW = "RW"
+    SA = "SA"
+    SB = "SB"
+    SC = "SC"
+    SD = "SD"
+    SE = "SE"
+    SG = "SG"
+    SH = "SH"
+    SI = "SI"
+    SJ = "SJ"
+    SK = "SK"
+    SL = "SL"
+    SM = "SM"
+    SN = "SN"
+    SO = "SO"
+    SR = "SR"
+    SS = "SS"
+    ST = "ST"
+    SV = "SV"
+    SX = "SX"
+    SY = "SY"
+    SZ = "SZ"
+    TC = "TC"
+    TD = "TD"
+    TF = "TF"
+    TG = "TG"
+    TH = "TH"
+    TJ = "TJ"
+    TK = "TK"
+    TL = "TL"
+    TM = "TM"
+    TN = "TN"
+    TO = "TO"
+    TP = "TP"
+    TR = "TR"
+    TT = "TT"
+    TV = "TV"
+    TW = "TW"
+    TZ = "TZ"
+    UA = "UA"
+    UG = "UG"
+    UK = "UK"
+    UM = "UM"
+    US = "US"
+    UY = "UY"
+    UZ = "UZ"
+    VA = "VA"
+    VC = "VC"
+    VE = "VE"
+    VG = "VG"
+    VI = "VI"
+    VN = "VN"
+    VU = "VU"
+    WE = "WE"
+    WF = "WF"
+    WS = "WS"
+    YE = "YE"
+    YT = "YT"
+    YU = "YU"
+    ZA = "ZA"
+    ZM = "ZM"
+    ZW = "ZW"
+
+
+class LicenseOfficePrepaidLicenseEnum(_gen.OpenStrEnum):
+    """Office tenant type
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    OFFICE_BUSINESS = "officeBusiness"
+    OFFICE_PRO_PLUS = "officeProPlus"
+
+
+class LicenseOfficePrepaidOfficeCurrentStatisticsNative(_gen.BaseModel):
+    """Office Current Statisitics"""
+
+    date: datetime.date | None = _p.Field(default=None)
+    """Date of the statistics
+
+    Read-only: the API sets it.
+    """
+
+    lines: list[LicenseOfficePrepaidStatisticsLineNative] | None = _p.Field(default=None)
+    """List of lines associated to this statistics entity.
+
+    Read-only: the API sets it.
+    """
 
 
 class LicenseOfficePrepaidOfficeTaskNative(_gen.BaseModel):
@@ -64,6 +725,286 @@ class LicenseOfficePrepaidOfficeTaskNative(_gen.BaseModel):
     """
 
 
+class LicenseOfficePrepaidOfficeTenantNative(_gen.BaseModel):
+    """Office tenant"""
+
+    address: str | None = _p.Field(default=None)
+    """Contact's address line
+
+    Read-only: the API sets it.
+    """
+
+    city: str | None = _p.Field(default=None)
+    """Contact's city
+
+    Read-only: the API sets it.
+    """
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Tenant's display name
+
+    Read-only: the API sets it.
+    """
+
+    first_name: str | None = _p.Field(
+        default=None, validation_alias="firstName", serialization_alias="firstName"
+    )
+    """Contact's first name
+
+    Read-only: the API sets it.
+    """
+
+    last_name: str | None = _p.Field(
+        default=None, validation_alias="lastName", serialization_alias="lastName"
+    )
+    """Contact's last name
+
+    Read-only: the API sets it.
+    """
+
+    mca_agreed: bool | None = _p.Field(
+        default=None, validation_alias="mcaAgreed", serialization_alias="mcaAgreed"
+    )
+    """MCA acceptance status
+
+    Read-only: the API sets it.
+    """
+
+    phone: PhoneNumber | None = _p.Field(default=None)
+    """Primary phone number
+
+    Read-only: the API sets it.
+    """
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """Tenant's service name
+
+    Read-only: the API sets it.
+    """
+
+    service_type: LicenseOfficePrepaidServiceTypeEnum | None = _p.Field(
+        default=None, validation_alias="serviceType", serialization_alias="serviceType"
+    )
+    """Tenant's service type
+
+    Read-only: the API sets it.
+    """
+
+    status: LicenseOfficePrepaidServiceStateEnum | None = _p.Field(default=None)
+    """Tenant's status
+
+    Read-only: the API sets it.
+    """
+
+    zip_code: str | None = _p.Field(
+        default=None, validation_alias="zipCode", serialization_alias="zipCode"
+    )
+    """Contact's zip code
+
+    Read-only: the API sets it.
+    """
+
+
+class LicenseOfficePrepaidOfficeTenantPostChangePassword(_gen.BaseModel):
+    """Office change password"""
+
+    notify_email: str | None = _p.Field(
+        default=None, validation_alias="notifyEmail", serialization_alias="notifyEmail"
+    )
+    """Email to send the new password to. Default is nicAdmin's email"""
+
+    password: str | None = _p.Field(default=None)
+    """New password or empty to receive a generated password by email"""
+
+    should_send_mail: bool = _p.Field(
+        validation_alias="shouldSendMail", serialization_alias="shouldSendMail"
+    )
+    """Specify if the new password should be send via email or not"""
+
+
+class LicenseOfficePrepaidOfficeTenantPutParentTenantWritable(_gen.BaseModel):
+    """Office tenant. Without the read-only fields, which the API sets."""
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Parent tenant display name"""
+
+
+class LicenseOfficePrepaidOfficeUserNativeWithIAM(_gen.BaseModel):
+    """Office tenant"""
+
+    activation_email: str | None = _p.Field(
+        default=None, validation_alias="activationEmail", serialization_alias="activationEmail"
+    )
+    """Email used to activate Microsoft Office
+
+    Read-only: the API sets it.
+    """
+
+    first_name: str | None = _p.Field(
+        default=None, validation_alias="firstName", serialization_alias="firstName"
+    )
+    """User's first name
+
+    Read-only: the API sets it.
+    """
+
+    iam: IAMResourceMetadata | None = _p.Field(default=None)
+    """IAM resource metadata
+
+    Read-only: the API sets it.
+    """
+
+    is_virtual: bool | None = _p.Field(
+        default=None, validation_alias="isVirtual", serialization_alias="isVirtual"
+    )
+    """Specify if the user is actually a user slot (configureme) or a real user
+
+    Read-only: the API sets it.
+    """
+
+    last_name: str | None = _p.Field(
+        default=None, validation_alias="lastName", serialization_alias="lastName"
+    )
+    """User's last name
+
+    Read-only: the API sets it.
+    """
+
+    licences: list[LicenseOfficePrepaidLicenseEnum] | None = _p.Field(default=None)
+    """Licenses attributed to the user
+
+    Read-only: the API sets it.
+    """
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """User service name, used in invoices
+
+    Read-only: the API sets it.
+    """
+
+    status: LicenseOfficePrepaidUserStateEnum | None = _p.Field(default=None)
+    """User state
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending task id
+
+    Read-only: the API sets it.
+    """
+
+    tenant_service_name: str | None = _p.Field(
+        default=None, validation_alias="tenantServiceName", serialization_alias="tenantServiceName"
+    )
+    """User's tenant service name, used in invoices
+
+    Read-only: the API sets it.
+    """
+
+    usage_location: LicenseOfficePrepaidCountryEnum | None = _p.Field(
+        default=None, validation_alias="usageLocation", serialization_alias="usageLocation"
+    )
+    """ISO 3166-1 alpha-2 country code where the user is using Office365 services
+
+    Read-only: the API sets it.
+    """
+
+
+class LicenseOfficePrepaidPutOfficeUserNative(_gen.BaseModel):
+    """Office tenant"""
+
+    activation_email: str | None = _p.Field(
+        default=None, validation_alias="activationEmail", serialization_alias="activationEmail"
+    )
+    """Email used to activate Microsoft Office"""
+
+    first_name: str | None = _p.Field(
+        default=None, validation_alias="firstName", serialization_alias="firstName"
+    )
+    """User's first name"""
+
+    last_name: str | None = _p.Field(
+        default=None, validation_alias="lastName", serialization_alias="lastName"
+    )
+    """User's last name"""
+
+    usage_location: LicenseOfficePrepaidCountryEnum | None = _p.Field(
+        default=None, validation_alias="usageLocation", serialization_alias="usageLocation"
+    )
+    """ISO 3166-1 alpha-2 country code where the user is using Office365 services"""
+
+
+class LicenseOfficePrepaidServiceStateEnum(_gen.OpenStrEnum):
+    """Office tenant state
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "creating"
+    IN_MAINTENANCE = "inMaintenance"
+    OK = "ok"
+    REOPENING = "reopening"
+    SUSPENDED = "suspended"
+    SUSPENDING = "suspending"
+
+
+class LicenseOfficePrepaidServiceTypeEnum(_gen.OpenStrEnum):
+    """Office tenant type
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    PAY_AS_YOU_GO = "payAsYouGo"
+    PREPAID = "prepaid"
+
+
+class LicenseOfficePrepaidStatisticsLineNative(_gen.BaseModel):
+    """License usage statistics line."""
+
+    end_of_day_count: int | None = _p.Field(
+        default=None, validation_alias="endOfDayCount", serialization_alias="endOfDayCount"
+    )
+    """Count of activated licenses at the end of the day.
+
+    Read-only: the API sets it.
+    """
+
+    licence_type: LicenseOfficePrepaidLicenseEnum | None = _p.Field(
+        default=None, validation_alias="licenceType", serialization_alias="licenceType"
+    )
+    """Type of the Office license.
+
+    Read-only: the API sets it.
+    """
+
+    peak_count: int | None = _p.Field(
+        default=None, validation_alias="peakCount", serialization_alias="peakCount"
+    )
+    """Maximum count of simultaneous activated licences.
+
+    Read-only: the API sets it.
+    """
+
+
 class LicenseOfficePrepaidTaskStatusEnum(_gen.OpenStrEnum):
     """Excahnge task status
 
@@ -75,3 +1016,104 @@ class LicenseOfficePrepaidTaskStatusEnum(_gen.OpenStrEnum):
     DONE = "done"
     ERROR = "error"
     TODO = "todo"
+
+
+class LicenseOfficePrepaidUserStateEnum(_gen.OpenStrEnum):
+    """Office tenant type
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "creating"
+    DELETING = "deleting"
+    OK = "ok"
+    SUSPENDED = "suspended"
+    UNSPENDING = "unspending"
+
+
+class LicenseOfficePrepaidCreateAttestationPostPayload(_gen.BaseModel):
+    """Create an attestation"""
+
+    company_name: str | None = _p.Field(
+        default=None, validation_alias="companyName", serialization_alias="companyName"
+    )
+    """Signatory company name"""
+
+    country: LicenseOfficePrepaidCountryUppercaseEnum | None = _p.Field(default=None)
+    """Signatory Country"""
+
+    email_address: str | None = _p.Field(
+        default=None, validation_alias="emailAddress", serialization_alias="emailAddress"
+    )
+    """Signatory email email address"""
+
+    language: NichandleLanguageEnum | None = _p.Field(default=None)
+    """Signatory language"""
+
+    phone_number: str | None = _p.Field(
+        default=None, validation_alias="phoneNumber", serialization_alias="phoneNumber"
+    )
+    """Signatory phone number"""
+
+    signatory_first_name: str | None = _p.Field(
+        default=None,
+        validation_alias="signatoryFirstName",
+        serialization_alias="signatoryFirstName",
+    )
+    """Signatory first name"""
+
+    signatory_last_name: str | None = _p.Field(
+        default=None, validation_alias="signatoryLastName", serialization_alias="signatoryLastName"
+    )
+    """Signatory last name"""
+
+
+class LicenseOfficePrepaidCreateAttestationResponse(_gen.BaseModel):
+    """Response for attestation creation"""
+
+    attestation_id: str | None = _p.Field(
+        default=None, validation_alias="attestationId", serialization_alias="attestationId"
+    )
+    """Attestation id.
+
+    Read-only: the API sets it.
+    """
+
+    attestation_link: str | None = _p.Field(
+        default=None, validation_alias="attestationLink", serialization_alias="attestationLink"
+    )
+    """Link to iframable attestation
+
+    Read-only: the API sets it.
+    """
+
+
+class NichandleLanguageEnum(_gen.OpenStrEnum):
+    """Languages a nichandle can choose
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CS_CZ = "cs_CZ"
+    DE_DE = "de_DE"
+    EN_AU = "en_AU"
+    EN_CA = "en_CA"
+    EN_GB = "en_GB"
+    EN_IE = "en_IE"
+    EN_US = "en_US"
+    ES_ES = "es_ES"
+    FI_FI = "fi_FI"
+    FR_CA = "fr_CA"
+    FR_FR = "fr_FR"
+    FR_MA = "fr_MA"
+    FR_SN = "fr_SN"
+    FR_TN = "fr_TN"
+    IT_IT = "it_IT"
+    LT_LT = "lt_LT"
+    NL_NL = "nl_NL"
+    PL_PL = "pl_PL"
+    PT_PT = "pt_PT"
+
+
+PhoneNumber: t.TypeAlias = str
+"""Phone number"""

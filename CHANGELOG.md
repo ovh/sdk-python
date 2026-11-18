@@ -2,6 +2,1095 @@
 
 Notable changes to the SDK. Changes of behaviour are called out.
 
+## 0.1.4 (2026-11-18)
+
+Compared with 0.1.3.
+
+### Removed by the API
+
+The API no longer serves these, so their Python names are gone.
+
+- `hostingprivate_database`: `MYSQL_8_0` ("mysql_8.0", of `HostingPrivateDatabaseAvailableVersionEnum`)
+- `hostingprivate_database`: `MYSQL_8_0` ("mysql_8.0", of `HostingPrivateDatabaseVersionEnum`)
+- `public_cloud`: 16 operations, 62 types, listed below
+
+<details>
+<summary>Removed by the API: everything in public_cloud</summary>
+
+#### `public_cloud`
+
+- `all_project_ai_agents_agents` (GET /v2/publicCloud/project/{projectId}/ai/agents/agent)
+- `all_project_ai_agents_preset_templates` (GET /v2/publicCloud/project/{projectId}/ai/agents/preset/template)
+- `all_project_ai_agents_templates` (GET /v2/publicCloud/project/{projectId}/ai/agents/template)
+- `create_project_ai_agents_agent` (POST /v2/publicCloud/project/{projectId}/ai/agents/agent)
+- `create_project_ai_agents_template` (POST /v2/publicCloud/project/{projectId}/ai/agents/template)
+- `delete_project_ai_agents_agent` (DELETE /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId})
+- `delete_project_ai_agents_template` (DELETE /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId})
+- `get_project_ai_agents_agent` (GET /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId})
+- `get_project_ai_agents_preset_global_settings` (GET /v2/publicCloud/project/{projectId}/ai/agents/preset/globalSettings)
+- `get_project_ai_agents_preset_model_ai_endpoints_provider` (GET /v2/publicCloud/project/{projectId}/ai/agents/preset/model/aiEndpointsProvider)
+- `get_project_ai_agents_preset_template` (GET /v2/publicCloud/project/{projectId}/ai/agents/preset/template/{templatePresetId})
+- `get_project_ai_agents_template` (GET /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId})
+- `redeploy_project_ai_agents_agent` (POST /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}/redeploy)
+- `token_project_ai_agents_agent` (POST /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId}/token)
+- `update_project_ai_agents_agent` (PUT /v2/publicCloud/project/{projectId}/ai/agents/agent/{agentId})
+- `update_project_ai_agents_template` (PUT /v2/publicCloud/project/{projectId}/ai/agents/template/{templateId})
+- `PublicCloudAiAgentsAIEndpointsPreset`
+- `PublicCloudAiAgentsAgentConfig`
+- `PublicCloudAiAgentsAgentCreationTargetSpec`
+- `PublicCloudAiAgentsAgentCreation`
+- `PublicCloudAiAgentsAgentCurrentState`
+- `PublicCloudAiAgentsAgentSeed`
+- `PublicCloudAiAgentsAgentTargetSpec`
+- `PublicCloudAiAgentsAgentTemplateRef`
+- `PublicCloudAiAgentsAgentTokenCreation`
+- `PublicCloudAiAgentsAgentTokenRoleEnum`
+- `PublicCloudAiAgentsAgentToken`
+- `PublicCloudAiAgentsAgentUpdateTargetSpec`
+- `PublicCloudAiAgentsAgentUpdate`
+- `PublicCloudAiAgentsAgent`
+- `PublicCloudAiAgentsAgentsConfig`
+- `PublicCloudAiAgentsAuthConfig`
+- `PublicCloudAiAgentsAuthModeEnum`
+- `PublicCloudAiAgentsBuiltinsConfig`
+- `PublicCloudAiAgentsChannelsConfig`
+- `PublicCloudAiAgentsConfig`
+- `PublicCloudAiAgentsExecConfig`
+- `PublicCloudAiAgentsFailoverPolicyOnEnum`
+- `PublicCloudAiAgentsFailoverPolicy`
+- `PublicCloudAiAgentsGlobalAgentConfigAuth`
+- `PublicCloudAiAgentsGlobalAgentConfigExec`
+- `PublicCloudAiAgentsGlobalAgentConfig`
+- `PublicCloudAiAgentsGlobalSettings`
+- `PublicCloudAiAgentsJudgeConfig`
+- `PublicCloudAiAgentsKagentJwtConfig`
+- `PublicCloudAiAgentsLlmConfig`
+- `PublicCloudAiAgentsLlmFallback`
+- `PublicCloudAiAgentsMcpIndexerConfig`
+- `PublicCloudAiAgentsMcpServerAuthKindEnum`
+- `PublicCloudAiAgentsMcpServerModeEnum`
+- `PublicCloudAiAgentsMcpServer`
+- `PublicCloudAiAgentsMemoryConfig`
+- `PublicCloudAiAgentsModelCapabilityOverride`
+- `PublicCloudAiAgentsMountBackendEnum`
+- `PublicCloudAiAgentsMountConfig`
+- `PublicCloudAiAgentsOAuth2Config`
+- `PublicCloudAiAgentsPermissionRuleActionEnum`
+- `PublicCloudAiAgentsPermissionRulePhaseEnum`
+- `PublicCloudAiAgentsPermissionRuleTriggerEnum`
+- `PublicCloudAiAgentsPermissionRule`
+- `PublicCloudAiAgentsProviderConfig`
+- `PublicCloudAiAgentsRelayConfig`
+- `PublicCloudAiAgentsRelayRoomCreationEnum`
+- `PublicCloudAiAgentsScratchpadConfig`
+- `PublicCloudAiAgentsSkillSeed`
+- `PublicCloudAiAgentsSkillsConfig`
+- `PublicCloudAiAgentsTelegramChannelConfig`
+- `PublicCloudAiAgentsTemplateCreationTargetSpec`
+- `PublicCloudAiAgentsTemplateCreation`
+- `PublicCloudAiAgentsTemplatePreset`
+- `PublicCloudAiAgentsTemplateSourceEnum`
+- `PublicCloudAiAgentsTemplateTargetSpec`
+- `PublicCloudAiAgentsTemplateUpdate`
+- `PublicCloudAiAgentsTemplate`
+- `PublicCloudAiAgentsToolPermissionsConfig`
+- `PublicCloudAiAgentsWebexChannelConfig`
+- `PublicCloudAiAgentsWorkspace`
+- `PublicCloudAiAgentsZerofsConfig`
+
+</details>
+
+### New
+
+- `cloud`: `CloudProjectDatabaseServiceCreationWritable.deletion_protection`
+- `dedicatedcluster`: 8 operations, 17 types, listed below
+- `dedicatedserver`: 28 operations, 46 types, listed below
+- `emailpro`: 28 operations, 30 types, listed below
+- `licenseoffice`: 8 operations, 13 types, listed below
+- `licenseoffice_prepaid`: 11 operations, 21 types, listed below
+- `managed_cms`: the section `managed_cms`
+- `me`: `get_identity_provider_saml_service_provider_info` (GET /v1/me/identity/provider/samlServiceProviderInfo)
+- `me`: `AuthServiceProviderInfo`
+- `okms`: 7 operations, 7 types, listed below
+- `order`: `get_cart_service_option_vrack_services`, iterator `all_cart_service_option_vrack_services` (GET /v1/order/cartServiceOption/vrackServices/{serviceName})
+- `order`: `list_cart_service_option_vrack_services` (GET /v1/order/cartServiceOption/vrackServices)
+- `order`: `post_cart_service_option_vrack_services` (POST /v1/order/cartServiceOption/vrackServices/{serviceName})
+- `order`: `PostCartServiceOptionVrackServicesRequest`
+- `over_the_box`: `OtbServiceOperationModeEnum` gains `UPATH` ("upath")
+- `public_cloud`: 425 operations, 274 types, 8 fields, listed below
+- `saascsp2`: the section `saascsp2`
+- `ssl_gateway`: the section `ssl_gateway`
+- `telephony`: `TelephonyConferenceReportAiContentEnum`
+- `telephony`: `TelephonyConferenceProperties.report_ai_content`
+- `telephony`: `TelephonyConferencePropertiesWritable.report_ai_content`
+- `telephony`: `TelephonyConferenceRoom.report_ai_content`
+- `telephony`: `TelephonyConferenceRoomWritable.report_ai_content`
+- `zimbra`: `all_redirections` (iterator) (GET /v2/zimbra/platform/{platformId}/redirection)
+- `zimbra`: `create_redirection` (POST /v2/zimbra/platform/{platformId}/redirection)
+- `zimbra`: `delete_redirection` (DELETE /v2/zimbra/platform/{platformId}/redirection/{redirectionId})
+- `zimbra`: `get_redirection` (GET /v2/zimbra/platform/{platformId}/redirection/{redirectionId})
+- `zimbra`: `ZimbraRedirectionBase`
+- `zimbra`: `ZimbraRedirectionPostPayload`
+- `zimbra`: `ZimbraRedirectionResponse`
+- `zimbra`: `ZimbraRedirection`
+
+<details>
+<summary>New: everything in dedicatedcluster, dedicatedserver, emailpro, licenseoffice, licenseoffice_prepaid, okms, public_cloud</summary>
+
+#### `dedicatedcluster`
+
+- `change_contact` (POST /v1/dedicated/cluster/{serviceName}/changeContact)
+- `confirm_termination` (POST /v1/dedicated/cluster/{serviceName}/confirmTermination)
+- `get_cluster`, iterator `all_clusters` (GET /v1/dedicated/cluster/{serviceName})
+- `get_service_infos` (GET /v1/dedicated/cluster/{serviceName}/serviceInfos)
+- `list_availabilities_raws` (GET /v1/dedicated/cluster/availabilities/raw)
+- `list_clusters` (GET /v1/dedicated/cluster)
+- `terminate` (POST /v1/dedicated/cluster/{serviceName}/terminate)
+- `update_service_infos` (PUT /v1/dedicated/cluster/{serviceName}/serviceInfos)
+- `DedicatedClusterAvailabilitiesRawRegion`
+- `DedicatedClusterAvailabilitiesRaw`
+- `DedicatedClusterClusterWithIAM`
+- `DedicatedClusterNode`
+- `IAMResourceMetadataStateEnum`
+- `IAMResourceMetadata`
+- `IAMResourceTagFilterOperatorEnum`
+- `IAMResourceTagFilter`
+- `ServiceRenewType`
+- `ServiceRenewalTypeEnum`
+- `ServiceStateEnum`
+- `ServiceTerminationFutureUseEnum`
+- `ServiceTerminationReasonEnum`
+- `ServicesChangeContact`
+- `ServicesConfirmTermination`
+- `ServicesServiceWritable`
+- `ServicesService`
+
+#### `dedicatedserver`
+
+- `aggregation_ola` (POST /v1/dedicated/server/{serviceName}/ola/aggregation)
+- `all_log_kinds` (iterator) (GET /v2/dedicated/server/{serviceName}/log/kind)
+- `all_log_subscriptions` (iterator) (GET /v2/dedicated/server/{serviceName}/log/subscription)
+- `configure_bios_settings_sgx` (POST /v1/dedicated/server/{serviceName}/biosSettings/sgx/configure)
+- `create_features_backup_cloud` (POST /v1/dedicated/server/{serviceName}/features/backupCloud)
+- `create_log_subscription` (POST /v2/dedicated/server/{serviceName}/log/subscription)
+- `delete_features_backup_cloud` (DELETE /v1/dedicated/server/{serviceName}/features/backupCloud)
+- `delete_log_subscription` (DELETE /v2/dedicated/server/{serviceName}/log/subscription/{subscriptionId})
+- `get_backup_cloud_offer_details` (GET /v1/dedicated/server/{serviceName}/backupCloudOfferDetails)
+- `get_bios_settings_sgx` (GET /v1/dedicated/server/{serviceName}/biosSettings/sgx)
+- `get_bios_settings` (GET /v1/dedicated/server/{serviceName}/biosSettings)
+- `get_by_service_name_virtual_network_interface_by_uuid`, iterator `all_virtual_network_interfaces` (GET /v1/dedicated/server/{serviceName}/virtualNetworkInterface/{uuid})
+- `get_features_backup_cloud` (GET /v1/dedicated/server/{serviceName}/features/backupCloud)
+- `get_log_kind` (GET /v2/dedicated/server/{serviceName}/log/kind/{name})
+- `get_log_subscription` (GET /v2/dedicated/server/{serviceName}/log/subscription/{subscriptionId})
+- `get_network_interface_controller`, iterator `all_network_interface_controllers` (GET /v1/dedicated/server/{serviceName}/networkInterfaceController/{mac})
+- `get_networking` (GET /v1/dedicated/server/{serviceName}/networking)
+- `get_planned_change`, iterator `all_planned_changes` (GET /v1/dedicated/server/{serviceName}/plannedChange/{changeUuid})
+- `get_planned_intervention`, iterator `all_planned_interventions` (GET /v1/dedicated/server/{serviceName}/plannedIntervention/{interventionId})
+- `list_network_interface_controller_mrtgs` (GET /v1/dedicated/server/{serviceName}/networkInterfaceController/{mac}/mrtg)
+- `list_network_interface_controllers` (GET /v1/dedicated/server/{serviceName}/networkInterfaceController)
+- `list_planned_changes` (GET /v1/dedicated/server/{serviceName}/plannedChange)
+- `list_planned_interventions` (GET /v1/dedicated/server/{serviceName}/plannedIntervention)
+- `list_region_availabilities` (GET /v1/dedicated/server/region/availabilities)
+- `list_virtual_network_interfaces` (GET /v1/dedicated/server/{serviceName}/virtualNetworkInterface)
+- `password_features_backup_cloud` (POST /v1/dedicated/server/{serviceName}/features/backupCloud/password)
+- `reset_ola` (POST /v1/dedicated/server/{serviceName}/ola/reset)
+- `url_log` (POST /v2/dedicated/server/{serviceName}/log/url)
+- `AggregationOlaRequest`
+- `ConfigureBiosSettingsSgxRequest`
+- `CreateFeaturesBackupCloudRequest`
+- `DbaasLogsLogKind`
+- `DbaasLogsLogSubscriptionCreation`
+- `DbaasLogsLogSubscriptionResource`
+- `DbaasLogsLogSubscriptionResponse`
+- `DbaasLogsLogSubscription`
+- `DbaasLogsLogURLCreation`
+- `DbaasLogsTemporaryLogsLink`
+- `DedicatedBiosSettingsBiosSettings`
+- `DedicatedBiosSettingsSgxBiosSettingsSgx`
+- `DedicatedNetworkInterfaceControllerNetworkInterfaceControllerLinkTypeEnum`
+- `DedicatedNetworkInterfaceControllerNetworkInterfaceController`
+- `DedicatedPlannedChangeStatusEnum`
+- `DedicatedPlannedInterventionStatusEnum`
+- `DedicatedPlannedInterventionTypeEnum`
+- `DedicatedServerAvailabilityByRegion`
+- `DedicatedServerAvailabilityEnum`
+- `DedicatedServerAvailabilityRegionalizationEnum`
+- `DedicatedServerAvailabilityZonesEnum`
+- `DedicatedServerAvailabilityZones`
+- `DedicatedServerBackupBackupContainer`
+- `DedicatedServerBackupBackupOffer`
+- `DedicatedServerBackupBackupPassword`
+- `DedicatedServerBackupBackupProject`
+- `DedicatedServerBackupBackupQuota`
+- `DedicatedServerBackupBackupSftp`
+- `DedicatedServerBackupBackupStatusCodeEnum`
+- `DedicatedServerBackupBackupStatus`
+- `DedicatedServerBackupBackupSwift`
+- `DedicatedServerBackupCloud`
+- `DedicatedServerBiosSettingsSgxPrmrrEnum`
+- `DedicatedServerBiosSettingsSgxStatusEnum`
+- `DedicatedServerBiosSettingsSupportSgxOptions`
+- `DedicatedServerBiosSettingsSupport`
+- `DedicatedServerInterfaces`
+- `DedicatedServerNetworkingOperationEnum`
+- `DedicatedServerNetworkingTypeEnum`
+- `DedicatedServerNetworking`
+- `DedicatedServerPlannedChange`
+- `DedicatedServerPlannedIntervention`
+- `DedicatedServerRegionAvailability`
+- `DedicatedVirtualNetworkInterfaceVirtualNetworkInterface`
+- `MacAddress`
+- `ResetOlaRequest`
+
+#### `emailpro`
+
+- `get_account_alias`, iterator `all_account_alias` (GET /v1/email/pro/{service}/account/{email}/alias/{alias})
+- `get_account_diagnostics` (GET /v1/email/pro/{service}/account/{email}/diagnostics)
+- `get_account_full_access`, iterator `all_account_full_access` (GET /v1/email/pro/{service}/account/{email}/fullAccess/{allowedAccountId})
+- `get_account_send_as`, iterator `all_account_send_as` (GET /v1/email/pro/{service}/account/{email}/sendAs/{allowedAccountId})
+- `get_account_send_on_behalf_to`, iterator `all_account_send_on_behalf_tos` (GET /v1/email/pro/{service}/account/{email}/sendOnBehalfTo/{allowedAccountId})
+- `get_account_tasks`, iterator `all_account_tasks` (GET /v1/email/pro/{service}/account/{email}/tasks/{id})
+- `get_account`, iterator `all_accounts` (GET /v1/email/pro/{service}/account/{email})
+- `get_billing_migrated` (GET /v1/email/pro/{service}/billingMigrated)
+- `get_billing_plan` (GET /v1/email/pro/{service}/billingPlan)
+- `get_domain_disclaimer` (GET /v1/email/pro/{service}/domain/{domainName}/disclaimer)
+- `get_domain_dkim`, iterator `all_domain_dkims` (GET /v1/email/pro/{service}/domain/{domainName}/dkim/{selectorName})
+- `get_domain`, iterator `all_domains` (GET /v1/email/pro/{service}/domain/{domainName})
+- `get_external_contact`, iterator `all_external_contacts` (GET /v1/email/pro/{service}/externalContact/{externalEmailAddress})
+- `get_pro`, iterator `all_pros` (GET /v1/email/pro/{service})
+- `get_server` (GET /v1/email/pro/{service}/server)
+- `get_task`, iterator `all_tasks` (GET /v1/email/pro/{service}/task/{id})
+- `list_account_alias` (GET /v1/email/pro/{service}/account/{email}/alias)
+- `list_account_full_access` (GET /v1/email/pro/{service}/account/{email}/fullAccess)
+- `list_account_send_as` (GET /v1/email/pro/{service}/account/{email}/sendAs)
+- `list_account_send_on_behalf_tos` (GET /v1/email/pro/{service}/account/{email}/sendOnBehalfTo)
+- `list_account_tasks` (GET /v1/email/pro/{service}/account/{email}/tasks)
+- `list_accounts` (GET /v1/email/pro/{service}/account)
+- `list_domain_disclaimer_attributes` (GET /v1/email/pro/{service}/domain/{domainName}/disclaimerAttribute)
+- `list_domain_dkims` (GET /v1/email/pro/{service}/domain/{domainName}/dkim)
+- `list_domains` (GET /v1/email/pro/{service}/domain)
+- `list_external_contacts` (GET /v1/email/pro/{service}/externalContact)
+- `list_pros` (GET /v1/email/pro)
+- `list_tasks` (GET /v1/email/pro/{service}/task)
+- `EmailProAccountAlias`
+- `EmailProAccountDiagnosis`
+- `EmailProAccountFullAccess`
+- `EmailProAccountNative`
+- `EmailProAccountSendAs`
+- `EmailProAccountSendOnBehalfTo`
+- `EmailProDisclaimerAttributeEnum`
+- `EmailProDisclaimerNative`
+- `EmailProDkimAlt`
+- `EmailProDkimRecordTypeEnumAlt`
+- `EmailProDkimRecordTypeEnum`
+- `EmailProDkimStatusEnumAlt`
+- `EmailProDkimStatusEnum`
+- `EmailProDkim`
+- `EmailProDomainDkimDiagnosticsStateEnum`
+- `EmailProDomainDkimDiagnostics`
+- `EmailProDomainNative`
+- `EmailProExternalContactNative`
+- `EmailProObjectStateEnum`
+- `EmailProServerStateEnum`
+- `EmailProServer`
+- `EmailProServiceNativeWithIAM`
+- `EmailProServiceOfferEnum`
+- `EmailProServiceStateEnum`
+- `IAMResourceMetadataStateEnum`
+- `IAMResourceMetadata`
+- `IAMResourceTagFilterOperatorEnum`
+- `IAMResourceTagFilter`
+- `IPv4`
+- `IPv6`
+
+#### `licenseoffice`
+
+- `get_domain`, iterator `all_domains` (GET /v1/license/office/{serviceName}/domain/{domainName})
+- `get_office`, iterator `all_offices` (GET /v1/license/office/{serviceName})
+- `get_pending_task`, iterator `all_pending_tasks` (GET /v1/license/office/{serviceName}/pendingTask/{id})
+- `list_domains` (GET /v1/license/office/{serviceName}/domain)
+- `list_offices` (GET /v1/license/office)
+- `list_pending_tasks` (GET /v1/license/office/{serviceName}/pendingTask)
+- `list_usage_statistics` (GET /v1/license/office/{serviceName}/usageStatistics)
+- `update_office` (PUT /v1/license/office/{serviceName})
+- `IAMResourceMetadataStateEnum`
+- `IAMResourceMetadata`
+- `IAMResourceTagFilterOperatorEnum`
+- `IAMResourceTagFilter`
+- `LicenseOfficeDomainNative`
+- `LicenseOfficeDomainStatusEnum`
+- `LicenseOfficeOfficeCurrentStatisticsNative`
+- `LicenseOfficeOfficeTenantNativeWithIAM`
+- `LicenseOfficeOfficeTenantNativeWritable`
+- `LicenseOfficeServiceStateEnum`
+- `LicenseOfficeServiceTypeEnum`
+- `LicenseOfficeStatisticsLineNative`
+- `PhoneNumber`
+
+#### `licenseoffice_prepaid`
+
+- `accept_agreement_parent_tenant` (POST /v1/license/officePrepaid/{serviceName}/parentTenant/acceptAgreement)
+- `change_password` (POST /v1/license/officePrepaid/{serviceName}/changePassword)
+- `create_attestation_parent_tenant` (POST /v1/license/officePrepaid/{serviceName}/parentTenant/createAttestation)
+- `get_office_prepaid`, iterator `all_office_prepaids` (GET /v1/license/officePrepaid/{serviceName})
+- `get_parent_tenant` (GET /v1/license/officePrepaid/{serviceName}/parentTenant)
+- `get_tenant_pending_task`, iterator `all_tenant_pending_tasks` (GET /v1/license/officePrepaid/{serviceName}/tenantPendingTask/{id})
+- `list_office_prepaids` (GET /v1/license/officePrepaid)
+- `list_tenant_pending_tasks` (GET /v1/license/officePrepaid/{serviceName}/tenantPendingTask)
+- `list_tenant_usage_statistics` (GET /v1/license/officePrepaid/{serviceName}/tenantUsageStatistics)
+- `update_office_prepaid` (PUT /v1/license/officePrepaid/{serviceName})
+- `update_parent_tenant` (PUT /v1/license/officePrepaid/{serviceName}/parentTenant)
+- `IAMResourceMetadataStateEnum`
+- `IAMResourceMetadata`
+- `IAMResourceTagFilterOperatorEnum`
+- `IAMResourceTagFilter`
+- `LicenseOfficePrepaidCountryEnum`
+- `LicenseOfficePrepaidCountryUppercaseEnum`
+- `LicenseOfficePrepaidCreateAttestationPostPayload`
+- `LicenseOfficePrepaidCreateAttestationResponse`
+- `LicenseOfficePrepaidLicenseEnum`
+- `LicenseOfficePrepaidOfficeCurrentStatisticsNative`
+- `LicenseOfficePrepaidOfficeTenantNative`
+- `LicenseOfficePrepaidOfficeTenantPostChangePassword`
+- `LicenseOfficePrepaidOfficeTenantPutParentTenantWritable`
+- `LicenseOfficePrepaidOfficeUserNativeWithIAM`
+- `LicenseOfficePrepaidPutOfficeUserNative`
+- `LicenseOfficePrepaidServiceStateEnum`
+- `LicenseOfficePrepaidServiceTypeEnum`
+- `LicenseOfficePrepaidStatisticsLineNative`
+- `LicenseOfficePrepaidUserStateEnum`
+- `NichandleLanguageEnum`
+- `PhoneNumber`
+
+#### `okms`
+
+- `all_resource_log_kinds` (iterator) (GET /v2/okms/resource/{okmsId}/log/kind)
+- `all_resource_log_subscriptions` (iterator) (GET /v2/okms/resource/{okmsId}/log/subscription)
+- `create_resource_log_subscription` (POST /v2/okms/resource/{okmsId}/log/subscription)
+- `delete_resource_log_subscription` (DELETE /v2/okms/resource/{okmsId}/log/subscription/{subscriptionId})
+- `get_resource_log_kind` (GET /v2/okms/resource/{okmsId}/log/kind/{name})
+- `get_resource_log_subscription` (GET /v2/okms/resource/{okmsId}/log/subscription/{subscriptionId})
+- `url_resource_log` (POST /v2/okms/resource/{okmsId}/log/url)
+- `DbaasLogsLogKind`
+- `DbaasLogsLogSubscriptionCreation`
+- `DbaasLogsLogSubscriptionResource`
+- `DbaasLogsLogSubscriptionResponse`
+- `DbaasLogsLogSubscription`
+- `DbaasLogsLogURLCreation`
+- `DbaasLogsTemporaryLogsLink`
+
+#### `public_cloud`
+
+- `all_project_managed_analytics_availabilities` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/availability)
+- `all_project_managed_analytics_availability_suggestions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/availability/suggestion)
+- `all_project_managed_analytics_backups` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/backup)
+- `all_project_managed_analytics_capabilities_disks` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/disks)
+- `all_project_managed_analytics_capabilities_engines` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/engines)
+- `all_project_managed_analytics_capabilities_flavors` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/flavors)
+- `all_project_managed_analytics_capabilities_options` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/options)
+- `all_project_managed_analytics_capabilities_plans` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/plans)
+- `all_project_managed_analytics_capabilities_regions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities/regions)
+- `all_project_managed_analytics_clickhouse_current_queries` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries)
+- `all_project_managed_analytics_clickhouse_databases` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database)
+- `all_project_managed_analytics_clickhouse_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration)
+- `all_project_managed_analytics_clickhouse_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/kind)
+- `all_project_managed_analytics_clickhouse_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription)
+- `all_project_managed_analytics_clickhouse_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance)
+- `all_project_managed_analytics_clickhouse_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/metric)
+- `all_project_managed_analytics_clickhouse_query_statistics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/queryStatistics)
+- `all_project_managed_analytics_clickhouse_roles` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/roles)
+- `all_project_managed_analytics_clickhouse_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user)
+- `all_project_managed_analytics_clickhouses` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse)
+- `all_project_managed_analytics_grafana_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration)
+- `all_project_managed_analytics_grafana_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/kind)
+- `all_project_managed_analytics_grafana_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription)
+- `all_project_managed_analytics_grafana_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance)
+- `all_project_managed_analytics_grafana_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/metric)
+- `all_project_managed_analytics_grafana_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user)
+- `all_project_managed_analytics_grafanas` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana)
+- `all_project_managed_analytics_kafka_acls` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl)
+- `all_project_managed_analytics_kafka_connect_connector_tasks` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task)
+- `all_project_managed_analytics_kafka_connect_connectors` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector)
+- `all_project_managed_analytics_kafka_connect_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration)
+- `all_project_managed_analytics_kafka_connect_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/kind)
+- `all_project_managed_analytics_kafka_connect_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription)
+- `all_project_managed_analytics_kafka_connect_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance)
+- `all_project_managed_analytics_kafka_connect_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/metric)
+- `all_project_managed_analytics_kafka_connect_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user)
+- `all_project_managed_analytics_kafka_connects` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect)
+- `all_project_managed_analytics_kafka_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration)
+- `all_project_managed_analytics_kafka_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/kind)
+- `all_project_managed_analytics_kafka_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription)
+- `all_project_managed_analytics_kafka_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance)
+- `all_project_managed_analytics_kafka_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/metric)
+- `all_project_managed_analytics_kafka_mirror_maker_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration)
+- `all_project_managed_analytics_kafka_mirror_maker_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/kind)
+- `all_project_managed_analytics_kafka_mirror_maker_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription)
+- `all_project_managed_analytics_kafka_mirror_maker_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance)
+- `all_project_managed_analytics_kafka_mirror_maker_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/metric)
+- `all_project_managed_analytics_kafka_mirror_maker_replications` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication)
+- `all_project_managed_analytics_kafka_mirror_makers` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker)
+- `all_project_managed_analytics_kafka_schema_registry_acls` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl)
+- `all_project_managed_analytics_kafka_topics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic)
+- `all_project_managed_analytics_kafka_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user)
+- `all_project_managed_analytics_kafkas` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka)
+- `all_project_managed_analytics_opensearch_indexes` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/index)
+- `all_project_managed_analytics_opensearch_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration)
+- `all_project_managed_analytics_opensearch_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/kind)
+- `all_project_managed_analytics_opensearch_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription)
+- `all_project_managed_analytics_opensearch_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance)
+- `all_project_managed_analytics_opensearch_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/metric)
+- `all_project_managed_analytics_opensearch_patterns` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern)
+- `all_project_managed_analytics_opensearch_permissions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/permissions)
+- `all_project_managed_analytics_opensearch_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user)
+- `all_project_managed_analytics_opensearches` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch)
+- `all_project_managed_analytics_services` (iterator) (GET /v2/publicCloud/project/{projectId}/managedAnalytics/service)
+- `all_project_managed_database_availabilities` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/availability)
+- `all_project_managed_database_availability_suggestions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/availability/suggestion)
+- `all_project_managed_database_backups` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/backup)
+- `all_project_managed_database_capabilities_disks` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/disks)
+- `all_project_managed_database_capabilities_engines` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/engines)
+- `all_project_managed_database_capabilities_flavors` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/flavors)
+- `all_project_managed_database_capabilities_options` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/options)
+- `all_project_managed_database_capabilities_plans` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/plans)
+- `all_project_managed_database_capabilities_regions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities/regions)
+- `all_project_managed_database_mongodb_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/kind)
+- `all_project_managed_database_mongodb_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription)
+- `all_project_managed_database_mongodb_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance)
+- `all_project_managed_database_mongodb_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/metric)
+- `all_project_managed_database_mongodb_roles` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/roles)
+- `all_project_managed_database_mongodb_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user)
+- `all_project_managed_database_mongodbs` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb)
+- `all_project_managed_database_mysql_current_queries` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries)
+- `all_project_managed_database_mysql_databases` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database)
+- `all_project_managed_database_mysql_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration)
+- `all_project_managed_database_mysql_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/kind)
+- `all_project_managed_database_mysql_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription)
+- `all_project_managed_database_mysql_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance)
+- `all_project_managed_database_mysql_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/metric)
+- `all_project_managed_database_mysql_query_statistics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/queryStatistics)
+- `all_project_managed_database_mysql_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user)
+- `all_project_managed_database_mysqls` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql)
+- `all_project_managed_database_postgresql_connection_pools` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool)
+- `all_project_managed_database_postgresql_current_queries` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries)
+- `all_project_managed_database_postgresql_databases` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database)
+- `all_project_managed_database_postgresql_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration)
+- `all_project_managed_database_postgresql_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/kind)
+- `all_project_managed_database_postgresql_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription)
+- `all_project_managed_database_postgresql_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance)
+- `all_project_managed_database_postgresql_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/metric)
+- `all_project_managed_database_postgresql_query_statistics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/queryStatistics)
+- `all_project_managed_database_postgresql_roles` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/roles)
+- `all_project_managed_database_postgresql_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user)
+- `all_project_managed_database_postgresqls` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql)
+- `all_project_managed_database_services` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/service)
+- `all_project_managed_database_valkey_integrations` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration)
+- `all_project_managed_database_valkey_log_kinds` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/kind)
+- `all_project_managed_database_valkey_log_subscriptions` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription)
+- `all_project_managed_database_valkey_maintenances` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance)
+- `all_project_managed_database_valkey_metrics` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/metric)
+- `all_project_managed_database_valkey_users` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user)
+- `all_project_managed_database_valkeys` (iterator) (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey)
+- `all_project_managed_kubernetes_events` (iterator) (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/event)
+- `all_project_managed_kubernetes_nodepool_events` (iterator) (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/event)
+- `all_project_managed_kubernetes_nodepool_nodes` (iterator) (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/node)
+- `all_project_managed_kubernetes_nodepool_tasks` (iterator) (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/task)
+- `all_project_managed_kubernetes_nodepools` (iterator) (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool)
+- `all_project_managed_kubernetes_tasks` (iterator) (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/task)
+- `all_project_managed_kubernetes` (iterator) (GET /v2/publicCloud/project/{projectId}/managedKubernetes)
+- `all_project_reference_managed_kubernetes_flavors` (iterator) (GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/flavor)
+- `all_project_reference_managed_kubernetes_plans` (iterator) (GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/plan)
+- `all_project_reference_managed_kubernetes_regions` (iterator) (GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/region)
+- `cancel_project_managed_analytics_clickhouse_current_queries` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries/{queryPid}/cancel)
+- `cancel_project_managed_database_mysql_current_queries` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries/{queryPid}/cancel)
+- `cancel_project_managed_database_postgresql_current_queries` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries/{queryPid}/cancel)
+- `create_project_managed_analytics_clickhouse_database` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database)
+- `create_project_managed_analytics_clickhouse_integration` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration)
+- `create_project_managed_analytics_clickhouse_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription)
+- `create_project_managed_analytics_clickhouse_maintenance` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance)
+- `create_project_managed_analytics_clickhouse_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user)
+- `create_project_managed_analytics_clickhouse` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse)
+- `create_project_managed_analytics_grafana_integration` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration)
+- `create_project_managed_analytics_grafana_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription)
+- `create_project_managed_analytics_grafana_maintenance` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance)
+- `create_project_managed_analytics_grafana` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana)
+- `create_project_managed_analytics_kafka_acl` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl)
+- `create_project_managed_analytics_kafka_connect_connector` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector)
+- `create_project_managed_analytics_kafka_connect_integration` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration)
+- `create_project_managed_analytics_kafka_connect_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription)
+- `create_project_managed_analytics_kafka_connect_maintenance` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance)
+- `create_project_managed_analytics_kafka_connect_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user)
+- `create_project_managed_analytics_kafka_connect` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect)
+- `create_project_managed_analytics_kafka_integration` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration)
+- `create_project_managed_analytics_kafka_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription)
+- `create_project_managed_analytics_kafka_maintenance` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance)
+- `create_project_managed_analytics_kafka_mirror_maker_integration` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration)
+- `create_project_managed_analytics_kafka_mirror_maker_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription)
+- `create_project_managed_analytics_kafka_mirror_maker_maintenance` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance)
+- `create_project_managed_analytics_kafka_mirror_maker_replication` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication)
+- `create_project_managed_analytics_kafka_mirror_maker` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker)
+- `create_project_managed_analytics_kafka_schema_registry_acl` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl)
+- `create_project_managed_analytics_kafka_topic` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic)
+- `create_project_managed_analytics_kafka_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user)
+- `create_project_managed_analytics_kafka` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka)
+- `create_project_managed_analytics_opensearch_integration` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration)
+- `create_project_managed_analytics_opensearch_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription)
+- `create_project_managed_analytics_opensearch_maintenance` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance)
+- `create_project_managed_analytics_opensearch_pattern` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern)
+- `create_project_managed_analytics_opensearch_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user)
+- `create_project_managed_analytics_opensearch` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch)
+- `create_project_managed_database_mongodb_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription)
+- `create_project_managed_database_mongodb_maintenance` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance)
+- `create_project_managed_database_mongodb_user` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user)
+- `create_project_managed_database_mongodb` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb)
+- `create_project_managed_database_mysql_database` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database)
+- `create_project_managed_database_mysql_integration` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration)
+- `create_project_managed_database_mysql_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription)
+- `create_project_managed_database_mysql_maintenance` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance)
+- `create_project_managed_database_mysql_user` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user)
+- `create_project_managed_database_mysql` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql)
+- `create_project_managed_database_postgresql_connection_pool` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool)
+- `create_project_managed_database_postgresql_database` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database)
+- `create_project_managed_database_postgresql_integration` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration)
+- `create_project_managed_database_postgresql_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription)
+- `create_project_managed_database_postgresql_maintenance` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance)
+- `create_project_managed_database_postgresql_user` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user)
+- `create_project_managed_database_postgresql` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql)
+- `create_project_managed_database_valkey_integration` (POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration)
+- `create_project_managed_database_valkey_log_subscription` (POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription)
+- `create_project_managed_database_valkey_maintenance` (POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance)
+- `create_project_managed_database_valkey_user` (POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user)
+- `create_project_managed_database_valkey` (POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey)
+- `create_project_managed_kubernetes_nodepool` (POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool)
+- `create_project_managed_kubernetes` (POST /v2/publicCloud/project/{projectId}/managedKubernetes)
+- `delete_project_managed_analytics_clickhouse_database` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database/{databaseId})
+- `delete_project_managed_analytics_clickhouse_integration` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration/{integrationId})
+- `delete_project_managed_analytics_clickhouse_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_analytics_clickhouse_user` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId})
+- `delete_project_managed_analytics_clickhouse` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId})
+- `delete_project_managed_analytics_grafana_integration` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration/{integrationId})
+- `delete_project_managed_analytics_grafana_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_analytics_grafana` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId})
+- `delete_project_managed_analytics_kafka_acl` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl/{aclId})
+- `delete_project_managed_analytics_kafka_connect_connector` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId})
+- `delete_project_managed_analytics_kafka_connect_integration` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration/{integrationId})
+- `delete_project_managed_analytics_kafka_connect_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_analytics_kafka_connect_user` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId})
+- `delete_project_managed_analytics_kafka_connect` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId})
+- `delete_project_managed_analytics_kafka_integration` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration/{integrationId})
+- `delete_project_managed_analytics_kafka_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_analytics_kafka_mirror_maker_integration` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration/{integrationId})
+- `delete_project_managed_analytics_kafka_mirror_maker_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_analytics_kafka_mirror_maker_replication` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId})
+- `delete_project_managed_analytics_kafka_mirror_maker` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId})
+- `delete_project_managed_analytics_kafka_schema_registry_acl` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl/{schemaRegistryAclId})
+- `delete_project_managed_analytics_kafka_topic` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId})
+- `delete_project_managed_analytics_kafka_user` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId})
+- `delete_project_managed_analytics_kafka` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId})
+- `delete_project_managed_analytics_opensearch_integration` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration/{integrationId})
+- `delete_project_managed_analytics_opensearch_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_analytics_opensearch_pattern` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern/{patternId})
+- `delete_project_managed_analytics_opensearch_user` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId})
+- `delete_project_managed_analytics_opensearch` (DELETE /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId})
+- `delete_project_managed_database_mongodb_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_database_mongodb_user` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId})
+- `delete_project_managed_database_mongodb` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId})
+- `delete_project_managed_database_mysql_database` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database/{databaseId})
+- `delete_project_managed_database_mysql_integration` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration/{integrationId})
+- `delete_project_managed_database_mysql_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_database_mysql_user` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId})
+- `delete_project_managed_database_mysql` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId})
+- `delete_project_managed_database_postgresql_connection_pool` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId})
+- `delete_project_managed_database_postgresql_database` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database/{databaseId})
+- `delete_project_managed_database_postgresql_integration` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration/{integrationId})
+- `delete_project_managed_database_postgresql_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_database_postgresql_user` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId})
+- `delete_project_managed_database_postgresql` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId})
+- `delete_project_managed_database_valkey_integration` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration/{integrationId})
+- `delete_project_managed_database_valkey_log_subscription` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription/{subscriptionId})
+- `delete_project_managed_database_valkey_user` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId})
+- `delete_project_managed_database_valkey` (DELETE /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId})
+- `delete_project_managed_kubernetes_nodepool` (DELETE /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId})
+- `delete_project_managed_kubernetes` (DELETE /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId})
+- `enable_writes_project_managed_analytics_clickhouse` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/enableWrites)
+- `enable_writes_project_managed_database_mysql` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/enableWrites)
+- `enable_writes_project_managed_database_postgresql` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/enableWrites)
+- `get_project_managed_analytics_backup` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/backup/{backupId})
+- `get_project_managed_analytics_clickhouse_certificates` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/certificates)
+- `get_project_managed_analytics_clickhouse_current_queries` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/currentQueries/{queryPid})
+- `get_project_managed_analytics_clickhouse_database` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/database/{databaseId})
+- `get_project_managed_analytics_clickhouse_integration` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/integration/{integrationId})
+- `get_project_managed_analytics_clickhouse_log_kind` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/kind/{name})
+- `get_project_managed_analytics_clickhouse_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_analytics_clickhouse_maintenance` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_analytics_clickhouse_metric` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/metric/{metricName})
+- `get_project_managed_analytics_clickhouse_prometheus` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/prometheus)
+- `get_project_managed_analytics_clickhouse_roles` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/roles/{roleId})
+- `get_project_managed_analytics_clickhouse_user` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId})
+- `get_project_managed_analytics_clickhouse` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId})
+- `get_project_managed_analytics_grafana_integration` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/integration/{integrationId})
+- `get_project_managed_analytics_grafana_log_kind` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/kind/{name})
+- `get_project_managed_analytics_grafana_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_analytics_grafana_maintenance` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_analytics_grafana_metric` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/metric/{metricName})
+- `get_project_managed_analytics_grafana_user` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId})
+- `get_project_managed_analytics_grafana` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId})
+- `get_project_managed_analytics_kafka_acl` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/acl/{aclId})
+- `get_project_managed_analytics_kafka_certificates` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/certificates)
+- `get_project_managed_analytics_kafka_connect_connector_task` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task/{taskId})
+- `get_project_managed_analytics_kafka_connect_connector` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId})
+- `get_project_managed_analytics_kafka_connect_integration` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/integration/{integrationId})
+- `get_project_managed_analytics_kafka_connect_log_kind` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/kind/{name})
+- `get_project_managed_analytics_kafka_connect_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_analytics_kafka_connect_maintenance` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_analytics_kafka_connect_metric` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/metric/{metricName})
+- `get_project_managed_analytics_kafka_connect_prometheus` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/prometheus)
+- `get_project_managed_analytics_kafka_connect_user` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId})
+- `get_project_managed_analytics_kafka_connect` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId})
+- `get_project_managed_analytics_kafka_integration` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/integration/{integrationId})
+- `get_project_managed_analytics_kafka_log_kind` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/kind/{name})
+- `get_project_managed_analytics_kafka_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_analytics_kafka_maintenance` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_analytics_kafka_metric` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/metric/{metricName})
+- `get_project_managed_analytics_kafka_mirror_maker_integration` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/integration/{integrationId})
+- `get_project_managed_analytics_kafka_mirror_maker_log_kind` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/kind/{name})
+- `get_project_managed_analytics_kafka_mirror_maker_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_analytics_kafka_mirror_maker_maintenance` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_analytics_kafka_mirror_maker_metric` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/metric/{metricName})
+- `get_project_managed_analytics_kafka_mirror_maker_prometheus` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/prometheus)
+- `get_project_managed_analytics_kafka_mirror_maker_replication` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId})
+- `get_project_managed_analytics_kafka_mirror_maker` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId})
+- `get_project_managed_analytics_kafka_permissions` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/permissions)
+- `get_project_managed_analytics_kafka_prometheus` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/prometheus)
+- `get_project_managed_analytics_kafka_schema_registry_acl` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/schemaRegistryAcl/{schemaRegistryAclId})
+- `get_project_managed_analytics_kafka_topic` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId})
+- `get_project_managed_analytics_kafka_user_access` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}/access)
+- `get_project_managed_analytics_kafka_user` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId})
+- `get_project_managed_analytics_kafka` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId})
+- `get_project_managed_analytics_opensearch_index` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/index/{indexId})
+- `get_project_managed_analytics_opensearch_integration` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/integration/{integrationId})
+- `get_project_managed_analytics_opensearch_log_kind` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/kind/{name})
+- `get_project_managed_analytics_opensearch_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_analytics_opensearch_maintenance` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_analytics_opensearch_metric` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/metric/{metricName})
+- `get_project_managed_analytics_opensearch_pattern` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/pattern/{patternId})
+- `get_project_managed_analytics_opensearch_prometheus` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/prometheus)
+- `get_project_managed_analytics_opensearch_user` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId})
+- `get_project_managed_analytics_opensearch` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId})
+- `get_project_managed_analytics_service` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/service/{serviceId})
+- `get_project_managed_database_backup` (GET /v2/publicCloud/project/{projectId}/managedDatabase/backup/{backupId})
+- `get_project_managed_database_mongodb_log_kind` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/kind/{name})
+- `get_project_managed_database_mongodb_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_database_mongodb_maintenance` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_database_mongodb_metric` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/metric/{metricName})
+- `get_project_managed_database_mongodb_prometheus` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/prometheus)
+- `get_project_managed_database_mongodb_roles` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/roles/{roleId})
+- `get_project_managed_database_mongodb_user` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId})
+- `get_project_managed_database_mongodb` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId})
+- `get_project_managed_database_mysql_certificates` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/certificates)
+- `get_project_managed_database_mysql_current_queries` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/currentQueries/{queryPid})
+- `get_project_managed_database_mysql_database` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/database/{databaseId})
+- `get_project_managed_database_mysql_integration` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/integration/{integrationId})
+- `get_project_managed_database_mysql_log_kind` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/kind/{name})
+- `get_project_managed_database_mysql_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_database_mysql_maintenance` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_database_mysql_metric` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/metric/{metricName})
+- `get_project_managed_database_mysql_prometheus` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/prometheus)
+- `get_project_managed_database_mysql_user` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId})
+- `get_project_managed_database_mysql` (GET /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId})
+- `get_project_managed_database_postgresql_certificates` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/certificates)
+- `get_project_managed_database_postgresql_connection_pool` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId})
+- `get_project_managed_database_postgresql_current_queries` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/currentQueries/{queryPid})
+- `get_project_managed_database_postgresql_database` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/database/{databaseId})
+- `get_project_managed_database_postgresql_integration` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/integration/{integrationId})
+- `get_project_managed_database_postgresql_log_kind` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/kind/{name})
+- `get_project_managed_database_postgresql_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_database_postgresql_maintenance` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_database_postgresql_metric` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/metric/{metricName})
+- `get_project_managed_database_postgresql_prometheus` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/prometheus)
+- `get_project_managed_database_postgresql_roles` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/roles/{roleId})
+- `get_project_managed_database_postgresql_user` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId})
+- `get_project_managed_database_postgresql` (GET /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId})
+- `get_project_managed_database_service` (GET /v2/publicCloud/project/{projectId}/managedDatabase/service/{serviceId})
+- `get_project_managed_database_valkey_integration` (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/integration/{integrationId})
+- `get_project_managed_database_valkey_log_kind` (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/kind/{name})
+- `get_project_managed_database_valkey_log_subscription` (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/subscription/{subscriptionId})
+- `get_project_managed_database_valkey_maintenance` (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/maintenance/{maintenanceId})
+- `get_project_managed_database_valkey_metric` (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/metric/{metricName})
+- `get_project_managed_database_valkey_prometheus` (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/prometheus)
+- `get_project_managed_database_valkey_user` (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId})
+- `get_project_managed_database_valkey` (GET /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId})
+- `get_project_managed_kubernetes_capabilities_version` (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/capabilities/version)
+- `get_project_managed_kubernetes_kubeconfig` (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/kubeconfig)
+- `get_project_managed_kubernetes_nodepool_node` (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/node/{nodeId})
+- `get_project_managed_kubernetes_nodepool_task` (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId}/task/{taskId})
+- `get_project_managed_kubernetes_nodepool` (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId})
+- `get_project_managed_kubernetes_task` (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/task/{taskId})
+- `get_project_managed_kubernetes_usage_etcd` (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/usage/etcd)
+- `get_project_managed_kubernetes` (GET /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId})
+- `get_project_reference_managed_kubernetes_version` (GET /v2/publicCloud/project/{projectId}/reference/managedKubernetes/version)
+- `patch_project_managed_analytics_clickhouse` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId})
+- `patch_project_managed_analytics_grafana` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId})
+- `patch_project_managed_analytics_kafka_connect_connector` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId})
+- `patch_project_managed_analytics_kafka_connect` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId})
+- `patch_project_managed_analytics_kafka_mirror_maker_replication` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId})
+- `patch_project_managed_analytics_kafka_mirror_maker` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId})
+- `patch_project_managed_analytics_kafka_topic` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId})
+- `patch_project_managed_analytics_kafka` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId})
+- `patch_project_managed_analytics_opensearch_user` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId})
+- `patch_project_managed_analytics_opensearch` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId})
+- `patch_project_managed_database_mongodb_user` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId})
+- `patch_project_managed_database_mongodb` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId})
+- `patch_project_managed_database_mysql` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId})
+- `patch_project_managed_database_postgresql_connection_pool` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId})
+- `patch_project_managed_database_postgresql_user` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId})
+- `patch_project_managed_database_postgresql` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId})
+- `patch_project_managed_database_valkey_user` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId})
+- `patch_project_managed_database_valkey` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId})
+- `reset_password_project_managed_analytics_clickhouse_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId}/resetPassword)
+- `reset_password_project_managed_analytics_grafana_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId}/resetPassword)
+- `reset_password_project_managed_analytics_kafka_connect_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId}/resetPassword)
+- `reset_password_project_managed_analytics_kafka_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId}/resetPassword)
+- `reset_password_project_managed_analytics_opensearch_user` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId}/resetPassword)
+- `reset_password_project_managed_database_mongodb_user` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId}/resetPassword)
+- `reset_password_project_managed_database_mysql_user` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId}/resetPassword)
+- `reset_password_project_managed_database_postgresql_user` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId}/resetPassword)
+- `reset_password_project_managed_database_valkey_user` (POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId}/resetPassword)
+- `reset_project_managed_analytics_clickhouse_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_analytics_kafka_connect_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_analytics_kafka_mirror_maker_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_analytics_kafka_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_analytics_opensearch_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_database_mongodb_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_database_mysql_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_database_mysql_query_statistics` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/queryStatistics/reset)
+- `reset_project_managed_database_postgresql_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_database_postgresql_query_statistics` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/queryStatistics/reset)
+- `reset_project_managed_database_valkey_prometheus_credentials` (POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/prometheus/credentials/reset)
+- `reset_project_managed_kubernetes_kubeconfig` (POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/kubeconfig/reset)
+- `restart_project_managed_analytics_kafka_connect_connector_task` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId}/task/{taskId}/restart)
+- `restart_project_managed_kubernetes` (POST /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/restart)
+- `restore_project_managed_database_mongodb` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/restore)
+- `update_project_managed_analytics_clickhouse_user` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/user/{userId})
+- `update_project_managed_analytics_clickhouse` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId})
+- `update_project_managed_analytics_grafana_user` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/user/{userId})
+- `update_project_managed_analytics_grafana` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId})
+- `update_project_managed_analytics_kafka_connect_connector` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/connector/{connectorId})
+- `update_project_managed_analytics_kafka_connect_user` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/user/{userId})
+- `update_project_managed_analytics_kafka_connect` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId})
+- `update_project_managed_analytics_kafka_mirror_maker_replication` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/replication/{replicationId})
+- `update_project_managed_analytics_kafka_mirror_maker` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId})
+- `update_project_managed_analytics_kafka_topic` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/topic/{topicId})
+- `update_project_managed_analytics_kafka_user` (PATCH /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/user/{userId})
+- `update_project_managed_analytics_kafka` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId})
+- `update_project_managed_analytics_opensearch_user` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/user/{userId})
+- `update_project_managed_analytics_opensearch` (PUT /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId})
+- `update_project_managed_database_mongodb_user` (PUT /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/user/{userId})
+- `update_project_managed_database_mongodb` (PUT /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId})
+- `update_project_managed_database_mysql_user` (PATCH /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/user/{userId})
+- `update_project_managed_database_mysql` (PUT /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId})
+- `update_project_managed_database_postgresql_connection_pool` (PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/connectionPool/{connectionPoolId})
+- `update_project_managed_database_postgresql_user` (PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/user/{userId})
+- `update_project_managed_database_postgresql` (PUT /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId})
+- `update_project_managed_database_valkey_user` (PUT /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/user/{userId})
+- `update_project_managed_database_valkey` (PUT /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId})
+- `update_project_managed_kubernetes_nodepool` (PUT /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId}/nodepool/{nodePoolId})
+- `update_project_managed_kubernetes` (PUT /v2/publicCloud/project/{projectId}/managedKubernetes/{managedKubernetesId})
+- `url_project_managed_analytics_clickhouse_log` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/clickhouse/{serviceId}/log/url)
+- `url_project_managed_analytics_grafana_log` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/grafana/{serviceId}/log/url)
+- `url_project_managed_analytics_kafka_connect_log` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaConnect/{serviceId}/log/url)
+- `url_project_managed_analytics_kafka_log` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafka/{serviceId}/log/url)
+- `url_project_managed_analytics_kafka_mirror_maker_log` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/kafkaMirrorMaker/{serviceId}/log/url)
+- `url_project_managed_analytics_opensearch_log` (POST /v2/publicCloud/project/{projectId}/managedAnalytics/opensearch/{serviceId}/log/url)
+- `url_project_managed_database_mongodb_log` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mongodb/{serviceId}/log/url)
+- `url_project_managed_database_mysql_log` (POST /v2/publicCloud/project/{projectId}/managedDatabase/mysql/{serviceId}/log/url)
+- `url_project_managed_database_postgresql_log` (POST /v2/publicCloud/project/{projectId}/managedDatabase/postgresql/{serviceId}/log/url)
+- `url_project_managed_database_valkey_log` (POST /v2/publicCloud/project/{projectId}/managedDatabase/valkey/{serviceId}/log/url)
+- `CommonRegionEnum`
+- `DbaasLogsLogKind`
+- `DbaasLogsLogSubscriptionCreation`
+- `DbaasLogsLogSubscriptionResource`
+- `DbaasLogsLogSubscriptionResponse`
+- `DbaasLogsLogSubscription`
+- `DbaasLogsLogURLCreation`
+- `DbaasLogsTemporaryLogsLink`
+- `IPv4Block`
+- `LocationTypeEnum`
+- `PublicCloudBlockStorageBackupCapabilityNameEnum`
+- `PublicCloudBlockStorageBackupCapabilityReasonEnum`
+- `PublicCloudBlockStorageBackupCapability`
+- `PublicCloudBlockStorageBackupStatusEnum`
+- `PublicCloudBlockStorageBlockCapability`
+- `PublicCloudBlockStorageSnapshotCapabilityNameEnum`
+- `PublicCloudBlockStorageSnapshotCapabilityReasonEnum`
+- `PublicCloudBlockStorageSnapshotCapability`
+- `PublicCloudBlockStorageVolumeCapabilityNameEnum`
+- `PublicCloudBlockStorageVolumeCapabilityReasonEnum`
+- `PublicCloudDatabaseAuthorizedIPsReplace`
+- `PublicCloudDatabaseAuthorizedIPsRuleReplace`
+- `PublicCloudDatabaseAuthorizedIPsRuleWritable`
+- `PublicCloudDatabaseAuthorizedIPsRule`
+- `PublicCloudDatabaseAuthorizedIPsWritable`
+- `PublicCloudDatabaseAuthorizedIPs`
+- `PublicCloudDatabaseAvailabilityActionEnum`
+- `PublicCloudDatabaseAvailabilityBackups`
+- `PublicCloudDatabaseAvailabilityLifecycle`
+- `PublicCloudDatabaseAvailabilitySpecificationsNodes`
+- `PublicCloudDatabaseAvailabilitySpecificationsStorage`
+- `PublicCloudDatabaseAvailabilitySpecifications`
+- `PublicCloudDatabaseAvailabilityStatusEnum`
+- `PublicCloudDatabaseAvailabilitySuggestion`
+- `PublicCloudDatabaseAvailabilityTargetEnum`
+- `PublicCloudDatabaseAvailability`
+- `PublicCloudDatabaseBackupCurrentState`
+- `PublicCloudDatabaseBackupReplaceSpec`
+- `PublicCloudDatabaseBackupSpec`
+- `PublicCloudDatabaseBackupStatusEnum`
+- `PublicCloudDatabaseBackupTypeEnum`
+- `PublicCloudDatabaseBackup`
+- `PublicCloudDatabaseCapabilitiesAdvancedConfigurationPropertyTypeEnum`
+- `PublicCloudDatabaseCapabilitiesAdvancedConfigurationProperty`
+- `PublicCloudDatabaseCapabilitiesDiskType`
+- `PublicCloudDatabaseCapabilitiesEngineStorageStrategyEnum`
+- `PublicCloudDatabaseCapabilitiesFlavorGenerationEnum`
+- `PublicCloudDatabaseCapabilitiesFlavorSpecifications`
+- `PublicCloudDatabaseCapabilitiesFlavor`
+- `PublicCloudDatabaseCapabilitiesIntegrationCapability`
+- `PublicCloudDatabaseCapabilitiesIntegrationParameterTypeEnum`
+- `PublicCloudDatabaseCapabilitiesIntegrationParameter`
+- `PublicCloudDatabaseCapabilitiesOptionTypeEnum`
+- `PublicCloudDatabaseCapabilitiesOption`
+- `PublicCloudDatabaseCapabilitiesPlan`
+- `PublicCloudDatabaseCapabilitiesRegion`
+- `PublicCloudDatabaseCategoryEnum`
+- `PublicCloudDatabaseCertificates`
+- `PublicCloudDatabaseCurrentQueryStateEnum`
+- `PublicCloudDatabaseCurrentQueryWaitEventTypeEnum`
+- `PublicCloudDatabaseCurrentQuery`
+- `PublicCloudDatabaseDataPoint`
+- `PublicCloudDatabaseDatabaseCreation`
+- `PublicCloudDatabaseDatabase`
+- `PublicCloudDatabaseEndpointComponentEnum`
+- `PublicCloudDatabaseEndpoint`
+- `PublicCloudDatabaseEngineCapability`
+- `PublicCloudDatabaseEngineEnum`
+- `PublicCloudDatabaseEngineVersion`
+- `PublicCloudDatabaseHostMetric`
+- `PublicCloudDatabaseIntegrationCreation`
+- `PublicCloudDatabaseIntegrationStatusEnum`
+- `PublicCloudDatabaseIntegrationTypeEnum`
+- `PublicCloudDatabaseIntegration`
+- `PublicCloudDatabaseKafkaACLCreation`
+- `PublicCloudDatabaseKafkaACLPermissionEnum`
+- `PublicCloudDatabaseKafkaACL`
+- `PublicCloudDatabaseKafkaConnectCapabilitiesConnectorCapability`
+- `PublicCloudDatabaseKafkaConnectCapabilitiesConnectorConfigurationProperty`
+- `PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyImportanceEnum`
+- `PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyTypeEnum`
+- `PublicCloudDatabaseKafkaConnectCapabilitiesConnectorTransform`
+- `PublicCloudDatabaseKafkaConnectCapabilitiesConnectorTypeEnum`
+- `PublicCloudDatabaseKafkaConnectConnectorActionEnum`
+- `PublicCloudDatabaseKafkaConnectConnectorCreation`
+- `PublicCloudDatabaseKafkaConnectConnectorReplace`
+- `PublicCloudDatabaseKafkaConnectConnectorStatusEnum`
+- `PublicCloudDatabaseKafkaConnectConnectorStatusUpdate`
+- `PublicCloudDatabaseKafkaConnectConnectorTaskStatusEnum`
+- `PublicCloudDatabaseKafkaConnectConnectorTask`
+- `PublicCloudDatabaseKafkaConnectConnector`
+- `PublicCloudDatabaseKafkaMirrorMakerReplicationCreation`
+- `PublicCloudDatabaseKafkaMirrorMakerReplicationPolicyClassEnum`
+- `PublicCloudDatabaseKafkaMirrorMakerReplicationReplace`
+- `PublicCloudDatabaseKafkaMirrorMakerReplicationUpdate`
+- `PublicCloudDatabaseKafkaMirrorMakerReplication`
+- `PublicCloudDatabaseKafkaPermissions`
+- `PublicCloudDatabaseKafkaSchemaRegistryACLCreation`
+- `PublicCloudDatabaseKafkaSchemaRegistryACLPermissionEnum`
+- `PublicCloudDatabaseKafkaSchemaRegistryACL`
+- `PublicCloudDatabaseKafkaTopicCreation`
+- `PublicCloudDatabaseKafkaTopicReplace`
+- `PublicCloudDatabaseKafkaTopicUpdate`
+- `PublicCloudDatabaseKafkaTopic`
+- `PublicCloudDatabaseKafkaUserAccess`
+- `PublicCloudDatabaseKindEnum`
+- `PublicCloudDatabaseMaintenanceCurrentState`
+- `PublicCloudDatabaseMaintenanceReplaceSpec`
+- `PublicCloudDatabaseMaintenanceSpec`
+- `PublicCloudDatabaseMaintenanceStatusEnum`
+- `PublicCloudDatabaseMaintenanceWindow`
+- `PublicCloudDatabaseMetricPeriodEnum`
+- `PublicCloudDatabaseMetricUnitEnum`
+- `PublicCloudDatabaseMetric`
+- `PublicCloudDatabaseMongodbPrometheusEndpoint`
+- `PublicCloudDatabaseNetworkCurrentState`
+- `PublicCloudDatabaseNetworkEnum`
+- `PublicCloudDatabaseNetworkReplaceSpec`
+- `PublicCloudDatabaseNetworkSpecWritable`
+- `PublicCloudDatabaseNetworkUpdateSpecWritable`
+- `PublicCloudDatabaseNetworkUpdateSpec`
+- `PublicCloudDatabaseNodeRoleEnum`
+- `PublicCloudDatabaseNode`
+- `PublicCloudDatabaseOpensearchACLPermissionEnum`
+- `PublicCloudDatabaseOpensearchIndex`
+- `PublicCloudDatabaseOpensearchPatternCreation`
+- `PublicCloudDatabaseOpensearchPattern`
+- `PublicCloudDatabaseOpensearchUserACL`
+- `PublicCloudDatabaseOpensearchUserCreation`
+- `PublicCloudDatabaseOpensearchUserReplace`
+- `PublicCloudDatabaseOpensearchUserUpdate`
+- `PublicCloudDatabaseOpensearchUser`
+- `PublicCloudDatabasePostgresqlConnectionPoolCreation`
+- `PublicCloudDatabasePostgresqlConnectionPoolModeEnum`
+- `PublicCloudDatabasePostgresqlConnectionPoolReplace`
+- `PublicCloudDatabasePostgresqlConnectionPoolUpdate`
+- `PublicCloudDatabasePostgresqlConnectionPool`
+- `PublicCloudDatabasePrometheusAccess`
+- `PublicCloudDatabasePrometheusEndpoint`
+- `PublicCloudDatabasePrometheusTarget`
+- `PublicCloudDatabaseQueryCancelRequest`
+- `PublicCloudDatabaseQueryCancelResult`
+- `PublicCloudDatabaseQueryStatistic`
+- `PublicCloudDatabaseRestoreRequest`
+- `PublicCloudDatabaseRole`
+- `PublicCloudDatabaseSSLModeEnum`
+- `PublicCloudDatabaseServiceCapabilityActions`
+- `PublicCloudDatabaseServiceCapabilityStateEnum`
+- `PublicCloudDatabaseServiceCreationTargetSpecWritable`
+- `PublicCloudDatabaseServiceCreationWritable`
+- `PublicCloudDatabaseServiceCurrentState`
+- `PublicCloudDatabaseServiceEngineCapabilities`
+- `PublicCloudDatabaseServiceReplaceTargetSpec`
+- `PublicCloudDatabaseServiceReplace`
+- `PublicCloudDatabaseServiceStatusEnum`
+- `PublicCloudDatabaseServiceTargetSpec`
+- `PublicCloudDatabaseServiceUpdateTargetSpecWritable`
+- `PublicCloudDatabaseServiceUpdateWritable`
+- `PublicCloudDatabaseService`
+- `PublicCloudDatabaseStorageReplaceSpec`
+- `PublicCloudDatabaseStorageTypeEnum`
+- `PublicCloudDatabaseStorageUnitEnum`
+- `PublicCloudDatabaseStorageUpdateSpec`
+- `PublicCloudDatabaseStorageWritable`
+- `PublicCloudDatabaseStorage`
+- `PublicCloudDatabaseTemporaryWriteDeadline`
+- `PublicCloudDatabaseUnitAndValueReplace`
+- `PublicCloudDatabaseUnitAndValue`
+- `PublicCloudDatabaseUserCreation`
+- `PublicCloudDatabaseUserCredentialsUpdate`
+- `PublicCloudDatabaseUserReplace`
+- `PublicCloudDatabaseUserStatusEnum`
+- `PublicCloudDatabaseUserUpdate`
+- `PublicCloudDatabaseUserWithRolesCreation`
+- `PublicCloudDatabaseUserWithRoles`
+- `PublicCloudDatabaseUser`
+- `PublicCloudDatabaseValkeyUserCreation`
+- `PublicCloudDatabaseValkeyUserReplace`
+- `PublicCloudDatabaseValkeyUserUpdate`
+- `PublicCloudDatabaseValkeyUser`
+- `PublicCloudInstanceInstanceVolumeRoleEnum`
+- `PublicCloudManagedKubernetesAPIServerAccess`
+- `PublicCloudManagedKubernetesAPIServerPublicEndpoint`
+- `PublicCloudManagedKubernetesAPIServer`
+- `PublicCloudManagedKubernetesAdmissionPlugin`
+- `PublicCloudManagedKubernetesAntiAffinityPolicyEnum`
+- `PublicCloudManagedKubernetesAntiAffinity`
+- `PublicCloudManagedKubernetesAttachFloatingIP`
+- `PublicCloudManagedKubernetesAuthenticationTypeEnum`
+- `PublicCloudManagedKubernetesAuthentication`
+- `PublicCloudManagedKubernetesAuthorizedIPRule`
+- `PublicCloudManagedKubernetesAuthorizedIPs`
+- `PublicCloudManagedKubernetesAutoUpgradeTrack`
+- `PublicCloudManagedKubernetesAutoUpgrade`
+- `PublicCloudManagedKubernetesAutoscalerScaleDown`
+- `PublicCloudManagedKubernetesAutoscaler`
+- `PublicCloudManagedKubernetesCiliumClusterMeshAPIServer`
+- `PublicCloudManagedKubernetesCiliumClusterMeshServiceTypeEnum`
+- `PublicCloudManagedKubernetesCiliumClusterMesh`
+- `PublicCloudManagedKubernetesCiliumHubbleRelay`
+- `PublicCloudManagedKubernetesCiliumHubbleUI`
+- `PublicCloudManagedKubernetesCiliumHubble`
+- `PublicCloudManagedKubernetesCiliumResourceList`
+- `PublicCloudManagedKubernetesCiliumResourceRequirements`
+- `PublicCloudManagedKubernetesClusterCreation`
+- `PublicCloudManagedKubernetesClusterCurrentState`
+- `PublicCloudManagedKubernetesClusterTargetSpec`
+- `PublicCloudManagedKubernetesClusterUpdateTargetSpec`
+- `PublicCloudManagedKubernetesClusterUpdate`
+- `PublicCloudManagedKubernetesClusterVersions`
+- `PublicCloudManagedKubernetesCluster`
+- `PublicCloudManagedKubernetesCniCanalUpdate`
+- `PublicCloudManagedKubernetesCniCanal`
+- `PublicCloudManagedKubernetesCniCilium`
+- `PublicCloudManagedKubernetesCniTypeEnum`
+- `PublicCloudManagedKubernetesCniUpdate`
+- `PublicCloudManagedKubernetesCni`
+- `PublicCloudManagedKubernetesCurrentStateAPIServerAccess`
+- `PublicCloudManagedKubernetesCurrentStateAPIServer`
+- `PublicCloudManagedKubernetesCurrentStateAuthentication`
+- `PublicCloudManagedKubernetesCurrentStateOidc`
+- `PublicCloudManagedKubernetesDefaultEgressTypeEnum`
+- `PublicCloudManagedKubernetesDefaultEgress`
+- `PublicCloudManagedKubernetesEtcdUsage`
+- `PublicCloudManagedKubernetesFlavorCategoryEnum`
+- `PublicCloudManagedKubernetesFlavorResources`
+- `PublicCloudManagedKubernetesFlavorStatusEnum`
+- `PublicCloudManagedKubernetesFlavor`
+- `PublicCloudManagedKubernetesIPAllocationPolicy`
+- `PublicCloudManagedKubernetesKubeProxyIptables`
+- `PublicCloudManagedKubernetesKubeProxyIpvsSchedulerEnum`
+- `PublicCloudManagedKubernetesKubeProxyIpvs`
+- `PublicCloudManagedKubernetesKubeProxyModeEnum`
+- `PublicCloudManagedKubernetesKubeProxyUpdate`
+- `PublicCloudManagedKubernetesKubeProxy`
+- `PublicCloudManagedKubernetesKubeconfig`
+- `PublicCloudManagedKubernetesNetworkTypeEnum`
+- `PublicCloudManagedKubernetesNetworkUpdate`
+- `PublicCloudManagedKubernetesNetworkVrackUpdate`
+- `PublicCloudManagedKubernetesNetworkVrack`
+- `PublicCloudManagedKubernetesNetwork`
+- `PublicCloudManagedKubernetesNodeConfig`
+- `PublicCloudManagedKubernetesNodeCurrentState`
+- `PublicCloudManagedKubernetesNodeResourceStatusEnum`
+- `PublicCloudManagedKubernetesNodeTemplateMetadata`
+- `PublicCloudManagedKubernetesNodeTemplateSpec`
+- `PublicCloudManagedKubernetesNodeTemplate`
+- `PublicCloudManagedKubernetesNode`
+- `PublicCloudManagedKubernetesNodepoolBillingTypeEnum`
+- `PublicCloudManagedKubernetesNodepoolCreation`
+- `PublicCloudManagedKubernetesNodepoolCurrentState`
+- `PublicCloudManagedKubernetesNodepoolRolloutStrategyEnum`
+- `PublicCloudManagedKubernetesNodepoolRollout`
+- `PublicCloudManagedKubernetesNodepoolStatus`
+- `PublicCloudManagedKubernetesNodepoolTargetSpec`
+- `PublicCloudManagedKubernetesNodepoolUpdateTargetSpec`
+- `PublicCloudManagedKubernetesNodepoolUpdate`
+- `PublicCloudManagedKubernetesNodepool`
+- `PublicCloudManagedKubernetesOidcSigningAlgEnum`
+- `PublicCloudManagedKubernetesOidc`
+- `PublicCloudManagedKubernetesPlanControlPlane`
+- `PublicCloudManagedKubernetesPlanEtcdStorage`
+- `PublicCloudManagedKubernetesPlanEtcd`
+- `PublicCloudManagedKubernetesPlanLimits`
+- `PublicCloudManagedKubernetesPlanNameEnum`
+- `PublicCloudManagedKubernetesPlanStatusEnum`
+- `PublicCloudManagedKubernetesPlan`
+- `PublicCloudManagedKubernetesRegion`
+- `PublicCloudManagedKubernetesTaintEffectEnum`
+- `PublicCloudManagedKubernetesTaint`
+- `PublicCloudManagedKubernetesUserGateway`
+- `PublicCloudManagedKubernetesVersionCatalog`
+- `PublicCloudManagedKubernetesVersionReference`
+- `PublicCloudManagedKubernetesVersionStatusEnum`
+- `PublicCloudBlockStorageBackupCurrentState.capabilities`
+- `PublicCloudBlockStorageBackupCurrentState.encryption`
+- `PublicCloudBlockStorageBackupCurrentState.status`
+- `PublicCloudBlockStorageBackupCurrentState.volume_type`
+- `PublicCloudBlockStorageBlockCurrentState.capabilities`
+- `PublicCloudBlockStorageSnapshotCurrentState.capabilities`
+- `PublicCloudInstanceInstanceVolume.role`
+- `PublicCloudInstanceInstanceVolumeRef.role`
+
+</details>
+
 ## 0.1.3 (2026-11-18)
 
 Compared with 0.1.2.

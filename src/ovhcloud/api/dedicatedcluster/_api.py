@@ -26,14 +26,35 @@ class DedicatedclusterApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 1 operation, on the routes under /v1/dedicated/cluster/availabilities.
+    It has 9 operations, on the routes under /v1/dedicated/cluster.
 
-    To start, list what the account has: list_availabilities.
+    To start, list what the account has: list_clusters, list_availabilities,
+    list_availabilities_raws.
 
     To find the method for a route, search index/dedicatedcluster.jsonl: one line per method, with
     its route, its signature and the IAM actions it requires. It is at the root of the SDK
     repository, and in the installed package.
     """
+
+    def list_clusters(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_clusters calls GET /v1/dedicated/cluster: List dedicated clusters
+
+        Returns the IDs of the dedicated clusters of the account.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        Requires the IAM action clusterDelivery:apiovh:get.
+        """
+        return self._call(
+            _r.OP_LIST_CLUSTERS,
+            query=(("iamTags", iam_tags),),
+            result=list[str],
+        )
 
     @_gen.deprecated(
         "The API has deprecated this operation, to be removed on 2025-12-02.", category=None
@@ -77,20 +98,232 @@ class DedicatedclusterApi(_gen.SectionApi):
             result=list[models.DedicatedClusterAvailability],
         )
 
+    def list_availabilities_raws(
+        self,
+        quantity: int,
+        *,
+        exclude_regions: bool | None | NotGiven = NOT_GIVEN,
+        memory: str | None | NotGiven = NOT_GIVEN,
+        plan_code: str | None | NotGiven = NOT_GIVEN,
+        regions: models.DedicatedServerAvailabilityRegionalizationEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        server: str | None | NotGiven = NOT_GIVEN,
+        storage: str | None | NotGiven = NOT_GIVEN,
+        system_storage: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[models.DedicatedClusterAvailabilitiesRaw]:
+        """list_availabilities_raws calls GET /v1/dedicated/cluster/availabilities/raw: List the raw cluster hardware availability
+
+        Returns the raw availability of cluster hardware: for each region, the real stock, the real
+        stock including parent references, and the last rule applied. Filter by quantity, hardware
+        parts, plan code and regions, and set excludeRegions to return every region except those
+        listed.
+
+        Args:
+            quantity: Node quantity
+            exclude_regions: If true, all regions are returned except those listed in regions parameter (optional)
+            memory: The name of the memory hardware part (optional)
+            plan_code: The plan code in which the hardware is involved (optional)
+            regions: The names of regions separated by commas (optional)
+            server: The name of the base hardware (optional)
+            storage: The name of the storage hardware part (optional)
+            system_storage: The name of the system storage hardware part (optional)
+        """
+        return self._call(
+            _r.OP_LIST_AVAILABILITIES_RAWS,
+            query=(
+                ("excludeRegions", exclude_regions),
+                ("memory", memory),
+                ("planCode", plan_code),
+                ("quantity", quantity),
+                ("regions", regions),
+                ("server", server),
+                ("storage", storage),
+                ("systemStorage", system_storage),
+            ),
+            result=list[models.DedicatedClusterAvailabilitiesRaw],
+        )
+
+    def get_cluster(self, service_name: str) -> models.DedicatedClusterClusterWithIAM:
+        """get_cluster calls GET /v1/dedicated/cluster/{serviceName}: Get a dedicated cluster
+
+        Returns the ID, model, region and status of a dedicated cluster, and its nodes.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action clusterDelivery:apiovh:get.
+        """
+        return self._call(
+            _r.OP_GET_CLUSTER,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedClusterClusterWithIAM,
+        )
+
+    def all_clusters(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.DedicatedClusterClusterWithIAM]:
+        """all_clusters iterates over GET /v1/dedicated/cluster (List dedicated clusters).
+
+        It lists the IDs with list_clusters, then gets each object with get_cluster,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        The two calls require the IAM action clusterDelivery:apiovh:get.
+        """
+        return self._each(
+            lambda: self.list_clusters(
+                iam_tags=iam_tags,
+            ),
+            lambda listed_id: self.get_cluster(listed_id),
+        )
+
+    def change_contact(self, service_name: str, body: models.ServicesChangeContact) -> list[int]:
+        """change_contact calls POST /v1/dedicated/cluster/{serviceName}/changeContact: Launch a contact change procedure
+
+        Starts a contact change procedure for the admin, billing or tech contact of the cluster.
+        Returns the IDs of the contact change tasks.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action clusterDelivery:apiovh:changeContact.
+        """
+        return self._call(
+            _r.OP_CHANGE_CONTACT,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesChangeContact,
+            result=list[int],
+        )
+
+    def confirm_termination(
+        self, service_name: str, body: models.ServicesConfirmTermination
+    ) -> str:
+        """confirm_termination calls POST /v1/dedicated/cluster/{serviceName}/confirmTermination: Confirm service termination
+
+        Confirms the termination of the cluster with the token sent by email to the admin contact.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action clusterDelivery:apiovh:confirmTermination.
+        """
+        return self._call(
+            _r.OP_CONFIRM_TERMINATION,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesConfirmTermination,
+            result=str,
+        )
+
+    def get_service_infos(self, service_name: str) -> models.ServicesService:
+        """get_service_infos calls GET /v1/dedicated/cluster/{serviceName}/serviceInfos: Get service information
+
+        Returns the billing information of the cluster, such as creation and expiration dates,
+        contacts and renewal settings.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action clusterDelivery:apiovh:serviceInfos/get.
+        """
+        return self._call(
+            _r.OP_GET_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.ServicesService,
+        )
+
+    def update_service_infos(self, service_name: str, body: models.ServicesServiceWritable) -> None:
+        """update_service_infos calls PUT /v1/dedicated/cluster/{serviceName}/serviceInfos: Update service information
+
+        Updates the renewal settings of the cluster.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action clusterDelivery:apiovh:serviceInfos/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesServiceWritable,
+        )
+
+    def terminate(self, service_name: str) -> str:
+        """terminate calls POST /v1/dedicated/cluster/{serviceName}/terminate: Ask for the termination of your service
+
+        Starts the termination of the cluster and sends a confirmation token by email to the admin
+        contact. Confirm it with the termination confirmation.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action clusterDelivery:apiovh:terminate.
+        """
+        return self._call(
+            _r.OP_TERMINATE,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=str,
+        )
+
 
 class AsyncDedicatedclusterApi(_gen.AsyncSectionApi):
     """The operations of the dedicatedcluster section, for AsyncClient: ``client.dedicatedcluster``.
 
     The methods of DedicatedclusterApi, with await. Iterators are async: use ``async for``.
 
-    It has 1 operation, on the routes under /v1/dedicated/cluster/availabilities.
+    It has 9 operations, on the routes under /v1/dedicated/cluster.
 
-    To start, list what the account has: list_availabilities.
+    To start, list what the account has: list_clusters, list_availabilities,
+    list_availabilities_raws.
 
     To find the method for a route, search index/dedicatedcluster.jsonl: one line per method, with
     its route, its signature and the IAM actions it requires. It is at the root of the SDK
     repository, and in the installed package.
     """
+
+    async def list_clusters(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_clusters calls GET /v1/dedicated/cluster: List dedicated clusters
+
+        Returns the IDs of the dedicated clusters of the account.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        Requires the IAM action clusterDelivery:apiovh:get.
+        """
+        return await self._call(
+            _r.OP_LIST_CLUSTERS,
+            query=(("iamTags", iam_tags),),
+            result=list[str],
+        )
 
     @_gen.deprecated(
         "The API has deprecated this operation, to be removed on 2025-12-02.", category=None
@@ -132,4 +365,199 @@ class AsyncDedicatedclusterApi(_gen.AsyncSectionApi):
                 ("systemStorage", system_storage),
             ),
             result=list[models.DedicatedClusterAvailability],
+        )
+
+    async def list_availabilities_raws(
+        self,
+        quantity: int,
+        *,
+        exclude_regions: bool | None | NotGiven = NOT_GIVEN,
+        memory: str | None | NotGiven = NOT_GIVEN,
+        plan_code: str | None | NotGiven = NOT_GIVEN,
+        regions: models.DedicatedServerAvailabilityRegionalizationEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        server: str | None | NotGiven = NOT_GIVEN,
+        storage: str | None | NotGiven = NOT_GIVEN,
+        system_storage: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[models.DedicatedClusterAvailabilitiesRaw]:
+        """list_availabilities_raws calls GET /v1/dedicated/cluster/availabilities/raw: List the raw cluster hardware availability
+
+        Returns the raw availability of cluster hardware: for each region, the real stock, the real
+        stock including parent references, and the last rule applied. Filter by quantity, hardware
+        parts, plan code and regions, and set excludeRegions to return every region except those
+        listed.
+
+        Args:
+            quantity: Node quantity
+            exclude_regions: If true, all regions are returned except those listed in regions parameter (optional)
+            memory: The name of the memory hardware part (optional)
+            plan_code: The plan code in which the hardware is involved (optional)
+            regions: The names of regions separated by commas (optional)
+            server: The name of the base hardware (optional)
+            storage: The name of the storage hardware part (optional)
+            system_storage: The name of the system storage hardware part (optional)
+        """
+        return await self._call(
+            _r.OP_LIST_AVAILABILITIES_RAWS,
+            query=(
+                ("excludeRegions", exclude_regions),
+                ("memory", memory),
+                ("planCode", plan_code),
+                ("quantity", quantity),
+                ("regions", regions),
+                ("server", server),
+                ("storage", storage),
+                ("systemStorage", system_storage),
+            ),
+            result=list[models.DedicatedClusterAvailabilitiesRaw],
+        )
+
+    async def get_cluster(self, service_name: str) -> models.DedicatedClusterClusterWithIAM:
+        """get_cluster calls GET /v1/dedicated/cluster/{serviceName}: Get a dedicated cluster
+
+        Returns the ID, model, region and status of a dedicated cluster, and its nodes.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action clusterDelivery:apiovh:get.
+        """
+        return await self._call(
+            _r.OP_GET_CLUSTER,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedClusterClusterWithIAM,
+        )
+
+    def all_clusters(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.DedicatedClusterClusterWithIAM]:
+        """all_clusters iterates over GET /v1/dedicated/cluster (List dedicated clusters).
+
+        It lists the IDs with list_clusters, then gets each object with get_cluster,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        The two calls require the IAM action clusterDelivery:apiovh:get.
+        """
+        return self._each(
+            lambda: self.list_clusters(
+                iam_tags=iam_tags,
+            ),
+            lambda listed_id: self.get_cluster(listed_id),
+        )
+
+    async def change_contact(
+        self, service_name: str, body: models.ServicesChangeContact
+    ) -> list[int]:
+        """change_contact calls POST /v1/dedicated/cluster/{serviceName}/changeContact: Launch a contact change procedure
+
+        Starts a contact change procedure for the admin, billing or tech contact of the cluster.
+        Returns the IDs of the contact change tasks.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action clusterDelivery:apiovh:changeContact.
+        """
+        return await self._call(
+            _r.OP_CHANGE_CONTACT,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesChangeContact,
+            result=list[int],
+        )
+
+    async def confirm_termination(
+        self, service_name: str, body: models.ServicesConfirmTermination
+    ) -> str:
+        """confirm_termination calls POST /v1/dedicated/cluster/{serviceName}/confirmTermination: Confirm service termination
+
+        Confirms the termination of the cluster with the token sent by email to the admin contact.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action clusterDelivery:apiovh:confirmTermination.
+        """
+        return await self._call(
+            _r.OP_CONFIRM_TERMINATION,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesConfirmTermination,
+            result=str,
+        )
+
+    async def get_service_infos(self, service_name: str) -> models.ServicesService:
+        """get_service_infos calls GET /v1/dedicated/cluster/{serviceName}/serviceInfos: Get service information
+
+        Returns the billing information of the cluster, such as creation and expiration dates,
+        contacts and renewal settings.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action clusterDelivery:apiovh:serviceInfos/get.
+        """
+        return await self._call(
+            _r.OP_GET_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.ServicesService,
+        )
+
+    async def update_service_infos(
+        self, service_name: str, body: models.ServicesServiceWritable
+    ) -> None:
+        """update_service_infos calls PUT /v1/dedicated/cluster/{serviceName}/serviceInfos: Update service information
+
+        Updates the renewal settings of the cluster.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action clusterDelivery:apiovh:serviceInfos/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesServiceWritable,
+        )
+
+    async def terminate(self, service_name: str) -> str:
+        """terminate calls POST /v1/dedicated/cluster/{serviceName}/terminate: Ask for the termination of your service
+
+        Starts the termination of the cluster and sends a confirmation token by email to the admin
+        contact. Confirm it with the termination confirmation.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action clusterDelivery:apiovh:terminate.
+        """
+        return await self._call(
+            _r.OP_TERMINATE,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=str,
         )

@@ -44,6 +44,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[str]:
         """list_telephonies calls GET /v1/telephony: List billing accounts
 
+        Returns the billing accounts of the customer. A billing account groups telephony services
+        billed together.
+
         Args:
             iam_tags: Filter resources on IAM tags (optional)
 
@@ -83,6 +86,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[str]:
         """list_aliases calls GET /v1/telephony/aliases: List numbers
 
+        Returns the numbers of the customer, across all billing accounts. Get a number service for
+        its billing account and settings.
+
         Args:
             iam_tags: Filter resources on IAM tags (optional)
 
@@ -96,6 +102,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_aliases(self, service_name: str) -> models.TelephonyTelephonyGenericServiceWithIAM:
         """get_aliases calls GET /v1/telephony/aliases/{serviceName}: Get a number service
+
+        Returns the number service, without its billing account. Use it to find a number across all
+        billing accounts.
 
         Args:
             service_name: Your line number
@@ -215,6 +224,8 @@ class TelephonyApi(_gen.SectionApi):
     def list_current_order_ids(self) -> list[int]:
         """list_current_order_ids calls GET /v1/telephony/currentOrderIds: List current order IDs
 
+        Returns the identifiers of the telephony orders of the customer that are still in progress.
+
         Requires the IAM action account:apiovh:voip/currentOrderIds/get.
         """
         return self._call(
@@ -311,6 +322,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[str]:
         """list_lines calls GET /v1/telephony/lines: List lines
 
+        Returns the lines of the customer, across all billing accounts. Get a line or trunk for the
+        service without its billing account.
+
         Args:
             iam_tags: Filter resources on IAM tags (optional)
 
@@ -324,6 +338,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_lines(self, service_name: str) -> models.TelephonyTelephonyGenericServiceWithIAM:
         """get_lines calls GET /v1/telephony/lines/{serviceName}: Get a line or trunk
+
+        Returns the line or trunk service, without its billing account. Use it to find a service
+        across all billing accounts.
 
         Args:
             service_name: Your line number
@@ -513,6 +530,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_procedures(self) -> list[int]:
         """list_procedures calls GET /v1/telephony/procedure: List procedures
 
+        Returns the identifiers of the procedures of the customer, such as identity checks needed to
+        order telephony products.
+
         Requires the IAM action account:apiovh:voip/procedure/get.
 
         Deprecated: the API has deprecated this operation. Removal date: 2027-06-01.
@@ -527,6 +547,9 @@ class TelephonyApi(_gen.SectionApi):
     )
     def create_procedure(self, body: models.CreateProcedureRequest) -> models.TelephonyProcedure:
         """create_procedure calls POST /v1/telephony/procedure: Create a procedure
+
+        Creates a procedure needed to order telephony products. A SEPA payment mean is given by its
+        ID, or by the owner name, address, IBAN and BIC.
 
         Args:
             body: the request body
@@ -545,6 +568,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_procedure_required(self) -> bool:
         """get_procedure_required calls GET /v1/telephony/procedure/required: Check if a procedure is required
 
+        Returns true when a procedure, such as an identity check, is required before ordering
+        telephony products.
+
         Requires the IAM action account:apiovh:voip/procedure/required/get.
         """
         return self._call(
@@ -554,6 +580,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_procedure(self, id: int) -> models.TelephonyProcedure:
         """get_procedure calls GET /v1/telephony/procedure/{id}: Get a procedure
+
+        Returns the procedure: status (pretodo, todo, doing, done, stop or cancel), request date,
+        finish date and the URL of its document.
 
         Args:
             id: Procedure ID
@@ -588,6 +617,9 @@ class TelephonyApi(_gen.SectionApi):
     def cancel_procedure(self, id: int) -> None:
         """cancel_procedure calls POST /v1/telephony/procedure/{id}/cancel: Cancel a procedure
 
+        Cancels the procedure linked to the account. Its status becomes cancel and it is no longer
+        processed.
+
         Args:
             id: Procedure ID
 
@@ -603,6 +635,9 @@ class TelephonyApi(_gen.SectionApi):
     def generate_password_reseller_panel(self) -> None:
         """generate_password_reseller_panel calls POST /v1/telephony/resellerPanel/generatePassword: Generate a reseller panel password
 
+        Generates a new password for the reseller panel. Follow the update with the reseller panel
+        status.
+
         Requires the IAM action account:apiovh:voip/resellerPanel/generatePassword.
         """
         return self._call(
@@ -611,6 +646,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_reseller_panel_status(self) -> models.TelephonyResellerPanelStatus:
         """get_reseller_panel_status calls GET /v1/telephony/resellerPanel/status: Get the reseller panel status
+
+        Returns whether the reseller panel of the customer is enabled, and the status of the last
+        password update.
 
         Requires the IAM action account:apiovh:voip/resellerPanel/status/get.
         """
@@ -621,6 +659,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_search_services(self, axiom: str) -> list[models.TelephonyTelephonySearchService]:
         """list_search_services calls GET /v1/telephony/searchServices: Search a service
+
+        Finds services whose number matches the search value, and returns for each one its billing
+        account and service type.
 
         Args:
             axiom: Filter the value of property (like)
@@ -635,6 +676,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def set_default_sip_domain(self, body: models.SetDefaultSIPDomainRequest) -> None:
         """set_default_sip_domain calls POST /v1/telephony/setDefaultSipDomain: Set the default SIP domain
+
+        Sets the default SIP domain of the customer for a country and a product type. List the
+        default SIP domains for the available domains.
 
         Args:
             body: the request body
@@ -708,6 +752,9 @@ class TelephonyApi(_gen.SectionApi):
     def create_sounds(self, body: models.CreateSoundsRequest) -> models.TelephonySound:
         """create_sounds calls POST /v1/telephony/sounds: Create a sound
 
+        Creates a sound from an uploaded file. Sets its filename and description, and returns the
+        sound with the URL to upload the file.
+
         Args:
             body: the request body
 
@@ -722,6 +769,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_sounds(self, id: int) -> models.TelephonySound:
         """get_sounds calls GET /v1/telephony/sounds/{id}: Get a sound
+
+        Returns the sound: filename, description, creation date, size, and the URLs to download and
+        upload the sound file.
 
         Args:
             id: Sound ID
@@ -753,6 +803,9 @@ class TelephonyApi(_gen.SectionApi):
     def update_sounds(self, id: int, body: models.TelephonySoundWritable) -> None:
         """update_sounds calls PUT /v1/telephony/sounds/{id}: Update a sound
 
+        Updates the sound filename and description. The sound file itself is uploaded with the
+        upload URL of the sound.
+
         Args:
             id: Sound ID
             body: the request body
@@ -770,6 +823,8 @@ class TelephonyApi(_gen.SectionApi):
 
     def delete_sounds(self, id: int) -> None:
         """delete_sounds calls DELETE /v1/telephony/sounds/{id}: Delete a sound
+
+        Deletes the sound and its file. It can no longer be played by the telephony services.
 
         Args:
             id: Sound ID
@@ -789,6 +844,9 @@ class TelephonyApi(_gen.SectionApi):
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
         """list_spares calls GET /v1/telephony/spare: List spare phones
+
+        Returns the spare phones of the customer. A spare phone can replace a phone of a line, with
+        the same protocol.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -810,6 +868,8 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_spare(self, spare: str) -> models.SpareTelephonyTelephonySpareWithIAM:
         """get_spare calls GET /v1/telephony/spare/{spare}: Get a spare phone
+
+        Returns the spare phone: MAC address, brand and model, and its telephony protocol.
 
         Args:
             spare: The internal name of your spare
@@ -850,6 +910,8 @@ class TelephonyApi(_gen.SectionApi):
     def delete_spare(self, spare: str) -> None:
         """delete_spare calls DELETE /v1/telephony/spare/{spare}: Delete a spare phone
 
+        Removes the spare phone from the customer account, as if it no longer belonged to OVHcloud.
+
         Args:
             spare: The internal name of your spare
 
@@ -864,6 +926,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_spare_compatible_replacements(self, spare: str) -> list[str]:
         """list_spare_compatible_replacements calls GET /v1/telephony/spare/{spare}/compatibleReplacement: List phones replaceable by the spare
+
+        Returns the phones that the spare can replace. Use one of them to replace a phone with the
+        spare.
 
         Args:
             spare: The internal name of your spare
@@ -880,6 +945,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def replace_spare(self, spare: str, body: models.ReplaceSpareRequest) -> None:
         """replace_spare calls POST /v1/telephony/spare/{spare}/replace: Replace a phone with the spare
+
+        Replaces the phone of a line, given by its domain and public IP address, with the spare. The
+        replaced phone becomes a spare if it was bought.
 
         Args:
             spare: The internal name of your spare
@@ -943,6 +1011,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[str]:
         """list_trunks calls GET /v1/telephony/trunks: List trunks
 
+        Returns the trunks of the customer, across all billing accounts. A trunk connects a customer
+        PBX to OVHcloud over SIP.
+
         Args:
             iam_tags: Filter resources on IAM tags (optional)
 
@@ -956,6 +1027,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_trunks(self, service_name: str) -> models.TelephonyTelephonyGenericServiceWithIAM:
         """get_trunks calls GET /v1/telephony/trunks/{serviceName}: Get a line or trunk
+
+        Returns the line or trunk service, without its billing account. Use it to find a service
+        across all billing accounts.
 
         Args:
             service_name: Your trunk number
@@ -1061,6 +1135,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_telephony(self, billing_account: str) -> models.TelephonyBillingAccountWithIAM:
         """get_telephony calls GET /v1/telephony/{billingAccount}: Get a billing account
 
+        Returns the billing account: description, status, credit threshold, security deposit and
+        current out-of-plan amount.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -1102,6 +1179,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_telephony calls PUT /v1/telephony/{billingAccount}: Update a billing account
 
+        Updates the billing account settings: description, credit threshold, and the displayed or
+        hidden external number.
+
         Args:
             billing_account: The name of your billingAccount
             body: the request body
@@ -1126,6 +1206,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_telephony calls DELETE /v1/telephony/{billingAccount}: Terminate a billing account
 
+        Requests the termination of the billing account, with a reason and optional details. The
+        termination can be cancelled until it is executed.
+
         Args:
             billing_account: The name of your billingAccount
             reason: Termination reason
@@ -1147,6 +1230,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_abbreviated_numbers(self, billing_account: str) -> list[int]:
         """list_abbreviated_numbers calls GET /v1/telephony/{billingAccount}/abbreviatedNumber: List speed dial numbers
 
+        Returns the speed dial numbers shared by all the lines of the billing account. A speed dial
+        number is a short code for a number.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -1164,6 +1250,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, body: models.CreateAbbreviatedNumberRequest
     ) -> models.TelephonyAbbreviatedNumberGroup:
         """create_abbreviated_number calls POST /v1/telephony/{billingAccount}/abbreviatedNumber: Create a speed dial number
+
+        Creates a speed dial number shared by all the lines of the billing account. The short code
+        starts with 7 and has 3 or 4 digits.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1185,6 +1274,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, abbreviated_number: int
     ) -> models.TelephonyAbbreviatedNumberGroup:
         """get_abbreviated_number calls GET /v1/telephony/{billingAccount}/abbreviatedNumber/{abbreviatedNumber}: Get a speed dial number
+
+        Returns the speed dial number of the billing account: short code, destination number, name
+        and surname. The short code starts with 7.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1230,6 +1322,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_abbreviated_number calls PUT /v1/telephony/{billingAccount}/abbreviatedNumber/{abbreviatedNumber}: Update a speed dial number
 
+        Updates the speed dial number of the billing account: destination number, name and surname.
+        The short code starts with 7 and has 3 or 4 digits.
+
         Args:
             billing_account: The name of your billingAccount
             abbreviated_number: The abbreviated number which must start with "7" and must have a length of 3 or 4 digits
@@ -1250,6 +1345,9 @@ class TelephonyApi(_gen.SectionApi):
     def delete_abbreviated_number(self, billing_account: str, abbreviated_number: int) -> None:
         """delete_abbreviated_number calls DELETE /v1/telephony/{billingAccount}/abbreviatedNumber/{abbreviatedNumber}: Delete a speed dial number
 
+        Deletes the speed dial number of the billing account. Its short code no longer calls the
+        destination number from the lines.
+
         Args:
             billing_account: The name of your billingAccount
             abbreviated_number: The abbreviated number which must start with "7" and must have a length of 3 or 4 digits
@@ -1267,6 +1365,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_allowed_credit_thresholds(self, billing_account: str) -> list[models.OrderPrice]:
         """list_allowed_credit_thresholds calls GET /v1/telephony/{billingAccount}/allowedCreditThreshold: List allowed credit thresholds
 
+        Returns the credit thresholds allowed for the billing account. Use one of them to update the
+        billing account.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -1282,6 +1383,8 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_amount_security_deposits(self, billing_account: str) -> list[models.OrderPrice]:
         """list_amount_security_deposits calls GET /v1/telephony/{billingAccount}/amountSecurityDeposit: List security deposit amounts
+
+        Returns the security deposit amounts that can be ordered for the billing account, as prices.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1299,6 +1402,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_available_devices(self, billing_account: str) -> list[models.TelephonyAvailableDevice]:
         """list_available_devices calls GET /v1/telephony/{billingAccount}/availableDevices: List phone devices
 
+        Returns the phone devices of the billing account: brand, MAC address, maximum and available
+        lines, and the lines assigned to each one.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -1314,6 +1420,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_billing_account_site(self, billing_account: str) -> str:
         """get_billing_account_site calls GET /v1/telephony/{billingAccount}/billingAccountSite: Get the billing account site
+
+        Returns the site attached to the billing account. The site settings override the billing
+        account settings.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1332,6 +1441,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, body: models.CreateBillingAccountSiteRequest
     ) -> None:
         """create_billing_account_site calls POST /v1/telephony/{billingAccount}/billingAccountSite: Set the billing account site
+
+        Attaches a site to the billing account. The site settings override the billing account
+        settings.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1353,6 +1465,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> bool:
         """can_transfer_security_deposit calls POST /v1/telephony/{billingAccount}/canTransferSecurityDeposit: Check a security deposit transfer
 
+        Checks whether the security deposit can be transferred to another billing account, given by
+        its name.
+
         Args:
             billing_account: The name of your billingAccount
             body: the request body
@@ -1372,6 +1487,8 @@ class TelephonyApi(_gen.SectionApi):
     def cancel_termination(self, billing_account: str) -> None:
         """cancel_termination calls POST /v1/telephony/{billingAccount}/cancelTermination: Cancel the billing account termination
 
+        Cancels the termination requested on the billing account, before it is executed.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -1386,6 +1503,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_carrier_sips(self, billing_account: str) -> list[str]:
         """list_carrier_sips calls GET /v1/telephony/{billingAccount}/carrierSip: List Carrier SIP services
+
+        Returns the Carrier SIP services of the billing account. Carrier SIP connects an operator
+        network to OVHcloud over SIP.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1404,6 +1524,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyCarrierSIP:
         """get_carrier_sip calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}: Get a Carrier SIP service
+
+        Returns the Carrier SIP service and its description. Settings, SIP endpoints and VNO
+        mandates have their own routes.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1444,6 +1567,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyDocument:
         """get_carrier_sip_cdrs calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/cdrs: Get call detail records
 
+        Returns the call detail records (CDR) of the Carrier SIP service for a month (YYYY-MM), the
+        current month by default, as a document.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1466,6 +1592,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyCarrierSIPClusterInfo:
         """get_carrier_sip_cluster_details calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/clusterDetails: Get the cluster details
 
+        Returns the details of the Carrier SIP cluster the service runs on: its name and its zones.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1483,6 +1611,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_carrier_sip_endpoints(self, billing_account: str, service_name: str) -> list[int]:
         """list_carrier_sip_endpoints calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/endpoints: List SIP endpoints
+
+        Returns the identifiers of the remote SIP endpoints of the service. Get an endpoint for its
+        IP address, port, protocol and priority.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1503,6 +1634,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyCarrierSIPCustomerEndpoint:
         """get_carrier_sip_endpoints calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/endpoints/{id}: Get a SIP endpoint
+
+        Returns the remote SIP endpoint: IP address, port, protocol (udp, tcp or tls), DNS SRV
+        priority and weight, and whether it receives incoming calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1551,6 +1685,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyCarrierSIPDetails:
         """get_carrier_sip_settings calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/settings: Get the settings
 
+        Returns the Carrier SIP settings: description, maximum call establishments per second and
+        maximum concurrent calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1574,6 +1711,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_carrier_sip_settings calls PUT /v1/telephony/{billingAccount}/carrierSip/{serviceName}/settings: Update the settings
 
+        Updates the Carrier SIP settings. Only the description can be changed; the call limits are
+        read only.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1594,6 +1734,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_carrier_sip_vnos(self, billing_account: str, service_name: str) -> list[str]:
         """list_carrier_sip_vnos calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno: List VNO mandates
 
+        Returns the references of the VNO mandates of the service. A mandate covers number ranges
+        routed from its application date.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1613,6 +1756,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, contract_reference: str
     ) -> models.TelephonyCarrierSIPVnoMandate:
         """get_carrier_sip_vno calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno/{contractReference}: Get a VNO mandate
+
+        Returns the VNO mandate: the reference written on the VNO contract and the date from which
+        its ranges are routed.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1659,6 +1805,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[str]:
         """list_carrier_sip_vno_ranges calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno/{contractReference}/ranges: List mandate number ranges
 
+        Returns the prefixes of the number ranges covered by the VNO mandate. Get a range for its
+        description.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1680,6 +1829,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, contract_reference: str, prefix: str
     ) -> models.TelephonyCarrierSIPVnoRange:
         """get_carrier_sip_vno_ranges calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno/{contractReference}/ranges/{prefix}: Get a number range
+
+        Returns the number range of the mandate: its phone range prefix and its description, which
+        can be updated.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1737,6 +1889,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_carrier_sip_vno_ranges calls PUT /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno/{contractReference}/ranges/{prefix}: Update a number range
 
+        Updates the description of the number range of the mandate. The prefix cannot be changed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1782,6 +1936,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_conferences(self, billing_account: str) -> list[str]:
         """list_conferences calls GET /v1/telephony/{billingAccount}/conference: List conference services
 
+        Returns the conference services of the billing account. A conference service hosts calls
+        between several participants.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -1797,6 +1954,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_conference(self, billing_account: str, service_name: str) -> models.TelephonyConference:
         """get_conference calls GET /v1/telephony/{billingAccount}/conference/{serviceName}: Get a conference service
+
+        Returns the conference service: description and offers. Settings, rooms and participants
+        have their own routes.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1837,6 +1997,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """announce_upload_conference calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/announceUpload: Upload the welcome announcement
 
+        Uploads the sound played to participants when they join the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1865,6 +2027,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_conference_histories calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/histories: List past conferences
 
+        Returns the identifiers of the past conferences, filtered by start date. Get one for its
+        duration, participants and recording.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1890,6 +2055,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyConferenceHistory:
         """get_conference_histories calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/histories/{id}: Get a past conference
+
+        Returns the past conference: start and end dates, duration, participants and connections,
+        events, and the recording URL if recorded.
 
         Args:
             billing_account: The name of your billingAccount
@@ -1947,6 +2115,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyConferenceInformations:
         """get_conference_informations calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/informations: Get live conference information
 
+        Returns live information about the conference: start date, lock state and number of members.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1965,6 +2135,8 @@ class TelephonyApi(_gen.SectionApi):
     def lock_conference(self, billing_account: str, service_name: str) -> models.TelephonyTask:
         """lock_conference calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/lock: Lock the conference room
 
+        Locks the conference room. No new participant can join. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -1982,6 +2154,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_conference_participants(self, billing_account: str, service_name: str) -> list[int]:
         """list_conference_participants calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/participants: List participants
+
+        Returns the identifiers of the participants currently in the conference. Get a participant
+        for its number, name and audio state.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2002,6 +2177,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyConferenceParticipants:
         """get_conference_participants calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}: Get a participant
+
+        Returns the participant: number, name, arrival time and audio state (talking, can speak, can
+        hear, audio level).
 
         Args:
             billing_account: The name of your billingAccount
@@ -2050,6 +2228,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """deaf_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/deaf: Deafen a participant
 
+        Stops the participant from hearing the conference. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2076,6 +2256,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """energy_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/energy: Change a participant audio level
 
+        Changes the audio level (energy) the participant must reach to be heard. Returns the task
+        that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2101,6 +2284,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """kick_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/kick: Eject a participant
 
+        Removes the participant from the conference room. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2122,6 +2307,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyTask:
         """mute_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/mute: Mute a participant
+
+        Mutes the participant, who can still hear the conference. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2145,6 +2332,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """undeaf_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/undeaf: Undeafen a participant
 
+        Lets the participant hear the conference again. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2167,6 +2356,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """unmute_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/unmute: Unmute a participant
 
+        Unmutes the participant, who can talk in the conference again. Returns the task that
+        performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2187,6 +2379,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_conference_rooms(self, billing_account: str, service_name: str) -> list[int]:
         """list_conference_rooms calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms: List conference rooms
 
+        Returns the room numbers of the conference service. Each room has its own PIN, language and
+        recording settings.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2206,6 +2401,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateConferenceRoomsRequest
     ) -> models.TelephonyConferenceRoom:
         """create_conference_rooms calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms: Create a conference room
+
+        Creates a conference room with the given room number, or a random one if not specified.
+        Returns the room.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2229,6 +2427,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, room_number: int
     ) -> models.TelephonyConferenceRoom:
         """get_conference_rooms calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}: Get a conference room
+
+        Returns the conference room and its settings: PIN, language, recording, announcement, report
+        and expiration date.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2279,6 +2480,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_conference_rooms calls PUT /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}: Update a conference room
 
+        Updates the room settings: PIN, language, muted entry, recording, anonymous rejection,
+        announcement, report and expiration date.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2309,6 +2513,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_conference_rooms_histories calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/histories: List past conferences
 
+        Returns the identifiers of the past conferences, filtered by start date. Get one for its
+        duration, participants and recording.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2336,6 +2543,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyConferenceHistory:
         """get_conference_rooms_histories calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/histories/{id}: Get a past conference
+
+        Returns the past conference: start and end dates, duration, participants and connections,
+        events, and the recording URL if recorded.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2398,6 +2608,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """lock_conference_rooms calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/lock: Lock the conference room
 
+        Locks the conference room. No new participant can join. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2420,6 +2632,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_conference_rooms_participants calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants: List participants
 
+        Returns the identifiers of the participants currently in the conference. Get a participant
+        for its number, name and audio state.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2441,6 +2656,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyConferenceParticipants:
         """get_conference_rooms_participants calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}: Get a participant
+
+        Returns the participant: number, name, arrival time and audio state (talking, can speak, can
+        hear, audio level).
 
         Args:
             billing_account: The name of your billingAccount
@@ -2493,6 +2711,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """deaf_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/deaf: Deafen a participant
 
+        Stops the participant from hearing the conference. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2522,6 +2742,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """energy_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/energy: Change a participant audio level
 
+        Changes the audio level (energy) the participant must reach to be heard. Returns the task
+        that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2549,6 +2772,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """kick_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/kick: Eject a participant
 
+        Removes the participant from the conference room. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2572,6 +2797,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyTask:
         """mute_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/mute: Mute a participant
+
+        Mutes the participant, who can still hear the conference. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2597,6 +2824,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """undeaf_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/undeaf: Undeafen a participant
 
+        Lets the participant hear the conference again. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2620,6 +2849,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyTask:
         """unmute_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/unmute: Unmute a participant
+
+        Unmutes the participant, who can talk in the conference again. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2645,6 +2877,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """unlock_conference_rooms calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/unlock: Unlock the conference room
 
+        Unlocks the conference room. New participants can join again. Returns the task that performs
+        it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2666,6 +2901,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, room_number: int
     ) -> list[int]:
         """list_conference_rooms_web_access calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/webAccess: List web accesses
+
+        Returns the identifiers of the public web accesses to the conference. A web access gives a
+        read or write URL to follow the conference.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2693,6 +2931,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyConferenceWebAccess:
         """create_conference_rooms_web_access calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/webAccess: Create a web access
 
+        Creates a public web access to follow and manage the conference. Returns its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2717,6 +2957,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyConferenceWebAccess:
         """get_conference_rooms_web_access calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/webAccess/{id}: Get a web access
+
+        Returns the public web access to the conference: its type (read or write) and its URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2769,6 +3011,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_conference_rooms_web_access calls DELETE /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/webAccess/{id}: Delete a web access
 
+        Deletes the public web access. Its URL no longer gives access to the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2792,6 +3036,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyConferenceRoomsStatistics:
         """get_conference_rooms_stats calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/roomsStats: Get live room statistics
 
+        Returns live statistics for all the rooms of the conference service: number of rooms, active
+        rooms and participants.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2811,6 +3058,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyConferenceProperties:
         """get_conference_settings calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/settings: Get the conference settings
+
+        Returns the conference settings: PIN, language, announcements and other options.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2835,6 +3084,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_conference_settings calls PUT /v1/telephony/{billingAccount}/conference/{serviceName}/settings: Update the conference settings
 
+        Updates the PIN, language, muted entry, recording, anonymous rejection, announcement and
+        report settings of the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2855,6 +3107,9 @@ class TelephonyApi(_gen.SectionApi):
     def unlock_conference(self, billing_account: str, service_name: str) -> models.TelephonyTask:
         """unlock_conference calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/unlock: Unlock the conference room
 
+        Unlocks the conference room. New participants can join again. Returns the task that performs
+        it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2872,6 +3127,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_conference_web_access(self, billing_account: str, service_name: str) -> list[int]:
         """list_conference_web_access calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/webAccess: List web accesses
+
+        Returns the identifiers of the public web accesses to the conference. A web access gives a
+        read or write URL to follow the conference.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2892,6 +3150,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateConferenceWebAccessRequest
     ) -> models.TelephonyConferenceWebAccess:
         """create_conference_web_access calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/webAccess: Create a web access
+
+        Creates a public web access to follow and manage the conference. Returns its URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2915,6 +3175,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyConferenceWebAccess:
         """get_conference_web_access calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/webAccess/{id}: Get a web access
+
+        Returns the public web access to the conference: its type (read or write) and its URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -2963,6 +3225,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_conference_web_access calls DELETE /v1/telephony/{billingAccount}/conference/{serviceName}/webAccess/{id}: Delete a web access
 
+        Deletes the public web access. Its URL no longer gives access to the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -2982,6 +3246,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_ddis(self, billing_account: str) -> list[str]:
         """list_ddis calls GET /v1/telephony/{billingAccount}/ddi: List DDI numbers
 
+        Returns the DDI numbers of the billing account. A DDI number forwards calls to a
+        destination.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -2997,6 +3264,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_ddi(self, billing_account: str, service_name: str) -> models.TelephonyDdi:
         """get_ddi calls GET /v1/telephony/{billingAccount}/ddi/{serviceName}: Get a DDI number
+
+        Returns the DDI (direct dial-in) number: feature type and description. The destination is
+        changed with the changeDestination call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3037,6 +3307,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ddi calls PUT /v1/telephony/{billingAccount}/ddi/{serviceName}: Update a DDI number
 
+        Updates the description of the DDI number. The destination is changed with the
+        changeDestination call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3059,6 +3332,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """change_destination_ddi calls POST /v1/telephony/{billingAccount}/ddi/{serviceName}/changeDestination: Change the DDI destination
 
+        Changes the number calls to the DDI number are forwarded to. Returns the task that performs
+        it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3080,6 +3356,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_easy_huntings(self, billing_account: str) -> list[str]:
         """list_easy_huntings calls GET /v1/telephony/{billingAccount}/easyHunting: List contact center services
 
+        Returns the contact center services of the billing account. A contact center routes calls to
+        agents through queues.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -3097,6 +3376,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEasyHunting:
         """get_easy_hunting calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}: Get a contact center service
+
+        Returns the contact center service: queue strategy and size, maximum wait time, tones,
+        voicemail and caller number presentation.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3137,6 +3419,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_easy_hunting calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}: Update a contact center service
 
+        Updates the queue strategy and size, the maximum wait time, the tones, the voicemail,
+        anonymous call rejection and the status IVR.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3159,6 +3444,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxHunting:
         """get_easy_hunting_hunting calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting: Get the queue system settings
 
+        Returns the queue system settings of the service: offer name, CRM URL template opened by the
+        agent banner, G729 codec and status change IVR.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3178,6 +3466,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyOvhPabxHuntingWritable
     ) -> None:
         """update_easy_hunting_hunting calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting: Update the queue system settings
+
+        Updates the queue system settings: the CRM URL template opened by the agent banner, the G729
+        codec and the status change IVR.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3200,6 +3491,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> list[int]:
         """list_easy_hunting_hunting_agents calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent: List agents
+
+        Returns the identifiers of the agents. An agent is a phone number that answers the calls of
+        one or several queues.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3224,6 +3518,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxHuntingAgent:
         """create_easy_hunting_hunting_agent calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent: Create an agent
 
+        Creates an agent: a number that answers calls from the queues. Sets its status, ring
+        timeout, wrap-up time and maximum simultaneous calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3246,6 +3543,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgent:
         """get_easy_hunting_hunting_agent calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}: Get an agent
+
+        Returns the agent: number, description, status, break status, type (internal or external),
+        ring timeout, wrap-up time and simultaneous calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3298,6 +3598,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_easy_hunting_hunting_agent calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}: Update an agent
 
+        Updates the agent: number, description, status (available, logged out or on break), break
+        status, ring timeout, wrap-up time and simultaneous calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3322,6 +3625,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_agent calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}: Delete an agent
 
+        Deletes the agent. It is removed from all its queues and no longer receives calls from the
+        queue system.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3342,6 +3648,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyBannerAccess:
         """get_easy_hunting_hunting_agent_banner_access calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/bannerAccess: Get the agent banner access
+
+        Returns the web access to the agent banner application: its URL and creation date.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3365,6 +3673,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyBannerAccess:
         """create_easy_hunting_hunting_agent_banner_access calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/bannerAccess: Create the agent banner access
 
+        Creates a web access to the agent banner application. Returns its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3387,6 +3697,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_agent_banner_access calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/bannerAccess: Delete the agent banner access
 
+        Deletes the web access to the agent banner application. Its URL no longer gives access to
+        the banner.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3407,6 +3720,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> list[int]:
         """list_easy_hunting_hunting_agent_calls calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls: List agent calls
+
+        Returns the identifiers of the calls the agent is handling. Get a live call for its caller,
+        queue, state and dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3429,6 +3745,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_easy_hunting_hunting_agent_calls calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3486,6 +3805,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3513,6 +3835,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """hangup_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3536,6 +3861,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int, id: int
     ) -> models.TelephonyTask:
         """hold_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3565,6 +3893,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.InterceptEasyHuntingHuntingAgentCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3598,6 +3929,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """transfer_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3630,6 +3964,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """whisper_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3657,6 +3994,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyEventToken:
         """get_easy_hunting_hunting_agent_event_token calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/eventToken: Get the event token
 
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3683,6 +4023,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> str:
         """create_easy_hunting_hunting_agent_event_token calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3708,6 +4051,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_agent_event_token calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/eventToken: Delete the event token
 
+        Deletes the event token. It can no longer be used to receive real-time call events.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3728,6 +4073,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_easy_hunting_hunting_agent_live_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3750,6 +4098,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> list[int]:
         """list_easy_hunting_hunting_agent_queues calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue: List the queues of an agent
+
+        Returns the identifiers of the queues the agent belongs to. Get an agent position in a queue
+        to see its order in that queue.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3777,6 +4128,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """create_easy_hunting_hunting_agent_queue calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue: Assign an agent to a queue
 
+        Adds an agent to a queue, with a position. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3801,6 +4155,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """get_easy_hunting_hunting_agent_queue calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Get an agent position in a queue
+
+        Returns the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3858,6 +4215,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_easy_hunting_hunting_agent_queue calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Update an agent position in a queue
 
+        Updates the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3884,6 +4244,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_agent_queue calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Remove an agent from a queue
 
+        Removes the agent from the queue. The agent no longer receives calls from this queue but
+        stays assigned to its other queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3906,6 +4269,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_easy_hunting_hunting_agent_queue_live_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue/{queueId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -3931,6 +4297,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_easy_hunting_hunting_custom_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/customStatus: List custom statuses
 
+        Returns the identifiers of the custom statuses agents can set, such as a break. Each status
+        has a name, a description and a color.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3954,6 +4323,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxCustomStatus:
         """create_easy_hunting_hunting_custom_status calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/customStatus: Create a custom status
 
+        Creates a custom status agents can set, such as a break. Sets its name, short description
+        and the color shown on the agent banner.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -3976,6 +4348,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxCustomStatus:
         """get_easy_hunting_hunting_custom_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/customStatus/{id}: Get a custom status
+
+        Returns the custom status: name, short description and color displayed on the agent banner
+        web application.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4024,6 +4399,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_custom_status calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/customStatus/{id}: Delete a custom status
 
+        Deletes the custom status. Agents can no longer select it on the agent banner web
+        application.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4044,6 +4422,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEventToken:
         """get_easy_hunting_hunting_event_token calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/eventToken: Get the event token
+
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4068,6 +4449,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> str:
         """create_easy_hunting_hunting_event_token calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4091,6 +4475,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_event_token calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/eventToken: Delete the event token
 
+        Deletes the event token. It can no longer be used to receive real-time call events.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4109,6 +4495,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> list[int]:
         """list_easy_hunting_hunting_queues calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue: List queues
+
+        Returns the identifiers of the queues. A queue holds incoming calls and dispatches them to
+        its agents with a strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4133,6 +4522,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxHuntingQueue:
         """create_easy_hunting_hunting_queue calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue: Create a queue
 
+        Creates a queue that distributes calls to its agents. Sets the dispatching strategy, the
+        maximum wait time and callers, and the overflow and closure actions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4155,6 +4547,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingQueue:
         """get_easy_hunting_hunting_queue calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}: Get a queue
+
+        Returns the queue: name, strategy, maximum waiting callers and wait time, sound on hold,
+        call recording, and actions on overflow and on closure.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4207,6 +4602,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_easy_hunting_hunting_queue calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}: Update a queue
 
+        Updates the queue: name, dispatching strategy, maximum waiting callers and wait time, sound
+        on hold, call recording and overflow and closure actions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4231,6 +4629,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_queue calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}: Delete a queue
 
+        Deletes the queue. Its agents are no longer assigned to it, and calls are no longer
+        dispatched through it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4251,6 +4652,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int
     ) -> list[int]:
         """list_easy_hunting_hunting_queue_agents calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent: List the agents of a queue
+
+        Returns the identifiers of the agents of the queue. Get an agent position in the queue to
+        see the order in which agents receive calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4273,6 +4677,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """get_easy_hunting_hunting_queue_agent calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Get an agent position in a queue
+
+        Returns the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4330,6 +4737,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_easy_hunting_hunting_queue_agent calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Update an agent position in a queue
 
+        Updates the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4356,6 +4766,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_queue_agent calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Remove an agent from a queue
 
+        Removes the agent from the queue. The agent no longer receives calls from this queue but
+        stays assigned to its other queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4378,6 +4791,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_easy_hunting_hunting_queue_agent_live_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4403,6 +4819,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_easy_hunting_hunting_queue_live_calls calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls: List queue live calls
 
+        Returns the identifiers of the calls waiting or answered in the queue. Get a live call for
+        its caller, agent, state and dates.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4424,6 +4843,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_easy_hunting_hunting_queue_live_calls calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4481,6 +4903,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4508,6 +4933,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """hangup_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4531,6 +4959,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int, id: int
     ) -> models.TelephonyTask:
         """hold_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4560,6 +4991,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.InterceptEasyHuntingHuntingQueueLiveCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4593,6 +5027,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """transfer_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4625,6 +5062,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """whisper_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4652,6 +5092,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxHuntingQueueLiveStatistics:
         """get_easy_hunting_hunting_queue_live_statistics calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveStatistics: Get queue live statistics
 
+        Returns the live statistics of the queue since the last reset at midnight: total, answered
+        and lost calls, and total waiting and call durations.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4672,6 +5115,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_easy_hunting_records(self, billing_account: str, service_name: str) -> list[int]:
         """list_easy_hunting_records calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/records: List call recordings
 
+        Returns the identifiers of the recordings of the calls handled by the service. Get a call
+        recording for its details.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4691,6 +5137,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxRecord:
         """get_easy_hunting_records calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/records/{id}: Get a call recording
+
+        Returns the call recording and the URL to download it, with the caller and destination
+        numbers, agent, start and end dates and duration.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4737,6 +5186,9 @@ class TelephonyApi(_gen.SectionApi):
     def delete_easy_hunting_records(self, billing_account: str, service_name: str, id: int) -> None:
         """delete_easy_hunting_records calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/records/{id}: Delete a call recording
 
+        Deletes the call recording of the service. Its sound file can no longer be downloaded from
+        its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4757,6 +5209,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEasyHuntingScreenListsConditionsSettings:
         """get_easy_hunting_screen_list_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions: Get the filtering condition settings
+
+        Returns the call filtering settings of the contact center: whether filtering is disabled, or
+        uses the incoming whitelist or the incoming blacklist.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4780,6 +5235,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.TelephonyEasyHuntingScreenListsConditionsSettings,
     ) -> None:
         """update_easy_hunting_screen_list_conditions calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions: Update the filtering condition settings
+
+        Updates the call filtering status of the contact center: disabled, incoming whitelist or
+        incoming blacklist.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4810,6 +5268,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_easy_hunting_screen_list_conditions_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions: List filtering conditions
 
+        Returns the identifiers of the filtering conditions checked when a call is received. The
+        list can be filtered by screen list type.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4835,6 +5296,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyEasyHuntingScreenListsConditions:
         """create_easy_hunting_screen_list_conditions_conditions calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions: Create a filtering condition
 
+        Creates a filtering condition based on the caller or the called number. The screen list type
+        sets whether matching calls are allowed or blocked.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4857,6 +5321,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, condition_id: int
     ) -> models.TelephonyEasyHuntingScreenListsConditions:
         """get_easy_hunting_screen_list_conditions_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions/{conditionId}: Get a filtering condition
+
+        Returns the filtering condition of the contact center: caller number or destination number,
+        and screen list type (whitelist or blacklist).
 
         Args:
             billing_account: The name of your billingAccount
@@ -4919,6 +5386,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_easy_hunting_screen_list_conditions_conditions calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions/{conditionId}: Update a filtering condition
 
+        Updates the caller number or the destination number checked by the filtering condition of
+        the contact center.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4943,6 +5413,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_screen_list_conditions_conditions calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions/{conditionId}: Delete a filtering condition
 
+        Deletes the filtering condition. Calls are no longer checked against its caller number or
+        destination number.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -4961,6 +5434,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_easy_hunting_sounds(self, billing_account: str, service_name: str) -> list[int]:
         """list_easy_hunting_sounds calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/sound: List sounds
+
+        Returns the identifiers of the sound files of the service. Add a sound with the soundUpload
+        call, from /me/document or a URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -4981,6 +5457,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, sound_id: int
     ) -> models.TelephonyOvhPabxSound:
         """get_easy_hunting_sound calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/sound/{soundId}: Get a sound
+
+        Returns the sound of the service: its identifier and filename. Sounds are played by queues
+        and voice menus.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5027,6 +5506,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_sound calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/sound/{soundId}: Delete a sound
 
+        Deletes the sound of the service, identified by its ID. Queues and voice menus can no longer
+        play it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -5047,6 +5529,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.SoundUploadEasyHuntingRequest
     ) -> models.TelephonyTask:
         """sound_upload_easy_hunting calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/soundUpload: Upload a sound
+
+        Uploads a sound file to the service, from a /me/document identifier or a URL, with an
+        optional name. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5071,6 +5556,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyEasyHuntingTimeConditionsSettings:
         """get_easy_hunting_time_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions: Get the time condition settings
 
+        Returns the time condition settings of the contact center: status, and the action (number or
+        voicemail) of each slot and of the unavailable slot.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -5093,6 +5581,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.TelephonyEasyHuntingTimeConditionsSettings,
     ) -> None:
         """update_easy_hunting_time_conditions calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions: Update the time condition settings
+
+        Enables or disables the time conditions of the contact center, and sets the action (number
+        or voicemail) and number of each slot.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5120,6 +5611,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_easy_hunting_time_conditions_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions: List time conditions
 
+        Returns the identifiers of the time conditions of the contact center, optionally filtered by
+        policy. Each one defines a day and a time slot.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -5145,6 +5639,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyEasyHuntingTimeConditions:
         """create_easy_hunting_time_conditions_conditions calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions: Create a time condition
 
+        Creates a time condition on the contact center: a day of the week, start and end times, and
+        the policy to apply during it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -5167,6 +5664,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, condition_id: int
     ) -> models.TelephonyEasyHuntingTimeConditions:
         """get_easy_hunting_time_conditions_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions/{conditionId}: Get a time condition
+
+        Returns the time condition of the contact center: day of the week, start and end times, and
+        policy (slot1, slot2, slot3 or available).
 
         Args:
             billing_account: The name of your billingAccount
@@ -5225,6 +5725,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_easy_hunting_time_conditions_conditions calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions/{conditionId}: Update a time condition
 
+        Updates the day of the week, the start and end times and the policy of the time condition of
+        the contact center.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -5249,6 +5752,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_easy_hunting_time_conditions_conditions calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions/{conditionId}: Delete a time condition
 
+        Deletes the time condition of the contact center. Its time slot no longer applies to the
+        calls received.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -5268,6 +5774,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_event_token(self, billing_account: str) -> models.TelephonyEventToken:
         """get_event_token calls GET /v1/telephony/{billingAccount}/eventToken: Get the event token
 
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -5283,6 +5792,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def create_event_token(self, billing_account: str, body: models.CreateEventTokenRequest) -> str:
         """create_event_token calls POST /v1/telephony/{billingAccount}/eventToken: Create an event token
+
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5302,6 +5814,8 @@ class TelephonyApi(_gen.SectionApi):
 
     def delete_event_token(self, billing_account: str) -> None:
         """delete_event_token calls DELETE /v1/telephony/{billingAccount}/eventToken: Delete the event token
+
+        Deletes the event token. It can no longer be used to receive real-time call events.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5803,6 +6317,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_has_special_numbers(self, billing_account: str) -> bool:
         """get_has_special_numbers calls GET /v1/telephony/{billingAccount}/hasSpecialNumbers: Check for special numbers
 
+        Returns true when the billing account has at least one special number, such as a premium
+        rate number.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -5818,6 +6335,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_history_consumptions(self, billing_account: str) -> list[datetime.date]:
         """list_history_consumptions calls GET /v1/telephony/{billingAccount}/historyConsumption: List billed consumptions
+
+        Returns the dates of the billed consumptions. Get a billed consumption for its price,
+        out-of-plan price and status.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5836,6 +6356,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, date: datetime.date
     ) -> models.TelephonyHistoryConsumption:
         """get_history_consumption calls GET /v1/telephony/{billingAccount}/historyConsumption/{date}: Get a billed consumption
+
+        Returns the billed consumption: date, price, out-of-plan price and status of the bill.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5881,6 +6403,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyPcsFile:
         """get_history_consumption_file calls GET /v1/telephony/{billingAccount}/historyConsumption/{date}/file: Get billed consumption files
 
+        Returns a file of the billed consumption to download, in received.csv, csv, pdf or xml
+        format.
+
         Args:
             billing_account: The name of your billingAccount
             date: the date path parameter
@@ -5901,6 +6426,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_history_repayment_consumptions(self, billing_account: str) -> list[datetime.date]:
         """list_history_repayment_consumptions calls GET /v1/telephony/{billingAccount}/historyRepaymentConsumption: List repayment bills
 
+        Returns the dates of the repayment bills. Get a repayment bill for its amount, bill number
+        and status.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -5918,6 +6446,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, body: models.CreateHistoryRepaymentConsumptionRequest
     ) -> models.TelephonyHistoryRepaymentConsumption:
         """create_history_repayment_consumption calls POST /v1/telephony/{billingAccount}/historyRepaymentConsumption: Request a repayment
+
+        Requests a repayment for the repayable calls, with the number of the bill. Returns the
+        repayment bill.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5939,6 +6470,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, date: datetime.date
     ) -> models.TelephonyHistoryRepaymentConsumption:
         """get_history_repayment_consumption calls GET /v1/telephony/{billingAccount}/historyRepaymentConsumption/{date}: Get a repayment bill
+
+        Returns the repayment bill: date, amount repaid, bill number and status of the repayment.
 
         Args:
             billing_account: The name of your billingAccount
@@ -5981,6 +6514,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyPcsFile:
         """get_history_repayment_consumption_document calls GET /v1/telephony/{billingAccount}/historyRepaymentConsumption/{date}/document: Get the bill as CSV
 
+        Returns a file to download the repayment bill as a CSV document, with its URL and expiration
+        date.
+
         Args:
             billing_account: The name of your billingAccount
             date: date of the bill
@@ -5999,6 +6535,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_history_tollfree_consumptions(self, billing_account: str) -> list[datetime.date]:
         """list_history_tollfree_consumptions calls GET /v1/telephony/{billingAccount}/historyTollfreeConsumption: List toll-free bills
 
+        Returns the dates of the toll-free bills. Get a toll-free bill for the amount paid by the
+        called number.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -6016,6 +6555,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, date: datetime.date
     ) -> models.TelephonyHistoryTollfreeConsumption:
         """get_history_tollfree_consumption calls GET /v1/telephony/{billingAccount}/historyTollfreeConsumption/{date}: Get a toll-free bill
+
+        Returns the toll-free bill: date, amount paid by the called number, and status of the bill.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6058,6 +6599,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyPcsFile:
         """get_history_tollfree_consumption_document calls GET /v1/telephony/{billingAccount}/historyTollfreeConsumption/{date}/document: Get the bill as CSV
 
+        Returns a file to download the toll-free bill as a CSV document, with its URL and expiration
+        date.
+
         Args:
             billing_account: The name of your billingAccount
             date: date of the bill
@@ -6076,6 +6620,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_by_billing_account_line(self, billing_account: str) -> list[str]:
         """list_by_billing_account_line calls GET /v1/telephony/{billingAccount}/line: List lines
 
+        Returns the lines of the billing account. Get a line for its settings, phone, options and
+        simultaneous calls.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -6091,6 +6638,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_line(self, billing_account: str, service_name: str) -> models.TelephonyLine:
         """get_line calls GET /v1/telephony/{billingAccount}/line/{serviceName}: Get a line
+
+        Returns the line: description, offer, number of simultaneous lines, infrastructure,
+        diagnostic notification settings and position on its phone.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6131,6 +6681,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_line calls PUT /v1/telephony/{billingAccount}/line/{serviceName}: Update a line
 
+        Updates the description of the line and the notifications sent about its diagnostic reports.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6150,6 +6702,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_line_abbreviated_numbers(self, billing_account: str, service_name: str) -> list[int]:
         """list_line_abbreviated_numbers calls GET /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber: List speed dial numbers
+
+        Returns the speed dial numbers of the line. A speed dial number is a short code of 3 or 4
+        digits, starting with 2, that calls a destination.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6174,6 +6729,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyAbbreviatedNumber:
         """create_line_abbreviated_number calls POST /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber: Create a speed dial number
 
+        Creates a speed dial number: a short code that calls a full number from the line.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6196,6 +6753,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, abbreviated_number: int
     ) -> models.TelephonyAbbreviatedNumber:
         """get_line_abbreviated_number calls GET /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber/{abbreviatedNumber}: Get a speed dial number
+
+        Returns the speed dial number of the line: short code, destination number, name and surname.
+        The short code starts with 2 and has 3 or 4 digits.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6248,6 +6808,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_line_abbreviated_number calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber/{abbreviatedNumber}: Update a speed dial number
 
+        Updates the speed dial number of the line: destination number, name and surname. The short
+        code starts with 2 and has 3 or 4 digits.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6272,6 +6835,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_line_abbreviated_number calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber/{abbreviatedNumber}: Delete a speed dial number
 
+        Deletes the speed dial number of the line. Its short code no longer calls the destination
+        number.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6291,6 +6857,8 @@ class TelephonyApi(_gen.SectionApi):
     def get_line_activate_new_phone(self, billing_account: str, service_name: str) -> None:
         """get_line_activate_new_phone calls GET /v1/telephony/{billingAccount}/line/{serviceName}/activateNewPhone: Check for a new phone to activate
 
+        Checks whether a new phone is waiting to be activated on the line, after a phone switch.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6308,6 +6876,9 @@ class TelephonyApi(_gen.SectionApi):
     def create_line_activate_new_phone(self, billing_account: str, service_name: str) -> None:
         """create_line_activate_new_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/activateNewPhone: Activate a new phone
 
+        Activates the new phone on the line, after a phone switch. Check first that a new phone is
+        waiting to be activated.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6324,6 +6895,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_line_antihacks(self, billing_account: str, service_name: str) -> list[str]:
         """list_line_antihacks calls GET /v1/telephony/{billingAccount}/line/{serviceName}/antihack: List numbers blocked by antihack
+
+        Returns the numbers and short codes blocked by the automatic antihack protection of the
+        line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6344,6 +6918,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLineAntihackRequest
     ) -> None:
         """create_line_antihack calls POST /v1/telephony/{billingAccount}/line/{serviceName}/antihack: Clean antihack restrictions
+
+        Authorizes or blocks one number, or all the numbers, restricted by the antihack protection
+        of the line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6367,6 +6944,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """associate_device_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/associateDevice: Associate a device
 
+        Associates a phone with the line, using the phone MAC address (AABBCCDDEEFF), its public IP
+        address and the slot of the line on the phone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6387,6 +6967,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_line_automatic_calls(self, billing_account: str, service_name: str) -> list[str]:
         """list_line_automatic_calls calls GET /v1/telephony/{billingAccount}/line/{serviceName}/automaticCall: List automatic calls
 
+        Returns the identifiers of the automatic calls made from the line by the call generator. Get
+        an automatic call for its dates, duration and result.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6406,6 +6989,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLineAutomaticCallRequest
     ) -> str:
         """create_line_automatic_call calls POST /v1/telephony/{billingAccount}/line/{serviceName}/automaticCall: Make an automatic call
+
+        Calls a number from the line with a dialplan, such as a text read by TTS, an audio file or a
+        transfer. Returns the call identifier.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6429,6 +7015,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, identifier: str
     ) -> models.TelephonyCallsGenerated:
         """get_line_automatic_call calls GET /v1/telephony/{billingAccount}/line/{serviceName}/automaticCall/{identifier}: Get an automatic call
+
+        Returns the automatic call: caller, callee, creation, answer and hangup dates, duration,
+        hangup cause, DTMF received and application result.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6475,6 +7064,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_line_available_sip_domains(self, billing_account: str, service_name: str) -> list[str]:
         """list_line_available_sip_domains calls GET /v1/telephony/{billingAccount}/line/{serviceName}/availableSipDomains: List available SIP domains
 
+        Returns the SIP domains the line can use, for the SIP configuration of its phone or
+        softphone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6494,6 +7086,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.BlockLineRequest
     ) -> None:
         """block_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/block: Block the line
+
+        Blocks the incoming calls, the outgoing calls or both, depending on the mode. Without a
+        mode, both directions are blocked.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6517,6 +7112,9 @@ class TelephonyApi(_gen.SectionApi):
     )
     def list_line_calls(self, billing_account: str, service_name: str) -> list[int]:
         """list_line_calls calls GET /v1/telephony/{billingAccount}/line/{serviceName}/calls: List live calls
+
+        Returns the identifiers of the live calls of the line, when it is a call center agent. Get a
+        live call for its state, numbers and dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6542,6 +7140,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_line_calls calls GET /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6600,6 +7201,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6630,6 +7234,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """hangup_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6656,6 +7263,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyTask:
         """hold_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6687,6 +7297,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.InterceptLineCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6722,6 +7335,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """transfer_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6752,6 +7368,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """whisper_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6781,6 +7400,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_line_can_change_password(self, billing_account: str, service_name: str) -> bool:
         """get_line_can_change_password calls GET /v1/telephony/{billingAccount}/line/{serviceName}/canChangePassword: Check if the SIP password can change
 
+        Returns whether the SIP password of the line can be changed. Change it with the
+        changePassword call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6802,6 +7424,8 @@ class TelephonyApi(_gen.SectionApi):
     def cancel_convert_to_number_line(self, billing_account: str, service_name: str) -> None:
         """cancel_convert_to_number_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/cancelConvertToNumber: Cancel a scheduled conversion to number
 
+        Cancels the scheduled conversion of the line to a number without a phone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6820,6 +7444,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.ChangePasswordLineRequest
     ) -> None:
         """change_password_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/changePassword: Change the SIP password
+
+        Changes the SIP password of the line, used by the phone or softphone to register. The new
+        password is given in the password parameter.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6843,6 +7470,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """click2_call_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/click2Call: Start a call from the line
 
+        Calls a number from the line: the line rings first, then the call is placed. Intercom mode
+        can pick up and enable the speaker automatically.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6863,6 +7493,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_line_click2_call_users(self, billing_account: str, service_name: str) -> list[int]:
         """list_line_click2_call_users calls GET /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser: List click2call users
 
+        Returns the identifiers of the click2call users of the line. A click2call user starts calls
+        from the line with its own login.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6882,6 +7515,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLineClick2CallUserRequest
     ) -> int:
         """create_line_click2_call_user calls POST /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser: Create a click2call user
+
+        Creates a user that can make click2call calls from the line. Returns its identifier.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6905,6 +7540,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyClick2CallUser:
         """get_line_click2_call_user calls GET /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser/{id}: Get a click2call user
+
+        Returns the click2call user: identifier, login and creation date. The user starts calls from
+        the line with its login and password.
 
         Args:
             billing_account: The name of your billingAccount
@@ -6953,6 +7591,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_line_click2_call_user calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser/{id}: Delete a click2call user
 
+        Deletes the click2call user. Its login can no longer start calls from the line.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -6977,6 +7617,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.ChangePasswordLineClick2CallUserRequest,
     ) -> None:
         """change_password_line_click2_call_user calls POST /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser/{id}/changePassword: Change the user password
+
+        Changes the password of the click2call user, used with its login to start calls from the
+        line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7006,6 +7649,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """click2_call_line_click2_call_user calls POST /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser/{id}/click2Call: Start a call from the line
 
+        Calls a number from the line, as the click2call user: the line rings first, then the call is
+        placed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7030,6 +7676,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOfferTask:
         """convert_to_number_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/convertToNumber: Schedule a conversion to number
 
+        Schedules the conversion of the line to a number without a phone. Returns the offer task.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7049,6 +7697,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.DissociateDeviceLineRequest
     ) -> None:
         """dissociate_device_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/dissociateDevice: Dissociate a device
+
+        Dissociates a phone from the line, using the phone MAC address (AABBCCDDEEFF) and its public
+        IP address.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7072,6 +7723,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyDatetimeAndIpvalue]:
         """list_line_ips calls GET /v1/telephony/{billingAccount}/line/{serviceName}/ips: List last registered IPs
 
+        Returns the last IP addresses the line registered from, with the date of each registration.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7091,6 +7744,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> list[models.TelephonyRegistrationInformations]:
         """list_line_last_registrations calls GET /v1/telephony/{billingAccount}/line/{serviceName}/lastRegistrations: List last registrations
+
+        Returns the last registrations of the line: date, public and local IP addresses and ports,
+        user agent and SIP domain.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7112,6 +7768,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyLinePhoneAssociable]:
         """list_line_list_associable_phones calls GET /v1/telephony/{billingAccount}/line/{serviceName}/listAssociablePhones: List associable phones
 
+        Returns the phones with a free slot that the line can be attached to, with their brand,
+        protocol, attached lines and maximum number of lines.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7132,6 +7791,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> int:
         """get_line_maximum_available_simultaneous_lines calls GET /v1/telephony/{billingAccount}/line/{serviceName}/maximumAvailableSimultaneousLines: Get the maximum simultaneous lines
 
+        Returns the maximum number of simultaneous calls available for the line. The current, basic
+        and extra channels are in the simultaneous channels details.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7149,6 +7811,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_line_offer(self, billing_account: str, service_name: str) -> models.TelephonyLineOffer:
         """get_line_offer calls GET /v1/telephony/{billingAccount}/line/{serviceName}/offer: Get the line offer
+
+        Returns the public offer of the line: its name, its description and its price. It replaces
+        the deprecated offers property of the line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7170,6 +7835,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyLineOptions:
         """get_line_options calls GET /v1/telephony/{billingAccount}/line/{serviceName}/options: Get the line options
 
+        Returns the line options: codecs, caller identification, forwarding, do not disturb and
+        other call options.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7189,6 +7857,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyLineOptionsWritable
     ) -> None:
         """update_line_options calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/options: Update the line options
+
+        Updates the line options: forwarding rules, do not disturb, caller identification, call
+        waiting, codecs, IP restrictions and call restrictions.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7212,6 +7883,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[str]:
         """list_line_options_available_codecs calls GET /v1/telephony/{billingAccount}/line/{serviceName}/options/availableCodecs: List available codecs
 
+        Returns the codec combinations available for the line. One of them can be set as the codecs
+        preferences in the line options.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7230,6 +7904,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_line_options_default_codecs(self, billing_account: str, service_name: str) -> str:
         """get_line_options_default_codecs calls GET /v1/telephony/{billingAccount}/line/{serviceName}/options/defaultCodecs: Get the default codecs
 
+        Returns the codecs used when none are set on the line. Set the codecs preferences in the
+        line options.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7247,6 +7924,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_line_phone(self, billing_account: str, service_name: str) -> models.TelephonyPhone:
         """get_line_phone calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone: Get the phone
+
+        Returns the phone attached to the line: brand, MAC address, protocol, description, maximum
+        lines and simultaneous calls, and configuration.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7267,6 +7947,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyPhoneWritable
     ) -> None:
         """update_line_phone calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone: Update the phone
+
+        Updates the phone attached to the line: the IP address restriction of an MGCP phone.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7289,6 +7971,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyPhoneCredentials:
         """get_line_phone_admin_credentials calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/adminCredentials: Get the phone admin credentials
+
+        Returns the administration login and password of the phone. Available to VIP customers only.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7313,6 +7997,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """change_phone_configuration_line_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/changePhoneConfiguration: Change the phone configuration
 
+        Changes the phone configuration remotely with name value pairs of provisioning options, and
+        can reboot the phone to apply them.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7333,6 +8020,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_line_phone_function_keys(self, billing_account: str, service_name: str) -> list[int]:
         """list_line_phone_function_keys calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/functionKey: List function keys
 
+        Returns the numbers (keyNum) of the function keys of the phone. Get a function key for its
+        label, type and active function.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7352,6 +8042,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, key_num: int
     ) -> models.TelephonyFunctionKey:
         """get_line_phone_function_key calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/functionKey/{keyNum}: Get a function key
+
+        Returns the function key of the phone: number, label, type, default function, active
+        function and its parameter.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7404,6 +8097,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_line_phone_function_key calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone/functionKey/{keyNum}: Update a function key
 
+        Updates the function active on the key and its parameter. The available functions are listed
+        for each key.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7428,6 +8124,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[str]:
         """list_line_phone_function_key_available_functions calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/functionKey/{keyNum}/availableFunction: List available functions
 
+        Returns the functions that can be set on the function key. Set one with the function and
+        parameter of the key.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7450,6 +8149,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyHardwareOffer]:
         """list_line_phone_merchandise_availables calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/merchandiseAvailable: List exchange phones
 
+        Returns the phones available to exchange the current phone, with their name, description,
+        URL and price.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7467,6 +8169,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_line_phone_phonebooks(self, billing_account: str, service_name: str) -> list[str]:
         """list_line_phone_phonebooks calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook: List phonebooks
+
+        Returns the identifiers (bookKey) of the phonebooks of the phone. Check first that the phone
+        supports phonebooks.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7487,6 +8192,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLinePhonePhonebookRequest
     ) -> str:
         """create_line_phone_phonebook calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook: Create a phonebook
+
+        Creates a phonebook on the phone of the line, if the phone supports phonebooks. Returns its
+        identifier (bookKey).
 
         Args:
             billing_account: The name of your billingAccount
@@ -7510,6 +8218,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, book_key: str
     ) -> models.TelephonyPhonebook:
         """get_line_phone_phonebook calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}: Get a phonebook
+
+        Returns the phonebook of the phone: name, identifier (bookKey), phone key and whether it is
+        read-only.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7562,6 +8273,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_line_phone_phonebook calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}: Update a phonebook
 
+        Updates the name of the phonebook of the phone. Contacts are updated one by one with the
+        phonebookContact route.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7585,6 +8299,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, book_key: str
     ) -> None:
         """delete_line_phone_phonebook calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}: Delete a phonebook
+
+        Deletes the phonebook of the phone and its contacts. Export the contacts first to keep a
+        copy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7610,6 +8327,8 @@ class TelephonyApi(_gen.SectionApi):
         format: models.TelephonyContactsExportFormatsEnum | str,
     ) -> models.TelephonyPcsFile:
         """get_line_phone_phonebook_export calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/export: Export contacts
+
+        Exports the contacts of the phonebook to a file in CSV format. Returns the file to download.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7639,6 +8358,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """import_line_phone_phonebook calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/import: Import contacts
 
+        Imports contacts into the phonebook from an Excel (.xls, .xlsx) or CSV file in /me/document.
+        Returns the task that performs the import.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7663,6 +8385,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, book_key: str
     ) -> list[int]:
         """list_line_phone_phonebook_phonebook_contacts calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact: List contacts
+
+        Returns the identifiers of the contacts of the phonebook. Get a contact for its name, group
+        and phone numbers.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7690,6 +8415,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> int:
         """create_line_phone_phonebook_phonebook_contact calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact: Create a contact
 
+        Creates a contact in the phonebook with a name, surname, group and phone numbers. Returns
+        its identifier.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7714,6 +8442,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, book_key: str, id: int
     ) -> models.TelephonyPhonebookContact:
         """get_line_phone_phonebook_phonebook_contact calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact/{id}: Get a contact
+
+        Returns the contact of the phonebook: name, surname, group, and office and home phone
+        numbers, landline and mobile.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7771,6 +8502,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_line_phone_phonebook_phonebook_contact calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact/{id}: Update a contact
 
+        Updates the contact of the phonebook: name, surname, group, and office and home phone
+        numbers, landline and mobile.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7797,6 +8531,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_line_phone_phonebook_phonebook_contact calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact/{id}: Delete a contact
 
+        Deletes the contact from the phonebook, with its name, group and office and home phone
+        numbers.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7818,6 +8555,9 @@ class TelephonyApi(_gen.SectionApi):
     def reboot_line_phone(self, billing_account: str, service_name: str) -> models.TelephonyTask:
         """reboot_line_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/reboot: Reboot the phone
 
+        Reboots the phone attached to the line. Returns the task that tracks the reboot, to follow
+        its status.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7838,6 +8578,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """refresh_screen_line_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/refreshScreen: Refresh the phone screen
 
+        Refreshes the screen of the MGCP phone. Returns the task that tracks the refresh.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7857,6 +8599,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.ResetConfigLinePhoneRequest
     ) -> models.TelephonyResetPhoneInfo:
         """reset_config_line_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/resetConfig: Reset the phone configuration
+
+        Resets the phone configuration to its default values, for the given public IP address.
+        Returns the reset code and the reset method.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7879,6 +8624,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_line_phone_rmas(self, billing_account: str, service_name: str) -> list[str]:
         """list_line_phone_rmas calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma: List RMAs
 
+        Returns the identifiers of the RMAs of the phone. An RMA is a request to return or exchange
+        a phone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7898,6 +8646,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLinePhoneRmaRequest
     ) -> models.TelephonyRmaReturn:
         """create_line_phone_rma calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma: Create an RMA
+
+        Creates an RMA to return the phone and keep the service, or to exchange it for another
+        phone. Returns the RMA identifier.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7921,6 +8672,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: str
     ) -> models.TelephonyRma:
         """get_line_phone_rma calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma/{id}: Get an RMA
+
+        Returns the RMA: type, process, status and steps, creation, reception and termination dates,
+        equipment reference and shipping contact.
 
         Args:
             billing_account: The name of your billingAccount
@@ -7967,6 +8721,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_line_phone_rma calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma/{id}: Update an RMA
 
+        Updates the shipping contact used for an exchange and the process determined for the
+        returned phone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -7988,6 +8745,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def delete_line_phone_rma(self, billing_account: str, service_name: str, id: str) -> None:
         """delete_line_phone_rma calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma/{id}: Cancel an RMA
+
+        Cancels the RMA of the phone. Only an RMA marked as cancellable, as returned when getting
+        the RMA, can be cancelled.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8014,6 +8774,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """change_type_line_phone_rma calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma/{id}/changeType: Change the RMA type
 
+        Changes the type of the RMA to a termination (resiliate) or a phone restitution (toSip).
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8035,6 +8797,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_line_phone_supports_phonebook(self, billing_account: str, service_name: str) -> bool:
         """get_line_phone_supports_phonebook calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/supportsPhonebook: Check phonebook support
+
+        Returns whether the phone supports phonebooks. Phonebooks can be created on the phone only
+        when it does.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8060,6 +8825,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyLinePhone]:
         """list_line_phone_can_be_associables calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phoneCanBeAssociable: List phones with a free SIP slot
 
+        Returns the phones with a free SIP slot for the line: brand, protocol, maximum number of
+        lines, price and fees.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8081,6 +8849,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_line_records(self, billing_account: str, service_name: str) -> list[int]:
         """list_line_records calls GET /v1/telephony/{billingAccount}/line/{serviceName}/records: List call recordings
 
+        Returns the identifiers of the call recordings of the line. Get a recording for its numbers,
+        dates, duration and download URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8100,6 +8871,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxRecord:
         """get_line_records calls GET /v1/telephony/{billingAccount}/line/{serviceName}/records/{id}: Get a call recording
+
+        Returns the call recording and the URL to download it, with the caller and destination
+        numbers, agent, start and end dates and duration.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8144,6 +8918,9 @@ class TelephonyApi(_gen.SectionApi):
     def delete_line_records(self, billing_account: str, service_name: str, id: int) -> None:
         """delete_line_records calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/records/{id}: Delete a call recording
 
+        Deletes the call recording of the service. Its sound file can no longer be downloaded from
+        its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8168,6 +8945,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """remove_simultaneous_lines_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/removeSimultaneousLines: Remove extra simultaneous lines
 
+        Removes the given quantity of extra simultaneous lines from the line. The extra channels are
+        listed in the simultaneous channels details.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8189,6 +8969,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonySimultaneousChannelsDetails:
         """get_line_simultaneous_channels_details calls GET /v1/telephony/{billingAccount}/line/{serviceName}/simultaneousChannelsDetails: Get simultaneous channels details
+
+        Returns the simultaneous call channels of the line: current, basic, extra, to be deleted and
+        maximum.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8509,6 +9292,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.ComplexTypeUnitAndValuesTelephonyTimestampAndValue:
         """get_line_statistics calls GET /v1/telephony/{billingAccount}/line/{serviceName}/statistics: Get line statistics
 
+        Returns quality statistics of the line over an hourly to yearly timeframe: maximum jitter,
+        maximum delay, lost RTP packets or MOS score.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8535,6 +9321,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_line_tones(self, billing_account: str, service_name: str) -> models.TelephonyTones:
         """get_line_tones calls GET /v1/telephony/{billingAccount}/line/{serviceName}/tones: Get the tones
 
+        Returns the tones of the line: ringback, on hold, call waiting and end of call. Each tone is
+        a default sound, none or a custom sound.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8554,6 +9343,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyTones
     ) -> None:
         """update_line_tones calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/tones: Update the tones
+
+        Updates the tones of the line: ringback, on hold, call waiting and end of call. Custom
+        sounds are uploaded with the tone upload call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8577,6 +9369,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """tone_upload_line_tones calls POST /v1/telephony/{billingAccount}/line/{serviceName}/tones/toneUpload: Upload a tone
 
+        Uploads a sound file to use as a tone: ringback, on hold, call waiting or closure. The file
+        is given by a /me/document ID or a URL. Returns the task that tracks the upload.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8598,6 +9393,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_line_traffic_extracts(self, billing_account: str, service_name: str) -> list[int]:
         """list_line_traffic_extracts calls GET /v1/telephony/{billingAccount}/line/{serviceName}/trafficExtracts: List traffic extracts
 
+        Returns the identifiers of the SIP traffic extracts of the line. A traffic extract is a PCAP
+        capture of the SIP traffic over a time range.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8617,6 +9415,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLineTrafficExtractsRequest
     ) -> models.TelephonyTrafficExtract:
         """create_line_traffic_extracts calls POST /v1/telephony/{billingAccount}/line/{serviceName}/trafficExtracts: Start a traffic extract
+
+        Starts capturing the SIP traffic of the line between a start date and an end date. The
+        result is a PCAP file.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8640,6 +9441,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyTrafficExtract:
         """get_line_traffic_extracts calls GET /v1/telephony/{billingAccount}/line/{serviceName}/trafficExtracts/{id}: Get a traffic extract
+
+        Returns the traffic extract: start and end dates, status, and the URL and size of the PCAP
+        file.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8688,6 +9492,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_line_traffic_extracts calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/trafficExtracts/{id}: Delete a traffic extract
 
+        Deletes the traffic extract and its PCAP file of the SIP traffic of the line.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8707,6 +9513,8 @@ class TelephonyApi(_gen.SectionApi):
     def unblock_line(self, billing_account: str, service_name: str) -> None:
         """unblock_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/unblock: Unblock the line
 
+        Unblocks the line and removes every incoming and outgoing block set with the block call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -8724,6 +9532,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_numbers(self, billing_account: str) -> list[str]:
         """list_numbers calls GET /v1/telephony/{billingAccount}/number: List numbers
 
+        Returns the numbers of the billing account. A number has no phone: it routes incoming calls
+        with a feature.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -8739,6 +9550,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_number(self, billing_account: str, service_name: str) -> models.TelephonyNumber:
         """get_number calls GET /v1/telephony/{billingAccount}/number/{serviceName}: Get a number
+
+        Returns the number: feature type, description, service type, and the pool it belongs to if
+        it is part of one.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8779,6 +9593,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_number calls PUT /v1/telephony/{billingAccount}/number/{serviceName}: Update a number
 
+        Updates the description of the number. The feature type is changed with the
+        changeFeatureType call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -8799,6 +9616,9 @@ class TelephonyApi(_gen.SectionApi):
     def cancel_convert_to_line_number(self, billing_account: str, service_name: str) -> None:
         """cancel_convert_to_line_number calls POST /v1/telephony/{billingAccount}/number/{serviceName}/cancelConvertToLine: Cancel a scheduled conversion to line
 
+        Cancels the scheduled conversion of the number to a line. The number keeps its current
+        feature.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -8817,6 +9637,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.ChangeFeatureTypeNumberRequest
     ) -> models.TelephonyTask:
         """change_feature_type_number calls POST /v1/telephony/{billingAccount}/number/{serviceName}/changeFeatureType: Change the number feature type
+
+        Changes the feature of the number, such as redirect, conference, contact center or PBX. The
+        previous configuration is lost.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8841,6 +9664,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOfferTask:
         """convert_to_line_number calls POST /v1/telephony/{billingAccount}/number/{serviceName}/convertToLine: Schedule a conversion to line
 
+        Schedules the conversion of the number to a line with a phone. Returns the offer task.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -8863,6 +9688,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyLineOffersAndContracts:
         """get_number_convert_to_line_available_offers calls GET /v1/telephony/{billingAccount}/number/{serviceName}/convertToLineAvailableOffers: List line offers for conversion
+
+        Returns the line offers and contracts available to convert the number to a line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8889,6 +9716,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_offer_tasks calls GET /v1/telephony/{billingAccount}/offerTask: List offer tasks
 
+        Returns the identifiers of the scheduled offer operations of the billing account, such as an
+        offer change or a termination.
+
         Args:
             billing_account: The name of your billingAccount
             action: Filter the value of action property (=) (optional)
@@ -8912,6 +9742,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_offer_task(self, billing_account: str, task_id: int) -> models.TelephonyOfferTask:
         """get_offer_task calls GET /v1/telephony/{billingAccount}/offerTask/{taskId}: Get an offer task
+
+        Returns the offer operation: type, action such as termination or upgrade, planned execution
+        date and status.
 
         Args:
             billing_account: The name of your billingAccount
@@ -8965,6 +9798,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_offer_task calls PUT /v1/telephony/{billingAccount}/offerTask/{taskId}: Update an offer task
 
+        Updates the scheduled offer operation. Only its planned execution date can be changed.
+
         Args:
             billing_account: The name of your billingAccount
             task_id: the taskId path parameter
@@ -8985,6 +9820,8 @@ class TelephonyApi(_gen.SectionApi):
     def list_old_phones(self, billing_account: str) -> list[models.TelephonyOldPhone]:
         """list_old_phones calls GET /v1/telephony/{billingAccount}/oldPhone: List unreturned old phones
 
+        Returns the old phones not returned after an RMA, with their model and MAC address.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -9000,6 +9837,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_outplan_notifications(self, billing_account: str) -> list[int]:
         """list_outplan_notifications calls GET /v1/telephony/{billingAccount}/outplanNotification: List out-of-plan alerts
+
+        Returns the identifiers of the out-of-plan alerts. An alert notifies when out-of-plan
+        consumption reaches a threshold.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9018,6 +9858,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, body: models.CreateOutplanNotificationRequest
     ) -> models.TelephonyConsumptionThreshold:
         """create_outplan_notification calls POST /v1/telephony/{billingAccount}/outplanNotification: Create an out-of-plan alert
+
+        Creates an alert at a percentage of the maximum out-of-plan, with a block (none, incoming,
+        outgoing or all calls) and an optional email.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9039,6 +9882,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, id: int
     ) -> models.TelephonyConsumptionThreshold:
         """get_outplan_notification calls GET /v1/telephony/{billingAccount}/outplanNotification/{id}: Get an out-of-plan alert
+
+        Returns the out-of-plan alert: percentage of the maximum out-of-plan, block applied to the
+        lines and notification email.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9079,6 +9925,9 @@ class TelephonyApi(_gen.SectionApi):
     def delete_outplan_notification(self, billing_account: str, id: int) -> None:
         """delete_outplan_notification calls DELETE /v1/telephony/{billingAccount}/outplanNotification/{id}: Delete an out-of-plan alert
 
+        Deletes the out-of-plan alert. No notification or block is applied any more when its
+        threshold is reached.
+
         Args:
             billing_account: The name of your billingAccount
             id: Id of the object
@@ -9096,6 +9945,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_ovh_pabxes(self, billing_account: str) -> list[str]:
         """list_ovh_pabxes calls GET /v1/telephony/{billingAccount}/ovhPabx: List PBX services
 
+        Returns the PBX services of the billing account: voice menus (IVR), dialplans and call
+        queues.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -9111,6 +9963,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_ovh_pabx(self, billing_account: str, service_name: str) -> models.TelephonyOvhPabx:
         """get_ovh_pabx calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}: Get a PBX service
+
+        Returns the PBX service (call queues and IVR): feature type, description and whether the
+        extended CCS options are enabled.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9151,6 +10006,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}: Update a PBX service
 
+        Updates the description of the PBX service. Its dialplans, menus and queues are managed with
+        their own routes.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9171,6 +10029,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_ovh_pabx_dialplans(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_dialplans calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan: List dialplans
 
+        Returns the identifiers of the dialplans of the PBX. A dialplan routes calls through
+        extensions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9190,6 +10051,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxDialplanRequest
     ) -> models.TelephonyOvhPabxDialplan:
         """create_ovh_pabx_dialplan calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan: Create a dialplan
+
+        Creates a dialplan on the PABX with a name, a transfer timeout, anonymous call rejection and
+        the number presented when bridging calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9213,6 +10077,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int
     ) -> models.TelephonyOvhPabxDialplan:
         """get_ovh_pabx_dialplan calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}: Get a dialplan
+
+        Returns the dialplan: name, last update, transfer timeout, anonymous call rejection and
+        number presented when bridging calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9263,6 +10130,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_dialplan calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}: Update a dialplan
 
+        Updates the dialplan name, transfer timeout, anonymous call rejection and number presented
+        when bridging calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9287,6 +10157,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}: Delete a dialplan
 
+        Deletes the dialplan and its extensions from the PABX. A dialplan holds the extensions
+        applied to the calls received.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9307,6 +10180,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int
     ) -> list[int]:
         """list_ovh_pabx_dialplan_extensions calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension: List extensions
+
+        Returns the identifiers of the extensions of the dialplan. An extension is a step that
+        applies rules when its conditions match.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9334,6 +10210,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxDialplanExtension:
         """create_ovh_pabx_dialplan_extension calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension: Create an extension
 
+        Creates an extension in the dialplan at a position, enabled or not, with a scheduler
+        category and a screen list type. Extensions run in order.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9358,6 +10237,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int, extension_id: int
     ) -> models.TelephonyOvhPabxDialplanExtension:
         """get_ovh_pabx_dialplan_extension calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}: Get an extension
+
+        Returns the extension: position in the dialplan, status, scheduler category and screen list
+        type.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9415,6 +10297,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_dialplan_extension calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}: Update an extension
 
+        Updates the position of the extension in the dialplan, its status, its scheduler category
+        and its screen list type.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9441,6 +10326,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan_extension calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}: Delete an extension
 
+        Deletes the extension from the dialplan. The extension and its rules no longer apply to the
+        calls received.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9463,6 +10351,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int, extension_id: int
     ) -> list[int]:
         """list_ovh_pabx_dialplan_extension_condition_screen_lists calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionScreenList: List filtering conditions
+
+        Returns the identifiers of the filtering conditions of the extension, checked against the
+        screen list type of the extension.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9492,6 +10383,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.CreateOvhPabxDialplanExtensionConditionScreenListRequest,
     ) -> models.TelephonyOvhPabxDialplanExtensionConditionScreenList:
         """create_ovh_pabx_dialplan_extension_condition_screen_list calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionScreenList: Create a filtering condition
+
+        Creates a filtering condition on the caller or the called number. The screen list type sets
+        whether matching calls are allowed or blocked.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9524,6 +10418,9 @@ class TelephonyApi(_gen.SectionApi):
         condition_id: int,
     ) -> models.TelephonyOvhPabxDialplanExtensionConditionScreenList:
         """get_ovh_pabx_dialplan_extension_condition_screen_list calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionScreenList/{conditionId}: Get a filtering condition
+
+        Returns the filtering condition of the extension: caller number or destination number, and
+        screen list type (whitelist or blacklist).
 
         Args:
             billing_account: The name of your billingAccount
@@ -9586,6 +10483,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan_extension_condition_screen_list calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionScreenList/{conditionId}: Delete a filtering condition
 
+        Deletes the filtering condition. Calls are no longer checked against its caller number or
+        destination number.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9610,6 +10510,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int, extension_id: int
     ) -> list[int]:
         """list_ovh_pabx_dialplan_extension_condition_times calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime: List time conditions
+
+        Returns the identifiers of the time conditions of the extension. The extension runs on the
+        days and time slots they define.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9639,6 +10542,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.CreateOvhPabxDialplanExtensionConditionTimeRequest,
     ) -> models.TelephonyOvhPabxDialplanExtensionConditionTime:
         """create_ovh_pabx_dialplan_extension_condition_time calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime: Create a time condition
+
+        Creates a time condition on the extension: a day of the week and the start and end times
+        when the extension runs.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9671,6 +10577,9 @@ class TelephonyApi(_gen.SectionApi):
         condition_id: int,
     ) -> models.TelephonyOvhPabxDialplanExtensionConditionTime:
         """get_ovh_pabx_dialplan_extension_condition_time calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime/{conditionId}: Get a time condition
+
+        Returns the time condition of the extension: day of the week and the start and end times
+        when the extension runs.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9734,6 +10643,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_dialplan_extension_condition_time calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime/{conditionId}: Update a time condition
 
+        Updates the day of the week and the start and end times when the extension of the dialplan
+        runs.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9767,6 +10679,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan_extension_condition_time calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime/{conditionId}: Delete a time condition
 
+        Deletes the time condition of the extension. Its day and time slot no longer restrict when
+        the extension runs.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9791,6 +10706,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int, extension_id: int
     ) -> list[int]:
         """list_ovh_pabx_dialplan_extension_rules calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule: List extension rules
+
+        Returns the identifiers of the rules of the extension. A rule is an action, such as play a
+        sound or forward the call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9820,6 +10738,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.CreateOvhPabxDialplanExtensionRuleRequest,
     ) -> models.TelephonyOvhPabxDialplanExtensionRule:
         """create_ovh_pabx_dialplan_extension_rule calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule: Create an extension rule
+
+        Creates a rule in the extension: an action such as playback, bridge, IVR, voicemail or TTS,
+        its parameter and its position.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9852,6 +10773,9 @@ class TelephonyApi(_gen.SectionApi):
         rule_id: int,
     ) -> models.TelephonyOvhPabxDialplanExtensionRule:
         """get_ovh_pabx_dialplan_extension_rule calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule/{ruleId}: Get an extension rule
+
+        Returns the rule: action (such as playback, bridge, voicemail or TTS), parameter, position
+        and whether it runs when the conditions are false.
 
         Args:
             billing_account: The name of your billingAccount
@@ -9914,6 +10838,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_dialplan_extension_rule calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule/{ruleId}: Update an extension rule
 
+        Updates the action of the rule, its parameter, its position in the extension and whether it
+        runs when the conditions are false.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9947,6 +10874,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan_extension_rule calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule/{ruleId}: Delete an extension rule
 
+        Deletes the rule from the extension of the dialplan. Its action no longer runs when the
+        extension is executed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9972,6 +10902,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxHunting:
         """get_ovh_pabx_hunting calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting: Get the queue system settings
 
+        Returns the queue system settings of the service: offer name, CRM URL template opened by the
+        agent banner, G729 codec and status change IVR.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -9991,6 +10924,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyOvhPabxHuntingWritable
     ) -> None:
         """update_ovh_pabx_hunting calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting: Update the queue system settings
+
+        Updates the queue system settings: the CRM URL template opened by the agent banner, the G729
+        codec and the status change IVR.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10012,6 +10948,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_ovh_pabx_hunting_agents(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_hunting_agents calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent: List agents
 
+        Returns the identifiers of the agents. An agent is a phone number that answers the calls of
+        one or several queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10031,6 +10970,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxHuntingAgentRequest
     ) -> models.TelephonyOvhPabxHuntingAgent:
         """create_ovh_pabx_hunting_agent calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent: Create an agent
+
+        Creates an agent: a number that answers calls from the queues. Sets its status, ring
+        timeout, wrap-up time and maximum simultaneous calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10054,6 +10996,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgent:
         """get_ovh_pabx_hunting_agent calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}: Get an agent
+
+        Returns the agent: number, description, status, break status, type (internal or external),
+        ring timeout, wrap-up time and simultaneous calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10106,6 +11051,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_hunting_agent calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}: Update an agent
 
+        Updates the agent: number, description, status (available, logged out or on break), break
+        status, ring timeout, wrap-up time and simultaneous calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10130,6 +11078,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_agent calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}: Delete an agent
 
+        Deletes the agent. It is removed from all its queues and no longer receives calls from the
+        queue system.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10150,6 +11101,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyBannerAccess:
         """get_ovh_pabx_hunting_agent_banner_access calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/bannerAccess: Get the agent banner access
+
+        Returns the web access to the agent banner application: its URL and creation date.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10173,6 +11126,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyBannerAccess:
         """create_ovh_pabx_hunting_agent_banner_access calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/bannerAccess: Create the agent banner access
 
+        Creates a web access to the agent banner application. Returns its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10195,6 +11150,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_agent_banner_access calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/bannerAccess: Delete the agent banner access
 
+        Deletes the web access to the agent banner application. Its URL no longer gives access to
+        the banner.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10215,6 +11173,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> list[int]:
         """list_ovh_pabx_hunting_agent_calls calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls: List agent calls
+
+        Returns the identifiers of the calls the agent is handling. Get a live call for its caller,
+        queue, state and dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10237,6 +11198,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_ovh_pabx_hunting_agent_calls calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10294,6 +11258,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10321,6 +11288,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """hangup_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10344,6 +11314,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int, id: int
     ) -> models.TelephonyTask:
         """hold_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10373,6 +11346,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.InterceptOvhPabxHuntingAgentCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10406,6 +11382,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """transfer_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10438,6 +11417,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """whisper_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10465,6 +11447,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyEventToken:
         """get_ovh_pabx_hunting_agent_event_token calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/eventToken: Get the event token
 
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10491,6 +11476,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> str:
         """create_ovh_pabx_hunting_agent_event_token calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10516,6 +11504,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_agent_event_token calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/eventToken: Delete the event token
 
+        Deletes the event token. It can no longer be used to receive real-time call events.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10536,6 +11526,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_ovh_pabx_hunting_agent_live_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10558,6 +11551,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> list[int]:
         """list_ovh_pabx_hunting_agent_queues calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue: List the queues of an agent
+
+        Returns the identifiers of the queues the agent belongs to. Get an agent position in a queue
+        to see its order in that queue.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10585,6 +11581,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """create_ovh_pabx_hunting_agent_queue calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue: Assign an agent to a queue
 
+        Adds an agent to a queue, with a position. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10609,6 +11608,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """get_ovh_pabx_hunting_agent_queue calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Get an agent position in a queue
+
+        Returns the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10666,6 +11668,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_hunting_agent_queue calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Update an agent position in a queue
 
+        Updates the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10692,6 +11697,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_agent_queue calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Remove an agent from a queue
 
+        Removes the agent from the queue. The agent no longer receives calls from this queue but
+        stays assigned to its other queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10714,6 +11722,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, agent_id: int, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_ovh_pabx_hunting_agent_queue_live_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue/{queueId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10739,6 +11750,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_ovh_pabx_hunting_custom_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/customStatus: List custom statuses
 
+        Returns the identifiers of the custom statuses agents can set, such as a break. Each status
+        has a name, a description and a color.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10762,6 +11776,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxCustomStatus:
         """create_ovh_pabx_hunting_custom_status calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/customStatus: Create a custom status
 
+        Creates a custom status agents can set, such as a break. Sets its name, short description
+        and the color shown on the agent banner.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10784,6 +11801,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxCustomStatus:
         """get_ovh_pabx_hunting_custom_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/customStatus/{id}: Get a custom status
+
+        Returns the custom status: name, short description and color displayed on the agent banner
+        web application.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10832,6 +11852,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_custom_status calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/customStatus/{id}: Delete a custom status
 
+        Deletes the custom status. Agents can no longer select it on the agent banner web
+        application.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10852,6 +11875,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEventToken:
         """get_ovh_pabx_hunting_event_token calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/eventToken: Get the event token
+
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10876,6 +11902,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> str:
         """create_ovh_pabx_hunting_event_token calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10897,6 +11926,8 @@ class TelephonyApi(_gen.SectionApi):
     def delete_ovh_pabx_hunting_event_token(self, billing_account: str, service_name: str) -> None:
         """delete_ovh_pabx_hunting_event_token calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/eventToken: Delete the event token
 
+        Deletes the event token. It can no longer be used to receive real-time call events.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -10913,6 +11944,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_ovh_pabx_hunting_queues(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_hunting_queues calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue: List queues
+
+        Returns the identifiers of the queues. A queue holds incoming calls and dispatches them to
+        its agents with a strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10933,6 +11967,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxHuntingQueueRequest
     ) -> models.TelephonyOvhPabxHuntingQueue:
         """create_ovh_pabx_hunting_queue calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue: Create a queue
+
+        Creates a queue that distributes calls to its agents. Sets the dispatching strategy, the
+        maximum wait time and callers, and the overflow and closure actions.
 
         Args:
             billing_account: The name of your billingAccount
@@ -10956,6 +11993,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingQueue:
         """get_ovh_pabx_hunting_queue calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}: Get a queue
+
+        Returns the queue: name, strategy, maximum waiting callers and wait time, sound on hold,
+        call recording, and actions on overflow and on closure.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11008,6 +12048,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_hunting_queue calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}: Update a queue
 
+        Updates the queue: name, dispatching strategy, maximum waiting callers and wait time, sound
+        on hold, call recording and overflow and closure actions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11032,6 +12075,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_queue calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}: Delete a queue
 
+        Deletes the queue. Its agents are no longer assigned to it, and calls are no longer
+        dispatched through it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11052,6 +12098,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int
     ) -> list[int]:
         """list_ovh_pabx_hunting_queue_agents calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent: List the agents of a queue
+
+        Returns the identifiers of the agents of the queue. Get an agent position in the queue to
+        see the order in which agents receive calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11074,6 +12123,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """get_ovh_pabx_hunting_queue_agent calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Get an agent position in a queue
+
+        Returns the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11131,6 +12183,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_hunting_queue_agent calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Update an agent position in a queue
 
+        Updates the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11157,6 +12212,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_queue_agent calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Remove an agent from a queue
 
+        Removes the agent from the queue. The agent no longer receives calls from this queue but
+        stays assigned to its other queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11179,6 +12237,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_ovh_pabx_hunting_queue_agent_live_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent/{agentId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11204,6 +12265,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_ovh_pabx_hunting_queue_live_calls calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls: List queue live calls
 
+        Returns the identifiers of the calls waiting or answered in the queue. Get a live call for
+        its caller, agent, state and dates.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11225,6 +12289,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_ovh_pabx_hunting_queue_live_calls calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11282,6 +12349,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11309,6 +12379,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """hangup_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11332,6 +12405,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, queue_id: int, id: int
     ) -> models.TelephonyTask:
         """hold_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11361,6 +12437,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.InterceptOvhPabxHuntingQueueLiveCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11394,6 +12473,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """transfer_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11426,6 +12508,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """whisper_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11453,6 +12538,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxHuntingQueueLiveStatistics:
         """get_ovh_pabx_hunting_queue_live_statistics calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveStatistics: Get queue live statistics
 
+        Returns the live statistics of the queue since the last reset at midnight: total, answered
+        and lost calls, and total waiting and call durations.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11473,6 +12561,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_ovh_pabx_menus(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_menus calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu: List menus
 
+        Returns the identifiers of the voice menus (IVR) of the PBX. A menu plays a sound and routes
+        the call according to the key pressed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11492,6 +12583,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxMenuRequest
     ) -> models.TelephonyOvhPabxMenu:
         """create_ovh_pabx_menu calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu: Create a menu
+
+        Creates a voice menu: a greeting and the keys callers can press. Add the keys and their
+        actions afterwards with menu entries.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11515,6 +12609,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, menu_id: int
     ) -> models.TelephonyOvhPabxMenu:
         """get_ovh_pabx_menu calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}: Get a menu
+
+        Returns the voice menu: name, greeting sound or text to speech, invalid key sound or text to
+        speech, and the key entry and menu timeouts.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11565,6 +12662,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_menu calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}: Update a menu
 
+        Updates the voice menu: name, greeting and invalid key sounds or text to speech, and the key
+        entry and menu timeouts in milliseconds.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11587,6 +12687,9 @@ class TelephonyApi(_gen.SectionApi):
     def delete_ovh_pabx_menu(self, billing_account: str, service_name: str, menu_id: int) -> None:
         """delete_ovh_pabx_menu calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}: Delete a menu
 
+        Deletes the voice menu and its entries. Callers no longer hear its greeting or reach its
+        actions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11607,6 +12710,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, menu_id: int
     ) -> list[int]:
         """list_ovh_pabx_menu_entries calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry: List menu entries
+
+        Returns the identifiers of the entries of the voice menu. An entry maps a key to an action.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11634,6 +12739,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOvhPabxMenuEntry:
         """create_ovh_pabx_menu_entry calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry: Create a menu entry
 
+        Creates an entry: the key pressed by the caller and the action to run, such as bridge,
+        playback, sub menu or call center, with its parameter.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11658,6 +12766,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, menu_id: int, entry_id: int
     ) -> models.TelephonyOvhPabxMenuEntry:
         """get_ovh_pabx_menu_entry calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry/{entryId}: Get a menu entry
+
+        Returns the menu entry: position, key (DTMF) pressed by the caller, action triggered and its
+        additional parameter.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11715,6 +12826,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_menu_entry calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry/{entryId}: Update a menu entry
 
+        Updates the menu entry: position, key (DTMF), action such as bridge, playback, sub menu or
+        call center, and its parameter.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11741,6 +12855,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_ovh_pabx_menu_entry calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry/{entryId}: Delete a menu entry
 
+        Deletes the menu entry. The key it used no longer triggers an action in the voice menu.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11762,6 +12878,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_ovh_pabx_records(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_records calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/records: List call recordings
 
+        Returns the identifiers of the recordings of the calls handled by the service. Get a call
+        recording for its details.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11781,6 +12900,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxRecord:
         """get_ovh_pabx_records calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/records/{id}: Get a call recording
+
+        Returns the call recording and the URL to download it, with the caller and destination
+        numbers, agent, start and end dates and duration.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11825,6 +12947,9 @@ class TelephonyApi(_gen.SectionApi):
     def delete_ovh_pabx_records(self, billing_account: str, service_name: str, id: int) -> None:
         """delete_ovh_pabx_records calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/records/{id}: Delete a call recording
 
+        Deletes the call recording of the service. Its sound file can no longer be downloaded from
+        its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11843,6 +12968,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_ovh_pabx_sounds(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_sounds calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/sound: List sounds
+
+        Returns the identifiers of the sound files of the service. Add a sound with the soundUpload
+        call, from /me/document or a URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11863,6 +12991,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, sound_id: int
     ) -> models.TelephonyOvhPabxSound:
         """get_ovh_pabx_sound calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/sound/{soundId}: Get a sound
+
+        Returns the sound of the service: its identifier and filename. Sounds are played by queues
+        and voice menus.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11907,6 +13038,9 @@ class TelephonyApi(_gen.SectionApi):
     def delete_ovh_pabx_sound(self, billing_account: str, service_name: str, sound_id: int) -> None:
         """delete_ovh_pabx_sound calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/sound/{soundId}: Delete a sound
 
+        Deletes the sound of the service, identified by its ID. Queues and voice menus can no longer
+        play it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11927,6 +13061,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.SoundUploadOvhPabxRequest
     ) -> models.TelephonyTask:
         """sound_upload_ovh_pabx calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/soundUpload: Upload a sound
+
+        Uploads a sound file to the service, from a /me/document identifier or a URL, with an
+        optional name. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11949,6 +13086,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_ovh_pabx_tts(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_tts calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts: List TTS prompts
 
+        Returns the identifiers of the text to speech prompts of the PBX. A prompt is a text read by
+        a synthetic voice.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -11968,6 +13108,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxTtsRequest
     ) -> None:
         """create_ovh_pabx_tts calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts: Create a TTS prompt
+
+        Creates a text to speech prompt: a text read by a synthetic voice. The voice is Helene,
+        Loic, Jenny or Bruce.
 
         Args:
             billing_account: The name of your billingAccount
@@ -11990,6 +13133,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxTts:
         """get_ovh_pabx_tts calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts/{id}: Get a TTS prompt
+
+        Returns the text to speech prompt: the text played and the voice that reads it (Helene,
+        Loic, Jenny or Bruce).
 
         Args:
             billing_account: The name of your billingAccount
@@ -12040,6 +13186,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_ovh_pabx_tts calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts/{id}: Update a TTS prompt
 
+        Updates the text to speech prompt: the text played and the voice that reads it (Helene,
+        Loic, Jenny or Bruce).
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -12062,6 +13211,8 @@ class TelephonyApi(_gen.SectionApi):
     def delete_ovh_pabx_tts(self, billing_account: str, service_name: str, id: int) -> None:
         """delete_ovh_pabx_tts calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts/{id}: Delete a TTS prompt
 
+        Deletes the text to speech prompt. It can no longer be played by the voice menus of the PBX.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -12081,6 +13232,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_phonebooks(self, billing_account: str) -> list[str]:
         """list_phonebooks calls GET /v1/telephony/{billingAccount}/phonebook: List phonebooks
 
+        Returns the identifiers (bookKey) of the phonebooks shared by the billing account. A
+        phonebook stores contacts with their phone numbers.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -12096,6 +13250,8 @@ class TelephonyApi(_gen.SectionApi):
 
     def create_phonebook(self, billing_account: str, body: models.CreatePhonebookRequest) -> str:
         """create_phonebook calls POST /v1/telephony/{billingAccount}/phonebook: Create a phonebook
+
+        Creates a phonebook shared by the billing account. Returns its identifier (bookKey).
 
         Args:
             billing_account: The name of your billingAccount
@@ -12115,6 +13271,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_phonebook(self, billing_account: str, book_key: str) -> models.TelephonyPhonebookMaster:
         """get_phonebook calls GET /v1/telephony/{billingAccount}/phonebook/{bookKey}: Get a phonebook
+
+        Returns the name and the identifier (bookKey) of the phonebook shared by the billing
+        account.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12155,6 +13314,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_phonebook calls PUT /v1/telephony/{billingAccount}/phonebook/{bookKey}: Update a phonebook
 
+        Updates the name of the phonebook shared by the billing account. Contacts are updated one by
+        one.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -12174,6 +13336,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def delete_phonebook(self, billing_account: str, book_key: str) -> None:
         """delete_phonebook calls DELETE /v1/telephony/{billingAccount}/phonebook/{bookKey}: Delete a phonebook
+
+        Deletes the phonebook shared by the billing account and its contacts. Export the contacts
+        first to keep a copy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12197,6 +13362,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyPcsFile:
         """get_phonebook_export calls GET /v1/telephony/{billingAccount}/phonebook/{bookKey}/export: Export contacts
 
+        Exports the contacts of the phonebook to a file in CSV format. Returns the file to download.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -12219,6 +13386,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """import_phonebook calls POST /v1/telephony/{billingAccount}/phonebook/{bookKey}/import: Import contacts
 
+        Imports contacts into the phonebook from an Excel (.xls, .xlsx) or CSV file in /me/document.
+        Returns the task that performs the import.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -12239,6 +13409,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_phonebook_phonebook_contacts(self, billing_account: str, book_key: str) -> list[int]:
         """list_phonebook_phonebook_contacts calls GET /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact: List contacts
+
+        Returns the identifiers of the contacts of the phonebook. Get a contact for its name, group
+        and phone numbers.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12263,6 +13436,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> int:
         """create_phonebook_phonebook_contact calls POST /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact: Create a contact
 
+        Creates a contact in the phonebook with a name, surname, group and phone numbers. Returns
+        its identifier.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -12285,6 +13461,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, book_key: str, id: int
     ) -> models.TelephonyPhonebookContact:
         """get_phonebook_phonebook_contact calls GET /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact/{id}: Get a contact
+
+        Returns the contact of the phonebook: name, surname, group, and office and home phone
+        numbers, landline and mobile.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12337,6 +13516,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_phonebook_phonebook_contact calls PUT /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact/{id}: Update a contact
 
+        Updates the contact of the phonebook: name, surname, group, and office and home phone
+        numbers, landline and mobile.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -12361,6 +13543,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_phonebook_phonebook_contact calls DELETE /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact/{id}: Delete a contact
 
+        Deletes the contact from the phonebook, with its name, group and office and home phone
+        numbers.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -12380,6 +13565,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_portabilities(self, billing_account: str) -> list[int]:
         """list_portabilities calls GET /v1/telephony/{billingAccount}/portability: List number portings
 
+        Returns the identifiers of the number portings. A number porting transfers a number from
+        another operator.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -12395,6 +13583,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_portability(self, billing_account: str, id: int) -> models.TelephonyPortability:
         """get_portability calls GET /v1/telephony/{billingAccount}/portability/{id}: Get a number porting
+
+        Returns the number porting: numbers, current operator, desired execution date, redirection,
+        error codes, customer information and RIO (France only).
 
         Args:
             billing_account: The name of your billingAccount
@@ -12433,6 +13624,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_portability_can_be_cancelled(self, billing_account: str, id: int) -> bool:
         """get_portability_can_be_cancelled calls GET /v1/telephony/{billingAccount}/portability/{id}/canBeCancelled: Check if the porting can be canceled
 
+        Returns whether the number porting can still be canceled. Cancel the porting with the cancel
+        call.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -12450,6 +13644,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_portability_can_be_executed(self, billing_account: str, id: int) -> bool:
         """get_portability_can_be_executed calls GET /v1/telephony/{billingAccount}/portability/{id}/canBeExecuted: Check if the porting can be executed
+
+        Returns whether the number porting can be executed now. Execute the porting with the execute
+        call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12470,6 +13667,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, id: int, body: models.CancelPortabilityRequest
     ) -> None:
         """cancel_portability calls POST /v1/telephony/{billingAccount}/portability/{id}/cancel: Cancel the porting
+
+        Requests the cancellation of the number porting, with a reason. Check first that the porting
+        can still be canceled.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12493,6 +13693,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """change_date_portability calls POST /v1/telephony/{billingAccount}/portability/{id}/changeDate: Change the porting date
 
+        Requests a new date for the number porting. Check first that the porting date can still be
+        changed.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -12513,6 +13716,9 @@ class TelephonyApi(_gen.SectionApi):
     def get_portability_date_can_be_changed(self, billing_account: str, id: int) -> bool:
         """get_portability_date_can_be_changed calls GET /v1/telephony/{billingAccount}/portability/{id}/dateCanBeChanged: Check if the porting date can change
 
+        Returns whether the date of the number porting can be changed. Request a new date with the
+        change date call.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -12530,6 +13736,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def list_portability_documents(self, billing_account: str, id: int) -> list[int]:
         """list_portability_documents calls GET /v1/telephony/{billingAccount}/portability/{id}/document: List porting documents
+
+        Returns the identifiers of the documents attached to the number porting. Get a porting
+        document for its name, size and download URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12550,6 +13759,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, id: int, body: models.CreatePortabilityDocumentRequest
     ) -> models.TelephonyPortabilityDocument:
         """create_portability_document calls POST /v1/telephony/{billingAccount}/portability/{id}/document: Create a porting document
+
+        Creates a document for the number porting. Returns the URL to upload the file.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12573,6 +13784,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, id: int, document_id: int
     ) -> models.TelephonyPortabilityDocument:
         """get_portability_document calls GET /v1/telephony/{billingAccount}/portability/{id}/document/{documentId}: Get a porting document
+
+        Returns the porting document: name, description, size, and the URLs to download and upload
+        the file.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12623,6 +13837,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_portability_document calls PUT /v1/telephony/{billingAccount}/portability/{id}/document/{documentId}: Update a porting document
 
+        Updates the name and the description of the porting document. The file itself is uploaded
+        with the upload URL of the document.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -12645,6 +13862,8 @@ class TelephonyApi(_gen.SectionApi):
     def delete_portability_document(self, billing_account: str, id: int, document_id: int) -> None:
         """delete_portability_document calls DELETE /v1/telephony/{billingAccount}/portability/{id}/document/{documentId}: Delete a porting document
 
+        Deletes the porting document and its file. It is no longer attached to the number porting.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -12663,6 +13882,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def execute_portability(self, billing_account: str, id: int) -> None:
         """execute_portability calls POST /v1/telephony/{billingAccount}/portability/{id}/execute: Execute the porting
+
+        Executes the number porting now, without waiting for the planned date. Check first that the
+        porting can be executed.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12683,6 +13905,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyPortabilityFixErrorPossibleParameters:
         """get_portability_relaunch calls GET /v1/telephony/{billingAccount}/portability/{id}/relaunch: Check if the porting can be relaunched
 
+        Returns whether the porting error can be fixed, and the fields to correct.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -12702,6 +13926,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, id: int, body: models.CreatePortabilityRelaunchRequest
     ) -> None:
         """create_portability_relaunch calls POST /v1/telephony/{billingAccount}/portability/{id}/relaunch: Relaunch the porting
+
+        Fixes the porting error with the given values and relaunches the number porting.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12725,6 +13951,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyPortabilityStep]:
         """list_portability_status calls GET /v1/telephony/{billingAccount}/portability/{id}/status: Get the porting status
 
+        Returns the status of the number porting, step by step: name, description, status,
+        completion date and duration of each step.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -12743,6 +13972,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_redirects(self, billing_account: str) -> list[str]:
         """list_redirects calls GET /v1/telephony/{billingAccount}/redirect: List redirect numbers
 
+        Returns the redirect numbers of the billing account. A redirect number forwards calls to a
+        destination.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -12758,6 +13990,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_redirect(self, billing_account: str, service_name: str) -> models.TelephonyRedirect:
         """get_redirect calls GET /v1/telephony/{billingAccount}/redirect/{serviceName}: Get a redirect number
+
+        Returns the redirect number: feature type and description. The destination is changed with
+        the changeDestination call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12798,6 +14033,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_redirect calls PUT /v1/telephony/{billingAccount}/redirect/{serviceName}: Update a redirect number
 
+        Updates the description of the redirect number. The destination is changed with the
+        changeDestination call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -12820,6 +14058,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """change_destination_redirect calls POST /v1/telephony/{billingAccount}/redirect/{serviceName}/changeDestination: Change the redirect destination
 
+        Changes the number calls are forwarded to. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -12841,6 +14081,8 @@ class TelephonyApi(_gen.SectionApi):
     def list_rsvas(self, billing_account: str) -> list[str]:
         """list_rsvas calls GET /v1/telephony/{billingAccount}/rsva: List premium rate numbers
 
+        Returns the premium rate numbers of the billing account, subject to the French RSVA rules.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -12856,6 +14098,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_rsva(self, billing_account: str, service_name: str) -> models.TelephonyRsva:
         """get_rsva calls GET /v1/telephony/{billingAccount}/rsva/{serviceName}: Get a premium rate number
+
+        Returns the premium rate number (French SVA numbers subject to the RSVA reform) and its
+        typology, the category of the service.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12896,6 +14141,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_rsva calls PUT /v1/telephony/{billingAccount}/rsva/{serviceName}: Update a premium rate number
 
+        Updates the typology of the premium rate number, such as relationship, contents, games,
+        directory or conferencing.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -12918,6 +14166,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyRateCodeInformation]:
         """list_rsva_allowed_rate_codes calls GET /v1/telephony/{billingAccount}/rsva/{serviceName}/allowedRateCodes: List allowed rate codes
 
+        Returns the rate codes the premium rate number can use, with the price per minute and per
+        call without tax of each.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -12935,6 +14186,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def cancel_scheduled_rate_code_rsva(self, billing_account: str, service_name: str) -> None:
         """cancel_scheduled_rate_code_rsva calls POST /v1/telephony/{billingAccount}/rsva/{serviceName}/cancelScheduledRateCode: Cancel the scheduled rate code
+
+        Cancels the scheduled change of rate code. It must be done before the cancellation limit
+        date of the scheduled rate code.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12955,6 +14209,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyDetailedRateCodeInformation:
         """get_rsva_current_rate_code calls GET /v1/telephony/{billingAccount}/rsva/{serviceName}/currentRateCode: Get the current rate code
 
+        Returns the rate code currently applied to the premium rate number, with its prices and
+        repayment prices without tax.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -12974,6 +14231,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.ScheduleRateCodeRsvaRequest
     ) -> models.TelephonyDetailedRateCodeInformation:
         """schedule_rate_code_rsva calls POST /v1/telephony/{billingAccount}/rsva/{serviceName}/scheduleRateCode: Schedule a rate code
+
+        Schedules a new rate code for the premium rate number. Returns the rate code with its
+        effective date and the price of the change.
 
         Args:
             billing_account: The name of your billingAccount
@@ -12998,6 +14258,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyDetailedRateCodeInformation:
         """get_rsva_scheduled_rate_code calls GET /v1/telephony/{billingAccount}/rsva/{serviceName}/scheduledRateCode: Get the scheduled rate code
 
+        Returns the rate code scheduled for the premium rate number, with its effective date and the
+        date until which it can be cancelled.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13016,6 +14279,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_schedulers(self, billing_account: str) -> list[str]:
         """list_schedulers calls GET /v1/telephony/{billingAccount}/scheduler: List schedulers
 
+        Returns the services of the billing account that have a scheduler. A scheduler holds
+        calendar events, such as closing days.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -13031,6 +14297,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_scheduler(self, billing_account: str, service_name: str) -> models.TelephonyScheduler:
         """get_scheduler calls GET /v1/telephony/{billingAccount}/scheduler/{serviceName}: Get a scheduler
+
+        Returns the scheduler of the service and its timezone. The scheduler holds calendar events,
+        such as closing days.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13071,6 +14340,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_scheduler calls PUT /v1/telephony/{billingAccount}/scheduler/{serviceName}: Update a scheduler
 
+        Updates the scheduler of the service. Only its timezone can be changed, the events are
+        managed separately.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13100,6 +14372,9 @@ class TelephonyApi(_gen.SectionApi):
         date_start_to: datetime.datetime | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
         """list_scheduler_events calls GET /v1/telephony/{billingAccount}/scheduler/{serviceName}/events: List scheduler events
+
+        Returns the identifiers of the events of the scheduler. Get an event for its dates, category
+        and description.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13133,6 +14408,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """create_scheduler_events calls POST /v1/telephony/{billingAccount}/scheduler/{serviceName}/events: Create a scheduler event
 
+        Creates an event in the scheduler, such as a closing day, with a title, start and end dates
+        and a category (holidays or scheduler1 to scheduler3).
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13154,6 +14432,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, uid: str
     ) -> models.TelephonySchedulerEvent:
         """get_scheduler_events calls GET /v1/telephony/{billingAccount}/scheduler/{serviceName}/events/{uid}: Get a scheduler event
+
+        Returns the scheduler event: title, description, start and end dates, and category.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13222,6 +14502,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_scheduler_events calls PUT /v1/telephony/{billingAccount}/scheduler/{serviceName}/events/{uid}: Update a scheduler event
 
+        Updates the scheduler event: title, description, start and end dates, and category.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13243,6 +14525,8 @@ class TelephonyApi(_gen.SectionApi):
 
     def delete_scheduler_events(self, billing_account: str, service_name: str, uid: str) -> None:
         """delete_scheduler_events calls DELETE /v1/telephony/{billingAccount}/scheduler/{serviceName}/events/{uid}: Delete a scheduler event
+
+        Deletes the scheduler event. It no longer applies to the calls of the service.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13268,6 +14552,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTask:
         """import_ics_calendar_scheduler calls POST /v1/telephony/{billingAccount}/scheduler/{serviceName}/importIcsCalendar: Import an ICS calendar
 
+        Imports scheduler events from a calendar file in ICS format, given by its URL. Returns the
+        task that performs the import.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13289,6 +14576,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_screens(self, billing_account: str) -> list[str]:
         """list_screens calls GET /v1/telephony/{billingAccount}/screen: List call filtering services
 
+        Returns the services of the billing account that support call filtering with allowed or
+        blocked numbers.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -13304,6 +14594,8 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_screen(self, billing_account: str, service_name: str) -> models.TelephonyScreen:
         """get_screen calls GET /v1/telephony/{billingAccount}/screen/{serviceName}: Get call filtering settings
+
+        Returns the call filtering settings of the service: incoming and outgoing filtering mode.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13344,6 +14636,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_screen calls PUT /v1/telephony/{billingAccount}/screen/{serviceName}: Update call filtering settings
 
+        Updates the incoming and outgoing filtering mode of the service: whitelist, blacklist or
+        disabled.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13364,6 +14659,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_screen_screen_lists(self, billing_account: str, service_name: str) -> list[int]:
         """list_screen_screen_lists calls GET /v1/telephony/{billingAccount}/screen/{serviceName}/screenLists: List filtering rules
 
+        Returns the identifiers of the call filtering rules of the service. Each rule allows or
+        blocks a number.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13383,6 +14681,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateScreenScreenListsRequest
     ) -> None:
         """create_screen_screen_lists calls POST /v1/telephony/{billingAccount}/screen/{serviceName}/screenLists: Create a filtering rule
+
+        Creates a call filtering rule that allows or blocks a number or a nature of numbers
+        (special, international, voicemail, services or fax), for incoming or outgoing calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13405,6 +14706,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyScreenList:
         """get_screen_screen_lists calls GET /v1/telephony/{billingAccount}/screen/{serviceName}/screenLists/{id}: Get a filtering rule
+
+        Returns the call filtering rule: number, nature, list type (incoming or outgoing, whitelist
+        or blacklist) and status.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13451,6 +14755,9 @@ class TelephonyApi(_gen.SectionApi):
     def delete_screen_screen_lists(self, billing_account: str, service_name: str, id: int) -> None:
         """delete_screen_screen_lists calls DELETE /v1/telephony/{billingAccount}/screen/{serviceName}/screenLists/{id}: Delete a filtering rule
 
+        Deletes the call filtering rule. The number or nature of numbers it covered is no longer
+        allowed or blocked by it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13470,6 +14777,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_services(self, billing_account: str) -> list[str]:
         """list_services calls GET /v1/telephony/{billingAccount}/service: List services
 
+        Returns the services of the billing account: lines, numbers, fax, trunks. Get a service for
+        its type, offers and status.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -13487,6 +14797,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyTelephonyService:
         """get_service calls GET /v1/telephony/{billingAccount}/service/{serviceName}: Get a service
+
+        Returns the service: type, feature type, description, offers, properties, fax capabilities,
+        associated device and country.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13530,6 +14843,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_service calls PUT /v1/telephony/{billingAccount}/service/{serviceName}: Update a service
 
+        Updates the service description. The other properties of the service, such as its type and
+        offers, are read-only.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13557,6 +14873,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_service calls DELETE /v1/telephony/{billingAccount}/service/{serviceName}: Terminate a service
 
+        Requests the termination of the service, with a reason and optional details. The termination
+        can be cancelled until it is executed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13580,6 +14899,8 @@ class TelephonyApi(_gen.SectionApi):
     def cancel_termination_service(self, billing_account: str, service_name: str) -> None:
         """cancel_termination_service calls POST /v1/telephony/{billingAccount}/service/{serviceName}/cancelTermination: Cancel the service termination
 
+        Cancels the termination requested on the service, before it is executed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13601,6 +14922,8 @@ class TelephonyApi(_gen.SectionApi):
         body: models.ChangeOfBillingAccountServiceRequest,
     ) -> None:
         """change_of_billing_account_service calls POST /v1/telephony/{billingAccount}/service/{serviceName}/changeOfBillingAccount: Move a service to another billing account
+
+        Moves the service to another billing account of the same customer, given by its name.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13630,6 +14953,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyDiagnosticReport]:
         """list_service_diagnostic_reports calls GET /v1/telephony/{billingAccount}/service/{serviceName}/diagnosticReports: Get diagnostic reports
 
+        Returns the diagnostic reports of the service: call quality problems detected on the
+        network, for today or one of the last three days.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13654,6 +14980,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyDirectoryInfo:
         """get_service_directory calls GET /v1/telephony/{billingAccount}/service/{serviceName}/directory: Get the directory listing
 
+        Returns the directory listing of the service: name, address and display options.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13673,6 +15001,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyDirectoryInfoWritable
     ) -> None:
         """update_service_directory calls PUT /v1/telephony/{billingAccount}/service/{serviceName}/directory: Update the directory listing
+
+        Updates the directory listing of the service: name, company details, address, contact email
+        and display options in the directories.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13699,6 +15030,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyEntrepriseNumberInformationsTask:
         """fetch_entreprise_informations_service_directory calls POST /v1/telephony/{billingAccount}/service/{serviceName}/directory/fetchEntrepriseInformations: Fetch company information
 
+        Returns the company information for a company registration number. The result is given by a
+        task to check until it ends.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13722,6 +15056,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyDirectoryHeadingPJ]:
         """list_service_directory_get_directory_service_codes calls GET /v1/telephony/{billingAccount}/service/{serviceName}/directory/getDirectoryServiceCode: Get the directory service code
 
+        Returns the directory service codes for an APE code (main business activity code).
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13744,6 +15080,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[models.TelephonyDirectoryWayType]:
         """list_service_directory_get_way_types calls GET /v1/telephony/{billingAccount}/service/{serviceName}/directory/getWayTypes: List street types
 
+        Returns the street types available for a directory listing address, with their full and
+        abbreviated names.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13763,6 +15102,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEventToken:
         """get_service_event_token calls GET /v1/telephony/{billingAccount}/service/{serviceName}/eventToken: Get the event token
+
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13784,6 +15126,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> str:
         """create_service_event_token calls POST /v1/telephony/{billingAccount}/service/{serviceName}/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13804,6 +15149,8 @@ class TelephonyApi(_gen.SectionApi):
 
     def delete_service_event_token(self, billing_account: str, service_name: str) -> None:
         """delete_service_event_token calls DELETE /v1/telephony/{billingAccount}/service/{serviceName}/eventToken: Delete the event token
+
+        Deletes the event token. It can no longer be used to receive real-time call events.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13829,6 +15176,9 @@ class TelephonyApi(_gen.SectionApi):
         way_type: models.TelephonyFaxConsumptionWayTypeEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
         """list_service_fax_consumptions calls GET /v1/telephony/{billingAccount}/service/{serviceName}/faxConsumption: List fax records
+
+        Returns the identifiers of the fax records of the current month. Get a fax record for its
+        called number, pages and price excluding tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13857,6 +15207,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, consumption_id: int
     ) -> models.TelephonyFaxConsumption:
         """get_service_fax_consumption calls GET /v1/telephony/{billingAccount}/service/{serviceName}/faxConsumption/{consumptionId}: Get a fax record
+
+        Returns the fax record: date, calling and called numbers, direction (sent or received),
+        pages and price without tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13917,6 +15270,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyOfferChange:
         """get_service_offer_change calls GET /v1/telephony/{billingAccount}/service/{serviceName}/offerChange: Get the scheduled offer change
 
+        Returns the offer that will replace the current offer of the service on the next renewal.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13936,6 +15291,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateServiceOfferChangeRequest
     ) -> None:
         """create_service_offer_change calls POST /v1/telephony/{billingAccount}/service/{serviceName}/offerChange: Schedule an offer change
+
+        Schedules a change of offer for the service. The new offer replaces the current one on the
+        next renewal.
 
         Args:
             billing_account: The name of your billingAccount
@@ -13957,6 +15315,8 @@ class TelephonyApi(_gen.SectionApi):
     def delete_service_offer_change(self, billing_account: str, service_name: str) -> None:
         """delete_service_offer_change calls DELETE /v1/telephony/{billingAccount}/service/{serviceName}/offerChange: Cancel the scheduled offer change
 
+        Cancels the scheduled offer change. The service keeps its current offer on the next renewal.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -13975,6 +15335,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> list[models.TelephonyLineOffer]:
         """list_service_offer_changes calls GET /v1/telephony/{billingAccount}/service/{serviceName}/offerChanges: List available offer changes
+
+        Returns the offers the service can change to. Use one of them to schedule an offer change.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14001,6 +15363,9 @@ class TelephonyApi(_gen.SectionApi):
         type: models.TelephonyOfferTaskTypeEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
         """list_service_offer_tasks calls GET /v1/telephony/{billingAccount}/service/{serviceName}/offerTask: List offer tasks
+
+        Returns the identifiers of the scheduled offer operations of the service, such as an offer
+        change or a termination.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14029,6 +15394,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, task_id: int
     ) -> models.TelephonyOfferTask:
         """get_service_offer_task calls GET /v1/telephony/{billingAccount}/service/{serviceName}/offerTask/{taskId}: Get an offer task
+
+        Returns the offer operation: type, action such as termination or upgrade, planned execution
+        date and status.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14091,6 +15459,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_service_offer_task calls PUT /v1/telephony/{billingAccount}/service/{serviceName}/offerTask/{taskId}: Update an offer task
 
+        Updates the scheduled offer operation. Only its planned execution date can be changed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14126,6 +15496,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_service_previous_voice_consumptions calls GET /v1/telephony/{billingAccount}/service/{serviceName}/previousVoiceConsumption: List last month call records
 
+        Returns the identifiers of the call records of the previous month. Get a call record for its
+        called number, duration and price excluding tax.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14157,6 +15530,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, consumption_id: int
     ) -> models.TelephonyPreviousVoiceConsumption:
         """get_service_previous_voice_consumption calls GET /v1/telephony/{billingAccount}/service/{serviceName}/previousVoiceConsumption/{consumptionId}: Get a last month call record
+
+        Returns the call record of the previous month: date, numbers, destination, duration, hangup
+        cause and price without tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14231,6 +15607,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_service_repayment_consumptions calls GET /v1/telephony/{billingAccount}/service/{serviceName}/repaymentConsumption: List repayable calls
 
+        Returns the identifiers of the calls that can be repaid. Request a repayment on the billing
+        account to get them repaid.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14256,6 +15635,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, consumption_id: int
     ) -> models.TelephonyRepaymentConsumption:
         """get_service_repayment_consumption calls GET /v1/telephony/{billingAccount}/service/{serviceName}/repaymentConsumption/{consumptionId}: Get a repayable call
+
+        Returns the repayable call: date, calling, called and dialed numbers, operator, duration,
+        repaid price and whether it is repayable now.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14319,6 +15701,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_service_tasks calls GET /v1/telephony/{billingAccount}/service/{serviceName}/task: List tasks
 
+        Returns the identifiers of the operations in progress on the service. Get a task for its
+        action, status and failure message.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14346,6 +15731,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, task_id: int
     ) -> models.TelephonyTask:
         """get_service_task calls GET /v1/telephony/{billingAccount}/service/{serviceName}/task/{taskId}: Get a task
+
+        Returns the operation on the telephony service: action, status (todo, doing, done, error or
+        pause), created object and failure message.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14415,6 +15803,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_service_voice_consumptions calls GET /v1/telephony/{billingAccount}/service/{serviceName}/voiceConsumption: List call records
 
+        Returns the identifiers of the call records of the current month. Get a call record for its
+        called number, duration and price excluding tax.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14446,6 +15837,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, consumption_id: int
     ) -> models.TelephonyVoiceConsumption:
         """get_service_voice_consumption calls GET /v1/telephony/{billingAccount}/service/{serviceName}/voiceConsumption/{consumptionId}: Get a call record
+
+        Returns the call record: date, calling, called and dialed numbers, destination, duration,
+        hangup cause, plan and price without tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14661,6 +16055,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_tasks calls GET /v1/telephony/{billingAccount}/task: List tasks
 
+        Returns the identifiers of the operations in progress on the billing account. Get a task for
+        its action, status and failure message.
+
         Args:
             billing_account: The name of your billingAccount
             action: Filter the value of action property (=) (optional)
@@ -14684,6 +16081,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_task(self, billing_account: str, task_id: int) -> models.TelephonyTask:
         """get_task calls GET /v1/telephony/{billingAccount}/task/{taskId}: Get a task
+
+        Returns the operation on the telephony service: action, status (todo, doing, done, error or
+        pause), created object and failure message.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14735,6 +16135,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_time_conditions(self, billing_account: str) -> list[str]:
         """list_time_conditions calls GET /v1/telephony/{billingAccount}/timeCondition: List time condition services
 
+        Returns the services of the billing account that support time conditions. A time condition
+        routes calls by time slot.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -14752,6 +16155,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyGenericScreen:
         """get_time_condition calls GET /v1/telephony/{billingAccount}/timeCondition/{serviceName}: Get a time condition service
+
+        Returns the time condition service. Its time conditions route calls by time slot.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14792,6 +16197,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_time_condition_conditions(self, billing_account: str, service_name: str) -> list[int]:
         """list_time_condition_conditions calls GET /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition: List time conditions
 
+        Returns the identifiers of the time conditions of the service. A time condition routes calls
+        by time slot.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14815,6 +16223,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTimeCondition:
         """create_time_condition_condition calls POST /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition: Create a time condition
 
+        Creates a time condition: a day (or holiday), start and end hours in hhmm format, and the
+        routing policy to apply during that time slot.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14837,6 +16248,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyTimeCondition:
         """get_time_condition_condition calls GET /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition/{id}: Get a time condition
+
+        Returns the time condition: day, start and end hours (hhmm), status, and the routing policy
+        applied during the time slot.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14889,6 +16303,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_time_condition_condition calls PUT /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition/{id}: Update a time condition
 
+        Updates the day, the start and end hours (hhmm), the status and the routing policy (slot1,
+        slot2, slot3 or available) of the time condition.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14913,6 +16330,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_time_condition_condition calls DELETE /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition/{id}: Delete a time condition
 
+        Deletes the time condition. Calls received during its time slot are no longer routed by its
+        policy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14934,6 +16354,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTimeConditionOptions:
         """get_time_condition_options calls GET /v1/telephony/{billingAccount}/timeCondition/{serviceName}/options: Get time condition options
 
+        Returns the time condition options of the service: status and routing outside time slots.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -14953,6 +16375,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyTimeConditionOptions
     ) -> None:
         """update_time_condition_options calls PUT /v1/telephony/{billingAccount}/timeCondition/{serviceName}/options: Update time condition options
+
+        Updates the time condition options: global status, the action (voicemail or number) of each
+        slot and when unavailable, and the timeout.
 
         Args:
             billing_account: The name of your billingAccount
@@ -14976,6 +16401,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """transfer_security_deposit calls POST /v1/telephony/{billingAccount}/transferSecurityDeposit: Transfer the security deposit
 
+        Transfers an amount of the security deposit, in euros, to another billing account given by
+        its name.
+
         Args:
             billing_account: The name of your billingAccount
             body: the request body
@@ -14994,6 +16422,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_by_billing_account_trunk(self, billing_account: str) -> list[str]:
         """list_by_billing_account_trunk calls GET /v1/telephony/{billingAccount}/trunk: List trunks
 
+        Returns the trunks of the billing account. A trunk connects a customer PBX to OVHcloud over
+        SIP.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -15009,6 +16440,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_trunk(self, billing_account: str, service_name: str) -> models.TelephonyTrunk:
         """get_trunk calls GET /v1/telephony/{billingAccount}/trunk/{serviceName}: Get a trunk
+
+        Returns the trunk service: service name, service type and description. External displayed
+        numbers and channel packs have their own calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15051,6 +16485,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTrunkSimultaneousPacksRepartition:
         """get_trunk_channels_packs_repartition calls GET /v1/telephony/{billingAccount}/trunk/{serviceName}/channelsPacksRepartition: Get the best channel packs
 
+        Returns the best combination of channel packs for a number of simultaneous channels.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -15072,6 +16508,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> list[models.PhoneNumber]:
         """list_trunk_external_displayed_numbers calls GET /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber: List external displayed numbers
+
+        Returns the external numbers the trunk can display to callees. Each number must be validated
+        by a phone call before use.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15096,6 +16535,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTrunkExternalDisplayedNumber:
         """create_trunk_external_displayed_number calls POST /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber: Create an external displayed number
 
+        Adds an external number the trunk can display to callees. The number must then be validated.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -15118,6 +16559,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, number: models.PhoneNumber
     ) -> models.TelephonyTrunkExternalDisplayedNumber:
         """get_trunk_external_displayed_number calls GET /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber/{number}: Get an external displayed number
+
+        Returns the external displayed number, its creation and validation dates and its status:
+        waitingValidation, enabled, toDelete or refused.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15166,6 +16610,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_trunk_external_displayed_number calls DELETE /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber/{number}: Delete an external displayed number
 
+        Deletes the external displayed number. The trunk can no longer display it to callees.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -15187,6 +16633,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyTrunkExternalDisplayedNumberValidation:
         """validate_trunk_external_displayed_number calls POST /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber/{number}/validate: Validate an external displayed number
 
+        Calls the external number to validate it. Type the returned validation code when the call
+        asks for it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -15207,6 +16656,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_voicemails(self, billing_account: str) -> list[str]:
         """list_voicemails calls GET /v1/telephony/{billingAccount}/voicemail: List voicemails
 
+        Returns the voicemails of the billing account. Get the voicemail settings for its greetings
+        and email notifications.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -15222,6 +16674,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_voicemail(self, billing_account: str, service_name: str) -> models.TelephonyVoicemail:
         """get_voicemail calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}: Get a voicemail
+
+        Returns the voicemail service: description and offers. Settings, messages and greetings have
+        their own routes.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15262,6 +16717,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """update_voicemail calls PUT /v1/telephony/{billingAccount}/voicemail/{serviceName}: Update a voicemail
 
+        Updates the description of the voicemail service. The voicemail behaviour is changed in its
+        settings.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15291,6 +16749,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_voicemail_directories calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories: List voicemail messages
 
+        Returns the identifiers of the voicemail messages, filtered by folder. Get a message for its
+        caller, date and duration.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15312,6 +16773,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyVoicemailMessages:
         """get_voicemail_directories calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories/{id}: Get a voicemail message
+
+        Returns the voicemail message: caller and callee numbers, folder, creation date and duration
+        in seconds.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15369,6 +16833,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """delete_voicemail_directories calls DELETE /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories/{id}: Delete a voicemail message
 
+        Deletes the voicemail message. It no longer appears in the folders of the voicemail.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15394,6 +16860,9 @@ class TelephonyApi(_gen.SectionApi):
         format: models.TelephonyServiceVoicemailAudioFormatEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> models.TelephonyPcsFile:
         """get_voicemail_directories_download calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories/{id}/download: Download a voicemail message
+
+        Returns a file to download the voicemail message as a sound file, in wav, mp3, aiff, flac,
+        ogg or au format.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15423,6 +16892,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """move_voicemail_directories calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories/{id}/move: Move a voicemail message
 
+        Moves the voicemail message to another folder: inbox, old, work, family, friends or urgent.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15451,6 +16922,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> list[int]:
         """list_voicemail_greetings calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings: List greetings
 
+        Returns the identifiers of the custom greetings of the voicemail, filtered by folder.
+        Greetings can also be added with this route.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15472,6 +16946,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.CreateVoicemailGreetingsRequest
     ) -> int:
         """create_voicemail_greetings calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings: Upload a greeting
+
+        Uploads a sound file from /me/document as a custom greeting, in the given greeting folder.
+        Returns the task identifier.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15495,6 +16972,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyVoicemailGreetings:
         """get_voicemail_greetings calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings/{id}: Get a greeting
+
+        Returns the custom greeting: its identifier, the callee number and the greeting folder
+        (unavail, busy, greet or temp).
 
         Args:
             billing_account: The name of your billingAccount
@@ -15547,6 +17027,8 @@ class TelephonyApi(_gen.SectionApi):
     def delete_voicemail_greetings(self, billing_account: str, service_name: str, id: int) -> None:
         """delete_voicemail_greetings calls DELETE /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings/{id}: Delete a greeting
 
+        Deletes the custom greeting. It is no longer played to callers who reach the voicemail.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15572,6 +17054,9 @@ class TelephonyApi(_gen.SectionApi):
         format: models.TelephonyServiceVoicemailAudioFormatEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> models.TelephonyPcsFile:
         """get_voicemail_greetings_download calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings/{id}/download: Download a greeting
+
+        Returns a file to download the greeting as a sound file, in wav, mp3, aiff, flac, ogg or au
+        format.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15601,6 +17086,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """move_voicemail_greetings calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings/{id}/move: Move a greeting
 
+        Moves the greeting to another greeting folder: unavail, busy, greet or temp. The folder sets
+        when the greeting is played.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15623,6 +17111,8 @@ class TelephonyApi(_gen.SectionApi):
     def migrate_on_new_version_voicemail(self, billing_account: str, service_name: str) -> None:
         """migrate_on_new_version_voicemail calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/migrateOnNewVersion: Migrate the voicemail to the new version
 
+        Migrates the voicemail to the new version, with greetings, folders and extra features.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15641,6 +17131,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyVoicemailProperties:
         """get_voicemail_settings calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings: Get the voicemail settings
+
+        Returns the voicemail settings: greeting, email notification, audio format and other
+        options.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15664,6 +17157,9 @@ class TelephonyApi(_gen.SectionApi):
         body: models.TelephonyVoicemailPropertiesWritable,
     ) -> None:
         """update_voicemail_settings calls PUT /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings: Update the voicemail settings
+
+        Updates the voicemail settings: greetings, sender of the notification emails, notified
+        addresses, audio format, and message recording and storage.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15690,6 +17186,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """change_password_voicemail_settings calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings/changePassword: Change the voicemail password
 
+        Changes the password used to access the voicemail panel. The password must be 4 digits.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15715,6 +17213,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> None:
         """change_routing_voicemail_settings calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings/changeRouting: Enable or disable the voicemail
 
+        Routes the calls of the line to the voicemail or to the fax. Available only on a line with
+        fax capabilities.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15737,6 +17238,9 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyVoicefaxRoutingEnum:
         """get_voicemail_settings_routing calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings/routing: Get the voicemail status
 
+        Returns whether calls are routed to the voicemail or to the fax. Available only on a line
+        with fax capabilities.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15757,6 +17261,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyVoicemailNumbers:
         """get_voicemail_settings_voicemail_numbers calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings/voicemailNumbers: Get the voicemail numbers
 
+        Returns the numbers to call the voicemail from inside and outside the network.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15775,6 +17281,9 @@ class TelephonyApi(_gen.SectionApi):
     def list_vxmls(self, billing_account: str) -> list[str]:
         """list_vxmls calls GET /v1/telephony/{billingAccount}/vxml: List VXML services
 
+        Returns the VXML services of the billing account. A VXML service runs a voice application
+        hosted on a web server.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -15790,6 +17299,9 @@ class TelephonyApi(_gen.SectionApi):
 
     def get_vxml(self, billing_account: str, service_name: str) -> models.TelephonyVxml:
         """get_vxml calls GET /v1/telephony/{billingAccount}/vxml/{serviceName}: Get a VXML service
+
+        Returns the VXML service: description and offers. The VXML application URLs are in its
+        settings.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15830,6 +17342,8 @@ class TelephonyApi(_gen.SectionApi):
     ) -> models.TelephonyVxmlProperties:
         """get_vxml_settings calls GET /v1/telephony/{billingAccount}/vxml/{serviceName}/settings: Get the VXML settings
 
+        Returns the VXML settings: URL of the VXML application and URL used for recordings.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -15849,6 +17363,8 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyVxmlProperties
     ) -> None:
         """update_vxml_settings calls PUT /v1/telephony/{billingAccount}/vxml/{serviceName}/settings: Update the VXML settings
+
+        Updates the URL of the VXML application and the URL used for recordings of the VXML service.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15871,6 +17387,9 @@ class TelephonyApi(_gen.SectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyTemporaryLogsLink:
         """logs_vxml_settings calls POST /v1/telephony/{billingAccount}/vxml/{serviceName}/settings/logs: Generate a logs URL
+
+        Generates a temporary URL to download the logs of the VXML service. Returns the URL and its
+        expiration date.
 
         Args:
             billing_account: The name of your billingAccount
@@ -15911,6 +17430,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_telephonies calls GET /v1/telephony: List billing accounts
 
+        Returns the billing accounts of the customer. A billing account groups telephony services
+        billed together.
+
         Args:
             iam_tags: Filter resources on IAM tags (optional)
 
@@ -15950,6 +17472,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_aliases calls GET /v1/telephony/aliases: List numbers
 
+        Returns the numbers of the customer, across all billing accounts. Get a number service for
+        its billing account and settings.
+
         Args:
             iam_tags: Filter resources on IAM tags (optional)
 
@@ -15965,6 +17490,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, service_name: str
     ) -> models.TelephonyTelephonyGenericServiceWithIAM:
         """get_aliases calls GET /v1/telephony/aliases/{serviceName}: Get a number service
+
+        Returns the number service, without its billing account. Use it to find a number across all
+        billing accounts.
 
         Args:
             service_name: Your line number
@@ -16084,6 +17612,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_current_order_ids(self) -> list[int]:
         """list_current_order_ids calls GET /v1/telephony/currentOrderIds: List current order IDs
 
+        Returns the identifiers of the telephony orders of the customer that are still in progress.
+
         Requires the IAM action account:apiovh:voip/currentOrderIds/get.
         """
         return await self._call(
@@ -16180,6 +17710,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_lines calls GET /v1/telephony/lines: List lines
 
+        Returns the lines of the customer, across all billing accounts. Get a line or trunk for the
+        service without its billing account.
+
         Args:
             iam_tags: Filter resources on IAM tags (optional)
 
@@ -16193,6 +17726,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_lines(self, service_name: str) -> models.TelephonyTelephonyGenericServiceWithIAM:
         """get_lines calls GET /v1/telephony/lines/{serviceName}: Get a line or trunk
+
+        Returns the line or trunk service, without its billing account. Use it to find a service
+        across all billing accounts.
 
         Args:
             service_name: Your line number
@@ -16384,6 +17920,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_procedures(self) -> list[int]:
         """list_procedures calls GET /v1/telephony/procedure: List procedures
 
+        Returns the identifiers of the procedures of the customer, such as identity checks needed to
+        order telephony products.
+
         Requires the IAM action account:apiovh:voip/procedure/get.
 
         Deprecated: the API has deprecated this operation. Removal date: 2027-06-01.
@@ -16400,6 +17939,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, body: models.CreateProcedureRequest
     ) -> models.TelephonyProcedure:
         """create_procedure calls POST /v1/telephony/procedure: Create a procedure
+
+        Creates a procedure needed to order telephony products. A SEPA payment mean is given by its
+        ID, or by the owner name, address, IBAN and BIC.
 
         Args:
             body: the request body
@@ -16418,6 +17960,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def get_procedure_required(self) -> bool:
         """get_procedure_required calls GET /v1/telephony/procedure/required: Check if a procedure is required
 
+        Returns true when a procedure, such as an identity check, is required before ordering
+        telephony products.
+
         Requires the IAM action account:apiovh:voip/procedure/required/get.
         """
         return await self._call(
@@ -16427,6 +17972,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_procedure(self, id: int) -> models.TelephonyProcedure:
         """get_procedure calls GET /v1/telephony/procedure/{id}: Get a procedure
+
+        Returns the procedure: status (pretodo, todo, doing, done, stop or cancel), request date,
+        finish date and the URL of its document.
 
         Args:
             id: Procedure ID
@@ -16461,6 +18009,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def cancel_procedure(self, id: int) -> None:
         """cancel_procedure calls POST /v1/telephony/procedure/{id}/cancel: Cancel a procedure
 
+        Cancels the procedure linked to the account. Its status becomes cancel and it is no longer
+        processed.
+
         Args:
             id: Procedure ID
 
@@ -16476,6 +18027,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def generate_password_reseller_panel(self) -> None:
         """generate_password_reseller_panel calls POST /v1/telephony/resellerPanel/generatePassword: Generate a reseller panel password
 
+        Generates a new password for the reseller panel. Follow the update with the reseller panel
+        status.
+
         Requires the IAM action account:apiovh:voip/resellerPanel/generatePassword.
         """
         return await self._call(
@@ -16484,6 +18038,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_reseller_panel_status(self) -> models.TelephonyResellerPanelStatus:
         """get_reseller_panel_status calls GET /v1/telephony/resellerPanel/status: Get the reseller panel status
+
+        Returns whether the reseller panel of the customer is enabled, and the status of the last
+        password update.
 
         Requires the IAM action account:apiovh:voip/resellerPanel/status/get.
         """
@@ -16496,6 +18053,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, axiom: str
     ) -> list[models.TelephonyTelephonySearchService]:
         """list_search_services calls GET /v1/telephony/searchServices: Search a service
+
+        Finds services whose number matches the search value, and returns for each one its billing
+        account and service type.
 
         Args:
             axiom: Filter the value of property (like)
@@ -16510,6 +18070,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def set_default_sip_domain(self, body: models.SetDefaultSIPDomainRequest) -> None:
         """set_default_sip_domain calls POST /v1/telephony/setDefaultSipDomain: Set the default SIP domain
+
+        Sets the default SIP domain of the customer for a country and a product type. List the
+        default SIP domains for the available domains.
 
         Args:
             body: the request body
@@ -16583,6 +18146,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def create_sounds(self, body: models.CreateSoundsRequest) -> models.TelephonySound:
         """create_sounds calls POST /v1/telephony/sounds: Create a sound
 
+        Creates a sound from an uploaded file. Sets its filename and description, and returns the
+        sound with the URL to upload the file.
+
         Args:
             body: the request body
 
@@ -16597,6 +18163,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_sounds(self, id: int) -> models.TelephonySound:
         """get_sounds calls GET /v1/telephony/sounds/{id}: Get a sound
+
+        Returns the sound: filename, description, creation date, size, and the URLs to download and
+        upload the sound file.
 
         Args:
             id: Sound ID
@@ -16628,6 +18197,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def update_sounds(self, id: int, body: models.TelephonySoundWritable) -> None:
         """update_sounds calls PUT /v1/telephony/sounds/{id}: Update a sound
 
+        Updates the sound filename and description. The sound file itself is uploaded with the
+        upload URL of the sound.
+
         Args:
             id: Sound ID
             body: the request body
@@ -16645,6 +18217,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def delete_sounds(self, id: int) -> None:
         """delete_sounds calls DELETE /v1/telephony/sounds/{id}: Delete a sound
+
+        Deletes the sound and its file. It can no longer be played by the telephony services.
 
         Args:
             id: Sound ID
@@ -16664,6 +18238,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
         """list_spares calls GET /v1/telephony/spare: List spare phones
+
+        Returns the spare phones of the customer. A spare phone can replace a phone of a line, with
+        the same protocol.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -16685,6 +18262,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_spare(self, spare: str) -> models.SpareTelephonyTelephonySpareWithIAM:
         """get_spare calls GET /v1/telephony/spare/{spare}: Get a spare phone
+
+        Returns the spare phone: MAC address, brand and model, and its telephony protocol.
 
         Args:
             spare: The internal name of your spare
@@ -16725,6 +18304,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def delete_spare(self, spare: str) -> None:
         """delete_spare calls DELETE /v1/telephony/spare/{spare}: Delete a spare phone
 
+        Removes the spare phone from the customer account, as if it no longer belonged to OVHcloud.
+
         Args:
             spare: The internal name of your spare
 
@@ -16739,6 +18320,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_spare_compatible_replacements(self, spare: str) -> list[str]:
         """list_spare_compatible_replacements calls GET /v1/telephony/spare/{spare}/compatibleReplacement: List phones replaceable by the spare
+
+        Returns the phones that the spare can replace. Use one of them to replace a phone with the
+        spare.
 
         Args:
             spare: The internal name of your spare
@@ -16755,6 +18339,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def replace_spare(self, spare: str, body: models.ReplaceSpareRequest) -> None:
         """replace_spare calls POST /v1/telephony/spare/{spare}/replace: Replace a phone with the spare
+
+        Replaces the phone of a line, given by its domain and public IP address, with the spare. The
+        replaced phone becomes a spare if it was bought.
 
         Args:
             spare: The internal name of your spare
@@ -16820,6 +18407,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_trunks calls GET /v1/telephony/trunks: List trunks
 
+        Returns the trunks of the customer, across all billing accounts. A trunk connects a customer
+        PBX to OVHcloud over SIP.
+
         Args:
             iam_tags: Filter resources on IAM tags (optional)
 
@@ -16833,6 +18423,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_trunks(self, service_name: str) -> models.TelephonyTelephonyGenericServiceWithIAM:
         """get_trunks calls GET /v1/telephony/trunks/{serviceName}: Get a line or trunk
+
+        Returns the line or trunk service, without its billing account. Use it to find a service
+        across all billing accounts.
 
         Args:
             service_name: Your trunk number
@@ -16938,6 +18531,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def get_telephony(self, billing_account: str) -> models.TelephonyBillingAccountWithIAM:
         """get_telephony calls GET /v1/telephony/{billingAccount}: Get a billing account
 
+        Returns the billing account: description, status, credit threshold, security deposit and
+        current out-of-plan amount.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -16979,6 +18575,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_telephony calls PUT /v1/telephony/{billingAccount}: Update a billing account
 
+        Updates the billing account settings: description, credit threshold, and the displayed or
+        hidden external number.
+
         Args:
             billing_account: The name of your billingAccount
             body: the request body
@@ -17003,6 +18602,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_telephony calls DELETE /v1/telephony/{billingAccount}: Terminate a billing account
 
+        Requests the termination of the billing account, with a reason and optional details. The
+        termination can be cancelled until it is executed.
+
         Args:
             billing_account: The name of your billingAccount
             reason: Termination reason
@@ -17024,6 +18626,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_abbreviated_numbers(self, billing_account: str) -> list[int]:
         """list_abbreviated_numbers calls GET /v1/telephony/{billingAccount}/abbreviatedNumber: List speed dial numbers
 
+        Returns the speed dial numbers shared by all the lines of the billing account. A speed dial
+        number is a short code for a number.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -17041,6 +18646,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, body: models.CreateAbbreviatedNumberRequest
     ) -> models.TelephonyAbbreviatedNumberGroup:
         """create_abbreviated_number calls POST /v1/telephony/{billingAccount}/abbreviatedNumber: Create a speed dial number
+
+        Creates a speed dial number shared by all the lines of the billing account. The short code
+        starts with 7 and has 3 or 4 digits.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17062,6 +18670,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, abbreviated_number: int
     ) -> models.TelephonyAbbreviatedNumberGroup:
         """get_abbreviated_number calls GET /v1/telephony/{billingAccount}/abbreviatedNumber/{abbreviatedNumber}: Get a speed dial number
+
+        Returns the speed dial number of the billing account: short code, destination number, name
+        and surname. The short code starts with 7.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17107,6 +18718,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_abbreviated_number calls PUT /v1/telephony/{billingAccount}/abbreviatedNumber/{abbreviatedNumber}: Update a speed dial number
 
+        Updates the speed dial number of the billing account: destination number, name and surname.
+        The short code starts with 7 and has 3 or 4 digits.
+
         Args:
             billing_account: The name of your billingAccount
             abbreviated_number: The abbreviated number which must start with "7" and must have a length of 3 or 4 digits
@@ -17129,6 +18743,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_abbreviated_number calls DELETE /v1/telephony/{billingAccount}/abbreviatedNumber/{abbreviatedNumber}: Delete a speed dial number
 
+        Deletes the speed dial number of the billing account. Its short code no longer calls the
+        destination number from the lines.
+
         Args:
             billing_account: The name of your billingAccount
             abbreviated_number: The abbreviated number which must start with "7" and must have a length of 3 or 4 digits
@@ -17146,6 +18763,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_allowed_credit_thresholds(self, billing_account: str) -> list[models.OrderPrice]:
         """list_allowed_credit_thresholds calls GET /v1/telephony/{billingAccount}/allowedCreditThreshold: List allowed credit thresholds
 
+        Returns the credit thresholds allowed for the billing account. Use one of them to update the
+        billing account.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -17161,6 +18781,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_amount_security_deposits(self, billing_account: str) -> list[models.OrderPrice]:
         """list_amount_security_deposits calls GET /v1/telephony/{billingAccount}/amountSecurityDeposit: List security deposit amounts
+
+        Returns the security deposit amounts that can be ordered for the billing account, as prices.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17180,6 +18802,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyAvailableDevice]:
         """list_available_devices calls GET /v1/telephony/{billingAccount}/availableDevices: List phone devices
 
+        Returns the phone devices of the billing account: brand, MAC address, maximum and available
+        lines, and the lines assigned to each one.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -17195,6 +18820,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_billing_account_site(self, billing_account: str) -> str:
         """get_billing_account_site calls GET /v1/telephony/{billingAccount}/billingAccountSite: Get the billing account site
+
+        Returns the site attached to the billing account. The site settings override the billing
+        account settings.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17213,6 +18841,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, body: models.CreateBillingAccountSiteRequest
     ) -> None:
         """create_billing_account_site calls POST /v1/telephony/{billingAccount}/billingAccountSite: Set the billing account site
+
+        Attaches a site to the billing account. The site settings override the billing account
+        settings.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17234,6 +18865,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> bool:
         """can_transfer_security_deposit calls POST /v1/telephony/{billingAccount}/canTransferSecurityDeposit: Check a security deposit transfer
 
+        Checks whether the security deposit can be transferred to another billing account, given by
+        its name.
+
         Args:
             billing_account: The name of your billingAccount
             body: the request body
@@ -17253,6 +18887,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def cancel_termination(self, billing_account: str) -> None:
         """cancel_termination calls POST /v1/telephony/{billingAccount}/cancelTermination: Cancel the billing account termination
 
+        Cancels the termination requested on the billing account, before it is executed.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -17267,6 +18903,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_carrier_sips(self, billing_account: str) -> list[str]:
         """list_carrier_sips calls GET /v1/telephony/{billingAccount}/carrierSip: List Carrier SIP services
+
+        Returns the Carrier SIP services of the billing account. Carrier SIP connects an operator
+        network to OVHcloud over SIP.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17285,6 +18924,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyCarrierSIP:
         """get_carrier_sip calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}: Get a Carrier SIP service
+
+        Returns the Carrier SIP service and its description. Settings, SIP endpoints and VNO
+        mandates have their own routes.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17325,6 +18967,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyDocument:
         """get_carrier_sip_cdrs calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/cdrs: Get call detail records
 
+        Returns the call detail records (CDR) of the Carrier SIP service for a month (YYYY-MM), the
+        current month by default, as a document.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17347,6 +18992,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyCarrierSIPClusterInfo:
         """get_carrier_sip_cluster_details calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/clusterDetails: Get the cluster details
 
+        Returns the details of the Carrier SIP cluster the service runs on: its name and its zones.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17367,6 +19014,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_carrier_sip_endpoints calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/endpoints: List SIP endpoints
 
+        Returns the identifiers of the remote SIP endpoints of the service. Get an endpoint for its
+        IP address, port, protocol and priority.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17386,6 +19036,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyCarrierSIPCustomerEndpoint:
         """get_carrier_sip_endpoints calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/endpoints/{id}: Get a SIP endpoint
+
+        Returns the remote SIP endpoint: IP address, port, protocol (udp, tcp or tls), DNS SRV
+        priority and weight, and whether it receives incoming calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17434,6 +19087,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyCarrierSIPDetails:
         """get_carrier_sip_settings calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/settings: Get the settings
 
+        Returns the Carrier SIP settings: description, maximum call establishments per second and
+        maximum concurrent calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17457,6 +19113,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_carrier_sip_settings calls PUT /v1/telephony/{billingAccount}/carrierSip/{serviceName}/settings: Update the settings
 
+        Updates the Carrier SIP settings. Only the description can be changed; the call limits are
+        read only.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17477,6 +19136,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_carrier_sip_vnos(self, billing_account: str, service_name: str) -> list[str]:
         """list_carrier_sip_vnos calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno: List VNO mandates
 
+        Returns the references of the VNO mandates of the service. A mandate covers number ranges
+        routed from its application date.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17496,6 +19158,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, contract_reference: str
     ) -> models.TelephonyCarrierSIPVnoMandate:
         """get_carrier_sip_vno calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno/{contractReference}: Get a VNO mandate
+
+        Returns the VNO mandate: the reference written on the VNO contract and the date from which
+        its ranges are routed.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17542,6 +19207,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_carrier_sip_vno_ranges calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno/{contractReference}/ranges: List mandate number ranges
 
+        Returns the prefixes of the number ranges covered by the VNO mandate. Get a range for its
+        description.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17563,6 +19231,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, contract_reference: str, prefix: str
     ) -> models.TelephonyCarrierSIPVnoRange:
         """get_carrier_sip_vno_ranges calls GET /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno/{contractReference}/ranges/{prefix}: Get a number range
+
+        Returns the number range of the mandate: its phone range prefix and its description, which
+        can be updated.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17620,6 +19291,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_carrier_sip_vno_ranges calls PUT /v1/telephony/{billingAccount}/carrierSip/{serviceName}/vno/{contractReference}/ranges/{prefix}: Update a number range
 
+        Updates the description of the number range of the mandate. The prefix cannot be changed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17667,6 +19340,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_conferences(self, billing_account: str) -> list[str]:
         """list_conferences calls GET /v1/telephony/{billingAccount}/conference: List conference services
 
+        Returns the conference services of the billing account. A conference service hosts calls
+        between several participants.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -17684,6 +19360,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyConference:
         """get_conference calls GET /v1/telephony/{billingAccount}/conference/{serviceName}: Get a conference service
+
+        Returns the conference service: description and offers. Settings, rooms and participants
+        have their own routes.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17724,6 +19403,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """announce_upload_conference calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/announceUpload: Upload the welcome announcement
 
+        Uploads the sound played to participants when they join the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17752,6 +19433,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_conference_histories calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/histories: List past conferences
 
+        Returns the identifiers of the past conferences, filtered by start date. Get one for its
+        duration, participants and recording.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17777,6 +19461,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyConferenceHistory:
         """get_conference_histories calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/histories/{id}: Get a past conference
+
+        Returns the past conference: start and end dates, duration, participants and connections,
+        events, and the recording URL if recorded.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17834,6 +19521,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyConferenceInformations:
         """get_conference_informations calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/informations: Get live conference information
 
+        Returns live information about the conference: start date, lock state and number of members.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17853,6 +19542,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyTask:
         """lock_conference calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/lock: Lock the conference room
+
+        Locks the conference room. No new participant can join. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -17874,6 +19565,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_conference_participants calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/participants: List participants
 
+        Returns the identifiers of the participants currently in the conference. Get a participant
+        for its number, name and audio state.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17893,6 +19587,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyConferenceParticipants:
         """get_conference_participants calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}: Get a participant
+
+        Returns the participant: number, name, arrival time and audio state (talking, can speak, can
+        hear, audio level).
 
         Args:
             billing_account: The name of your billingAccount
@@ -17941,6 +19638,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """deaf_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/deaf: Deafen a participant
 
+        Stops the participant from hearing the conference. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17967,6 +19666,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """energy_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/energy: Change a participant audio level
 
+        Changes the audio level (energy) the participant must reach to be heard. Returns the task
+        that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -17992,6 +19694,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """kick_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/kick: Eject a participant
 
+        Removes the participant from the conference room. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18013,6 +19717,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyTask:
         """mute_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/mute: Mute a participant
+
+        Mutes the participant, who can still hear the conference. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18036,6 +19742,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """undeaf_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/undeaf: Undeafen a participant
 
+        Lets the participant hear the conference again. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18058,6 +19766,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """unmute_conference_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/participants/{id}/unmute: Unmute a participant
 
+        Unmutes the participant, who can talk in the conference again. Returns the task that
+        performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18078,6 +19789,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_conference_rooms(self, billing_account: str, service_name: str) -> list[int]:
         """list_conference_rooms calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms: List conference rooms
 
+        Returns the room numbers of the conference service. Each room has its own PIN, language and
+        recording settings.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18097,6 +19811,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateConferenceRoomsRequest
     ) -> models.TelephonyConferenceRoom:
         """create_conference_rooms calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms: Create a conference room
+
+        Creates a conference room with the given room number, or a random one if not specified.
+        Returns the room.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18120,6 +19837,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, room_number: int
     ) -> models.TelephonyConferenceRoom:
         """get_conference_rooms calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}: Get a conference room
+
+        Returns the conference room and its settings: PIN, language, recording, announcement, report
+        and expiration date.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18170,6 +19890,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_conference_rooms calls PUT /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}: Update a conference room
 
+        Updates the room settings: PIN, language, muted entry, recording, anonymous rejection,
+        announcement, report and expiration date.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18200,6 +19923,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_conference_rooms_histories calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/histories: List past conferences
 
+        Returns the identifiers of the past conferences, filtered by start date. Get one for its
+        duration, participants and recording.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18227,6 +19953,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyConferenceHistory:
         """get_conference_rooms_histories calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/histories/{id}: Get a past conference
+
+        Returns the past conference: start and end dates, duration, participants and connections,
+        events, and the recording URL if recorded.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18289,6 +20018,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """lock_conference_rooms calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/lock: Lock the conference room
 
+        Locks the conference room. No new participant can join. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18311,6 +20042,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_conference_rooms_participants calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants: List participants
 
+        Returns the identifiers of the participants currently in the conference. Get a participant
+        for its number, name and audio state.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18332,6 +20066,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyConferenceParticipants:
         """get_conference_rooms_participants calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}: Get a participant
+
+        Returns the participant: number, name, arrival time and audio state (talking, can speak, can
+        hear, audio level).
 
         Args:
             billing_account: The name of your billingAccount
@@ -18384,6 +20121,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """deaf_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/deaf: Deafen a participant
 
+        Stops the participant from hearing the conference. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18413,6 +20152,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """energy_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/energy: Change a participant audio level
 
+        Changes the audio level (energy) the participant must reach to be heard. Returns the task
+        that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18440,6 +20182,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """kick_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/kick: Eject a participant
 
+        Removes the participant from the conference room. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18463,6 +20207,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyTask:
         """mute_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/mute: Mute a participant
+
+        Mutes the participant, who can still hear the conference. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18488,6 +20234,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """undeaf_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/undeaf: Undeafen a participant
 
+        Lets the participant hear the conference again. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18511,6 +20259,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyTask:
         """unmute_conference_rooms_participants calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/participants/{id}/unmute: Unmute a participant
+
+        Unmutes the participant, who can talk in the conference again. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18536,6 +20287,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """unlock_conference_rooms calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/unlock: Unlock the conference room
 
+        Unlocks the conference room. New participants can join again. Returns the task that performs
+        it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18557,6 +20311,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, room_number: int
     ) -> list[int]:
         """list_conference_rooms_web_access calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/webAccess: List web accesses
+
+        Returns the identifiers of the public web accesses to the conference. A web access gives a
+        read or write URL to follow the conference.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18584,6 +20341,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyConferenceWebAccess:
         """create_conference_rooms_web_access calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/webAccess: Create a web access
 
+        Creates a public web access to follow and manage the conference. Returns its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18608,6 +20367,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, room_number: int, id: int
     ) -> models.TelephonyConferenceWebAccess:
         """get_conference_rooms_web_access calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/webAccess/{id}: Get a web access
+
+        Returns the public web access to the conference: its type (read or write) and its URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18660,6 +20421,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_conference_rooms_web_access calls DELETE /v1/telephony/{billingAccount}/conference/{serviceName}/rooms/{roomNumber}/webAccess/{id}: Delete a web access
 
+        Deletes the public web access. Its URL no longer gives access to the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18683,6 +20446,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyConferenceRoomsStatistics:
         """get_conference_rooms_stats calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/roomsStats: Get live room statistics
 
+        Returns live statistics for all the rooms of the conference service: number of rooms, active
+        rooms and participants.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18702,6 +20468,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyConferenceProperties:
         """get_conference_settings calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/settings: Get the conference settings
+
+        Returns the conference settings: PIN, language, announcements and other options.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18726,6 +20494,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_conference_settings calls PUT /v1/telephony/{billingAccount}/conference/{serviceName}/settings: Update the conference settings
 
+        Updates the PIN, language, muted entry, recording, anonymous rejection, announcement and
+        report settings of the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18748,6 +20519,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """unlock_conference calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/unlock: Unlock the conference room
 
+        Unlocks the conference room. New participants can join again. Returns the task that performs
+        it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18768,6 +20542,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_conference_web_access calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/webAccess: List web accesses
 
+        Returns the identifiers of the public web accesses to the conference. A web access gives a
+        read or write URL to follow the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18787,6 +20564,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateConferenceWebAccessRequest
     ) -> models.TelephonyConferenceWebAccess:
         """create_conference_web_access calls POST /v1/telephony/{billingAccount}/conference/{serviceName}/webAccess: Create a web access
+
+        Creates a public web access to follow and manage the conference. Returns its URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18810,6 +20589,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyConferenceWebAccess:
         """get_conference_web_access calls GET /v1/telephony/{billingAccount}/conference/{serviceName}/webAccess/{id}: Get a web access
+
+        Returns the public web access to the conference: its type (read or write) and its URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18858,6 +20639,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_conference_web_access calls DELETE /v1/telephony/{billingAccount}/conference/{serviceName}/webAccess/{id}: Delete a web access
 
+        Deletes the public web access. Its URL no longer gives access to the conference.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18877,6 +20660,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_ddis(self, billing_account: str) -> list[str]:
         """list_ddis calls GET /v1/telephony/{billingAccount}/ddi: List DDI numbers
 
+        Returns the DDI numbers of the billing account. A DDI number forwards calls to a
+        destination.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -18892,6 +20678,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_ddi(self, billing_account: str, service_name: str) -> models.TelephonyDdi:
         """get_ddi calls GET /v1/telephony/{billingAccount}/ddi/{serviceName}: Get a DDI number
+
+        Returns the DDI (direct dial-in) number: feature type and description. The destination is
+        changed with the changeDestination call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -18932,6 +20721,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ddi calls PUT /v1/telephony/{billingAccount}/ddi/{serviceName}: Update a DDI number
 
+        Updates the description of the DDI number. The destination is changed with the
+        changeDestination call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18954,6 +20746,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """change_destination_ddi calls POST /v1/telephony/{billingAccount}/ddi/{serviceName}/changeDestination: Change the DDI destination
 
+        Changes the number calls to the DDI number are forwarded to. Returns the task that performs
+        it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -18975,6 +20770,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_easy_huntings(self, billing_account: str) -> list[str]:
         """list_easy_huntings calls GET /v1/telephony/{billingAccount}/easyHunting: List contact center services
 
+        Returns the contact center services of the billing account. A contact center routes calls to
+        agents through queues.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -18992,6 +20790,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEasyHunting:
         """get_easy_hunting calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}: Get a contact center service
+
+        Returns the contact center service: queue strategy and size, maximum wait time, tones,
+        voicemail and caller number presentation.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19034,6 +20835,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_easy_hunting calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}: Update a contact center service
 
+        Updates the queue strategy and size, the maximum wait time, the tones, the voicemail,
+        anonymous call rejection and the status IVR.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19056,6 +20860,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxHunting:
         """get_easy_hunting_hunting calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting: Get the queue system settings
 
+        Returns the queue system settings of the service: offer name, CRM URL template opened by the
+        agent banner, G729 codec and status change IVR.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19075,6 +20882,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyOvhPabxHuntingWritable
     ) -> None:
         """update_easy_hunting_hunting calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting: Update the queue system settings
+
+        Updates the queue system settings: the CRM URL template opened by the agent banner, the G729
+        codec and the status change IVR.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19097,6 +20907,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> list[int]:
         """list_easy_hunting_hunting_agents calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent: List agents
+
+        Returns the identifiers of the agents. An agent is a phone number that answers the calls of
+        one or several queues.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19121,6 +20934,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxHuntingAgent:
         """create_easy_hunting_hunting_agent calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent: Create an agent
 
+        Creates an agent: a number that answers calls from the queues. Sets its status, ring
+        timeout, wrap-up time and maximum simultaneous calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19143,6 +20959,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgent:
         """get_easy_hunting_hunting_agent calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}: Get an agent
+
+        Returns the agent: number, description, status, break status, type (internal or external),
+        ring timeout, wrap-up time and simultaneous calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19195,6 +21014,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_easy_hunting_hunting_agent calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}: Update an agent
 
+        Updates the agent: number, description, status (available, logged out or on break), break
+        status, ring timeout, wrap-up time and simultaneous calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19219,6 +21041,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_agent calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}: Delete an agent
 
+        Deletes the agent. It is removed from all its queues and no longer receives calls from the
+        queue system.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19239,6 +21064,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyBannerAccess:
         """get_easy_hunting_hunting_agent_banner_access calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/bannerAccess: Get the agent banner access
+
+        Returns the web access to the agent banner application: its URL and creation date.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19262,6 +21089,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyBannerAccess:
         """create_easy_hunting_hunting_agent_banner_access calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/bannerAccess: Create the agent banner access
 
+        Creates a web access to the agent banner application. Returns its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19284,6 +21113,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_agent_banner_access calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/bannerAccess: Delete the agent banner access
 
+        Deletes the web access to the agent banner application. Its URL no longer gives access to
+        the banner.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19304,6 +21136,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> list[int]:
         """list_easy_hunting_hunting_agent_calls calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls: List agent calls
+
+        Returns the identifiers of the calls the agent is handling. Get a live call for its caller,
+        queue, state and dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19326,6 +21161,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_easy_hunting_hunting_agent_calls calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19383,6 +21221,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19410,6 +21251,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """hangup_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19433,6 +21277,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int, id: int
     ) -> models.TelephonyTask:
         """hold_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19462,6 +21309,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.InterceptEasyHuntingHuntingAgentCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19495,6 +21345,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """transfer_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19527,6 +21380,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """whisper_easy_hunting_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/calls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19554,6 +21410,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyEventToken:
         """get_easy_hunting_hunting_agent_event_token calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/eventToken: Get the event token
 
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19580,6 +21439,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> str:
         """create_easy_hunting_hunting_agent_event_token calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19605,6 +21467,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_agent_event_token calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/eventToken: Delete the event token
 
+        Deletes the event token. It can no longer be used to receive real-time call events.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19625,6 +21489,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_easy_hunting_hunting_agent_live_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19647,6 +21514,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> list[int]:
         """list_easy_hunting_hunting_agent_queues calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue: List the queues of an agent
+
+        Returns the identifiers of the queues the agent belongs to. Get an agent position in a queue
+        to see its order in that queue.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19674,6 +21544,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """create_easy_hunting_hunting_agent_queue calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue: Assign an agent to a queue
 
+        Adds an agent to a queue, with a position. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19698,6 +21571,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """get_easy_hunting_hunting_agent_queue calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Get an agent position in a queue
+
+        Returns the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19755,6 +21631,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_easy_hunting_hunting_agent_queue calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Update an agent position in a queue
 
+        Updates the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19781,6 +21660,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_agent_queue calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Remove an agent from a queue
 
+        Removes the agent from the queue. The agent no longer receives calls from this queue but
+        stays assigned to its other queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19803,6 +21685,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_easy_hunting_hunting_agent_queue_live_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/agent/{agentId}/queue/{queueId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19828,6 +21713,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_easy_hunting_hunting_custom_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/customStatus: List custom statuses
 
+        Returns the identifiers of the custom statuses agents can set, such as a break. Each status
+        has a name, a description and a color.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19851,6 +21739,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxCustomStatus:
         """create_easy_hunting_hunting_custom_status calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/customStatus: Create a custom status
 
+        Creates a custom status agents can set, such as a break. Sets its name, short description
+        and the color shown on the agent banner.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19873,6 +21764,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxCustomStatus:
         """get_easy_hunting_hunting_custom_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/customStatus/{id}: Get a custom status
+
+        Returns the custom status: name, short description and color displayed on the agent banner
+        web application.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19921,6 +21815,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_custom_status calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/customStatus/{id}: Delete a custom status
 
+        Deletes the custom status. Agents can no longer select it on the agent banner web
+        application.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19941,6 +21838,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEventToken:
         """get_easy_hunting_hunting_event_token calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/eventToken: Get the event token
+
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
 
         Args:
             billing_account: The name of your billingAccount
@@ -19965,6 +21865,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> str:
         """create_easy_hunting_hunting_event_token calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -19988,6 +21891,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_event_token calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/eventToken: Delete the event token
 
+        Deletes the event token. It can no longer be used to receive real-time call events.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20006,6 +21911,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> list[int]:
         """list_easy_hunting_hunting_queues calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue: List queues
+
+        Returns the identifiers of the queues. A queue holds incoming calls and dispatches them to
+        its agents with a strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20030,6 +21938,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxHuntingQueue:
         """create_easy_hunting_hunting_queue calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue: Create a queue
 
+        Creates a queue that distributes calls to its agents. Sets the dispatching strategy, the
+        maximum wait time and callers, and the overflow and closure actions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20052,6 +21963,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingQueue:
         """get_easy_hunting_hunting_queue calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}: Get a queue
+
+        Returns the queue: name, strategy, maximum waiting callers and wait time, sound on hold,
+        call recording, and actions on overflow and on closure.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20104,6 +22018,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_easy_hunting_hunting_queue calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}: Update a queue
 
+        Updates the queue: name, dispatching strategy, maximum waiting callers and wait time, sound
+        on hold, call recording and overflow and closure actions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20128,6 +22045,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_queue calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}: Delete a queue
 
+        Deletes the queue. Its agents are no longer assigned to it, and calls are no longer
+        dispatched through it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20148,6 +22068,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int
     ) -> list[int]:
         """list_easy_hunting_hunting_queue_agents calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent: List the agents of a queue
+
+        Returns the identifiers of the agents of the queue. Get an agent position in the queue to
+        see the order in which agents receive calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20170,6 +22093,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """get_easy_hunting_hunting_queue_agent calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Get an agent position in a queue
+
+        Returns the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20227,6 +22153,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_easy_hunting_hunting_queue_agent calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Update an agent position in a queue
 
+        Updates the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20253,6 +22182,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_hunting_queue_agent calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Remove an agent from a queue
 
+        Removes the agent from the queue. The agent no longer receives calls from this queue but
+        stays assigned to its other queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20275,6 +22207,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_easy_hunting_hunting_queue_agent_live_status calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/agent/{agentId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20300,6 +22235,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_easy_hunting_hunting_queue_live_calls calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls: List queue live calls
 
+        Returns the identifiers of the calls waiting or answered in the queue. Get a live call for
+        its caller, agent, state and dates.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20321,6 +22259,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_easy_hunting_hunting_queue_live_calls calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20378,6 +22319,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20405,6 +22349,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """hangup_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20428,6 +22375,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int, id: int
     ) -> models.TelephonyTask:
         """hold_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20457,6 +22407,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.InterceptEasyHuntingHuntingQueueLiveCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20490,6 +22443,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """transfer_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20522,6 +22478,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """whisper_easy_hunting_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20549,6 +22508,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxHuntingQueueLiveStatistics:
         """get_easy_hunting_hunting_queue_live_statistics calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/hunting/queue/{queueId}/liveStatistics: Get queue live statistics
 
+        Returns the live statistics of the queue since the last reset at midnight: total, answered
+        and lost calls, and total waiting and call durations.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20569,6 +22531,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_easy_hunting_records(self, billing_account: str, service_name: str) -> list[int]:
         """list_easy_hunting_records calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/records: List call recordings
 
+        Returns the identifiers of the recordings of the calls handled by the service. Get a call
+        recording for its details.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20588,6 +22553,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxRecord:
         """get_easy_hunting_records calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/records/{id}: Get a call recording
+
+        Returns the call recording and the URL to download it, with the caller and destination
+        numbers, agent, start and end dates and duration.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20636,6 +22604,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_records calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/records/{id}: Delete a call recording
 
+        Deletes the call recording of the service. Its sound file can no longer be downloaded from
+        its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20656,6 +22627,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEasyHuntingScreenListsConditionsSettings:
         """get_easy_hunting_screen_list_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions: Get the filtering condition settings
+
+        Returns the call filtering settings of the contact center: whether filtering is disabled, or
+        uses the incoming whitelist or the incoming blacklist.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20679,6 +22653,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.TelephonyEasyHuntingScreenListsConditionsSettings,
     ) -> None:
         """update_easy_hunting_screen_list_conditions calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions: Update the filtering condition settings
+
+        Updates the call filtering status of the contact center: disabled, incoming whitelist or
+        incoming blacklist.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20709,6 +22686,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_easy_hunting_screen_list_conditions_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions: List filtering conditions
 
+        Returns the identifiers of the filtering conditions checked when a call is received. The
+        list can be filtered by screen list type.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20734,6 +22714,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyEasyHuntingScreenListsConditions:
         """create_easy_hunting_screen_list_conditions_conditions calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions: Create a filtering condition
 
+        Creates a filtering condition based on the caller or the called number. The screen list type
+        sets whether matching calls are allowed or blocked.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20756,6 +22739,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, condition_id: int
     ) -> models.TelephonyEasyHuntingScreenListsConditions:
         """get_easy_hunting_screen_list_conditions_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions/{conditionId}: Get a filtering condition
+
+        Returns the filtering condition of the contact center: caller number or destination number,
+        and screen list type (whitelist or blacklist).
 
         Args:
             billing_account: The name of your billingAccount
@@ -20818,6 +22804,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_easy_hunting_screen_list_conditions_conditions calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions/{conditionId}: Update a filtering condition
 
+        Updates the caller number or the destination number checked by the filtering condition of
+        the contact center.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20842,6 +22831,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_screen_list_conditions_conditions calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/screenListConditions/conditions/{conditionId}: Delete a filtering condition
 
+        Deletes the filtering condition. Calls are no longer checked against its caller number or
+        destination number.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20860,6 +22852,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_easy_hunting_sounds(self, billing_account: str, service_name: str) -> list[int]:
         """list_easy_hunting_sounds calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/sound: List sounds
+
+        Returns the identifiers of the sound files of the service. Add a sound with the soundUpload
+        call, from /me/document or a URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20880,6 +22875,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, sound_id: int
     ) -> models.TelephonyOvhPabxSound:
         """get_easy_hunting_sound calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/sound/{soundId}: Get a sound
+
+        Returns the sound of the service: its identifier and filename. Sounds are played by queues
+        and voice menus.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20926,6 +22924,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_sound calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/sound/{soundId}: Delete a sound
 
+        Deletes the sound of the service, identified by its ID. Queues and voice menus can no longer
+        play it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20946,6 +22947,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.SoundUploadEasyHuntingRequest
     ) -> models.TelephonyTask:
         """sound_upload_easy_hunting calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/soundUpload: Upload a sound
+
+        Uploads a sound file to the service, from a /me/document identifier or a URL, with an
+        optional name. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -20970,6 +22974,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyEasyHuntingTimeConditionsSettings:
         """get_easy_hunting_time_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions: Get the time condition settings
 
+        Returns the time condition settings of the contact center: status, and the action (number or
+        voicemail) of each slot and of the unavailable slot.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -20992,6 +22999,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.TelephonyEasyHuntingTimeConditionsSettings,
     ) -> None:
         """update_easy_hunting_time_conditions calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions: Update the time condition settings
+
+        Enables or disables the time conditions of the contact center, and sets the action (number
+        or voicemail) and number of each slot.
 
         Args:
             billing_account: The name of your billingAccount
@@ -21019,6 +23029,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_easy_hunting_time_conditions_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions: List time conditions
 
+        Returns the identifiers of the time conditions of the contact center, optionally filtered by
+        policy. Each one defines a day and a time slot.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -21044,6 +23057,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyEasyHuntingTimeConditions:
         """create_easy_hunting_time_conditions_conditions calls POST /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions: Create a time condition
 
+        Creates a time condition on the contact center: a day of the week, start and end times, and
+        the policy to apply during it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -21066,6 +23082,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, condition_id: int
     ) -> models.TelephonyEasyHuntingTimeConditions:
         """get_easy_hunting_time_conditions_conditions calls GET /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions/{conditionId}: Get a time condition
+
+        Returns the time condition of the contact center: day of the week, start and end times, and
+        policy (slot1, slot2, slot3 or available).
 
         Args:
             billing_account: The name of your billingAccount
@@ -21124,6 +23143,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_easy_hunting_time_conditions_conditions calls PUT /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions/{conditionId}: Update a time condition
 
+        Updates the day of the week, the start and end times and the policy of the time condition of
+        the contact center.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -21148,6 +23170,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_easy_hunting_time_conditions_conditions calls DELETE /v1/telephony/{billingAccount}/easyHunting/{serviceName}/timeConditions/conditions/{conditionId}: Delete a time condition
 
+        Deletes the time condition of the contact center. Its time slot no longer applies to the
+        calls received.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -21167,6 +23192,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def get_event_token(self, billing_account: str) -> models.TelephonyEventToken:
         """get_event_token calls GET /v1/telephony/{billingAccount}/eventToken: Get the event token
 
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -21184,6 +23212,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, body: models.CreateEventTokenRequest
     ) -> str:
         """create_event_token calls POST /v1/telephony/{billingAccount}/eventToken: Create an event token
+
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
 
         Args:
             billing_account: The name of your billingAccount
@@ -21203,6 +23234,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def delete_event_token(self, billing_account: str) -> None:
         """delete_event_token calls DELETE /v1/telephony/{billingAccount}/eventToken: Delete the event token
+
+        Deletes the event token. It can no longer be used to receive real-time call events.
 
         Args:
             billing_account: The name of your billingAccount
@@ -21704,6 +23737,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def get_has_special_numbers(self, billing_account: str) -> bool:
         """get_has_special_numbers calls GET /v1/telephony/{billingAccount}/hasSpecialNumbers: Check for special numbers
 
+        Returns true when the billing account has at least one special number, such as a premium
+        rate number.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -21719,6 +23755,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_history_consumptions(self, billing_account: str) -> list[datetime.date]:
         """list_history_consumptions calls GET /v1/telephony/{billingAccount}/historyConsumption: List billed consumptions
+
+        Returns the dates of the billed consumptions. Get a billed consumption for its price,
+        out-of-plan price and status.
 
         Args:
             billing_account: The name of your billingAccount
@@ -21737,6 +23776,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, date: datetime.date
     ) -> models.TelephonyHistoryConsumption:
         """get_history_consumption calls GET /v1/telephony/{billingAccount}/historyConsumption/{date}: Get a billed consumption
+
+        Returns the billed consumption: date, price, out-of-plan price and status of the bill.
 
         Args:
             billing_account: The name of your billingAccount
@@ -21782,6 +23823,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyPcsFile:
         """get_history_consumption_file calls GET /v1/telephony/{billingAccount}/historyConsumption/{date}/file: Get billed consumption files
 
+        Returns a file of the billed consumption to download, in received.csv, csv, pdf or xml
+        format.
+
         Args:
             billing_account: The name of your billingAccount
             date: the date path parameter
@@ -21804,6 +23848,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[datetime.date]:
         """list_history_repayment_consumptions calls GET /v1/telephony/{billingAccount}/historyRepaymentConsumption: List repayment bills
 
+        Returns the dates of the repayment bills. Get a repayment bill for its amount, bill number
+        and status.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -21821,6 +23868,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, body: models.CreateHistoryRepaymentConsumptionRequest
     ) -> models.TelephonyHistoryRepaymentConsumption:
         """create_history_repayment_consumption calls POST /v1/telephony/{billingAccount}/historyRepaymentConsumption: Request a repayment
+
+        Requests a repayment for the repayable calls, with the number of the bill. Returns the
+        repayment bill.
 
         Args:
             billing_account: The name of your billingAccount
@@ -21842,6 +23892,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, date: datetime.date
     ) -> models.TelephonyHistoryRepaymentConsumption:
         """get_history_repayment_consumption calls GET /v1/telephony/{billingAccount}/historyRepaymentConsumption/{date}: Get a repayment bill
+
+        Returns the repayment bill: date, amount repaid, bill number and status of the repayment.
 
         Args:
             billing_account: The name of your billingAccount
@@ -21884,6 +23936,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyPcsFile:
         """get_history_repayment_consumption_document calls GET /v1/telephony/{billingAccount}/historyRepaymentConsumption/{date}/document: Get the bill as CSV
 
+        Returns a file to download the repayment bill as a CSV document, with its URL and expiration
+        date.
+
         Args:
             billing_account: The name of your billingAccount
             date: date of the bill
@@ -21902,6 +23957,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_history_tollfree_consumptions(self, billing_account: str) -> list[datetime.date]:
         """list_history_tollfree_consumptions calls GET /v1/telephony/{billingAccount}/historyTollfreeConsumption: List toll-free bills
 
+        Returns the dates of the toll-free bills. Get a toll-free bill for the amount paid by the
+        called number.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -21919,6 +23977,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, date: datetime.date
     ) -> models.TelephonyHistoryTollfreeConsumption:
         """get_history_tollfree_consumption calls GET /v1/telephony/{billingAccount}/historyTollfreeConsumption/{date}: Get a toll-free bill
+
+        Returns the toll-free bill: date, amount paid by the called number, and status of the bill.
 
         Args:
             billing_account: The name of your billingAccount
@@ -21961,6 +24021,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyPcsFile:
         """get_history_tollfree_consumption_document calls GET /v1/telephony/{billingAccount}/historyTollfreeConsumption/{date}/document: Get the bill as CSV
 
+        Returns a file to download the toll-free bill as a CSV document, with its URL and expiration
+        date.
+
         Args:
             billing_account: The name of your billingAccount
             date: date of the bill
@@ -21979,6 +24042,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_by_billing_account_line(self, billing_account: str) -> list[str]:
         """list_by_billing_account_line calls GET /v1/telephony/{billingAccount}/line: List lines
 
+        Returns the lines of the billing account. Get a line for its settings, phone, options and
+        simultaneous calls.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -21994,6 +24060,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_line(self, billing_account: str, service_name: str) -> models.TelephonyLine:
         """get_line calls GET /v1/telephony/{billingAccount}/line/{serviceName}: Get a line
+
+        Returns the line: description, offer, number of simultaneous lines, infrastructure,
+        diagnostic notification settings and position on its phone.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22036,6 +24105,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_line calls PUT /v1/telephony/{billingAccount}/line/{serviceName}: Update a line
 
+        Updates the description of the line and the notifications sent about its diagnostic reports.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22057,6 +24128,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> list[int]:
         """list_line_abbreviated_numbers calls GET /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber: List speed dial numbers
+
+        Returns the speed dial numbers of the line. A speed dial number is a short code of 3 or 4
+        digits, starting with 2, that calls a destination.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22081,6 +24155,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyAbbreviatedNumber:
         """create_line_abbreviated_number calls POST /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber: Create a speed dial number
 
+        Creates a speed dial number: a short code that calls a full number from the line.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22103,6 +24179,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, abbreviated_number: int
     ) -> models.TelephonyAbbreviatedNumber:
         """get_line_abbreviated_number calls GET /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber/{abbreviatedNumber}: Get a speed dial number
+
+        Returns the speed dial number of the line: short code, destination number, name and surname.
+        The short code starts with 2 and has 3 or 4 digits.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22155,6 +24234,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_line_abbreviated_number calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber/{abbreviatedNumber}: Update a speed dial number
 
+        Updates the speed dial number of the line: destination number, name and surname. The short
+        code starts with 2 and has 3 or 4 digits.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22179,6 +24261,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_line_abbreviated_number calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/abbreviatedNumber/{abbreviatedNumber}: Delete a speed dial number
 
+        Deletes the speed dial number of the line. Its short code no longer calls the destination
+        number.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22198,6 +24283,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def get_line_activate_new_phone(self, billing_account: str, service_name: str) -> None:
         """get_line_activate_new_phone calls GET /v1/telephony/{billingAccount}/line/{serviceName}/activateNewPhone: Check for a new phone to activate
 
+        Checks whether a new phone is waiting to be activated on the line, after a phone switch.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22215,6 +24302,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def create_line_activate_new_phone(self, billing_account: str, service_name: str) -> None:
         """create_line_activate_new_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/activateNewPhone: Activate a new phone
 
+        Activates the new phone on the line, after a phone switch. Check first that a new phone is
+        waiting to be activated.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22231,6 +24321,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_line_antihacks(self, billing_account: str, service_name: str) -> list[str]:
         """list_line_antihacks calls GET /v1/telephony/{billingAccount}/line/{serviceName}/antihack: List numbers blocked by antihack
+
+        Returns the numbers and short codes blocked by the automatic antihack protection of the
+        line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22251,6 +24344,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLineAntihackRequest
     ) -> None:
         """create_line_antihack calls POST /v1/telephony/{billingAccount}/line/{serviceName}/antihack: Clean antihack restrictions
+
+        Authorizes or blocks one number, or all the numbers, restricted by the antihack protection
+        of the line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22274,6 +24370,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """associate_device_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/associateDevice: Associate a device
 
+        Associates a phone with the line, using the phone MAC address (AABBCCDDEEFF), its public IP
+        address and the slot of the line on the phone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22294,6 +24393,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_line_automatic_calls(self, billing_account: str, service_name: str) -> list[str]:
         """list_line_automatic_calls calls GET /v1/telephony/{billingAccount}/line/{serviceName}/automaticCall: List automatic calls
 
+        Returns the identifiers of the automatic calls made from the line by the call generator. Get
+        an automatic call for its dates, duration and result.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22313,6 +24415,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLineAutomaticCallRequest
     ) -> str:
         """create_line_automatic_call calls POST /v1/telephony/{billingAccount}/line/{serviceName}/automaticCall: Make an automatic call
+
+        Calls a number from the line with a dialplan, such as a text read by TTS, an audio file or a
+        transfer. Returns the call identifier.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22336,6 +24441,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, identifier: str
     ) -> models.TelephonyCallsGenerated:
         """get_line_automatic_call calls GET /v1/telephony/{billingAccount}/line/{serviceName}/automaticCall/{identifier}: Get an automatic call
+
+        Returns the automatic call: caller, callee, creation, answer and hangup dates, duration,
+        hangup cause, DTMF received and application result.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22384,6 +24492,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_line_available_sip_domains calls GET /v1/telephony/{billingAccount}/line/{serviceName}/availableSipDomains: List available SIP domains
 
+        Returns the SIP domains the line can use, for the SIP configuration of its phone or
+        softphone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22403,6 +24514,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.BlockLineRequest
     ) -> None:
         """block_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/block: Block the line
+
+        Blocks the incoming calls, the outgoing calls or both, depending on the mode. Without a
+        mode, both directions are blocked.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22426,6 +24540,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     )
     async def list_line_calls(self, billing_account: str, service_name: str) -> list[int]:
         """list_line_calls calls GET /v1/telephony/{billingAccount}/line/{serviceName}/calls: List live calls
+
+        Returns the identifiers of the live calls of the line, when it is a call center agent. Get a
+        live call for its state, numbers and dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22451,6 +24568,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_line_calls calls GET /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22509,6 +24629,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22539,6 +24662,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """hangup_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22565,6 +24691,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyTask:
         """hold_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22596,6 +24725,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.InterceptLineCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22631,6 +24763,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """transfer_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22661,6 +24796,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """whisper_line_calls calls POST /v1/telephony/{billingAccount}/line/{serviceName}/calls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22690,6 +24828,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def get_line_can_change_password(self, billing_account: str, service_name: str) -> bool:
         """get_line_can_change_password calls GET /v1/telephony/{billingAccount}/line/{serviceName}/canChangePassword: Check if the SIP password can change
 
+        Returns whether the SIP password of the line can be changed. Change it with the
+        changePassword call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22711,6 +24852,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def cancel_convert_to_number_line(self, billing_account: str, service_name: str) -> None:
         """cancel_convert_to_number_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/cancelConvertToNumber: Cancel a scheduled conversion to number
 
+        Cancels the scheduled conversion of the line to a number without a phone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22729,6 +24872,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.ChangePasswordLineRequest
     ) -> None:
         """change_password_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/changePassword: Change the SIP password
+
+        Changes the SIP password of the line, used by the phone or softphone to register. The new
+        password is given in the password parameter.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22752,6 +24898,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """click2_call_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/click2Call: Start a call from the line
 
+        Calls a number from the line: the line rings first, then the call is placed. Intercom mode
+        can pick up and enable the speaker automatically.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22774,6 +24923,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_line_click2_call_users calls GET /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser: List click2call users
 
+        Returns the identifiers of the click2call users of the line. A click2call user starts calls
+        from the line with its own login.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22793,6 +24945,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLineClick2CallUserRequest
     ) -> int:
         """create_line_click2_call_user calls POST /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser: Create a click2call user
+
+        Creates a user that can make click2call calls from the line. Returns its identifier.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22816,6 +24970,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyClick2CallUser:
         """get_line_click2_call_user calls GET /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser/{id}: Get a click2call user
+
+        Returns the click2call user: identifier, login and creation date. The user starts calls from
+        the line with its login and password.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22864,6 +25021,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_line_click2_call_user calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser/{id}: Delete a click2call user
 
+        Deletes the click2call user. Its login can no longer start calls from the line.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22888,6 +25047,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.ChangePasswordLineClick2CallUserRequest,
     ) -> None:
         """change_password_line_click2_call_user calls POST /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser/{id}/changePassword: Change the user password
+
+        Changes the password of the click2call user, used with its login to start calls from the
+        line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22917,6 +25079,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """click2_call_line_click2_call_user calls POST /v1/telephony/{billingAccount}/line/{serviceName}/click2CallUser/{id}/click2Call: Start a call from the line
 
+        Calls a number from the line, as the click2call user: the line rings first, then the call is
+        placed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22941,6 +25106,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOfferTask:
         """convert_to_number_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/convertToNumber: Schedule a conversion to number
 
+        Schedules the conversion of the line to a number without a phone. Returns the offer task.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -22960,6 +25127,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.DissociateDeviceLineRequest
     ) -> None:
         """dissociate_device_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/dissociateDevice: Dissociate a device
+
+        Dissociates a phone from the line, using the phone MAC address (AABBCCDDEEFF) and its public
+        IP address.
 
         Args:
             billing_account: The name of your billingAccount
@@ -22983,6 +25153,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyDatetimeAndIpvalue]:
         """list_line_ips calls GET /v1/telephony/{billingAccount}/line/{serviceName}/ips: List last registered IPs
 
+        Returns the last IP addresses the line registered from, with the date of each registration.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23002,6 +25174,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> list[models.TelephonyRegistrationInformations]:
         """list_line_last_registrations calls GET /v1/telephony/{billingAccount}/line/{serviceName}/lastRegistrations: List last registrations
+
+        Returns the last registrations of the line: date, public and local IP addresses and ports,
+        user agent and SIP domain.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23023,6 +25198,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyLinePhoneAssociable]:
         """list_line_list_associable_phones calls GET /v1/telephony/{billingAccount}/line/{serviceName}/listAssociablePhones: List associable phones
 
+        Returns the phones with a free slot that the line can be attached to, with their brand,
+        protocol, attached lines and maximum number of lines.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23042,6 +25220,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> int:
         """get_line_maximum_available_simultaneous_lines calls GET /v1/telephony/{billingAccount}/line/{serviceName}/maximumAvailableSimultaneousLines: Get the maximum simultaneous lines
+
+        Returns the maximum number of simultaneous calls available for the line. The current, basic
+        and extra channels are in the simultaneous channels details.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23063,6 +25244,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyLineOffer:
         """get_line_offer calls GET /v1/telephony/{billingAccount}/line/{serviceName}/offer: Get the line offer
 
+        Returns the public offer of the line: its name, its description and its price. It replaces
+        the deprecated offers property of the line.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23083,6 +25267,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyLineOptions:
         """get_line_options calls GET /v1/telephony/{billingAccount}/line/{serviceName}/options: Get the line options
 
+        Returns the line options: codecs, caller identification, forwarding, do not disturb and
+        other call options.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23102,6 +25289,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyLineOptionsWritable
     ) -> None:
         """update_line_options calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/options: Update the line options
+
+        Updates the line options: forwarding rules, do not disturb, caller identification, call
+        waiting, codecs, IP restrictions and call restrictions.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23125,6 +25315,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_line_options_available_codecs calls GET /v1/telephony/{billingAccount}/line/{serviceName}/options/availableCodecs: List available codecs
 
+        Returns the codec combinations available for the line. One of them can be set as the codecs
+        preferences in the line options.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23142,6 +25335,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_line_options_default_codecs(self, billing_account: str, service_name: str) -> str:
         """get_line_options_default_codecs calls GET /v1/telephony/{billingAccount}/line/{serviceName}/options/defaultCodecs: Get the default codecs
+
+        Returns the codecs used when none are set on the line. Set the codecs preferences in the
+        line options.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23163,6 +25359,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyPhone:
         """get_line_phone calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone: Get the phone
 
+        Returns the phone attached to the line: brand, MAC address, protocol, description, maximum
+        lines and simultaneous calls, and configuration.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23182,6 +25381,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyPhoneWritable
     ) -> None:
         """update_line_phone calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone: Update the phone
+
+        Updates the phone attached to the line: the IP address restriction of an MGCP phone.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23204,6 +25405,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyPhoneCredentials:
         """get_line_phone_admin_credentials calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/adminCredentials: Get the phone admin credentials
+
+        Returns the administration login and password of the phone. Available to VIP customers only.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23228,6 +25431,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """change_phone_configuration_line_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/changePhoneConfiguration: Change the phone configuration
 
+        Changes the phone configuration remotely with name value pairs of provisioning options, and
+        can reboot the phone to apply them.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23250,6 +25456,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_line_phone_function_keys calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/functionKey: List function keys
 
+        Returns the numbers (keyNum) of the function keys of the phone. Get a function key for its
+        label, type and active function.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23269,6 +25478,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, key_num: int
     ) -> models.TelephonyFunctionKey:
         """get_line_phone_function_key calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/functionKey/{keyNum}: Get a function key
+
+        Returns the function key of the phone: number, label, type, default function, active
+        function and its parameter.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23321,6 +25533,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_line_phone_function_key calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone/functionKey/{keyNum}: Update a function key
 
+        Updates the function active on the key and its parameter. The available functions are listed
+        for each key.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23345,6 +25560,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_line_phone_function_key_available_functions calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/functionKey/{keyNum}/availableFunction: List available functions
 
+        Returns the functions that can be set on the function key. Set one with the function and
+        parameter of the key.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23367,6 +25585,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyHardwareOffer]:
         """list_line_phone_merchandise_availables calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/merchandiseAvailable: List exchange phones
 
+        Returns the phones available to exchange the current phone, with their name, description,
+        URL and price.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23387,6 +25608,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[str]:
         """list_line_phone_phonebooks calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook: List phonebooks
 
+        Returns the identifiers (bookKey) of the phonebooks of the phone. Check first that the phone
+        supports phonebooks.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23406,6 +25630,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLinePhonePhonebookRequest
     ) -> str:
         """create_line_phone_phonebook calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook: Create a phonebook
+
+        Creates a phonebook on the phone of the line, if the phone supports phonebooks. Returns its
+        identifier (bookKey).
 
         Args:
             billing_account: The name of your billingAccount
@@ -23429,6 +25656,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, book_key: str
     ) -> models.TelephonyPhonebook:
         """get_line_phone_phonebook calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}: Get a phonebook
+
+        Returns the phonebook of the phone: name, identifier (bookKey), phone key and whether it is
+        read-only.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23481,6 +25711,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_line_phone_phonebook calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}: Update a phonebook
 
+        Updates the name of the phonebook of the phone. Contacts are updated one by one with the
+        phonebookContact route.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23504,6 +25737,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, book_key: str
     ) -> None:
         """delete_line_phone_phonebook calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}: Delete a phonebook
+
+        Deletes the phonebook of the phone and its contacts. Export the contacts first to keep a
+        copy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23529,6 +25765,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         format: models.TelephonyContactsExportFormatsEnum | str,
     ) -> models.TelephonyPcsFile:
         """get_line_phone_phonebook_export calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/export: Export contacts
+
+        Exports the contacts of the phonebook to a file in CSV format. Returns the file to download.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23558,6 +25796,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """import_line_phone_phonebook calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/import: Import contacts
 
+        Imports contacts into the phonebook from an Excel (.xls, .xlsx) or CSV file in /me/document.
+        Returns the task that performs the import.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23582,6 +25823,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, book_key: str
     ) -> list[int]:
         """list_line_phone_phonebook_phonebook_contacts calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact: List contacts
+
+        Returns the identifiers of the contacts of the phonebook. Get a contact for its name, group
+        and phone numbers.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23609,6 +25853,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> int:
         """create_line_phone_phonebook_phonebook_contact calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact: Create a contact
 
+        Creates a contact in the phonebook with a name, surname, group and phone numbers. Returns
+        its identifier.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23633,6 +25880,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, book_key: str, id: int
     ) -> models.TelephonyPhonebookContact:
         """get_line_phone_phonebook_phonebook_contact calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact/{id}: Get a contact
+
+        Returns the contact of the phonebook: name, surname, group, and office and home phone
+        numbers, landline and mobile.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23690,6 +25940,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_line_phone_phonebook_phonebook_contact calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact/{id}: Update a contact
 
+        Updates the contact of the phonebook: name, surname, group, and office and home phone
+        numbers, landline and mobile.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23716,6 +25969,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_line_phone_phonebook_phonebook_contact calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/phone/phonebook/{bookKey}/phonebookContact/{id}: Delete a contact
 
+        Deletes the contact from the phonebook, with its name, group and office and home phone
+        numbers.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23739,6 +25995,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """reboot_line_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/reboot: Reboot the phone
 
+        Reboots the phone attached to the line. Returns the task that tracks the reboot, to follow
+        its status.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23759,6 +26018,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """refresh_screen_line_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/refreshScreen: Refresh the phone screen
 
+        Refreshes the screen of the MGCP phone. Returns the task that tracks the refresh.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23778,6 +26039,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.ResetConfigLinePhoneRequest
     ) -> models.TelephonyResetPhoneInfo:
         """reset_config_line_phone calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/resetConfig: Reset the phone configuration
+
+        Resets the phone configuration to its default values, for the given public IP address.
+        Returns the reset code and the reset method.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23800,6 +26064,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_line_phone_rmas(self, billing_account: str, service_name: str) -> list[str]:
         """list_line_phone_rmas calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma: List RMAs
 
+        Returns the identifiers of the RMAs of the phone. An RMA is a request to return or exchange
+        a phone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23819,6 +26086,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLinePhoneRmaRequest
     ) -> models.TelephonyRmaReturn:
         """create_line_phone_rma calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma: Create an RMA
+
+        Creates an RMA to return the phone and keep the service, or to exchange it for another
+        phone. Returns the RMA identifier.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23842,6 +26112,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: str
     ) -> models.TelephonyRma:
         """get_line_phone_rma calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma/{id}: Get an RMA
+
+        Returns the RMA: type, process, status and steps, creation, reception and termination dates,
+        equipment reference and shipping contact.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23888,6 +26161,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_line_phone_rma calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma/{id}: Update an RMA
 
+        Updates the shipping contact used for an exchange and the process determined for the
+        returned phone.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23909,6 +26185,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def delete_line_phone_rma(self, billing_account: str, service_name: str, id: str) -> None:
         """delete_line_phone_rma calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma/{id}: Cancel an RMA
+
+        Cancels the RMA of the phone. Only an RMA marked as cancellable, as returned when getting
+        the RMA, can be cancelled.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23935,6 +26214,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """change_type_line_phone_rma calls POST /v1/telephony/{billingAccount}/line/{serviceName}/phone/rma/{id}/changeType: Change the RMA type
 
+        Changes the type of the RMA to a termination (resiliate) or a phone restitution (toSip).
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -23958,6 +26239,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> bool:
         """get_line_phone_supports_phonebook calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phone/supportsPhonebook: Check phonebook support
+
+        Returns whether the phone supports phonebooks. Phonebooks can be created on the phone only
+        when it does.
 
         Args:
             billing_account: The name of your billingAccount
@@ -23983,6 +26267,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyLinePhone]:
         """list_line_phone_can_be_associables calls GET /v1/telephony/{billingAccount}/line/{serviceName}/phoneCanBeAssociable: List phones with a free SIP slot
 
+        Returns the phones with a free SIP slot for the line: brand, protocol, maximum number of
+        lines, price and fees.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24004,6 +26291,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_line_records(self, billing_account: str, service_name: str) -> list[int]:
         """list_line_records calls GET /v1/telephony/{billingAccount}/line/{serviceName}/records: List call recordings
 
+        Returns the identifiers of the call recordings of the line. Get a recording for its numbers,
+        dates, duration and download URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24023,6 +26313,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxRecord:
         """get_line_records calls GET /v1/telephony/{billingAccount}/line/{serviceName}/records/{id}: Get a call recording
+
+        Returns the call recording and the URL to download it, with the caller and destination
+        numbers, agent, start and end dates and duration.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24067,6 +26360,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def delete_line_records(self, billing_account: str, service_name: str, id: int) -> None:
         """delete_line_records calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/records/{id}: Delete a call recording
 
+        Deletes the call recording of the service. Its sound file can no longer be downloaded from
+        its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24091,6 +26387,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """remove_simultaneous_lines_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/removeSimultaneousLines: Remove extra simultaneous lines
 
+        Removes the given quantity of extra simultaneous lines from the line. The extra channels are
+        listed in the simultaneous channels details.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24112,6 +26411,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonySimultaneousChannelsDetails:
         """get_line_simultaneous_channels_details calls GET /v1/telephony/{billingAccount}/line/{serviceName}/simultaneousChannelsDetails: Get simultaneous channels details
+
+        Returns the simultaneous call channels of the line: current, basic, extra, to be deleted and
+        maximum.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24434,6 +26736,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.ComplexTypeUnitAndValuesTelephonyTimestampAndValue:
         """get_line_statistics calls GET /v1/telephony/{billingAccount}/line/{serviceName}/statistics: Get line statistics
 
+        Returns quality statistics of the line over an hourly to yearly timeframe: maximum jitter,
+        maximum delay, lost RTP packets or MOS score.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24462,6 +26767,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTones:
         """get_line_tones calls GET /v1/telephony/{billingAccount}/line/{serviceName}/tones: Get the tones
 
+        Returns the tones of the line: ringback, on hold, call waiting and end of call. Each tone is
+        a default sound, none or a custom sound.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24481,6 +26789,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyTones
     ) -> None:
         """update_line_tones calls PUT /v1/telephony/{billingAccount}/line/{serviceName}/tones: Update the tones
+
+        Updates the tones of the line: ringback, on hold, call waiting and end of call. Custom
+        sounds are uploaded with the tone upload call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24503,6 +26814,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.ToneUploadLineTonesRequest
     ) -> models.TelephonyTask:
         """tone_upload_line_tones calls POST /v1/telephony/{billingAccount}/line/{serviceName}/tones/toneUpload: Upload a tone
+
+        Uploads a sound file to use as a tone: ringback, on hold, call waiting or closure. The file
+        is given by a /me/document ID or a URL. Returns the task that tracks the upload.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24527,6 +26841,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_line_traffic_extracts calls GET /v1/telephony/{billingAccount}/line/{serviceName}/trafficExtracts: List traffic extracts
 
+        Returns the identifiers of the SIP traffic extracts of the line. A traffic extract is a PCAP
+        capture of the SIP traffic over a time range.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24546,6 +26863,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateLineTrafficExtractsRequest
     ) -> models.TelephonyTrafficExtract:
         """create_line_traffic_extracts calls POST /v1/telephony/{billingAccount}/line/{serviceName}/trafficExtracts: Start a traffic extract
+
+        Starts capturing the SIP traffic of the line between a start date and an end date. The
+        result is a PCAP file.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24569,6 +26889,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyTrafficExtract:
         """get_line_traffic_extracts calls GET /v1/telephony/{billingAccount}/line/{serviceName}/trafficExtracts/{id}: Get a traffic extract
+
+        Returns the traffic extract: start and end dates, status, and the URL and size of the PCAP
+        file.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24617,6 +26940,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_line_traffic_extracts calls DELETE /v1/telephony/{billingAccount}/line/{serviceName}/trafficExtracts/{id}: Delete a traffic extract
 
+        Deletes the traffic extract and its PCAP file of the SIP traffic of the line.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24636,6 +26961,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def unblock_line(self, billing_account: str, service_name: str) -> None:
         """unblock_line calls POST /v1/telephony/{billingAccount}/line/{serviceName}/unblock: Unblock the line
 
+        Unblocks the line and removes every incoming and outgoing block set with the block call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -24653,6 +26980,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_numbers(self, billing_account: str) -> list[str]:
         """list_numbers calls GET /v1/telephony/{billingAccount}/number: List numbers
 
+        Returns the numbers of the billing account. A number has no phone: it routes incoming calls
+        with a feature.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -24668,6 +26998,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_number(self, billing_account: str, service_name: str) -> models.TelephonyNumber:
         """get_number calls GET /v1/telephony/{billingAccount}/number/{serviceName}: Get a number
+
+        Returns the number: feature type, description, service type, and the pool it belongs to if
+        it is part of one.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24708,6 +27041,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_number calls PUT /v1/telephony/{billingAccount}/number/{serviceName}: Update a number
 
+        Updates the description of the number. The feature type is changed with the
+        changeFeatureType call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -24728,6 +27064,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def cancel_convert_to_line_number(self, billing_account: str, service_name: str) -> None:
         """cancel_convert_to_line_number calls POST /v1/telephony/{billingAccount}/number/{serviceName}/cancelConvertToLine: Cancel a scheduled conversion to line
 
+        Cancels the scheduled conversion of the number to a line. The number keeps its current
+        feature.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -24746,6 +27085,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.ChangeFeatureTypeNumberRequest
     ) -> models.TelephonyTask:
         """change_feature_type_number calls POST /v1/telephony/{billingAccount}/number/{serviceName}/changeFeatureType: Change the number feature type
+
+        Changes the feature of the number, such as redirect, conference, contact center or PBX. The
+        previous configuration is lost.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24770,6 +27112,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOfferTask:
         """convert_to_line_number calls POST /v1/telephony/{billingAccount}/number/{serviceName}/convertToLine: Schedule a conversion to line
 
+        Schedules the conversion of the number to a line with a phone. Returns the offer task.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -24792,6 +27136,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyLineOffersAndContracts:
         """get_number_convert_to_line_available_offers calls GET /v1/telephony/{billingAccount}/number/{serviceName}/convertToLineAvailableOffers: List line offers for conversion
+
+        Returns the line offers and contracts available to convert the number to a line.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24818,6 +27164,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_offer_tasks calls GET /v1/telephony/{billingAccount}/offerTask: List offer tasks
 
+        Returns the identifiers of the scheduled offer operations of the billing account, such as an
+        offer change or a termination.
+
         Args:
             billing_account: The name of your billingAccount
             action: Filter the value of action property (=) (optional)
@@ -24841,6 +27190,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_offer_task(self, billing_account: str, task_id: int) -> models.TelephonyOfferTask:
         """get_offer_task calls GET /v1/telephony/{billingAccount}/offerTask/{taskId}: Get an offer task
+
+        Returns the offer operation: type, action such as termination or upgrade, planned execution
+        date and status.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24894,6 +27246,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_offer_task calls PUT /v1/telephony/{billingAccount}/offerTask/{taskId}: Update an offer task
 
+        Updates the scheduled offer operation. Only its planned execution date can be changed.
+
         Args:
             billing_account: The name of your billingAccount
             task_id: the taskId path parameter
@@ -24914,6 +27268,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_old_phones(self, billing_account: str) -> list[models.TelephonyOldPhone]:
         """list_old_phones calls GET /v1/telephony/{billingAccount}/oldPhone: List unreturned old phones
 
+        Returns the old phones not returned after an RMA, with their model and MAC address.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -24929,6 +27285,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_outplan_notifications(self, billing_account: str) -> list[int]:
         """list_outplan_notifications calls GET /v1/telephony/{billingAccount}/outplanNotification: List out-of-plan alerts
+
+        Returns the identifiers of the out-of-plan alerts. An alert notifies when out-of-plan
+        consumption reaches a threshold.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24947,6 +27306,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, body: models.CreateOutplanNotificationRequest
     ) -> models.TelephonyConsumptionThreshold:
         """create_outplan_notification calls POST /v1/telephony/{billingAccount}/outplanNotification: Create an out-of-plan alert
+
+        Creates an alert at a percentage of the maximum out-of-plan, with a block (none, incoming,
+        outgoing or all calls) and an optional email.
 
         Args:
             billing_account: The name of your billingAccount
@@ -24968,6 +27330,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, id: int
     ) -> models.TelephonyConsumptionThreshold:
         """get_outplan_notification calls GET /v1/telephony/{billingAccount}/outplanNotification/{id}: Get an out-of-plan alert
+
+        Returns the out-of-plan alert: percentage of the maximum out-of-plan, block applied to the
+        lines and notification email.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25008,6 +27373,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def delete_outplan_notification(self, billing_account: str, id: int) -> None:
         """delete_outplan_notification calls DELETE /v1/telephony/{billingAccount}/outplanNotification/{id}: Delete an out-of-plan alert
 
+        Deletes the out-of-plan alert. No notification or block is applied any more when its
+        threshold is reached.
+
         Args:
             billing_account: The name of your billingAccount
             id: Id of the object
@@ -25024,6 +27392,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_ovh_pabxes(self, billing_account: str) -> list[str]:
         """list_ovh_pabxes calls GET /v1/telephony/{billingAccount}/ovhPabx: List PBX services
+
+        Returns the PBX services of the billing account: voice menus (IVR), dialplans and call
+        queues.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25042,6 +27413,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyOvhPabx:
         """get_ovh_pabx calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}: Get a PBX service
+
+        Returns the PBX service (call queues and IVR): feature type, description and whether the
+        extended CCS options are enabled.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25082,6 +27456,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}: Update a PBX service
 
+        Updates the description of the PBX service. Its dialplans, menus and queues are managed with
+        their own routes.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25102,6 +27479,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_ovh_pabx_dialplans(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_dialplans calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan: List dialplans
 
+        Returns the identifiers of the dialplans of the PBX. A dialplan routes calls through
+        extensions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25121,6 +27501,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxDialplanRequest
     ) -> models.TelephonyOvhPabxDialplan:
         """create_ovh_pabx_dialplan calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan: Create a dialplan
+
+        Creates a dialplan on the PABX with a name, a transfer timeout, anonymous call rejection and
+        the number presented when bridging calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25144,6 +27527,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int
     ) -> models.TelephonyOvhPabxDialplan:
         """get_ovh_pabx_dialplan calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}: Get a dialplan
+
+        Returns the dialplan: name, last update, transfer timeout, anonymous call rejection and
+        number presented when bridging calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25194,6 +27580,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_dialplan calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}: Update a dialplan
 
+        Updates the dialplan name, transfer timeout, anonymous call rejection and number presented
+        when bridging calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25218,6 +27607,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}: Delete a dialplan
 
+        Deletes the dialplan and its extensions from the PABX. A dialplan holds the extensions
+        applied to the calls received.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25238,6 +27630,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int
     ) -> list[int]:
         """list_ovh_pabx_dialplan_extensions calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension: List extensions
+
+        Returns the identifiers of the extensions of the dialplan. An extension is a step that
+        applies rules when its conditions match.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25265,6 +27660,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxDialplanExtension:
         """create_ovh_pabx_dialplan_extension calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension: Create an extension
 
+        Creates an extension in the dialplan at a position, enabled or not, with a scheduler
+        category and a screen list type. Extensions run in order.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25289,6 +27687,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int, extension_id: int
     ) -> models.TelephonyOvhPabxDialplanExtension:
         """get_ovh_pabx_dialplan_extension calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}: Get an extension
+
+        Returns the extension: position in the dialplan, status, scheduler category and screen list
+        type.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25346,6 +27747,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_dialplan_extension calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}: Update an extension
 
+        Updates the position of the extension in the dialplan, its status, its scheduler category
+        and its screen list type.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25372,6 +27776,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan_extension calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}: Delete an extension
 
+        Deletes the extension from the dialplan. The extension and its rules no longer apply to the
+        calls received.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25394,6 +27801,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int, extension_id: int
     ) -> list[int]:
         """list_ovh_pabx_dialplan_extension_condition_screen_lists calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionScreenList: List filtering conditions
+
+        Returns the identifiers of the filtering conditions of the extension, checked against the
+        screen list type of the extension.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25423,6 +27833,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.CreateOvhPabxDialplanExtensionConditionScreenListRequest,
     ) -> models.TelephonyOvhPabxDialplanExtensionConditionScreenList:
         """create_ovh_pabx_dialplan_extension_condition_screen_list calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionScreenList: Create a filtering condition
+
+        Creates a filtering condition on the caller or the called number. The screen list type sets
+        whether matching calls are allowed or blocked.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25455,6 +27868,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         condition_id: int,
     ) -> models.TelephonyOvhPabxDialplanExtensionConditionScreenList:
         """get_ovh_pabx_dialplan_extension_condition_screen_list calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionScreenList/{conditionId}: Get a filtering condition
+
+        Returns the filtering condition of the extension: caller number or destination number, and
+        screen list type (whitelist or blacklist).
 
         Args:
             billing_account: The name of your billingAccount
@@ -25517,6 +27933,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan_extension_condition_screen_list calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionScreenList/{conditionId}: Delete a filtering condition
 
+        Deletes the filtering condition. Calls are no longer checked against its caller number or
+        destination number.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25541,6 +27960,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int, extension_id: int
     ) -> list[int]:
         """list_ovh_pabx_dialplan_extension_condition_times calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime: List time conditions
+
+        Returns the identifiers of the time conditions of the extension. The extension runs on the
+        days and time slots they define.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25570,6 +27992,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.CreateOvhPabxDialplanExtensionConditionTimeRequest,
     ) -> models.TelephonyOvhPabxDialplanExtensionConditionTime:
         """create_ovh_pabx_dialplan_extension_condition_time calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime: Create a time condition
+
+        Creates a time condition on the extension: a day of the week and the start and end times
+        when the extension runs.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25602,6 +28027,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         condition_id: int,
     ) -> models.TelephonyOvhPabxDialplanExtensionConditionTime:
         """get_ovh_pabx_dialplan_extension_condition_time calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime/{conditionId}: Get a time condition
+
+        Returns the time condition of the extension: day of the week and the start and end times
+        when the extension runs.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25665,6 +28093,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_dialplan_extension_condition_time calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime/{conditionId}: Update a time condition
 
+        Updates the day of the week and the start and end times when the extension of the dialplan
+        runs.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25698,6 +28129,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan_extension_condition_time calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/conditionTime/{conditionId}: Delete a time condition
 
+        Deletes the time condition of the extension. Its day and time slot no longer restrict when
+        the extension runs.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25722,6 +28156,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, dialplan_id: int, extension_id: int
     ) -> list[int]:
         """list_ovh_pabx_dialplan_extension_rules calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule: List extension rules
+
+        Returns the identifiers of the rules of the extension. A rule is an action, such as play a
+        sound or forward the call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25751,6 +28188,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.CreateOvhPabxDialplanExtensionRuleRequest,
     ) -> models.TelephonyOvhPabxDialplanExtensionRule:
         """create_ovh_pabx_dialplan_extension_rule calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule: Create an extension rule
+
+        Creates a rule in the extension: an action such as playback, bridge, IVR, voicemail or TTS,
+        its parameter and its position.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25783,6 +28223,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         rule_id: int,
     ) -> models.TelephonyOvhPabxDialplanExtensionRule:
         """get_ovh_pabx_dialplan_extension_rule calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule/{ruleId}: Get an extension rule
+
+        Returns the rule: action (such as playback, bridge, voicemail or TTS), parameter, position
+        and whether it runs when the conditions are false.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25845,6 +28288,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_dialplan_extension_rule calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule/{ruleId}: Update an extension rule
 
+        Updates the action of the rule, its parameter, its position in the extension and whether it
+        runs when the conditions are false.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25878,6 +28324,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_dialplan_extension_rule calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/dialplan/{dialplanId}/extension/{extensionId}/rule/{ruleId}: Delete an extension rule
 
+        Deletes the rule from the extension of the dialplan. Its action no longer runs when the
+        extension is executed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25903,6 +28352,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxHunting:
         """get_ovh_pabx_hunting calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting: Get the queue system settings
 
+        Returns the queue system settings of the service: offer name, CRM URL template opened by the
+        agent banner, G729 codec and status change IVR.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25922,6 +28374,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyOvhPabxHuntingWritable
     ) -> None:
         """update_ovh_pabx_hunting calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting: Update the queue system settings
+
+        Updates the queue system settings: the CRM URL template opened by the agent banner, the G729
+        codec and the status change IVR.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25945,6 +28400,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_ovh_pabx_hunting_agents calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent: List agents
 
+        Returns the identifiers of the agents. An agent is a phone number that answers the calls of
+        one or several queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -25964,6 +28422,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxHuntingAgentRequest
     ) -> models.TelephonyOvhPabxHuntingAgent:
         """create_ovh_pabx_hunting_agent calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent: Create an agent
+
+        Creates an agent: a number that answers calls from the queues. Sets its status, ring
+        timeout, wrap-up time and maximum simultaneous calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -25987,6 +28448,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgent:
         """get_ovh_pabx_hunting_agent calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}: Get an agent
+
+        Returns the agent: number, description, status, break status, type (internal or external),
+        ring timeout, wrap-up time and simultaneous calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26039,6 +28503,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_hunting_agent calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}: Update an agent
 
+        Updates the agent: number, description, status (available, logged out or on break), break
+        status, ring timeout, wrap-up time and simultaneous calls.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26063,6 +28530,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_agent calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}: Delete an agent
 
+        Deletes the agent. It is removed from all its queues and no longer receives calls from the
+        queue system.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26083,6 +28553,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyBannerAccess:
         """get_ovh_pabx_hunting_agent_banner_access calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/bannerAccess: Get the agent banner access
+
+        Returns the web access to the agent banner application: its URL and creation date.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26106,6 +28578,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyBannerAccess:
         """create_ovh_pabx_hunting_agent_banner_access calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/bannerAccess: Create the agent banner access
 
+        Creates a web access to the agent banner application. Returns its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26128,6 +28602,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_agent_banner_access calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/bannerAccess: Delete the agent banner access
 
+        Deletes the web access to the agent banner application. Its URL no longer gives access to
+        the banner.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26148,6 +28625,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> list[int]:
         """list_ovh_pabx_hunting_agent_calls calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls: List agent calls
+
+        Returns the identifiers of the calls the agent is handling. Get a live call for its caller,
+        queue, state and dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26170,6 +28650,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_ovh_pabx_hunting_agent_calls calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26227,6 +28710,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26254,6 +28740,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """hangup_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26277,6 +28766,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int, id: int
     ) -> models.TelephonyTask:
         """hold_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26306,6 +28798,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.InterceptOvhPabxHuntingAgentCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26339,6 +28834,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """transfer_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26371,6 +28869,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """whisper_ovh_pabx_hunting_agent_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/calls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26398,6 +28899,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyEventToken:
         """get_ovh_pabx_hunting_agent_event_token calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/eventToken: Get the event token
 
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26424,6 +28928,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> str:
         """create_ovh_pabx_hunting_agent_event_token calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26449,6 +28956,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_agent_event_token calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/eventToken: Delete the event token
 
+        Deletes the event token. It can no longer be used to receive real-time call events.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26469,6 +28978,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_ovh_pabx_hunting_agent_live_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26491,6 +29003,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int
     ) -> list[int]:
         """list_ovh_pabx_hunting_agent_queues calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue: List the queues of an agent
+
+        Returns the identifiers of the queues the agent belongs to. Get an agent position in a queue
+        to see its order in that queue.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26518,6 +29033,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """create_ovh_pabx_hunting_agent_queue calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue: Assign an agent to a queue
 
+        Adds an agent to a queue, with a position. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26542,6 +29060,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """get_ovh_pabx_hunting_agent_queue calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Get an agent position in a queue
+
+        Returns the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26599,6 +29120,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_hunting_agent_queue calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Update an agent position in a queue
 
+        Updates the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26625,6 +29149,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_agent_queue calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue/{queueId}: Remove an agent from a queue
 
+        Removes the agent from the queue. The agent no longer receives calls from this queue but
+        stays assigned to its other queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26647,6 +29174,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, agent_id: int, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_ovh_pabx_hunting_agent_queue_live_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/agent/{agentId}/queue/{queueId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26672,6 +29202,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_ovh_pabx_hunting_custom_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/customStatus: List custom statuses
 
+        Returns the identifiers of the custom statuses agents can set, such as a break. Each status
+        has a name, a description and a color.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26695,6 +29228,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxCustomStatus:
         """create_ovh_pabx_hunting_custom_status calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/customStatus: Create a custom status
 
+        Creates a custom status agents can set, such as a break. Sets its name, short description
+        and the color shown on the agent banner.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26717,6 +29253,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxCustomStatus:
         """get_ovh_pabx_hunting_custom_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/customStatus/{id}: Get a custom status
+
+        Returns the custom status: name, short description and color displayed on the agent banner
+        web application.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26765,6 +29304,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_custom_status calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/customStatus/{id}: Delete a custom status
 
+        Deletes the custom status. Agents can no longer select it on the agent banner web
+        application.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26785,6 +29327,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEventToken:
         """get_ovh_pabx_hunting_event_token calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/eventToken: Get the event token
+
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26809,6 +29354,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> str:
         """create_ovh_pabx_hunting_event_token calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26832,6 +29380,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_event_token calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/eventToken: Delete the event token
 
+        Deletes the event token. It can no longer be used to receive real-time call events.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26850,6 +29400,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> list[int]:
         """list_ovh_pabx_hunting_queues calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue: List queues
+
+        Returns the identifiers of the queues. A queue holds incoming calls and dispatches them to
+        its agents with a strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26870,6 +29423,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxHuntingQueueRequest
     ) -> models.TelephonyOvhPabxHuntingQueue:
         """create_ovh_pabx_hunting_queue calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue: Create a queue
+
+        Creates a queue that distributes calls to its agents. Sets the dispatching strategy, the
+        maximum wait time and callers, and the overflow and closure actions.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26893,6 +29449,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int
     ) -> models.TelephonyOvhPabxHuntingQueue:
         """get_ovh_pabx_hunting_queue calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}: Get a queue
+
+        Returns the queue: name, strategy, maximum waiting callers and wait time, sound on hold,
+        call recording, and actions on overflow and on closure.
 
         Args:
             billing_account: The name of your billingAccount
@@ -26945,6 +29504,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_hunting_queue calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}: Update a queue
 
+        Updates the queue: name, dispatching strategy, maximum waiting callers and wait time, sound
+        on hold, call recording and overflow and closure actions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26969,6 +29531,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_queue calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}: Delete a queue
 
+        Deletes the queue. Its agents are no longer assigned to it, and calls are no longer
+        dispatched through it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -26989,6 +29554,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int
     ) -> list[int]:
         """list_ovh_pabx_hunting_queue_agents calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent: List the agents of a queue
+
+        Returns the identifiers of the agents of the queue. Get an agent position in the queue to
+        see the order in which agents receive calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27011,6 +29579,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentQueue:
         """get_ovh_pabx_hunting_queue_agent calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Get an agent position in a queue
+
+        Returns the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27068,6 +29639,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_hunting_queue_agent calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Update an agent position in a queue
 
+        Updates the position of the agent in the queue. The position sets the order in which agents
+        receive calls, depending on the queue strategy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27094,6 +29668,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_hunting_queue_agent calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent/{agentId}: Remove an agent from a queue
 
+        Removes the agent from the queue. The agent no longer receives calls from this queue but
+        stays assigned to its other queues.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27116,6 +29693,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int, agent_id: int
     ) -> models.TelephonyOvhPabxHuntingAgentLiveStatus:
         """get_ovh_pabx_hunting_queue_agent_live_status calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/agent/{agentId}/liveStatus: Get the agent live status
+
+        Returns the live status of the agent: state, last status change, and the number and total
+        duration of the calls taken on the current day.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27141,6 +29721,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_ovh_pabx_hunting_queue_live_calls calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls: List queue live calls
 
+        Returns the identifiers of the calls waiting or answered in the queue. Get a live call for
+        its caller, agent, state and dates.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27162,6 +29745,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int, id: int
     ) -> models.TelephonyOvhPabxHuntingQueueLiveCalls:
         """get_ovh_pabx_hunting_queue_live_calls calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}: Get a live call
+
+        Returns the live call: caller number and name, destination number, agent, queue, state
+        (waiting or answered), hold status and begin, answer and end dates.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27219,6 +29805,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """eavesdrop_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/eavesdrop: Eavesdrop on a call
 
+        Listens to the live call without being heard. The given phone number is called and bridged
+        in the communication. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27246,6 +29835,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """hangup_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/hangup: Hang up a call
 
+        Ends the live call for all participants, the caller and the agent. Returns the task that
+        performs the hang up.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27269,6 +29861,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, queue_id: int, id: int
     ) -> models.TelephonyTask:
         """hold_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/hold: Toggle hold on a call
+
+        Puts the live call on hold, or resumes it if it is already on hold. Returns the task that
+        performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27298,6 +29893,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.InterceptOvhPabxHuntingQueueLiveCallsRequest,
     ) -> models.TelephonyTask:
         """intercept_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/intercept: Intercept an unanswered call
+
+        Answers a call that is ringing on another line. The given phone number is called and takes
+        the communication. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27331,6 +29929,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """transfer_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/transfer: Transfer an answered call
 
+        Transfers the answered call to another phone number, given as a parameter. Returns the task
+        that performs the transfer.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27363,6 +29964,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """whisper_ovh_pabx_hunting_queue_live_calls calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveCalls/{id}/whisper: Whisper on a call
 
+        Speaks during the live call from the given phone number, heard by the agent only or by all
+        participants, depending on the whispering mode.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27390,6 +29994,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxHuntingQueueLiveStatistics:
         """get_ovh_pabx_hunting_queue_live_statistics calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/hunting/queue/{queueId}/liveStatistics: Get queue live statistics
 
+        Returns the live statistics of the queue since the last reset at midnight: total, answered
+        and lost calls, and total waiting and call durations.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27410,6 +30017,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_ovh_pabx_menus(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_menus calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu: List menus
 
+        Returns the identifiers of the voice menus (IVR) of the PBX. A menu plays a sound and routes
+        the call according to the key pressed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27429,6 +30039,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxMenuRequest
     ) -> models.TelephonyOvhPabxMenu:
         """create_ovh_pabx_menu calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu: Create a menu
+
+        Creates a voice menu: a greeting and the keys callers can press. Add the keys and their
+        actions afterwards with menu entries.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27452,6 +30065,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, menu_id: int
     ) -> models.TelephonyOvhPabxMenu:
         """get_ovh_pabx_menu calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}: Get a menu
+
+        Returns the voice menu: name, greeting sound or text to speech, invalid key sound or text to
+        speech, and the key entry and menu timeouts.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27502,6 +30118,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_menu calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}: Update a menu
 
+        Updates the voice menu: name, greeting and invalid key sounds or text to speech, and the key
+        entry and menu timeouts in milliseconds.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27526,6 +30145,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_menu calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}: Delete a menu
 
+        Deletes the voice menu and its entries. Callers no longer hear its greeting or reach its
+        actions.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27546,6 +30168,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, menu_id: int
     ) -> list[int]:
         """list_ovh_pabx_menu_entries calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry: List menu entries
+
+        Returns the identifiers of the entries of the voice menu. An entry maps a key to an action.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27573,6 +30197,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOvhPabxMenuEntry:
         """create_ovh_pabx_menu_entry calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry: Create a menu entry
 
+        Creates an entry: the key pressed by the caller and the action to run, such as bridge,
+        playback, sub menu or call center, with its parameter.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27597,6 +30224,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, menu_id: int, entry_id: int
     ) -> models.TelephonyOvhPabxMenuEntry:
         """get_ovh_pabx_menu_entry calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry/{entryId}: Get a menu entry
+
+        Returns the menu entry: position, key (DTMF) pressed by the caller, action triggered and its
+        additional parameter.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27654,6 +30284,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_menu_entry calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry/{entryId}: Update a menu entry
 
+        Updates the menu entry: position, key (DTMF), action such as bridge, playback, sub menu or
+        call center, and its parameter.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27680,6 +30313,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_menu_entry calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/menu/{menuId}/entry/{entryId}: Delete a menu entry
 
+        Deletes the menu entry. The key it used no longer triggers an action in the voice menu.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27701,6 +30336,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_ovh_pabx_records(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_records calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/records: List call recordings
 
+        Returns the identifiers of the recordings of the calls handled by the service. Get a call
+        recording for its details.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27720,6 +30358,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxRecord:
         """get_ovh_pabx_records calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/records/{id}: Get a call recording
+
+        Returns the call recording and the URL to download it, with the caller and destination
+        numbers, agent, start and end dates and duration.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27766,6 +30407,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_records calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/records/{id}: Delete a call recording
 
+        Deletes the call recording of the service. Its sound file can no longer be downloaded from
+        its URL.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27784,6 +30428,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_ovh_pabx_sounds(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_sounds calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/sound: List sounds
+
+        Returns the identifiers of the sound files of the service. Add a sound with the soundUpload
+        call, from /me/document or a URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27804,6 +30451,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, sound_id: int
     ) -> models.TelephonyOvhPabxSound:
         """get_ovh_pabx_sound calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/sound/{soundId}: Get a sound
+
+        Returns the sound of the service: its identifier and filename. Sounds are played by queues
+        and voice menus.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27850,6 +30500,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_ovh_pabx_sound calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/sound/{soundId}: Delete a sound
 
+        Deletes the sound of the service, identified by its ID. Queues and voice menus can no longer
+        play it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27870,6 +30523,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.SoundUploadOvhPabxRequest
     ) -> models.TelephonyTask:
         """sound_upload_ovh_pabx calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/soundUpload: Upload a sound
+
+        Uploads a sound file to the service, from a /me/document identifier or a URL, with an
+        optional name. Returns the task that performs it.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27892,6 +30548,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_ovh_pabx_tts(self, billing_account: str, service_name: str) -> list[int]:
         """list_ovh_pabx_tts calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts: List TTS prompts
 
+        Returns the identifiers of the text to speech prompts of the PBX. A prompt is a text read by
+        a synthetic voice.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -27911,6 +30570,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateOvhPabxTtsRequest
     ) -> None:
         """create_ovh_pabx_tts calls POST /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts: Create a TTS prompt
+
+        Creates a text to speech prompt: a text read by a synthetic voice. The voice is Helene,
+        Loic, Jenny or Bruce.
 
         Args:
             billing_account: The name of your billingAccount
@@ -27933,6 +30595,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyOvhPabxTts:
         """get_ovh_pabx_tts calls GET /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts/{id}: Get a TTS prompt
+
+        Returns the text to speech prompt: the text played and the voice that reads it (Helene,
+        Loic, Jenny or Bruce).
 
         Args:
             billing_account: The name of your billingAccount
@@ -27983,6 +30648,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_ovh_pabx_tts calls PUT /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts/{id}: Update a TTS prompt
 
+        Updates the text to speech prompt: the text played and the voice that reads it (Helene,
+        Loic, Jenny or Bruce).
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -28005,6 +30673,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def delete_ovh_pabx_tts(self, billing_account: str, service_name: str, id: int) -> None:
         """delete_ovh_pabx_tts calls DELETE /v1/telephony/{billingAccount}/ovhPabx/{serviceName}/tts/{id}: Delete a TTS prompt
 
+        Deletes the text to speech prompt. It can no longer be played by the voice menus of the PBX.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -28024,6 +30694,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_phonebooks(self, billing_account: str) -> list[str]:
         """list_phonebooks calls GET /v1/telephony/{billingAccount}/phonebook: List phonebooks
 
+        Returns the identifiers (bookKey) of the phonebooks shared by the billing account. A
+        phonebook stores contacts with their phone numbers.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -28041,6 +30714,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, body: models.CreatePhonebookRequest
     ) -> str:
         """create_phonebook calls POST /v1/telephony/{billingAccount}/phonebook: Create a phonebook
+
+        Creates a phonebook shared by the billing account. Returns its identifier (bookKey).
 
         Args:
             billing_account: The name of your billingAccount
@@ -28062,6 +30737,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, book_key: str
     ) -> models.TelephonyPhonebookMaster:
         """get_phonebook calls GET /v1/telephony/{billingAccount}/phonebook/{bookKey}: Get a phonebook
+
+        Returns the name and the identifier (bookKey) of the phonebook shared by the billing
+        account.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28104,6 +30782,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_phonebook calls PUT /v1/telephony/{billingAccount}/phonebook/{bookKey}: Update a phonebook
 
+        Updates the name of the phonebook shared by the billing account. Contacts are updated one by
+        one.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -28123,6 +30804,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def delete_phonebook(self, billing_account: str, book_key: str) -> None:
         """delete_phonebook calls DELETE /v1/telephony/{billingAccount}/phonebook/{bookKey}: Delete a phonebook
+
+        Deletes the phonebook shared by the billing account and its contacts. Export the contacts
+        first to keep a copy.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28146,6 +30830,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyPcsFile:
         """get_phonebook_export calls GET /v1/telephony/{billingAccount}/phonebook/{bookKey}/export: Export contacts
 
+        Exports the contacts of the phonebook to a file in CSV format. Returns the file to download.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -28167,6 +30853,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, book_key: str, body: models.ImportPhonebookRequest
     ) -> models.TelephonyTask:
         """import_phonebook calls POST /v1/telephony/{billingAccount}/phonebook/{bookKey}/import: Import contacts
+
+        Imports contacts into the phonebook from an Excel (.xls, .xlsx) or CSV file in /me/document.
+        Returns the task that performs the import.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28191,6 +30880,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_phonebook_phonebook_contacts calls GET /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact: List contacts
 
+        Returns the identifiers of the contacts of the phonebook. Get a contact for its name, group
+        and phone numbers.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -28214,6 +30906,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> int:
         """create_phonebook_phonebook_contact calls POST /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact: Create a contact
 
+        Creates a contact in the phonebook with a name, surname, group and phone numbers. Returns
+        its identifier.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -28236,6 +30931,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, book_key: str, id: int
     ) -> models.TelephonyPhonebookContact:
         """get_phonebook_phonebook_contact calls GET /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact/{id}: Get a contact
+
+        Returns the contact of the phonebook: name, surname, group, and office and home phone
+        numbers, landline and mobile.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28288,6 +30986,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_phonebook_phonebook_contact calls PUT /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact/{id}: Update a contact
 
+        Updates the contact of the phonebook: name, surname, group, and office and home phone
+        numbers, landline and mobile.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -28312,6 +31013,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_phonebook_phonebook_contact calls DELETE /v1/telephony/{billingAccount}/phonebook/{bookKey}/phonebookContact/{id}: Delete a contact
 
+        Deletes the contact from the phonebook, with its name, group and office and home phone
+        numbers.
+
         Args:
             billing_account: The name of your billingAccount
             book_key: Identifier of the phonebook
@@ -28331,6 +31035,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_portabilities(self, billing_account: str) -> list[int]:
         """list_portabilities calls GET /v1/telephony/{billingAccount}/portability: List number portings
 
+        Returns the identifiers of the number portings. A number porting transfers a number from
+        another operator.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -28346,6 +31053,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_portability(self, billing_account: str, id: int) -> models.TelephonyPortability:
         """get_portability calls GET /v1/telephony/{billingAccount}/portability/{id}: Get a number porting
+
+        Returns the number porting: numbers, current operator, desired execution date, redirection,
+        error codes, customer information and RIO (France only).
 
         Args:
             billing_account: The name of your billingAccount
@@ -28386,6 +31096,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def get_portability_can_be_cancelled(self, billing_account: str, id: int) -> bool:
         """get_portability_can_be_cancelled calls GET /v1/telephony/{billingAccount}/portability/{id}/canBeCancelled: Check if the porting can be canceled
 
+        Returns whether the number porting can still be canceled. Cancel the porting with the cancel
+        call.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -28403,6 +31116,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_portability_can_be_executed(self, billing_account: str, id: int) -> bool:
         """get_portability_can_be_executed calls GET /v1/telephony/{billingAccount}/portability/{id}/canBeExecuted: Check if the porting can be executed
+
+        Returns whether the number porting can be executed now. Execute the porting with the execute
+        call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28423,6 +31139,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, id: int, body: models.CancelPortabilityRequest
     ) -> None:
         """cancel_portability calls POST /v1/telephony/{billingAccount}/portability/{id}/cancel: Cancel the porting
+
+        Requests the cancellation of the number porting, with a reason. Check first that the porting
+        can still be canceled.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28446,6 +31165,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """change_date_portability calls POST /v1/telephony/{billingAccount}/portability/{id}/changeDate: Change the porting date
 
+        Requests a new date for the number porting. Check first that the porting date can still be
+        changed.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -28466,6 +31188,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def get_portability_date_can_be_changed(self, billing_account: str, id: int) -> bool:
         """get_portability_date_can_be_changed calls GET /v1/telephony/{billingAccount}/portability/{id}/dateCanBeChanged: Check if the porting date can change
 
+        Returns whether the date of the number porting can be changed. Request a new date with the
+        change date call.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -28483,6 +31208,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def list_portability_documents(self, billing_account: str, id: int) -> list[int]:
         """list_portability_documents calls GET /v1/telephony/{billingAccount}/portability/{id}/document: List porting documents
+
+        Returns the identifiers of the documents attached to the number porting. Get a porting
+        document for its name, size and download URL.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28503,6 +31231,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, id: int, body: models.CreatePortabilityDocumentRequest
     ) -> models.TelephonyPortabilityDocument:
         """create_portability_document calls POST /v1/telephony/{billingAccount}/portability/{id}/document: Create a porting document
+
+        Creates a document for the number porting. Returns the URL to upload the file.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28526,6 +31256,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, id: int, document_id: int
     ) -> models.TelephonyPortabilityDocument:
         """get_portability_document calls GET /v1/telephony/{billingAccount}/portability/{id}/document/{documentId}: Get a porting document
+
+        Returns the porting document: name, description, size, and the URLs to download and upload
+        the file.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28576,6 +31309,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_portability_document calls PUT /v1/telephony/{billingAccount}/portability/{id}/document/{documentId}: Update a porting document
 
+        Updates the name and the description of the porting document. The file itself is uploaded
+        with the upload URL of the document.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -28600,6 +31336,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_portability_document calls DELETE /v1/telephony/{billingAccount}/portability/{id}/document/{documentId}: Delete a porting document
 
+        Deletes the porting document and its file. It is no longer attached to the number porting.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -28618,6 +31356,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def execute_portability(self, billing_account: str, id: int) -> None:
         """execute_portability calls POST /v1/telephony/{billingAccount}/portability/{id}/execute: Execute the porting
+
+        Executes the number porting now, without waiting for the planned date. Check first that the
+        porting can be executed.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28638,6 +31379,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyPortabilityFixErrorPossibleParameters:
         """get_portability_relaunch calls GET /v1/telephony/{billingAccount}/portability/{id}/relaunch: Check if the porting can be relaunched
 
+        Returns whether the porting error can be fixed, and the fields to correct.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -28657,6 +31400,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, id: int, body: models.CreatePortabilityRelaunchRequest
     ) -> None:
         """create_portability_relaunch calls POST /v1/telephony/{billingAccount}/portability/{id}/relaunch: Relaunch the porting
+
+        Fixes the porting error with the given values and relaunches the number porting.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28680,6 +31425,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyPortabilityStep]:
         """list_portability_status calls GET /v1/telephony/{billingAccount}/portability/{id}/status: Get the porting status
 
+        Returns the status of the number porting, step by step: name, description, status,
+        completion date and duration of each step.
+
         Args:
             billing_account: The name of your billingAccount
             id: The ID of the portability
@@ -28698,6 +31446,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_redirects(self, billing_account: str) -> list[str]:
         """list_redirects calls GET /v1/telephony/{billingAccount}/redirect: List redirect numbers
 
+        Returns the redirect numbers of the billing account. A redirect number forwards calls to a
+        destination.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -28715,6 +31466,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyRedirect:
         """get_redirect calls GET /v1/telephony/{billingAccount}/redirect/{serviceName}: Get a redirect number
+
+        Returns the redirect number: feature type and description. The destination is changed with
+        the changeDestination call.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28755,6 +31509,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_redirect calls PUT /v1/telephony/{billingAccount}/redirect/{serviceName}: Update a redirect number
 
+        Updates the description of the redirect number. The destination is changed with the
+        changeDestination call.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -28777,6 +31534,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """change_destination_redirect calls POST /v1/telephony/{billingAccount}/redirect/{serviceName}/changeDestination: Change the redirect destination
 
+        Changes the number calls are forwarded to. Returns the task that performs it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -28798,6 +31557,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_rsvas(self, billing_account: str) -> list[str]:
         """list_rsvas calls GET /v1/telephony/{billingAccount}/rsva: List premium rate numbers
 
+        Returns the premium rate numbers of the billing account, subject to the French RSVA rules.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -28813,6 +31574,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_rsva(self, billing_account: str, service_name: str) -> models.TelephonyRsva:
         """get_rsva calls GET /v1/telephony/{billingAccount}/rsva/{serviceName}: Get a premium rate number
+
+        Returns the premium rate number (French SVA numbers subject to the RSVA reform) and its
+        typology, the category of the service.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28853,6 +31617,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_rsva calls PUT /v1/telephony/{billingAccount}/rsva/{serviceName}: Update a premium rate number
 
+        Updates the typology of the premium rate number, such as relationship, contents, games,
+        directory or conferencing.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -28875,6 +31642,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyRateCodeInformation]:
         """list_rsva_allowed_rate_codes calls GET /v1/telephony/{billingAccount}/rsva/{serviceName}/allowedRateCodes: List allowed rate codes
 
+        Returns the rate codes the premium rate number can use, with the price per minute and per
+        call without tax of each.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -28895,6 +31665,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """cancel_scheduled_rate_code_rsva calls POST /v1/telephony/{billingAccount}/rsva/{serviceName}/cancelScheduledRateCode: Cancel the scheduled rate code
 
+        Cancels the scheduled change of rate code. It must be done before the cancellation limit
+        date of the scheduled rate code.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -28913,6 +31686,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyDetailedRateCodeInformation:
         """get_rsva_current_rate_code calls GET /v1/telephony/{billingAccount}/rsva/{serviceName}/currentRateCode: Get the current rate code
+
+        Returns the rate code currently applied to the premium rate number, with its prices and
+        repayment prices without tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28933,6 +31709,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.ScheduleRateCodeRsvaRequest
     ) -> models.TelephonyDetailedRateCodeInformation:
         """schedule_rate_code_rsva calls POST /v1/telephony/{billingAccount}/rsva/{serviceName}/scheduleRateCode: Schedule a rate code
+
+        Schedules a new rate code for the premium rate number. Returns the rate code with its
+        effective date and the price of the change.
 
         Args:
             billing_account: The name of your billingAccount
@@ -28957,6 +31736,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyDetailedRateCodeInformation:
         """get_rsva_scheduled_rate_code calls GET /v1/telephony/{billingAccount}/rsva/{serviceName}/scheduledRateCode: Get the scheduled rate code
 
+        Returns the rate code scheduled for the premium rate number, with its effective date and the
+        date until which it can be cancelled.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -28975,6 +31757,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_schedulers(self, billing_account: str) -> list[str]:
         """list_schedulers calls GET /v1/telephony/{billingAccount}/scheduler: List schedulers
 
+        Returns the services of the billing account that have a scheduler. A scheduler holds
+        calendar events, such as closing days.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -28992,6 +31777,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyScheduler:
         """get_scheduler calls GET /v1/telephony/{billingAccount}/scheduler/{serviceName}: Get a scheduler
+
+        Returns the scheduler of the service and its timezone. The scheduler holds calendar events,
+        such as closing days.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29032,6 +31820,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_scheduler calls PUT /v1/telephony/{billingAccount}/scheduler/{serviceName}: Update a scheduler
 
+        Updates the scheduler of the service. Only its timezone can be changed, the events are
+        managed separately.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29061,6 +31852,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         date_start_to: datetime.datetime | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
         """list_scheduler_events calls GET /v1/telephony/{billingAccount}/scheduler/{serviceName}/events: List scheduler events
+
+        Returns the identifiers of the events of the scheduler. Get an event for its dates, category
+        and description.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29094,6 +31888,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """create_scheduler_events calls POST /v1/telephony/{billingAccount}/scheduler/{serviceName}/events: Create a scheduler event
 
+        Creates an event in the scheduler, such as a closing day, with a title, start and end dates
+        and a category (holidays or scheduler1 to scheduler3).
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29115,6 +31912,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, uid: str
     ) -> models.TelephonySchedulerEvent:
         """get_scheduler_events calls GET /v1/telephony/{billingAccount}/scheduler/{serviceName}/events/{uid}: Get a scheduler event
+
+        Returns the scheduler event: title, description, start and end dates, and category.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29183,6 +31982,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_scheduler_events calls PUT /v1/telephony/{billingAccount}/scheduler/{serviceName}/events/{uid}: Update a scheduler event
 
+        Updates the scheduler event: title, description, start and end dates, and category.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29206,6 +32007,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, uid: str
     ) -> None:
         """delete_scheduler_events calls DELETE /v1/telephony/{billingAccount}/scheduler/{serviceName}/events/{uid}: Delete a scheduler event
+
+        Deletes the scheduler event. It no longer applies to the calls of the service.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29231,6 +32034,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTask:
         """import_ics_calendar_scheduler calls POST /v1/telephony/{billingAccount}/scheduler/{serviceName}/importIcsCalendar: Import an ICS calendar
 
+        Imports scheduler events from a calendar file in ICS format, given by its URL. Returns the
+        task that performs the import.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29252,6 +32058,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_screens(self, billing_account: str) -> list[str]:
         """list_screens calls GET /v1/telephony/{billingAccount}/screen: List call filtering services
 
+        Returns the services of the billing account that support call filtering with allowed or
+        blocked numbers.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -29267,6 +32076,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_screen(self, billing_account: str, service_name: str) -> models.TelephonyScreen:
         """get_screen calls GET /v1/telephony/{billingAccount}/screen/{serviceName}: Get call filtering settings
+
+        Returns the call filtering settings of the service: incoming and outgoing filtering mode.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29307,6 +32118,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_screen calls PUT /v1/telephony/{billingAccount}/screen/{serviceName}: Update call filtering settings
 
+        Updates the incoming and outgoing filtering mode of the service: whitelist, blacklist or
+        disabled.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29327,6 +32141,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_screen_screen_lists(self, billing_account: str, service_name: str) -> list[int]:
         """list_screen_screen_lists calls GET /v1/telephony/{billingAccount}/screen/{serviceName}/screenLists: List filtering rules
 
+        Returns the identifiers of the call filtering rules of the service. Each rule allows or
+        blocks a number.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29346,6 +32163,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateScreenScreenListsRequest
     ) -> None:
         """create_screen_screen_lists calls POST /v1/telephony/{billingAccount}/screen/{serviceName}/screenLists: Create a filtering rule
+
+        Creates a call filtering rule that allows or blocks a number or a nature of numbers
+        (special, international, voicemail, services or fax), for incoming or outgoing calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29368,6 +32188,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyScreenList:
         """get_screen_screen_lists calls GET /v1/telephony/{billingAccount}/screen/{serviceName}/screenLists/{id}: Get a filtering rule
+
+        Returns the call filtering rule: number, nature, list type (incoming or outgoing, whitelist
+        or blacklist) and status.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29416,6 +32239,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_screen_screen_lists calls DELETE /v1/telephony/{billingAccount}/screen/{serviceName}/screenLists/{id}: Delete a filtering rule
 
+        Deletes the call filtering rule. The number or nature of numbers it covered is no longer
+        allowed or blocked by it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29435,6 +32261,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_services(self, billing_account: str) -> list[str]:
         """list_services calls GET /v1/telephony/{billingAccount}/service: List services
 
+        Returns the services of the billing account: lines, numbers, fax, trunks. Get a service for
+        its type, offers and status.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -29452,6 +32281,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyTelephonyService:
         """get_service calls GET /v1/telephony/{billingAccount}/service/{serviceName}: Get a service
+
+        Returns the service: type, feature type, description, offers, properties, fax capabilities,
+        associated device and country.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29497,6 +32329,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_service calls PUT /v1/telephony/{billingAccount}/service/{serviceName}: Update a service
 
+        Updates the service description. The other properties of the service, such as its type and
+        offers, are read-only.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29524,6 +32359,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_service calls DELETE /v1/telephony/{billingAccount}/service/{serviceName}: Terminate a service
 
+        Requests the termination of the service, with a reason and optional details. The termination
+        can be cancelled until it is executed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29547,6 +32385,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def cancel_termination_service(self, billing_account: str, service_name: str) -> None:
         """cancel_termination_service calls POST /v1/telephony/{billingAccount}/service/{serviceName}/cancelTermination: Cancel the service termination
 
+        Cancels the termination requested on the service, before it is executed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29568,6 +32408,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.ChangeOfBillingAccountServiceRequest,
     ) -> None:
         """change_of_billing_account_service calls POST /v1/telephony/{billingAccount}/service/{serviceName}/changeOfBillingAccount: Move a service to another billing account
+
+        Moves the service to another billing account of the same customer, given by its name.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29597,6 +32439,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyDiagnosticReport]:
         """list_service_diagnostic_reports calls GET /v1/telephony/{billingAccount}/service/{serviceName}/diagnosticReports: Get diagnostic reports
 
+        Returns the diagnostic reports of the service: call quality problems detected on the
+        network, for today or one of the last three days.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29621,6 +32466,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyDirectoryInfo:
         """get_service_directory calls GET /v1/telephony/{billingAccount}/service/{serviceName}/directory: Get the directory listing
 
+        Returns the directory listing of the service: name, address and display options.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29640,6 +32487,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyDirectoryInfoWritable
     ) -> None:
         """update_service_directory calls PUT /v1/telephony/{billingAccount}/service/{serviceName}/directory: Update the directory listing
+
+        Updates the directory listing of the service: name, company details, address, contact email
+        and display options in the directories.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29666,6 +32516,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyEntrepriseNumberInformationsTask:
         """fetch_entreprise_informations_service_directory calls POST /v1/telephony/{billingAccount}/service/{serviceName}/directory/fetchEntrepriseInformations: Fetch company information
 
+        Returns the company information for a company registration number. The result is given by a
+        task to check until it ends.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29689,6 +32542,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyDirectoryHeadingPJ]:
         """list_service_directory_get_directory_service_codes calls GET /v1/telephony/{billingAccount}/service/{serviceName}/directory/getDirectoryServiceCode: Get the directory service code
 
+        Returns the directory service codes for an APE code (main business activity code).
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29711,6 +32566,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[models.TelephonyDirectoryWayType]:
         """list_service_directory_get_way_types calls GET /v1/telephony/{billingAccount}/service/{serviceName}/directory/getWayTypes: List street types
 
+        Returns the street types available for a directory listing address, with their full and
+        abbreviated names.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29730,6 +32588,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyEventToken:
         """get_service_event_token calls GET /v1/telephony/{billingAccount}/service/{serviceName}/eventToken: Get the event token
+
+        Returns the token used to receive real-time call events. Create a new token when it is
+        missing or expired.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29751,6 +32612,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> str:
         """create_service_event_token calls POST /v1/telephony/{billingAccount}/service/{serviceName}/eventToken: Create an event token
 
+        Creates a token to receive real-time call events, valid 5 minutes, 1 hour, 1 day, 30 days or
+        without limit. Returns the token.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29771,6 +32635,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def delete_service_event_token(self, billing_account: str, service_name: str) -> None:
         """delete_service_event_token calls DELETE /v1/telephony/{billingAccount}/service/{serviceName}/eventToken: Delete the event token
+
+        Deletes the event token. It can no longer be used to receive real-time call events.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29796,6 +32662,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         way_type: models.TelephonyFaxConsumptionWayTypeEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
         """list_service_fax_consumptions calls GET /v1/telephony/{billingAccount}/service/{serviceName}/faxConsumption: List fax records
+
+        Returns the identifiers of the fax records of the current month. Get a fax record for its
+        called number, pages and price excluding tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29824,6 +32693,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, consumption_id: int
     ) -> models.TelephonyFaxConsumption:
         """get_service_fax_consumption calls GET /v1/telephony/{billingAccount}/service/{serviceName}/faxConsumption/{consumptionId}: Get a fax record
+
+        Returns the fax record: date, calling and called numbers, direction (sent or received),
+        pages and price without tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29884,6 +32756,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyOfferChange:
         """get_service_offer_change calls GET /v1/telephony/{billingAccount}/service/{serviceName}/offerChange: Get the scheduled offer change
 
+        Returns the offer that will replace the current offer of the service on the next renewal.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29903,6 +32777,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateServiceOfferChangeRequest
     ) -> None:
         """create_service_offer_change calls POST /v1/telephony/{billingAccount}/service/{serviceName}/offerChange: Schedule an offer change
+
+        Schedules a change of offer for the service. The new offer replaces the current one on the
+        next renewal.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29924,6 +32801,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def delete_service_offer_change(self, billing_account: str, service_name: str) -> None:
         """delete_service_offer_change calls DELETE /v1/telephony/{billingAccount}/service/{serviceName}/offerChange: Cancel the scheduled offer change
 
+        Cancels the scheduled offer change. The service keeps its current offer on the next renewal.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -29942,6 +32821,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> list[models.TelephonyLineOffer]:
         """list_service_offer_changes calls GET /v1/telephony/{billingAccount}/service/{serviceName}/offerChanges: List available offer changes
+
+        Returns the offers the service can change to. Use one of them to schedule an offer change.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29968,6 +32849,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         type: models.TelephonyOfferTaskTypeEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
         """list_service_offer_tasks calls GET /v1/telephony/{billingAccount}/service/{serviceName}/offerTask: List offer tasks
+
+        Returns the identifiers of the scheduled offer operations of the service, such as an offer
+        change or a termination.
 
         Args:
             billing_account: The name of your billingAccount
@@ -29996,6 +32880,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, task_id: int
     ) -> models.TelephonyOfferTask:
         """get_service_offer_task calls GET /v1/telephony/{billingAccount}/service/{serviceName}/offerTask/{taskId}: Get an offer task
+
+        Returns the offer operation: type, action such as termination or upgrade, planned execution
+        date and status.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30058,6 +32945,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_service_offer_task calls PUT /v1/telephony/{billingAccount}/service/{serviceName}/offerTask/{taskId}: Update an offer task
 
+        Updates the scheduled offer operation. Only its planned execution date can be changed.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30093,6 +32982,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_service_previous_voice_consumptions calls GET /v1/telephony/{billingAccount}/service/{serviceName}/previousVoiceConsumption: List last month call records
 
+        Returns the identifiers of the call records of the previous month. Get a call record for its
+        called number, duration and price excluding tax.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30124,6 +33016,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, consumption_id: int
     ) -> models.TelephonyPreviousVoiceConsumption:
         """get_service_previous_voice_consumption calls GET /v1/telephony/{billingAccount}/service/{serviceName}/previousVoiceConsumption/{consumptionId}: Get a last month call record
+
+        Returns the call record of the previous month: date, numbers, destination, duration, hangup
+        cause and price without tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30198,6 +33093,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_service_repayment_consumptions calls GET /v1/telephony/{billingAccount}/service/{serviceName}/repaymentConsumption: List repayable calls
 
+        Returns the identifiers of the calls that can be repaid. Request a repayment on the billing
+        account to get them repaid.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30223,6 +33121,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, consumption_id: int
     ) -> models.TelephonyRepaymentConsumption:
         """get_service_repayment_consumption calls GET /v1/telephony/{billingAccount}/service/{serviceName}/repaymentConsumption/{consumptionId}: Get a repayable call
+
+        Returns the repayable call: date, calling, called and dialed numbers, operator, duration,
+        repaid price and whether it is repayable now.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30286,6 +33187,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_service_tasks calls GET /v1/telephony/{billingAccount}/service/{serviceName}/task: List tasks
 
+        Returns the identifiers of the operations in progress on the service. Get a task for its
+        action, status and failure message.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30313,6 +33217,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, task_id: int
     ) -> models.TelephonyTask:
         """get_service_task calls GET /v1/telephony/{billingAccount}/service/{serviceName}/task/{taskId}: Get a task
+
+        Returns the operation on the telephony service: action, status (todo, doing, done, error or
+        pause), created object and failure message.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30382,6 +33289,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_service_voice_consumptions calls GET /v1/telephony/{billingAccount}/service/{serviceName}/voiceConsumption: List call records
 
+        Returns the identifiers of the call records of the current month. Get a call record for its
+        called number, duration and price excluding tax.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30413,6 +33323,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, consumption_id: int
     ) -> models.TelephonyVoiceConsumption:
         """get_service_voice_consumption calls GET /v1/telephony/{billingAccount}/service/{serviceName}/voiceConsumption/{consumptionId}: Get a call record
+
+        Returns the call record: date, calling, called and dialed numbers, destination, duration,
+        hangup cause, plan and price without tax.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30628,6 +33541,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_tasks calls GET /v1/telephony/{billingAccount}/task: List tasks
 
+        Returns the identifiers of the operations in progress on the billing account. Get a task for
+        its action, status and failure message.
+
         Args:
             billing_account: The name of your billingAccount
             action: Filter the value of action property (=) (optional)
@@ -30651,6 +33567,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_task(self, billing_account: str, task_id: int) -> models.TelephonyTask:
         """get_task calls GET /v1/telephony/{billingAccount}/task/{taskId}: Get a task
+
+        Returns the operation on the telephony service: action, status (todo, doing, done, error or
+        pause), created object and failure message.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30702,6 +33621,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_time_conditions(self, billing_account: str) -> list[str]:
         """list_time_conditions calls GET /v1/telephony/{billingAccount}/timeCondition: List time condition services
 
+        Returns the services of the billing account that support time conditions. A time condition
+        routes calls by time slot.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -30719,6 +33641,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyGenericScreen:
         """get_time_condition calls GET /v1/telephony/{billingAccount}/timeCondition/{serviceName}: Get a time condition service
+
+        Returns the time condition service. Its time conditions route calls by time slot.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30761,6 +33685,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_time_condition_conditions calls GET /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition: List time conditions
 
+        Returns the identifiers of the time conditions of the service. A time condition routes calls
+        by time slot.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30784,6 +33711,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTimeCondition:
         """create_time_condition_condition calls POST /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition: Create a time condition
 
+        Creates a time condition: a day (or holiday), start and end hours in hhmm format, and the
+        routing policy to apply during that time slot.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30806,6 +33736,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyTimeCondition:
         """get_time_condition_condition calls GET /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition/{id}: Get a time condition
+
+        Returns the time condition: day, start and end hours (hhmm), status, and the routing policy
+        applied during the time slot.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30858,6 +33791,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_time_condition_condition calls PUT /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition/{id}: Update a time condition
 
+        Updates the day, the start and end hours (hhmm), the status and the routing policy (slot1,
+        slot2, slot3 or available) of the time condition.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30882,6 +33818,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_time_condition_condition calls DELETE /v1/telephony/{billingAccount}/timeCondition/{serviceName}/condition/{id}: Delete a time condition
 
+        Deletes the time condition. Calls received during its time slot are no longer routed by its
+        policy.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30903,6 +33842,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTimeConditionOptions:
         """get_time_condition_options calls GET /v1/telephony/{billingAccount}/timeCondition/{serviceName}/options: Get time condition options
 
+        Returns the time condition options of the service: status and routing outside time slots.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -30922,6 +33863,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyTimeConditionOptions
     ) -> None:
         """update_time_condition_options calls PUT /v1/telephony/{billingAccount}/timeCondition/{serviceName}/options: Update time condition options
+
+        Updates the time condition options: global status, the action (voicemail or number) of each
+        slot and when unavailable, and the timeout.
 
         Args:
             billing_account: The name of your billingAccount
@@ -30945,6 +33889,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """transfer_security_deposit calls POST /v1/telephony/{billingAccount}/transferSecurityDeposit: Transfer the security deposit
 
+        Transfers an amount of the security deposit, in euros, to another billing account given by
+        its name.
+
         Args:
             billing_account: The name of your billingAccount
             body: the request body
@@ -30963,6 +33910,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_by_billing_account_trunk(self, billing_account: str) -> list[str]:
         """list_by_billing_account_trunk calls GET /v1/telephony/{billingAccount}/trunk: List trunks
 
+        Returns the trunks of the billing account. A trunk connects a customer PBX to OVHcloud over
+        SIP.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -30978,6 +33928,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_trunk(self, billing_account: str, service_name: str) -> models.TelephonyTrunk:
         """get_trunk calls GET /v1/telephony/{billingAccount}/trunk/{serviceName}: Get a trunk
+
+        Returns the trunk service: service name, service type and description. External displayed
+        numbers and channel packs have their own calls.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31020,6 +33973,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTrunkSimultaneousPacksRepartition:
         """get_trunk_channels_packs_repartition calls GET /v1/telephony/{billingAccount}/trunk/{serviceName}/channelsPacksRepartition: Get the best channel packs
 
+        Returns the best combination of channel packs for a number of simultaneous channels.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -31041,6 +33996,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> list[models.PhoneNumber]:
         """list_trunk_external_displayed_numbers calls GET /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber: List external displayed numbers
+
+        Returns the external numbers the trunk can display to callees. Each number must be validated
+        by a phone call before use.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31065,6 +34023,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTrunkExternalDisplayedNumber:
         """create_trunk_external_displayed_number calls POST /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber: Create an external displayed number
 
+        Adds an external number the trunk can display to callees. The number must then be validated.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -31087,6 +34047,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, number: models.PhoneNumber
     ) -> models.TelephonyTrunkExternalDisplayedNumber:
         """get_trunk_external_displayed_number calls GET /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber/{number}: Get an external displayed number
+
+        Returns the external displayed number, its creation and validation dates and its status:
+        waitingValidation, enabled, toDelete or refused.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31135,6 +34098,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_trunk_external_displayed_number calls DELETE /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber/{number}: Delete an external displayed number
 
+        Deletes the external displayed number. The trunk can no longer display it to callees.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -31156,6 +34121,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyTrunkExternalDisplayedNumberValidation:
         """validate_trunk_external_displayed_number calls POST /v1/telephony/{billingAccount}/trunk/{serviceName}/externalDisplayedNumber/{number}/validate: Validate an external displayed number
 
+        Calls the external number to validate it. Type the returned validation code when the call
+        asks for it.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: Name of the service
@@ -31176,6 +34144,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_voicemails(self, billing_account: str) -> list[str]:
         """list_voicemails calls GET /v1/telephony/{billingAccount}/voicemail: List voicemails
 
+        Returns the voicemails of the billing account. Get the voicemail settings for its greetings
+        and email notifications.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -31193,6 +34164,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyVoicemail:
         """get_voicemail calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}: Get a voicemail
+
+        Returns the voicemail service: description and offers. Settings, messages and greetings have
+        their own routes.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31233,6 +34207,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """update_voicemail calls PUT /v1/telephony/{billingAccount}/voicemail/{serviceName}: Update a voicemail
 
+        Updates the description of the voicemail service. The voicemail behaviour is changed in its
+        settings.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31262,6 +34239,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_voicemail_directories calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories: List voicemail messages
 
+        Returns the identifiers of the voicemail messages, filtered by folder. Get a message for its
+        caller, date and duration.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31283,6 +34263,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyVoicemailMessages:
         """get_voicemail_directories calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories/{id}: Get a voicemail message
+
+        Returns the voicemail message: caller and callee numbers, folder, creation date and duration
+        in seconds.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31340,6 +34323,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_voicemail_directories calls DELETE /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories/{id}: Delete a voicemail message
 
+        Deletes the voicemail message. It no longer appears in the folders of the voicemail.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31365,6 +34350,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         format: models.TelephonyServiceVoicemailAudioFormatEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> models.TelephonyPcsFile:
         """get_voicemail_directories_download calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories/{id}/download: Download a voicemail message
+
+        Returns a file to download the voicemail message as a sound file, in wav, mp3, aiff, flac,
+        ogg or au format.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31394,6 +34382,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """move_voicemail_directories calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/directories/{id}/move: Move a voicemail message
 
+        Moves the voicemail message to another folder: inbox, old, work, family, friends or urgent.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31422,6 +34412,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> list[int]:
         """list_voicemail_greetings calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings: List greetings
 
+        Returns the identifiers of the custom greetings of the voicemail, filtered by folder.
+        Greetings can also be added with this route.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31443,6 +34436,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.CreateVoicemailGreetingsRequest
     ) -> int:
         """create_voicemail_greetings calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings: Upload a greeting
+
+        Uploads a sound file from /me/document as a custom greeting, in the given greeting folder.
+        Returns the task identifier.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31466,6 +34462,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, id: int
     ) -> models.TelephonyVoicemailGreetings:
         """get_voicemail_greetings calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings/{id}: Get a greeting
+
+        Returns the custom greeting: its identifier, the callee number and the greeting folder
+        (unavail, busy, greet or temp).
 
         Args:
             billing_account: The name of your billingAccount
@@ -31520,6 +34519,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """delete_voicemail_greetings calls DELETE /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings/{id}: Delete a greeting
 
+        Deletes the custom greeting. It is no longer played to callers who reach the voicemail.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31545,6 +34546,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         format: models.TelephonyServiceVoicemailAudioFormatEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> models.TelephonyPcsFile:
         """get_voicemail_greetings_download calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings/{id}/download: Download a greeting
+
+        Returns a file to download the greeting as a sound file, in wav, mp3, aiff, flac, ogg or au
+        format.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31574,6 +34578,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """move_voicemail_greetings calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/greetings/{id}/move: Move a greeting
 
+        Moves the greeting to another greeting folder: unavail, busy, greet or temp. The folder sets
+        when the greeting is played.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31598,6 +34605,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """migrate_on_new_version_voicemail calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/migrateOnNewVersion: Migrate the voicemail to the new version
 
+        Migrates the voicemail to the new version, with greetings, folders and extra features.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31616,6 +34625,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyVoicemailProperties:
         """get_voicemail_settings calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings: Get the voicemail settings
+
+        Returns the voicemail settings: greeting, email notification, audio format and other
+        options.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31639,6 +34651,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         body: models.TelephonyVoicemailPropertiesWritable,
     ) -> None:
         """update_voicemail_settings calls PUT /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings: Update the voicemail settings
+
+        Updates the voicemail settings: greetings, sender of the notification emails, notified
+        addresses, audio format, and message recording and storage.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31665,6 +34680,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """change_password_voicemail_settings calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings/changePassword: Change the voicemail password
 
+        Changes the password used to access the voicemail panel. The password must be 4 digits.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31690,6 +34707,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> None:
         """change_routing_voicemail_settings calls POST /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings/changeRouting: Enable or disable the voicemail
 
+        Routes the calls of the line to the voicemail or to the fax. Available only on a line with
+        fax capabilities.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31712,6 +34732,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyVoicefaxRoutingEnum:
         """get_voicemail_settings_routing calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings/routing: Get the voicemail status
 
+        Returns whether calls are routed to the voicemail or to the fax. Available only on a line
+        with fax capabilities.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31732,6 +34755,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyVoicemailNumbers:
         """get_voicemail_settings_voicemail_numbers calls GET /v1/telephony/{billingAccount}/voicemail/{serviceName}/settings/voicemailNumbers: Get the voicemail numbers
 
+        Returns the numbers to call the voicemail from inside and outside the network.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31750,6 +34775,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     async def list_vxmls(self, billing_account: str) -> list[str]:
         """list_vxmls calls GET /v1/telephony/{billingAccount}/vxml: List VXML services
 
+        Returns the VXML services of the billing account. A VXML service runs a voice application
+        hosted on a web server.
+
         Args:
             billing_account: The name of your billingAccount
 
@@ -31765,6 +34793,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
 
     async def get_vxml(self, billing_account: str, service_name: str) -> models.TelephonyVxml:
         """get_vxml calls GET /v1/telephony/{billingAccount}/vxml/{serviceName}: Get a VXML service
+
+        Returns the VXML service: description and offers. The VXML application URLs are in its
+        settings.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31805,6 +34836,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
     ) -> models.TelephonyVxmlProperties:
         """get_vxml_settings calls GET /v1/telephony/{billingAccount}/vxml/{serviceName}/settings: Get the VXML settings
 
+        Returns the VXML settings: URL of the VXML application and URL used for recordings.
+
         Args:
             billing_account: The name of your billingAccount
             service_name: the serviceName path parameter
@@ -31824,6 +34857,8 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str, body: models.TelephonyVxmlProperties
     ) -> None:
         """update_vxml_settings calls PUT /v1/telephony/{billingAccount}/vxml/{serviceName}/settings: Update the VXML settings
+
+        Updates the URL of the VXML application and the URL used for recordings of the VXML service.
 
         Args:
             billing_account: The name of your billingAccount
@@ -31846,6 +34881,9 @@ class AsyncTelephonyApi(_gen.AsyncSectionApi):
         self, billing_account: str, service_name: str
     ) -> models.TelephonyTemporaryLogsLink:
         """logs_vxml_settings calls POST /v1/telephony/{billingAccount}/vxml/{serviceName}/settings/logs: Generate a logs URL
+
+        Generates a temporary URL to download the logs of the VXML service. Returns the URL and its
+        expiration date.
 
         Args:
             billing_account: The name of your billingAccount

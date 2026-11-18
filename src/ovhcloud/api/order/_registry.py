@@ -3529,6 +3529,36 @@ OP_POST_CART_SERVICE_OPTION_VRACK = Operation(
     schemas_version=None,
 )
 
+OP_LIST_CART_SERVICE_OPTION_VRACK_SERVICES = Operation(
+    name="order.list_cart_service_option_vrack_services",
+    method="GET",
+    path="/v1/order/cartServiceOption/vrackServices",
+    summary="List available services",
+    iam_actions=("order:apiovh:cartServiceOption/vrackServices/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_CART_SERVICE_OPTION_VRACK_SERVICES = Operation(
+    name="order.get_cart_service_option_vrack_services",
+    method="GET",
+    path="/v1/order/cartServiceOption/vrackServices/{serviceName}",
+    summary="Get informations about additional vrackServices offer for your service",
+    iam_actions=("order:apiovh:cartServiceOption/vrackServices/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_POST_CART_SERVICE_OPTION_VRACK_SERVICES = Operation(
+    name="order.post_cart_service_option_vrack_services",
+    method="POST",
+    path="/v1/order/cartServiceOption/vrackServices/{serviceName}",
+    summary="Add an additional vrackServices option in your cart",
+    iam_actions=("order:apiovh:cartServiceOption/vrackServices/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_LIST_CART_SERVICE_OPTION_WEB_HOSTINGS = Operation(
     name="order.list_cart_service_option_web_hostings",
     method="GET",
@@ -5413,7 +5443,7 @@ OP_LIST_LICENSE_CPANELS = Operation(
     name="order.list_license_cpanels",
     method="GET",
     path="/v1/order/license/cpanel",
-    summary="List available services",
+    summary="List your cPanel licenses",
     iam_actions=("order:apiovh:license/cpanel/get",),
     deprecated=False,
     schemas_version=None,
@@ -5523,7 +5553,7 @@ OP_LIST_LICENSE_PLESKS = Operation(
     name="order.list_license_plesks",
     method="GET",
     path="/v1/order/license/plesk",
-    summary="List available services",
+    summary="List your Plesk licenses",
     iam_actions=("order:apiovh:license/plesk/get",),
     deprecated=False,
     schemas_version=None,
@@ -5603,7 +5633,7 @@ OP_LIST_LICENSE_SQLSERVERS = Operation(
     name="order.list_license_sqlservers",
     method="GET",
     path="/v1/order/license/sqlserver",
-    summary="List available services",
+    summary="List your SQL Server licenses",
     iam_actions=("order:apiovh:license/sqlserver/get",),
     deprecated=False,
     schemas_version=None,
@@ -5683,7 +5713,7 @@ OP_LIST_LICENSE_WINDOWS = Operation(
     name="order.list_license_windows",
     method="GET",
     path="/v1/order/license/windows",
-    summary="List available services",
+    summary="List your Windows licenses",
     iam_actions=("order:apiovh:license/windows/get",),
     deprecated=False,
     schemas_version=None,
@@ -6991,6 +7021,9 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_LIST_CART_SERVICE_OPTION_VRACKS,
     OP_GET_CART_SERVICE_OPTION_VRACK,
     OP_POST_CART_SERVICE_OPTION_VRACK,
+    OP_LIST_CART_SERVICE_OPTION_VRACK_SERVICES,
+    OP_GET_CART_SERVICE_OPTION_VRACK_SERVICES,
+    OP_POST_CART_SERVICE_OPTION_VRACK_SERVICES,
     OP_LIST_CART_SERVICE_OPTION_WEB_HOSTINGS,
     OP_GET_CART_SERVICE_OPTION_WEB_HOSTING,
     OP_POST_CART_SERVICE_OPTION_WEB_HOSTING,

@@ -10,11 +10,11 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.dedicatedserver``. Its types are in
 ``ovhcloud.api.dedicatedserver.models``.
 
-It has 104 operations, on the routes under /v1/dedicated/server.
+It has 132 operations, on the routes under /v1/dedicated/server and /v2/dedicated/server.
 
 To start, list what the account has: list_servers, list_os_availabilities,
-list_datacenter_availabilities, list_boots, list_interventions, list_ip_country_availables,
-list_ips, list_mrtgs, and 14 more.
+list_datacenter_availabilities, list_region_availabilities, list_boots, list_interventions,
+list_ip_country_availables, list_ips, and 22 more.
 
 To find the method for a route, search index/dedicatedserver.jsonl: one line per method, with its
 route, its signature and the IAM actions it requires. It is at the root of the SDK repository, and

@@ -236,83 +236,35 @@ __all__ = [
     "CommonCurrentTaskStatusEnum",
     "CommonEvent",
     "CommonEventTypeEnum",
+    "CommonRegionEnum",
     "CommonResourceStatusEnum",
     "CommonTask",
     "CommonTaskError",
     "CommonTaskProgress",
     "CommonTaskStatusEnum",
+    "DbaasLogsLogKind",
+    "DbaasLogsLogSubscription",
+    "DbaasLogsLogSubscriptionCreation",
+    "DbaasLogsLogSubscriptionResource",
+    "DbaasLogsLogSubscriptionResponse",
+    "DbaasLogsLogURLCreation",
+    "DbaasLogsTemporaryLogsLink",
     "IAMResourceMetadata",
     "IAMResourceMetadataStateEnum",
     "IAMResourceTagFilter",
     "IAMResourceTagFilterOperatorEnum",
     "IP",
     "IPBlock",
+    "IPv4Block",
+    "LocationTypeEnum",
     "MacAddress",
-    "PublicCloudAiAgentsAIEndpointsPreset",
-    "PublicCloudAiAgentsAgent",
-    "PublicCloudAiAgentsAgentConfig",
-    "PublicCloudAiAgentsAgentCreation",
-    "PublicCloudAiAgentsAgentCreationTargetSpec",
-    "PublicCloudAiAgentsAgentCurrentState",
-    "PublicCloudAiAgentsAgentSeed",
-    "PublicCloudAiAgentsAgentTargetSpec",
-    "PublicCloudAiAgentsAgentTemplateRef",
-    "PublicCloudAiAgentsAgentToken",
-    "PublicCloudAiAgentsAgentTokenCreation",
-    "PublicCloudAiAgentsAgentTokenRoleEnum",
-    "PublicCloudAiAgentsAgentUpdate",
-    "PublicCloudAiAgentsAgentUpdateTargetSpec",
-    "PublicCloudAiAgentsAgentsConfig",
-    "PublicCloudAiAgentsAuthConfig",
-    "PublicCloudAiAgentsAuthModeEnum",
-    "PublicCloudAiAgentsBuiltinsConfig",
-    "PublicCloudAiAgentsChannelsConfig",
-    "PublicCloudAiAgentsConfig",
-    "PublicCloudAiAgentsExecConfig",
-    "PublicCloudAiAgentsFailoverPolicy",
-    "PublicCloudAiAgentsFailoverPolicyOnEnum",
-    "PublicCloudAiAgentsGlobalAgentConfig",
-    "PublicCloudAiAgentsGlobalAgentConfigAuth",
-    "PublicCloudAiAgentsGlobalAgentConfigExec",
-    "PublicCloudAiAgentsGlobalSettings",
-    "PublicCloudAiAgentsJudgeConfig",
-    "PublicCloudAiAgentsKagentJwtConfig",
-    "PublicCloudAiAgentsLlmConfig",
-    "PublicCloudAiAgentsLlmFallback",
-    "PublicCloudAiAgentsMcpIndexerConfig",
-    "PublicCloudAiAgentsMcpServer",
-    "PublicCloudAiAgentsMcpServerAuthKindEnum",
-    "PublicCloudAiAgentsMcpServerModeEnum",
-    "PublicCloudAiAgentsMemoryConfig",
-    "PublicCloudAiAgentsModelCapabilityOverride",
-    "PublicCloudAiAgentsMountBackendEnum",
-    "PublicCloudAiAgentsMountConfig",
-    "PublicCloudAiAgentsOAuth2Config",
-    "PublicCloudAiAgentsPermissionRule",
-    "PublicCloudAiAgentsPermissionRuleActionEnum",
-    "PublicCloudAiAgentsPermissionRulePhaseEnum",
-    "PublicCloudAiAgentsPermissionRuleTriggerEnum",
-    "PublicCloudAiAgentsProviderConfig",
-    "PublicCloudAiAgentsRelayConfig",
-    "PublicCloudAiAgentsRelayRoomCreationEnum",
-    "PublicCloudAiAgentsScratchpadConfig",
-    "PublicCloudAiAgentsSkillSeed",
-    "PublicCloudAiAgentsSkillsConfig",
-    "PublicCloudAiAgentsTelegramChannelConfig",
-    "PublicCloudAiAgentsTemplate",
-    "PublicCloudAiAgentsTemplateCreation",
-    "PublicCloudAiAgentsTemplateCreationTargetSpec",
-    "PublicCloudAiAgentsTemplatePreset",
-    "PublicCloudAiAgentsTemplateSourceEnum",
-    "PublicCloudAiAgentsTemplateTargetSpec",
-    "PublicCloudAiAgentsTemplateUpdate",
-    "PublicCloudAiAgentsToolPermissionsConfig",
-    "PublicCloudAiAgentsWebexChannelConfig",
-    "PublicCloudAiAgentsWorkspace",
-    "PublicCloudAiAgentsZerofsConfig",
     "PublicCloudBlockStorageBackup",
+    "PublicCloudBlockStorageBackupCapability",
+    "PublicCloudBlockStorageBackupCapabilityNameEnum",
+    "PublicCloudBlockStorageBackupCapabilityReasonEnum",
     "PublicCloudBlockStorageBackupCreation",
     "PublicCloudBlockStorageBackupCurrentState",
+    "PublicCloudBlockStorageBackupStatusEnum",
     "PublicCloudBlockStorageBackupTargetSpec",
     "PublicCloudBlockStorageBackupUpdate",
     "PublicCloudBlockStorageBackupUpdateTargetSpec",
@@ -320,6 +272,7 @@ __all__ = [
     "PublicCloudBlockStorageBlockActionParameters",
     "PublicCloudBlockStorageBlockActionRequest",
     "PublicCloudBlockStorageBlockAttachedInstance",
+    "PublicCloudBlockStorageBlockCapability",
     "PublicCloudBlockStorageBlockCreateFrom",
     "PublicCloudBlockStorageBlockCreation",
     "PublicCloudBlockStorageBlockCurrentState",
@@ -330,6 +283,9 @@ __all__ = [
     "PublicCloudBlockStorageBlockUpdate",
     "PublicCloudBlockStorageBlockUpdateTargetSpec",
     "PublicCloudBlockStorageSnapshot",
+    "PublicCloudBlockStorageSnapshotCapability",
+    "PublicCloudBlockStorageSnapshotCapabilityNameEnum",
+    "PublicCloudBlockStorageSnapshotCapabilityReasonEnum",
     "PublicCloudBlockStorageSnapshotCreation",
     "PublicCloudBlockStorageSnapshotCurrentState",
     "PublicCloudBlockStorageSnapshotStatusEnum",
@@ -337,9 +293,171 @@ __all__ = [
     "PublicCloudBlockStorageSnapshotUpdate",
     "PublicCloudBlockStorageSnapshotUpdateTargetSpec",
     "PublicCloudBlockStorageVolumeActionTypeEnum",
+    "PublicCloudBlockStorageVolumeCapabilityNameEnum",
+    "PublicCloudBlockStorageVolumeCapabilityReasonEnum",
     "PublicCloudBlockStorageVolumeStatusEnum",
     "PublicCloudBlockStorageVolumeTypeEnum",
     "PublicCloudCommonLocation",
+    "PublicCloudDatabaseAuthorizedIPs",
+    "PublicCloudDatabaseAuthorizedIPsReplace",
+    "PublicCloudDatabaseAuthorizedIPsRule",
+    "PublicCloudDatabaseAuthorizedIPsRuleReplace",
+    "PublicCloudDatabaseAuthorizedIPsRuleWritable",
+    "PublicCloudDatabaseAuthorizedIPsWritable",
+    "PublicCloudDatabaseAvailability",
+    "PublicCloudDatabaseBackup",
+    "PublicCloudDatabaseBackupCurrentState",
+    "PublicCloudDatabaseBackupReplaceSpec",
+    "PublicCloudDatabaseBackupSpec",
+    "PublicCloudDatabaseBackupStatusEnum",
+    "PublicCloudDatabaseBackupTypeEnum",
+    "PublicCloudDatabaseCategoryEnum",
+    "PublicCloudDatabaseCertificates",
+    "PublicCloudDatabaseCurrentQuery",
+    "PublicCloudDatabaseCurrentQueryStateEnum",
+    "PublicCloudDatabaseCurrentQueryWaitEventTypeEnum",
+    "PublicCloudDatabaseDataPoint",
+    "PublicCloudDatabaseDatabase",
+    "PublicCloudDatabaseDatabaseCreation",
+    "PublicCloudDatabaseEndpoint",
+    "PublicCloudDatabaseEndpointComponentEnum",
+    "PublicCloudDatabaseEngineCapability",
+    "PublicCloudDatabaseEngineEnum",
+    "PublicCloudDatabaseEngineVersion",
+    "PublicCloudDatabaseHostMetric",
+    "PublicCloudDatabaseIntegration",
+    "PublicCloudDatabaseIntegrationCreation",
+    "PublicCloudDatabaseIntegrationStatusEnum",
+    "PublicCloudDatabaseIntegrationTypeEnum",
+    "PublicCloudDatabaseKindEnum",
+    "PublicCloudDatabaseMaintenanceCurrentState",
+    "PublicCloudDatabaseMaintenanceReplaceSpec",
+    "PublicCloudDatabaseMaintenanceSpec",
+    "PublicCloudDatabaseMaintenanceStatusEnum",
+    "PublicCloudDatabaseMaintenanceWindow",
+    "PublicCloudDatabaseMetric",
+    "PublicCloudDatabaseMetricPeriodEnum",
+    "PublicCloudDatabaseMetricUnitEnum",
+    "PublicCloudDatabaseNetworkCurrentState",
+    "PublicCloudDatabaseNetworkEnum",
+    "PublicCloudDatabaseNetworkReplaceSpec",
+    "PublicCloudDatabaseNetworkSpecWritable",
+    "PublicCloudDatabaseNetworkUpdateSpec",
+    "PublicCloudDatabaseNetworkUpdateSpecWritable",
+    "PublicCloudDatabaseNode",
+    "PublicCloudDatabaseNodeRoleEnum",
+    "PublicCloudDatabasePrometheusAccess",
+    "PublicCloudDatabasePrometheusEndpoint",
+    "PublicCloudDatabasePrometheusTarget",
+    "PublicCloudDatabaseQueryCancelRequest",
+    "PublicCloudDatabaseQueryCancelResult",
+    "PublicCloudDatabaseQueryStatistic",
+    "PublicCloudDatabaseRestoreRequest",
+    "PublicCloudDatabaseRole",
+    "PublicCloudDatabaseSSLModeEnum",
+    "PublicCloudDatabaseService",
+    "PublicCloudDatabaseServiceCreationTargetSpecWritable",
+    "PublicCloudDatabaseServiceCreationWritable",
+    "PublicCloudDatabaseServiceCurrentState",
+    "PublicCloudDatabaseServiceEngineCapabilities",
+    "PublicCloudDatabaseServiceReplace",
+    "PublicCloudDatabaseServiceReplaceTargetSpec",
+    "PublicCloudDatabaseServiceTargetSpec",
+    "PublicCloudDatabaseServiceUpdateTargetSpecWritable",
+    "PublicCloudDatabaseServiceUpdateWritable",
+    "PublicCloudDatabaseStorage",
+    "PublicCloudDatabaseStorageReplaceSpec",
+    "PublicCloudDatabaseStorageTypeEnum",
+    "PublicCloudDatabaseStorageUnitEnum",
+    "PublicCloudDatabaseStorageUpdateSpec",
+    "PublicCloudDatabaseStorageWritable",
+    "PublicCloudDatabaseTemporaryWriteDeadline",
+    "PublicCloudDatabaseUnitAndValue",
+    "PublicCloudDatabaseUnitAndValueReplace",
+    "PublicCloudDatabaseUser",
+    "PublicCloudDatabaseUserCreation",
+    "PublicCloudDatabaseUserCredentialsUpdate",
+    "PublicCloudDatabaseUserReplace",
+    "PublicCloudDatabaseUserStatusEnum",
+    "PublicCloudDatabaseUserUpdate",
+    "PublicCloudDatabaseUserWithRoles",
+    "PublicCloudDatabaseUserWithRolesCreation",
+    "PublicCloudDatabaseAvailabilityActionEnum",
+    "PublicCloudDatabaseAvailabilityBackups",
+    "PublicCloudDatabaseAvailabilityLifecycle",
+    "PublicCloudDatabaseAvailabilitySpecifications",
+    "PublicCloudDatabaseAvailabilityStatusEnum",
+    "PublicCloudDatabaseAvailabilitySuggestion",
+    "PublicCloudDatabaseAvailabilityTargetEnum",
+    "PublicCloudDatabaseAvailabilitySpecificationsNodes",
+    "PublicCloudDatabaseAvailabilitySpecificationsStorage",
+    "PublicCloudDatabaseCapabilitiesAdvancedConfigurationProperty",
+    "PublicCloudDatabaseCapabilitiesAdvancedConfigurationPropertyTypeEnum",
+    "PublicCloudDatabaseCapabilitiesDiskType",
+    "PublicCloudDatabaseCapabilitiesFlavor",
+    "PublicCloudDatabaseCapabilitiesFlavorGenerationEnum",
+    "PublicCloudDatabaseCapabilitiesIntegrationCapability",
+    "PublicCloudDatabaseCapabilitiesIntegrationParameter",
+    "PublicCloudDatabaseCapabilitiesIntegrationParameterTypeEnum",
+    "PublicCloudDatabaseCapabilitiesOption",
+    "PublicCloudDatabaseCapabilitiesOptionTypeEnum",
+    "PublicCloudDatabaseCapabilitiesPlan",
+    "PublicCloudDatabaseCapabilitiesRegion",
+    "PublicCloudDatabaseCapabilitiesEngineStorageStrategyEnum",
+    "PublicCloudDatabaseCapabilitiesFlavorSpecifications",
+    "PublicCloudDatabaseKafkaACL",
+    "PublicCloudDatabaseKafkaACLCreation",
+    "PublicCloudDatabaseKafkaACLPermissionEnum",
+    "PublicCloudDatabaseKafkaPermissions",
+    "PublicCloudDatabaseKafkaSchemaRegistryACL",
+    "PublicCloudDatabaseKafkaSchemaRegistryACLCreation",
+    "PublicCloudDatabaseKafkaSchemaRegistryACLPermissionEnum",
+    "PublicCloudDatabaseKafkaTopic",
+    "PublicCloudDatabaseKafkaTopicCreation",
+    "PublicCloudDatabaseKafkaTopicReplace",
+    "PublicCloudDatabaseKafkaTopicUpdate",
+    "PublicCloudDatabaseKafkaUserAccess",
+    "PublicCloudDatabaseKafkaConnectConnector",
+    "PublicCloudDatabaseKafkaConnectConnectorActionEnum",
+    "PublicCloudDatabaseKafkaConnectConnectorCreation",
+    "PublicCloudDatabaseKafkaConnectConnectorReplace",
+    "PublicCloudDatabaseKafkaConnectConnectorStatusEnum",
+    "PublicCloudDatabaseKafkaConnectConnectorStatusUpdate",
+    "PublicCloudDatabaseKafkaConnectCapabilitiesConnectorCapability",
+    "PublicCloudDatabaseKafkaConnectCapabilitiesConnectorConfigurationProperty",
+    "PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyImportanceEnum",
+    "PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyTypeEnum",
+    "PublicCloudDatabaseKafkaConnectCapabilitiesConnectorTransform",
+    "PublicCloudDatabaseKafkaConnectCapabilitiesConnectorTypeEnum",
+    "PublicCloudDatabaseKafkaConnectConnectorTask",
+    "PublicCloudDatabaseKafkaConnectConnectorTaskStatusEnum",
+    "PublicCloudDatabaseKafkaMirrorMakerReplication",
+    "PublicCloudDatabaseKafkaMirrorMakerReplicationCreation",
+    "PublicCloudDatabaseKafkaMirrorMakerReplicationPolicyClassEnum",
+    "PublicCloudDatabaseKafkaMirrorMakerReplicationReplace",
+    "PublicCloudDatabaseKafkaMirrorMakerReplicationUpdate",
+    "PublicCloudDatabaseMongodbPrometheusEndpoint",
+    "PublicCloudDatabaseOpensearchACLPermissionEnum",
+    "PublicCloudDatabaseOpensearchIndex",
+    "PublicCloudDatabaseOpensearchPattern",
+    "PublicCloudDatabaseOpensearchPatternCreation",
+    "PublicCloudDatabaseOpensearchUser",
+    "PublicCloudDatabaseOpensearchUserACL",
+    "PublicCloudDatabaseOpensearchUserCreation",
+    "PublicCloudDatabaseOpensearchUserReplace",
+    "PublicCloudDatabaseOpensearchUserUpdate",
+    "PublicCloudDatabasePostgresqlConnectionPool",
+    "PublicCloudDatabasePostgresqlConnectionPoolCreation",
+    "PublicCloudDatabasePostgresqlConnectionPoolModeEnum",
+    "PublicCloudDatabasePostgresqlConnectionPoolReplace",
+    "PublicCloudDatabasePostgresqlConnectionPoolUpdate",
+    "PublicCloudDatabaseServiceCapabilityActions",
+    "PublicCloudDatabaseServiceStatusEnum",
+    "PublicCloudDatabaseServiceCapabilityStateEnum",
+    "PublicCloudDatabaseValkeyUser",
+    "PublicCloudDatabaseValkeyUserCreation",
+    "PublicCloudDatabaseValkeyUserReplace",
+    "PublicCloudDatabaseValkeyUserUpdate",
     "PublicCloudGatewayExternalGateway",
     "PublicCloudGatewayExternalGatewayModelEnum",
     "PublicCloudGatewayGateway",
@@ -381,6 +499,7 @@ __all__ = [
     "PublicCloudInstanceInstanceUpdateTargetSpec",
     "PublicCloudInstanceInstanceVolume",
     "PublicCloudInstanceInstanceVolumeRef",
+    "PublicCloudInstanceInstanceVolumeRoleEnum",
     "PublicCloudInstancePowerStateEnum",
     "PublicCloudInstanceRemoteConsole",
     "PublicCloudInstanceRemoteConsoleProtocolEnum",
@@ -486,6 +605,99 @@ __all__ = [
     "PublicCloudLoadbalancerPoolUpdateTargetSpec",
     "PublicCloudLoadbalancerSessionPersistence",
     "PublicCloudLoadbalancerSessionPersistenceTypeEnum",
+    "PublicCloudManagedKubernetesAdmissionPlugin",
+    "PublicCloudManagedKubernetesAntiAffinity",
+    "PublicCloudManagedKubernetesAntiAffinityPolicyEnum",
+    "PublicCloudManagedKubernetesAPIServer",
+    "PublicCloudManagedKubernetesAPIServerAccess",
+    "PublicCloudManagedKubernetesAPIServerPublicEndpoint",
+    "PublicCloudManagedKubernetesAttachFloatingIP",
+    "PublicCloudManagedKubernetesAuthentication",
+    "PublicCloudManagedKubernetesAuthenticationTypeEnum",
+    "PublicCloudManagedKubernetesAuthorizedIPRule",
+    "PublicCloudManagedKubernetesAuthorizedIPs",
+    "PublicCloudManagedKubernetesAutoUpgrade",
+    "PublicCloudManagedKubernetesAutoUpgradeTrack",
+    "PublicCloudManagedKubernetesAutoscaler",
+    "PublicCloudManagedKubernetesAutoscalerScaleDown",
+    "PublicCloudManagedKubernetesCiliumClusterMesh",
+    "PublicCloudManagedKubernetesCiliumClusterMeshAPIServer",
+    "PublicCloudManagedKubernetesCiliumClusterMeshServiceTypeEnum",
+    "PublicCloudManagedKubernetesCiliumHubble",
+    "PublicCloudManagedKubernetesCiliumHubbleRelay",
+    "PublicCloudManagedKubernetesCiliumHubbleUI",
+    "PublicCloudManagedKubernetesCiliumResourceList",
+    "PublicCloudManagedKubernetesCiliumResourceRequirements",
+    "PublicCloudManagedKubernetesCluster",
+    "PublicCloudManagedKubernetesClusterCreation",
+    "PublicCloudManagedKubernetesClusterCurrentState",
+    "PublicCloudManagedKubernetesClusterTargetSpec",
+    "PublicCloudManagedKubernetesClusterUpdate",
+    "PublicCloudManagedKubernetesClusterUpdateTargetSpec",
+    "PublicCloudManagedKubernetesClusterVersions",
+    "PublicCloudManagedKubernetesCni",
+    "PublicCloudManagedKubernetesCniCanal",
+    "PublicCloudManagedKubernetesCniCanalUpdate",
+    "PublicCloudManagedKubernetesCniCilium",
+    "PublicCloudManagedKubernetesCniTypeEnum",
+    "PublicCloudManagedKubernetesCniUpdate",
+    "PublicCloudManagedKubernetesCurrentStateAPIServer",
+    "PublicCloudManagedKubernetesCurrentStateAPIServerAccess",
+    "PublicCloudManagedKubernetesCurrentStateAuthentication",
+    "PublicCloudManagedKubernetesCurrentStateOidc",
+    "PublicCloudManagedKubernetesDefaultEgress",
+    "PublicCloudManagedKubernetesDefaultEgressTypeEnum",
+    "PublicCloudManagedKubernetesEtcdUsage",
+    "PublicCloudManagedKubernetesFlavor",
+    "PublicCloudManagedKubernetesFlavorCategoryEnum",
+    "PublicCloudManagedKubernetesFlavorResources",
+    "PublicCloudManagedKubernetesFlavorStatusEnum",
+    "PublicCloudManagedKubernetesIPAllocationPolicy",
+    "PublicCloudManagedKubernetesKubeProxy",
+    "PublicCloudManagedKubernetesKubeProxyIptables",
+    "PublicCloudManagedKubernetesKubeProxyIpvs",
+    "PublicCloudManagedKubernetesKubeProxyIpvsSchedulerEnum",
+    "PublicCloudManagedKubernetesKubeProxyModeEnum",
+    "PublicCloudManagedKubernetesKubeProxyUpdate",
+    "PublicCloudManagedKubernetesKubeconfig",
+    "PublicCloudManagedKubernetesNetwork",
+    "PublicCloudManagedKubernetesNetworkTypeEnum",
+    "PublicCloudManagedKubernetesNetworkUpdate",
+    "PublicCloudManagedKubernetesNetworkVrack",
+    "PublicCloudManagedKubernetesNetworkVrackUpdate",
+    "PublicCloudManagedKubernetesNode",
+    "PublicCloudManagedKubernetesNodeConfig",
+    "PublicCloudManagedKubernetesNodeCurrentState",
+    "PublicCloudManagedKubernetesNodeResourceStatusEnum",
+    "PublicCloudManagedKubernetesNodeTemplate",
+    "PublicCloudManagedKubernetesNodeTemplateMetadata",
+    "PublicCloudManagedKubernetesNodeTemplateSpec",
+    "PublicCloudManagedKubernetesNodepool",
+    "PublicCloudManagedKubernetesNodepoolBillingTypeEnum",
+    "PublicCloudManagedKubernetesNodepoolCreation",
+    "PublicCloudManagedKubernetesNodepoolCurrentState",
+    "PublicCloudManagedKubernetesNodepoolRollout",
+    "PublicCloudManagedKubernetesNodepoolRolloutStrategyEnum",
+    "PublicCloudManagedKubernetesNodepoolStatus",
+    "PublicCloudManagedKubernetesNodepoolTargetSpec",
+    "PublicCloudManagedKubernetesNodepoolUpdate",
+    "PublicCloudManagedKubernetesNodepoolUpdateTargetSpec",
+    "PublicCloudManagedKubernetesOidc",
+    "PublicCloudManagedKubernetesOidcSigningAlgEnum",
+    "PublicCloudManagedKubernetesPlan",
+    "PublicCloudManagedKubernetesPlanControlPlane",
+    "PublicCloudManagedKubernetesPlanEtcd",
+    "PublicCloudManagedKubernetesPlanEtcdStorage",
+    "PublicCloudManagedKubernetesPlanLimits",
+    "PublicCloudManagedKubernetesPlanNameEnum",
+    "PublicCloudManagedKubernetesPlanStatusEnum",
+    "PublicCloudManagedKubernetesRegion",
+    "PublicCloudManagedKubernetesTaint",
+    "PublicCloudManagedKubernetesTaintEffectEnum",
+    "PublicCloudManagedKubernetesUserGateway",
+    "PublicCloudManagedKubernetesVersionCatalog",
+    "PublicCloudManagedKubernetesVersionReference",
+    "PublicCloudManagedKubernetesVersionStatusEnum",
     "PublicCloudNetworkNetwork",
     "PublicCloudNetworkNetworkCreation",
     "PublicCloudNetworkNetworkCurrentState",
@@ -3307,6 +3519,64 @@ class CommonEventTypeEnum(_gen.OpenStrEnum):
     TASK_SUCCESS = "TASK_SUCCESS"
 
 
+class CommonRegionEnum(_gen.OpenStrEnum):
+    """OVHcloud region identifier
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AF_NORTH_LZ_RBA = "af-north-lz-rba"
+    AP_SOUTH_MUM = "ap-south-mum"
+    AP_SOUTHEAST_SGP = "ap-southeast-sgp"
+    AP_SOUTHEAST_SYD = "ap-southeast-syd"
+    CA_EAST_BHS = "ca-east-bhs"
+    CA_EAST_TOR = "ca-east-tor"
+    EU_CENTRAL_LZ_BUH = "eu-central-lz-buh"
+    EU_CENTRAL_LZ_PRG = "eu-central-lz-prg"
+    EU_CENTRAL_LZ_SOF = "eu-central-lz-sof"
+    EU_CENTRAL_WAW = "eu-central-waw"
+    EU_NORTH_LZ_CPH = "eu-north-lz-cph"
+    EU_NORTH_LZ_HEL = "eu-north-lz-hel"
+    EU_NORTH_LZ_OSL = "eu-north-lz-osl"
+    EU_NORTH_LZ_STO = "eu-north-lz-sto"
+    EU_SOUTH_LZ_LIS = "eu-south-lz-lis"
+    EU_SOUTH_LZ_MAD = "eu-south-lz-mad"
+    EU_SOUTH_LZ_MIL = "eu-south-lz-mil"
+    EU_SOUTH_MIL = "eu-south-mil"
+    EU_WEST_ERI = "eu-west-eri"
+    EU_WEST_GRA = "eu-west-gra"
+    EU_WEST_GRA_SNC = "eu-west-gra-snc"
+    EU_WEST_LIM = "eu-west-lim"
+    EU_WEST_LZ_AMS = "eu-west-lz-ams"
+    EU_WEST_LZ_BRU = "eu-west-lz-bru"
+    EU_WEST_LZ_DLN = "eu-west-lz-dln"
+    EU_WEST_LZ_LUX = "eu-west-lz-lux"
+    EU_WEST_LZ_MNC = "eu-west-lz-mnc"
+    EU_WEST_LZ_MRS = "eu-west-lz-mrs"
+    EU_WEST_LZ_VIE = "eu-west-lz-vie"
+    EU_WEST_LZ_ZRH = "eu-west-lz-zrh"
+    EU_WEST_PAR = "eu-west-par"
+    EU_WEST_RBX = "eu-west-rbx"
+    EU_WEST_RBX_SNC = "eu-west-rbx-snc"
+    EU_WEST_SBG = "eu-west-sbg"
+    EU_WEST_SBG_SNC = "eu-west-sbg-snc"
+    US_CENTRAL_LZ_SLC = "us-central-lz-slc"
+    US_CENTRAL_LZ_STL = "us-central-lz-stl"
+    US_EAST_LZ_ATL = "us-east-lz-atl"
+    US_EAST_LZ_BOS = "us-east-lz-bos"
+    US_EAST_LZ_CHI = "us-east-lz-chi"
+    US_EAST_LZ_DAL = "us-east-lz-dal"
+    US_EAST_LZ_MIA = "us-east-lz-mia"
+    US_EAST_LZ_NYC = "us-east-lz-nyc"
+    US_EAST_VIN = "us-east-vin"
+    US_WEST_HIL = "us-west-hil"
+    US_WEST_LZ_DEN = "us-west-lz-den"
+    US_WEST_LZ_LAX = "us-west-lz-lax"
+    US_WEST_LZ_PAO = "us-west-lz-pao"
+    US_WEST_LZ_PHX = "us-west-lz-phx"
+    US_WEST_LZ_SEA = "us-west-lz-sea"
+
+
 class CommonResourceStatusEnum(_gen.OpenStrEnum):
     """Current status of a resource
 
@@ -3442,6 +3712,185 @@ class CommonTaskStatusEnum(_gen.OpenStrEnum):
     WAITING_USER_INPUT = "WAITING_USER_INPUT"
 
 
+class DbaasLogsLogKind(_gen.BaseModel):
+    """A kind of log a service can emit, which you can subscribe to and forward into a stream"""
+
+    additional_returned_fields: list[str] | None = _p.Field(
+        default=None,
+        validation_alias="additionalReturnedFields",
+        serialization_alias="additionalReturnedFields",
+    )
+    """List of additional log fields managed in this log kind
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Creation date of the log kind
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Log kind display name
+
+    Read-only: the API sets it.
+    """
+
+    kind_id: str | None = _p.Field(
+        default=None, validation_alias="kindId", serialization_alias="kindId"
+    )
+    """Identifier of the log kind
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Log kind name
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last update date of the log kind
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogSubscription(_gen.BaseModel):
+    """A live forwarding of one kind of log from a service into a Logs Data Platform stream"""
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Creation date of the subscription
+
+    Read-only: the API sets it.
+    """
+
+    kind: str | None = _p.Field(default=None)
+    """Log kind name of this subscription
+
+    Read-only: the API sets it.
+    """
+
+    resource: DbaasLogsLogSubscriptionResource | None = _p.Field(default=None)
+    """Subscribed resource, where the logs come from
+
+    Read-only: the API sets it.
+    """
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """Name of the destination log service
+
+    Read-only: the API sets it.
+    """
+
+    stream_id: str | None = _p.Field(
+        default=None, validation_alias="streamId", serialization_alias="streamId"
+    )
+    """Identifier of the destination log stream
+
+    Read-only: the API sets it.
+    """
+
+    subscription_id: str | None = _p.Field(
+        default=None, validation_alias="subscriptionId", serialization_alias="subscriptionId"
+    )
+    """Unique identifier of the subscription, used to change or stop the forwarding
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last update date of the subscription
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogSubscriptionCreation(_gen.BaseModel):
+    """Log subscription creation payload"""
+
+    kind: str = _p.Field()
+    """Log kind name to subscribe to"""
+
+    stream_id: str = _p.Field(validation_alias="streamId", serialization_alias="streamId")
+    """Identifier of the customer log stream"""
+
+
+class DbaasLogsLogSubscriptionResource(_gen.BaseModel):
+    """The service a log subscription collects its logs from"""
+
+    name: str | None = _p.Field(default=None)
+    """Name of subscribed resource
+
+    Read-only: the API sets it.
+    """
+
+    type: str | None = _p.Field(default=None)
+    """Type of subscribed resource
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogSubscriptionResponse(_gen.BaseModel):
+    """Asynchronous operation after subscribing or unsubscribing to a resource logs"""
+
+    operation_id: str | None = _p.Field(
+        default=None, validation_alias="operationId", serialization_alias="operationId"
+    )
+    """Identifier of the operation
+
+    Read-only: the API sets it.
+    """
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """Operation owner's service name
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogURLCreation(_gen.BaseModel):
+    """Log temporary URL creation payload"""
+
+    kind: str = _p.Field()
+    """Log kind name"""
+
+
+class DbaasLogsTemporaryLogsLink(_gen.BaseModel):
+    """Temporary url information"""
+
+    expiration_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="expirationDate", serialization_alias="expirationDate"
+    )
+    """Temporary url expiration date
+
+    Read-only: the API sets it.
+    """
+
+    url: str | None = _p.Field(default=None)
+    """Temporary url
+
+    Read-only: the API sets it.
+    """
+
+
 class IAMResourceMetadata(_gen.BaseModel):
     """IAM resource metadata embedded in services models"""
 
@@ -3520,1277 +3969,15 @@ class IAMResourceTagFilterOperatorEnum(_gen.OpenStrEnum):
     NEXISTS = "NEXISTS"
 
 
-class PublicCloudAiAgentsAIEndpointsPreset(_gen.BaseModel):
-    """What OVHcloud offers of the AI Endpoints provider preset: whether the preset can be selected at all, whether its authentication can be provisioned for the agent, the base URL to list available models from, and the model used when the caller states none"""
-
-    api_base: str | None = _p.Field(
-        default=None, validation_alias="apiBase", serialization_alias="apiBase"
-    )
-    """OpenAI-compatible base URL, published so a client can list models from its /models sub-path
-
-    Read-only: the API sets it.
-    """
-
-    default_model: str | None = _p.Field(
-        default=None, validation_alias="defaultModel", serialization_alias="defaultModel"
-    )
-    """Model seeded when the caller states none. Empty when this deployment states no default.
-
-    Read-only: the API sets it.
-    """
-
-    enabled: bool | None = _p.Field(default=None)
-    """Whether the OVHcloud AI Endpoints provider preset is available on this deployment
-
-    Read-only: the API sets it.
-    """
-
-    integrated_auth: bool | None = _p.Field(
-        default=None, validation_alias="integratedAuth", serialization_alias="integratedAuth"
-    )
-    """Whether OVHcloud provisions the AI Endpoints credential for the agent, so the caller does not have to supply one
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsAgent(_gen.BaseModel):
-    """A managed AI agent"""
-
-    created_at: datetime.datetime | None = _p.Field(
-        default=None, validation_alias="createdAt", serialization_alias="createdAt"
-    )
-    """Date of the AI agent creation
-
-    Read-only: the API sets it.
-    """
-
-    current_state: PublicCloudAiAgentsAgentCurrentState | None = _p.Field(
-        default=None, validation_alias="currentState", serialization_alias="currentState"
-    )
-    """Current state of the AI agent
-
-    Read-only: the API sets it.
-    """
-
-    id: str | None = _p.Field(default=None)
-    """Unique identifier of the AI agent
-
-    Read-only: the API sets it.
-    """
-
-    resource_status: CommonResourceStatusEnum | None = _p.Field(
-        default=None, validation_alias="resourceStatus", serialization_alias="resourceStatus"
-    )
-    """Reflects the readiness of the AI agent: READY, SUSPENDED when it is paused, or DELETING on the response to its deletion
-
-    Read-only: the API sets it.
-    """
-
-    target_spec: PublicCloudAiAgentsAgentTargetSpec | None = _p.Field(
-        default=None, validation_alias="targetSpec", serialization_alias="targetSpec"
-    )
-    """Last target specification of the AI agent
-
-    Read-only: the API sets it.
-    """
-
-    updated_at: datetime.datetime | None = _p.Field(
-        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
-    )
-    """Date of the last AI agent update
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsAgentConfig(_gen.BaseModel):
-    """The agent's identity settings, such as its display name."""
-
-    name: str | None = _p.Field(default=None)
-    """Display name for the agent, shown in the interface. Empty falls back to a generic label."""
-
-
-class PublicCloudAiAgentsAgentCreation(_gen.BaseModel):
-    """Input parameters for creating an AI agent"""
-
-    target_spec: PublicCloudAiAgentsAgentCreationTargetSpec = _p.Field(
-        validation_alias="targetSpec", serialization_alias="targetSpec"
-    )
-    """Desired specification of the AI agent to create"""
-
-
-class PublicCloudAiAgentsAgentCreationTargetSpec(_gen.BaseModel):
-    """Desired specification of the AI agent to create."""
-
-    config: PublicCloudAiAgentsConfig | None = _p.Field(default=None)
-    """Optional AI agent configuration seeded at creation, combinable with or used instead of template. Set only here, at creation time; read and changed afterward through the AI agent itself, not through this resource."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Desired running state of the AI agent. When false the agent is created paused. Defaults to true"""
-
-    name: str = _p.Field()
-    """Name of the AI agent, at most 192 bytes of UTF-8, free of control characters. Unique among this project's agents, with one exception: an agent created before this API enforced uniqueness may share its name with a newer one. Can be changed afterwards through the update endpoint"""
-
-    template: PublicCloudAiAgentsAgentTemplateRef | None = _p.Field(default=None)
-    """Reference to a template used to seed the AI agent configuration once, at creation time"""
-
-
-class PublicCloudAiAgentsAgentCurrentState(_gen.BaseModel):
-    """Current state of the AI agent"""
-
-    ai_endpoints: bool | None = _p.Field(
-        default=None, validation_alias="aiEndpoints", serialization_alias="aiEndpoints"
-    )
-    """Whether this AI agent carries the OVHcloud AI Endpoints provider preset
-
-    Read-only: the API sets it.
-    """
-
-    ai_endpoints_integrated_auth: bool | None = _p.Field(
-        default=None,
-        validation_alias="aiEndpointsIntegratedAuth",
-        serialization_alias="aiEndpointsIntegratedAuth",
-    )
-    """Whether OVHcloud provisioned the AI Endpoints credential for this agent, so the caller did not have to supply one
-
-    Read-only: the API sets it.
-    """
-
-    enabled: bool | None = _p.Field(default=None)
-    """Actual running state of the AI agent. False when the agent is paused.
-
-    Read-only: the API sets it.
-    """
-
-    endpoint_url: str | None = _p.Field(
-        default=None, validation_alias="endpointUrl", serialization_alias="endpointUrl"
-    )
-    """URL to invoke the AI agent
-
-    Read-only: the API sets it.
-    """
-
-    name: str | None = _p.Field(default=None)
-    """Name of the AI agent
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsAgentSeed(_gen.BaseModel):
-    """A single delegated sub-persona: either based on a built-in template or defined entirely inline."""
-
-    description: str | None = _p.Field(default=None)
-    """Short summary of what this sub-persona is for."""
-
-    from_: str | None = _p.Field(default=None, validation_alias="from", serialization_alias="from")
-    """Optional reference to a built-in template this sub-persona is based on, for example 'builtin:planner'. Any fields set below override the template's defaults."""
-
-    max_turns: int | None = _p.Field(
-        default=None, validation_alias="maxTurns", serialization_alias="maxTurns"
-    )
-    """Maximum number of conversational turns this sub-persona may take before returning control. Unset means no cap."""
-
-    model: str | None = _p.Field(default=None)
-    """Model identifier this sub-persona uses when delegated to. Unset reuses the parent agent's model."""
-
-    soul: str | None = _p.Field(default=None)
-    """Persona text and system prompt this sub-persona follows when delegated to."""
-
-    tools: list[str] | None = _p.Field(default=None)
-    """Names of the tools this sub-persona is allowed to use."""
-
-
-class PublicCloudAiAgentsAgentTargetSpec(_gen.BaseModel):
-    """Last target specification of the AI agent"""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Desired running state of the AI agent. False when the agent is paused.
-
-    Read-only: the API sets it.
-    """
-
-    name: str | None = _p.Field(default=None)
-    """Name of the AI agent
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsAgentTemplateRef(_gen.BaseModel):
-    """Reference to a template used to seed the AI agent configuration once, at creation time"""
-
-    id: str = _p.Field()
-    """Identifier of the template to seed the AI agent configuration from. Honored only at creation time."""
-
-
-class PublicCloudAiAgentsAgentToken(_gen.BaseModel):
-    """An issued AI agent access token"""
-
-    expires_at: datetime.datetime | None = _p.Field(
-        default=None, validation_alias="expiresAt", serialization_alias="expiresAt"
-    )
-    """Expiration date of the token. Null when the token does not expire.
-
-    Read-only: the API sets it.
-    """
-
-    role: PublicCloudAiAgentsAgentTokenRoleEnum | None = _p.Field(default=None)
-    """Role granted to the token
-
-    Read-only: the API sets it.
-    """
-
-    token: str | None = _p.Field(default=None)
-    """Bearer token used to authenticate against the AI agent. Returned only once, at mint time.
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsAgentTokenCreation(_gen.BaseModel):
-    """Input parameters for issuing an AI agent access token"""
-
-    lifetime_seconds: int | None = _p.Field(
-        default=None, validation_alias="lifetimeSeconds", serialization_alias="lifetimeSeconds"
-    )
-    """Token lifetime in seconds. Defaults to the agent's default."""
-
-    role: PublicCloudAiAgentsAgentTokenRoleEnum | None = _p.Field(default=None)
-    """Role granted to the minted token. Defaults to VIEWER."""
-
-
-class PublicCloudAiAgentsAgentTokenRoleEnum(_gen.OpenStrEnum):
-    """Role granted to a minted AI agent access token
+class LocationTypeEnum(_gen.OpenStrEnum):
+    """Typology of the region
 
     Open: a value the SDK does not know yet is accepted as a new member.
     """
 
-    ADMIN = "ADMIN"
-    OPERATOR = "OPERATOR"
-    USER = "USER"
-    VIEWER = "VIEWER"
-
-
-class PublicCloudAiAgentsAgentUpdate(_gen.BaseModel):
-    """Input for AI agent update"""
-
-    target_spec: PublicCloudAiAgentsAgentUpdateTargetSpec = _p.Field(
-        validation_alias="targetSpec", serialization_alias="targetSpec"
-    )
-    """Desired specification to reconcile the AI agent toward"""
-
-
-class PublicCloudAiAgentsAgentUpdateTargetSpec(_gen.BaseModel):
-    """Desired specification to reconcile the AI agent toward."""
-
-    enabled: bool = _p.Field()
-    """Desired running state of the AI agent. Set to false to pause it, true to resume it"""
-
-    name: str | None = _p.Field(default=None)
-    """New name for the AI agent, at most 192 bytes of UTF-8, free of control characters. Omitted or null leaves the current name untouched, and so does restating the name the agent already has. Rejected if another agent in this project already has it, with the same exception as at creation. Renaming redeploys the agent on its current runtime component"""
-
-
-class PublicCloudAiAgentsAgentsConfig(_gen.BaseModel):
-    """Specialized sub-personas this agent can delegate tasks to"""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Master switch for the delegated-agents feature. When false, this agent cannot delegate to a named sub-persona."""
-
-    items: dict[str, PublicCloudAiAgentsAgentSeed] | None = _p.Field(default=None)
-    """Sub-personas defined directly in this configuration, keyed by name"""
-
-
-class PublicCloudAiAgentsAuthConfig(_gen.BaseModel):
-    """Authentication settings for the agent's HTTP API. Unset falls back to requiring a token issued by the agent itself."""
-
-    kagent_jwt: PublicCloudAiAgentsKagentJwtConfig | None = _p.Field(
-        default=None, validation_alias="kagentJwt", serialization_alias="kagentJwt"
-    )
-    """Settings for tokens the agent issues and validates itself. Unset or disabled means the agent does not accept self-issued tokens."""
-
-    mode: PublicCloudAiAgentsAuthModeEnum | None = _p.Field(default=None)
-    """Which authentication mode is enforced on the agent's HTTP API."""
-
-    oauth2: PublicCloudAiAgentsOAuth2Config | None = _p.Field(default=None)
-    """External identity provider settings, used when the authentication mode accepts an external OAuth2 token."""
-
-
-class PublicCloudAiAgentsAuthModeEnum(_gen.OpenStrEnum):
-    """Which authentication mode is enforced on the agent's HTTP API.
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    KAGENT_JWT = "KAGENT_JWT"
-    NONE = "NONE"
-    OAUTH2 = "OAUTH2"
-
-
-class PublicCloudAiAgentsBuiltinsConfig(_gen.BaseModel):
-    """Toggles for the agent's built-in capabilities, such as network access and web search."""
-
-    network: bool | None = _p.Field(default=None)
-    """Whether the agent can make outbound network requests. Defaults to true."""
-
-    search: bool | None = _p.Field(default=None)
-    """Whether the agent can perform web searches. Defaults to true."""
-
-    search_api_key: str | None = _p.Field(
-        default=None, validation_alias="searchApiKey", serialization_alias="searchApiKey"
-    )
-    """API key for the configured search provider, when the provider requires one."""
-
-    search_provider: str | None = _p.Field(
-        default=None, validation_alias="searchProvider", serialization_alias="searchProvider"
-    )
-    """Which search engine the agent uses for web searches. Defaults to 'duckduckgo'."""
-
-    tools_deny: list[str] | None = _p.Field(
-        default=None, validation_alias="toolsDeny", serialization_alias="toolsDeny"
-    )
-    """Tools this agent must not be offered, as glob patterns matched against the tool name ('*' = any run of characters). The 'builtins' flags above are all-or-nothing per subsystem — 'relay' exposes twenty 'relay_*' tools or none. A product built on kadk routinely wants *most* of a subsystem plus a composite of its own, and then finds the model reaching past the composite for the primitives it wraps: offered both 'revision_room' and 'relay_create_room', a model will happily assemble the room by hand and skip everything the composite also did. Naming the primitives here is how the product says 'that path is mine to own'."""
-
-    wizard: bool | None = _p.Field(default=None)
-    """Whether the agent can reconfigure its own settings, such as its model or memory, from within a conversation. Off by default; only available to an administrator caller when enabled."""
-
-
-class PublicCloudAiAgentsChannelsConfig(_gen.BaseModel):
-    """Messaging-platform integrations, such as Telegram and Webex, the agent can send and receive messages through"""
-
-    telegram: PublicCloudAiAgentsTelegramChannelConfig | None = _p.Field(default=None)
-    """Telegram integration settings. When omitted, Telegram is not connected."""
-
-    webex: PublicCloudAiAgentsWebexChannelConfig | None = _p.Field(default=None)
-    """Webex integration settings. When omitted, Webex is not connected."""
-
-
-class PublicCloudAiAgentsConfig(_gen.BaseModel):
-    """Templated AI agent configuration"""
-
-    agent: PublicCloudAiAgentsAgentConfig | None = _p.Field(default=None)
-    """The agent's identity settings, such as its display name."""
-
-    auth: PublicCloudAiAgentsAuthConfig | None = _p.Field(default=None)
-    """Authentication settings for the agent's HTTP API. Unset falls back to requiring a token issued by the agent itself."""
-
-    builtins: PublicCloudAiAgentsBuiltinsConfig | None = _p.Field(default=None)
-    """Toggles for the agent's built-in capabilities, such as network access and web search."""
-
-    channels: PublicCloudAiAgentsChannelsConfig | None = _p.Field(default=None)
-    """Messaging-platform integrations, such as Telegram and Webex, the agent can send and receive messages through."""
-
-    exec: PublicCloudAiAgentsExecConfig | None = _p.Field(default=None)
-    """Remote command-execution settings. Unset or disabled means the agent cannot run shell commands."""
-
-    llm: PublicCloudAiAgentsLlmConfig | None = _p.Field(default=None)
-    """The language model this agent uses to respond, including sampling settings and failover targets."""
-
-    mcp_indexer: PublicCloudAiAgentsMcpIndexerConfig | None = _p.Field(
-        default=None, validation_alias="mcpIndexer", serialization_alias="mcpIndexer"
-    )
-    """Settings for searchable tool indexing, required when any connected tool server uses indexed mode instead of listing all its tools directly."""
-
-    mcp_servers: dict[str, PublicCloudAiAgentsMcpServer] | None = _p.Field(
-        default=None, validation_alias="mcpServers", serialization_alias="mcpServers"
-    )
-    """Connected MCP tool servers, keyed by a caller-chosen server name."""
-
-    memory: PublicCloudAiAgentsMemoryConfig | None = _p.Field(default=None)
-    """Long-term memory settings that let the agent retain and later recall facts across conversations."""
-
-    profiles: PublicCloudAiAgentsAgentsConfig | None = _p.Field(default=None)
-    """Specialized sub-personas this agent can delegate tasks to."""
-
-    providers: dict[str, PublicCloudAiAgentsProviderConfig] | None = _p.Field(default=None)
-    """Shared pool of language-model provider connections, keyed by a caller-chosen provider id and referenced by name elsewhere in this configuration."""
-
-    relay: PublicCloudAiAgentsRelayConfig | None = _p.Field(default=None)
-    """Settings for hosting a local messaging relay that other participants can join."""
-
-    skills: PublicCloudAiAgentsSkillsConfig | None = _p.Field(default=None)
-    """Reusable skills the agent can invoke: named bundles of instructions it can follow on demand."""
-
-    soul: str | None = _p.Field(default=None)
-    """The agent's persona and system prompt: free-form text describing who it is, how it should behave, and any standing instructions it should always follow."""
-
-    tool_permissions: PublicCloudAiAgentsToolPermissionsConfig | None = _p.Field(
-        default=None, validation_alias="toolPermissions", serialization_alias="toolPermissions"
-    )
-    """Rules applied to every tool call, matched on its name, arguments and what triggered the turn: before the call runs and — for a rule that says so — on what it returned. A matching rule allows the call, refuses it, asks a human, or defers to an LLM reviewer."""
-
-    version: str | None = _p.Field(default=None)
-    """Configuration format version. Defaults to '1.0' for agents created before this field existed."""
-
-    workspace: PublicCloudAiAgentsWorkspace | None = _p.Field(default=None)
-    """The agent's file storage: an ordered list of mount points and the backend serving each one."""
-
-
-class PublicCloudAiAgentsExecConfig(_gen.BaseModel):
-    """Remote command-execution settings. Unset or disabled means the agent cannot run shell commands."""
-
-    api_key: str | None = _p.Field(
-        default=None, validation_alias="apiKey", serialization_alias="apiKey"
-    )
-    """API key used to authenticate to the remote command-execution service. Kept secret and never returned in plain text once set."""
-
-    auto_suspend_idle_seconds: int | None = _p.Field(
-        default=None,
-        validation_alias="autoSuspendIdleSeconds",
-        serialization_alias="autoSuspendIdleSeconds",
-    )
-    """Number of seconds of inactivity before a sandboxed compute session is automatically suspended. Defaults to 60 seconds."""
-
-    base_url: str | None = _p.Field(
-        default=None, validation_alias="baseUrl", serialization_alias="baseUrl"
-    )
-    """Base URL of the remote command-execution service. No trailing slash."""
-
-    default_image: str | None = _p.Field(
-        default=None, validation_alias="defaultImage", serialization_alias="defaultImage"
-    )
-    """Default machine image used when the agent provisions a new sandboxed compute session"""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Master switch for remote command execution. When false, the agent cannot run shell commands."""
-
-
-class PublicCloudAiAgentsFailoverPolicy(_gen.BaseModel):
-    """Which kinds of call failures trigger switching to a backup model instead of surfacing the error"""
-
-    on: list[PublicCloudAiAgentsFailoverPolicyOnEnum] | None = _p.Field(default=None)
-    """Failure reasons that trigger switching to the next backup model. A failure reason not listed here is reported as an error instead of triggering failover."""
-
-
-class PublicCloudAiAgentsFailoverPolicyOnEnum(_gen.OpenStrEnum):
-    """Failure reasons that trigger switching to the next backup model. A failure reason not listed here is reported as an error instead of triggering failover.
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    AUTH = "AUTH"
-    CLIENT_ERROR = "CLIENT_ERROR"
-    CONTEXT_OVERFLOW = "CONTEXT_OVERFLOW"
-    RATE_LIMIT = "RATE_LIMIT"
-    SERVER_ERROR = "SERVER_ERROR"
-    TRANSPORT = "TRANSPORT"
-    UNRECOVERABLE = "UNRECOVERABLE"
-
-
-class PublicCloudAiAgentsGlobalAgentConfig(_gen.BaseModel):
-    """What this deployment reserves of, and offers of, an agent's own configuration"""
-
-    auth: PublicCloudAiAgentsGlobalAgentConfigAuth | None = _p.Field(default=None)
-    """Reservation covering the agent's authentication block
-
-    Read-only: the API sets it.
-    """
-
-    exec: PublicCloudAiAgentsGlobalAgentConfigExec | None = _p.Field(default=None)
-    """Availability of the agent's code-execution blocks
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsGlobalAgentConfigAuth(_gen.BaseModel):
-    """Reservation covering the agent's authentication block"""
-
-    managed: bool | None = _p.Field(default=None)
-    """Whether the agent's auth block is reserved by the deployment, and so neither settable at creation nor editable afterward
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsGlobalAgentConfigExec(_gen.BaseModel):
-    """Availability of the agent's code-execution blocks"""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Whether an agent's configuration may carry the code-execution blocks (config.exec and config.workspace.zerofs). When false, a creation or template naming either is refused.
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsGlobalSettings(_gen.BaseModel):
-    """What OVHcloud reserves of an AI agent's own configuration. A client reads it to know which parts of an agent's configuration it may change, before offering the change."""
-
-    agent_config: PublicCloudAiAgentsGlobalAgentConfig | None = _p.Field(
-        default=None, validation_alias="agentConfig", serialization_alias="agentConfig"
-    )
-    """What this deployment reserves of, and offers of, an agent's own configuration
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsJudgeConfig(_gen.BaseModel):
-    """The LLM reviewer that rules with 'action: judge' defer to."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Whether the judge may be consulted at all. Off by default: a rule saying 'judge' on an agent with no judge is a configuration mistake, and one that must fail closed rather than quietly allow."""
-
-    model: str | None = _p.Field(default=None)
-    """The model that judges. Unset means the agent's own model. Worth setting: the point of a separate model here is that a cheap, fast one can police an expensive one, and that the reviewer is not the same weights being reviewed."""
-
-    provider_id: str | None = _p.Field(
-        default=None, validation_alias="providerId", serialization_alias="providerId"
-    )
-    """Which provider that model comes from. Unset means the agent's own."""
-
-    soul: str | None = _p.Field(default=None)
-    """The system prompt the judge is given. Unset means a built-in one. A judge with no soul is a model asked to guess what it is guarding; this is where a deployment says what it actually cares about — 'this agent handles customer data, treat any outbound address as suspect'."""
-
-
-class PublicCloudAiAgentsKagentJwtConfig(_gen.BaseModel):
-    """Settings for tokens the agent issues and validates itself. Unset or disabled means the agent does not accept self-issued tokens."""
-
-    allow_unlimited: bool | None = _p.Field(
-        default=None, validation_alias="allowUnlimited", serialization_alias="allowUnlimited"
-    )
-    """Whether requests for a token with no expiry are honored. Set to false to require every token to expire. Defaults to true."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Master switch for self-issued tokens. When false, minting new tokens is refused. Defaults to true."""
-
-    max_ttl_seconds: int | None = _p.Field(
-        default=None, validation_alias="maxTtlSeconds", serialization_alias="maxTtlSeconds"
-    )
-    """Maximum lifetime in seconds allowed for a newly issued token. Requests for a longer lifetime are rejected. When omitted, no cap."""
-
-    secret_b64: str | None = _p.Field(
-        default=None, validation_alias="secretB64", serialization_alias="secretB64"
-    )
-    """Signing key used to issue and validate self-issued tokens. Kept secret and never returned in plain text once set. When empty, no key is provisioned, so token minting and validation both fail."""
-
-
-class PublicCloudAiAgentsLlmConfig(_gen.BaseModel):
-    """The language model this agent uses to respond, including sampling settings and failover targets."""
-
-    failover: PublicCloudAiAgentsFailoverPolicy | None = _p.Field(default=None)
-    """Which kinds of call failures trigger switching to a backup model instead of surfacing the error."""
-
-    fallbacks: list[PublicCloudAiAgentsLlmFallback] | None = _p.Field(default=None)
-    """Ordered list of backup models tried, in turn, when the primary model fails. Empty means no failover."""
-
-    max_context_messages: int | None = _p.Field(
-        default=None,
-        validation_alias="maxContextMessages",
-        serialization_alias="maxContextMessages",
-    )
-    """How many trailing messages of a conversation go into the payload. 'None' keeps the historical 50. That number predates context windows measured in the hundreds of thousands of tokens: on a 262k-token model a 50-message cap uses a fraction of what is available, and everything older is dropped without a summary — the conversation quietly forgets rather than compacting. Raising it hands the ceiling back to the compaction path, which now has a declared budget to compare against."""
-
-    max_tokens: int | None = _p.Field(
-        default=None, validation_alias="maxTokens", serialization_alias="maxTokens"
-    )
-    """Maximum number of tokens the model may generate in a single response. Unset uses the provider's default."""
-
-    model: str | None = _p.Field(default=None)
-    """Identifier of the model to call, for example 'gpt-5'."""
-
-    provider_id: str | None = _p.Field(
-        default=None, validation_alias="providerId", serialization_alias="providerId"
-    )
-    """Id of the connected provider to call for this model. Must reference an entry in the shared provider pool."""
-
-    temperature: float | None = _p.Field(default=None)
-    """Sampling temperature controlling response randomness: lower values are more deterministic, higher values are more varied. Unset uses the provider's default."""
-
-    vision: PublicCloudAiAgentsLlmFallback | None = _p.Field(default=None)
-    """Optional secondary model used to describe images when the primary model cannot see them. Unset means images are not described for a text-only model."""
-
-
-class PublicCloudAiAgentsLlmFallback(_gen.BaseModel):
-    """Optional secondary model used to describe images when the primary model cannot see them. Unset means images are not described for a text-only model."""
-
-    max_tokens: int | None = _p.Field(
-        default=None, validation_alias="maxTokens", serialization_alias="maxTokens"
-    )
-    """Maximum response tokens for this backup target. Unset falls back to the primary model's setting."""
-
-    model: str | None = _p.Field(default=None)
-    """Model identifier to use for this backup target. Empty reuses the primary model's identifier against this provider."""
-
-    provider_id: str | None = _p.Field(
-        default=None, validation_alias="providerId", serialization_alias="providerId"
-    )
-    """Id of the connected provider to call for this backup target"""
-
-    temperature: float | None = _p.Field(default=None)
-    """Sampling temperature for this backup target. Unset falls back to the primary model's temperature."""
-
-
-class PublicCloudAiAgentsMcpIndexerConfig(_gen.BaseModel):
-    """Settings for searchable tool indexing, required when any connected tool server uses indexed mode instead of listing all its tools directly."""
-
-    embedder_batch_size: int | None = _p.Field(
-        default=None, validation_alias="embedderBatchSize", serialization_alias="embedderBatchSize"
-    )
-    """Number of tool descriptions embedded per request when building the search index. Defaults to 16 when unset."""
-
-    embedder_model: str | None = _p.Field(
-        default=None, validation_alias="embedderModel", serialization_alias="embedderModel"
-    )
-    """Identifier of the embedding model used to index tool descriptions for search, for example 'text-embedding-3-small'."""
-
-    provider_id: str | None = _p.Field(
-        default=None, validation_alias="providerId", serialization_alias="providerId"
-    )
-    """Id of the connected provider used to generate embeddings for tool search. Required as soon as any tool server uses indexed mode."""
-
-
-class PublicCloudAiAgentsMcpServer(_gen.BaseModel):
-    """A connected MCP tool server the agent can call tools from."""
-
-    auth_kind: PublicCloudAiAgentsMcpServerAuthKindEnum | None = _p.Field(
-        default=None, validation_alias="authKind", serialization_alias="authKind"
-    )
-    """How the agent authenticates to this server."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Whether this server's tools are made available to the agent. Defaults to true; set to false to temporarily park a server without removing its settings."""
-
-    headers: dict[str, str] | None = _p.Field(default=None)
-    """Extra HTTP headers sent on every request to this server, for example custom authentication headers."""
-
-    mode: PublicCloudAiAgentsMcpServerModeEnum | None = _p.Field(default=None)
-    """How this server's tools are surfaced to the model."""
-
-    url: str | None = _p.Field(default=None)
-    """Base URL of the MCP server."""
-
-
-class PublicCloudAiAgentsMcpServerAuthKindEnum(_gen.OpenStrEnum):
-    """How the agent authenticates to this server.
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    BEARER = "BEARER"
-    NONE = "NONE"
-    OAUTH = "OAUTH"
-
-
-class PublicCloudAiAgentsMcpServerModeEnum(_gen.OpenStrEnum):
-    """How this server's tools are surfaced to the model.
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    FLAT = "FLAT"
-    INDEXED = "INDEXED"
-
-
-class PublicCloudAiAgentsMemoryConfig(_gen.BaseModel):
-    """Long-term memory settings that let the agent retain and later recall facts across conversations."""
-
-    consolidate_on_turn_end: bool | None = _p.Field(
-        default=None,
-        validation_alias="consolidateOnTurnEnd",
-        serialization_alias="consolidateOnTurnEnd",
-    )
-    """Whether the agent reviews each conversation turn to capture any durable facts it did not already record. Defaults to true."""
-
-    consolidation_cron: str | None = _p.Field(
-        default=None, validation_alias="consolidationCron", serialization_alias="consolidationCron"
-    )
-    """Schedule, as a five-field cron expression, for the periodic pass that merges duplicate facts and promotes frequently reinforced ones. Defaults to daily at 3 AM."""
-
-    consolidation_max_rounds: int | None = _p.Field(
-        default=None,
-        validation_alias="consolidationMaxRounds",
-        serialization_alias="consolidationMaxRounds",
-    )
-    """Maximum number of internal steps the end-of-turn memory review may take. Defaults to 3."""
-
-    core_predicates: list[str] | None = _p.Field(
-        default=None, validation_alias="corePredicates", serialization_alias="corePredicates"
-    )
-    """Fact categories eligible for automatic promotion to permanent status when reinforced. Empty disables automatic promotion; facts can still be promoted manually."""
-
-    embedder_batch_size: int | None = _p.Field(
-        default=None, validation_alias="embedderBatchSize", serialization_alias="embedderBatchSize"
-    )
-    """Number of facts embedded per request when building the memory index. Defaults to 16."""
-
-    embedder_model: str | None = _p.Field(
-        default=None, validation_alias="embedderModel", serialization_alias="embedderModel"
-    )
-    """Identifier of the embedding model used to index remembered facts for recall. Required when memory is enabled."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Master switch for the memory feature. When false, the agent retains no long-term facts."""
-
-    gc_cron: str | None = _p.Field(
-        default=None, validation_alias="gcCron", serialization_alias="gcCron"
-    )
-    """Schedule, as a five-field cron expression, for the periodic cleanup pass that evicts low-value facts once storage exceeds its soft limit. Defaults to hourly."""
-
-    gc_max_size: int | None = _p.Field(
-        default=None, validation_alias="gcMaxSize", serialization_alias="gcMaxSize"
-    )
-    """Hard upper bound on the number of stored facts, used as a safety cap against runaway growth. Defaults to 20000."""
-
-    gc_min_retention: float | None = _p.Field(
-        default=None, validation_alias="gcMinRetention", serialization_alias="gcMinRetention"
-    )
-    """Minimum retention score, from 0 to 1 with no unit, a non-permanent fact must keep to survive cleanup; facts scoring below this are marked for eviction. Defaults to 0.15."""
-
-    gc_soft_limit: int | None = _p.Field(
-        default=None, validation_alias="gcSoftLimit", serialization_alias="gcSoftLimit"
-    )
-    """Number of stored facts above which cleanup starts evicting low-value ones, stopping once storage is back down to 90% of this value. Defaults to 10000."""
-
-    half_life_days: int | None = _p.Field(
-        default=None, validation_alias="halfLifeDays", serialization_alias="halfLifeDays"
-    )
-    """Number of days after which a fact's retention score decays by half. Higher values make facts fade more slowly. Defaults to 45."""
-
-    identity_promotion_threshold: int | None = _p.Field(
-        default=None,
-        validation_alias="identityPromotionThreshold",
-        serialization_alias="identityPromotionThreshold",
-    )
-    """Number of times a fact in a core category must be reinforced before it is promoted to permanent status and never evicted. Defaults to 5."""
-
-    inference_llm_fallback: bool | None = _p.Field(
-        default=None,
-        validation_alias="inferenceLlmFallback",
-        serialization_alias="inferenceLlmFallback",
-    )
-    """Whether the model is consulted to classify facts the automatic pass could not resolve on its own. Defaults to true; set to false to keep consolidation fully automatic."""
-
-    merge_similarity_threshold: float | None = _p.Field(
-        default=None,
-        validation_alias="mergeSimilarityThreshold",
-        serialization_alias="mergeSimilarityThreshold",
-    )
-    """Similarity threshold, from 0 to 1, above which two facts about the same subject are merged during cleanup. Defaults to 0.92."""
-
-    provider_id: str | None = _p.Field(
-        default=None, validation_alias="providerId", serialization_alias="providerId"
-    )
-    """Id of the connected provider used to generate embeddings for stored facts. Required when memory is enabled."""
-
-    rule_idle_gc_days: int | None = _p.Field(
-        default=None, validation_alias="ruleIdleGcDays", serialization_alias="ruleIdleGcDays"
-    )
-    """Number of days a derived rule may go unused before cleanup removes it. Defaults to 60."""
-
-    rules_max: int | None = _p.Field(
-        default=None, validation_alias="rulesMax", serialization_alias="rulesMax"
-    )
-    """Maximum number of derived rules retained. Older or unused rules are cleaned up during consolidation. Defaults to 256."""
-
-
-class PublicCloudAiAgentsModelCapabilityOverride(_gen.BaseModel):
-    """Manual overrides for what a specific model can do, used when the built-in defaults for that model are wrong or unknown for this deployment"""
-
-    context_window: int | None = _p.Field(
-        default=None, validation_alias="contextWindow", serialization_alias="contextWindow"
-    )
-    """Maximum context window, in tokens, that this model accepts. Unset uses the built-in default for the model."""
-
-    tools: bool | None = _p.Field(default=None)
-    """Whether this model can call tools. Unset uses the built-in default for the model."""
-
-    vision: bool | None = _p.Field(default=None)
-    """Whether this model can understand images. Unset uses the built-in default for the model."""
-
-
-class PublicCloudAiAgentsMountBackendEnum(_gen.OpenStrEnum):
-    """Which storage backend serves this mount. Determines which of the other fields apply.
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    BLOB = "BLOB"
-    FS = "FS"
-    S3 = "S3"
-    SQL = "SQL"
-
-
-class PublicCloudAiAgentsMountConfig(_gen.BaseModel):
-    """One workspace mount: a logical path plus the storage backend that serves it (ephemeral filesystem, persistent blob store, SQLite-backed store, or an operator-supplied S3™ compatible bucket)."""
-
-    access_key: str | None = _p.Field(
-        default=None, validation_alias="accessKey", serialization_alias="accessKey"
-    )
-    """Access key used to authenticate to the bucket."""
-
-    backend: PublicCloudAiAgentsMountBackendEnum | None = _p.Field(default=None)
-    """Which storage backend serves this mount; determines which of the other fields apply."""
-
-    bucket: str | None = _p.Field(default=None)
-    """Name of the bucket this mount reads and writes to."""
-
-    endpoint: str | None = _p.Field(default=None)
-    """Endpoint URL of the S3™-compatible storage service."""
-
-    max_file_bytes: int | None = _p.Field(
-        default=None, validation_alias="maxFileBytes", serialization_alias="maxFileBytes"
-    )
-    """Maximum size, in bytes, allowed for a single file in this mount. Defaults to 8 MiB when unset."""
-
-    max_files: int | None = _p.Field(
-        default=None, validation_alias="maxFiles", serialization_alias="maxFiles"
-    )
-    """Maximum number of files allowed in this mount. Unset means no cap."""
-
-    max_total_bytes: int | None = _p.Field(
-        default=None, validation_alias="maxTotalBytes", serialization_alias="maxTotalBytes"
-    )
-    """Maximum total size, in bytes, allowed across all files in this mount. Defaults to 256 MiB when unset."""
-
-    path: str | None = _p.Field(default=None)
-    """Absolute path where this mount appears in the agent's filesystem, for example '/' or '/tmp'."""
-
-    prefix: str | None = _p.Field(default=None)
-    """Key prefix within the bucket under which this mount's files are stored. Empty means the bucket root."""
-
-    region: str | None = _p.Field(default=None)
-    """Region of the bucket. Defaults to 'us-east-1'."""
-
-    ro: bool | None = _p.Field(default=None)
-    """When true, writes and deletes under this mount are rejected."""
-
-    secret_key: str | None = _p.Field(
-        default=None, validation_alias="secretKey", serialization_alias="secretKey"
-    )
-    """Secret key used to authenticate to the bucket. Kept secret and never returned in plain text once set."""
-
-
-class PublicCloudAiAgentsOAuth2Config(_gen.BaseModel):
-    """External identity provider settings, used when the authentication mode accepts an external OAuth2 token"""
-
-    audience: str | None = _p.Field(default=None)
-    """Expected audience value that a presented token must carry to be accepted"""
-
-    issuer: str | None = _p.Field(default=None)
-    """Base URL of the external identity provider that issues tokens for this agent"""
-
-    jwks_uri: str | None = _p.Field(
-        default=None, validation_alias="jwksUri", serialization_alias="jwksUri"
-    )
-    """Explicit JWKS endpoint used to verify token signatures. Unset falls back to the identity provider's well-known JWKS location."""
-
-    owner_sub: str | None = _p.Field(
-        default=None, validation_alias="ownerSub", serialization_alias="ownerSub"
-    )
-    """Stable identifier of the agent's owner at the identity provider. A presented token's subject must match this value to be accepted."""
-
-    required_scopes: list[str] | None = _p.Field(
-        default=None, validation_alias="requiredScopes", serialization_alias="requiredScopes"
-    )
-    """Scopes a presented token must carry to be accepted. When empty, no scope is required."""
-
-
-class PublicCloudAiAgentsPermissionRule(_gen.BaseModel):
-    """One tool-permission rule: which tool calls it matches, and what to do with them."""
-
-    action: PublicCloudAiAgentsPermissionRuleActionEnum | None = _p.Field(default=None)
-    """What to do with a matching call."""
-
-    args: dict[str, str] | None = _p.Field(default=None)
-    """Argument constraints, as 'path-glob -> value-glob', ALL of which must hold for the rule to match. The call's arguments are flattened to 'path -> value' pairs before matching ('{'a':{'b':[1,2]}}' becomes 'a.b.0 -> 1', 'a.b.1 -> 2'), so one entry means 'some argument whose path matches the key has a value matching the pattern'. A '!' prefix on the value inverts it into '… and none of them matches', which is how an allowlist is written: '{'url': '!https://*.ovh.net/*'}' is every URL but ours. '!' flips the value test and not the quantifier: both forms ask whether SOME selected value satisfies the test. So a deny rule reading '{'url': '!https://*.ovh.net/*'}' still fires on a call carrying two URLs of which only one is foreign — which is the point of it. A rule about an argument that is absent entirely never matches, in either form: absence is not a value to have an opinion about, and a rule that fired on it would fire on every unrelated call."""
-
-    phase: PublicCloudAiAgentsPermissionRulePhaseEnum | None = _p.Field(default=None)
-    """Whether this rule is evaluated before the call runs or after it returned. Defaults to 'before'."""
-
-    reason: str | None = _p.Field(default=None)
-    """Why this rule exists. Shown to the model in the refusal and written to the log. Worth filling in: it is the only part of this rule the model can act on."""
-
-    result: str | None = _p.Field(default=None)
-    """Value-glob over the text the tool returned. 'phase: after' only. Matched against the raw result, not flattened into paths the way 'args' is: a result is prose far more often than it is a shape, and an author writing a rule about one should not have to know whether this particular tool happened to wrap it in JSON. '*' spans everything, so ''*-----BEGIN * PRIVATE KEY*'' is a substring test, and a leading '!' inverts it exactly as it does in 'args'. A rule with no 'result' matches every result, which is how 'refer everything this tool brings back to the judge' is written."""
-
-    tool: str | None = _p.Field(default=None)
-    """Glob over the tool name. '*' matches any run of characters, including an empty one, so a rule left at its default matches every tool."""
-
-    triggers: list[PublicCloudAiAgentsPermissionRuleTriggerEnum] | None = _p.Field(default=None)
-    """Trigger kinds this rule applies to ('http', 'invoke', 'messaging', 'cron', 'scheduled', 'subagent'). Empty means every trigger."""
-
-    unattended: PublicCloudAiAgentsPermissionRuleActionEnum | None = _p.Field(default=None)
-    """What an 'ask' becomes on a turn with no human to ask. Defaults to 'deny'; ignored unless 'action' is 'ask'."""
-
-
-class PublicCloudAiAgentsPermissionRuleActionEnum(_gen.OpenStrEnum):
-    """What to do with a matching call
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    ALLOW = "ALLOW"
-    ASK = "ASK"
-    DENY = "DENY"
-    JUDGE = "JUDGE"
-
-
-class PublicCloudAiAgentsPermissionRulePhaseEnum(_gen.OpenStrEnum):
-    """Whether this rule is evaluated before the call runs or after it returned. Defaults to 'before'.
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    AFTER = "AFTER"
-    BEFORE = "BEFORE"
-
-
-class PublicCloudAiAgentsPermissionRuleTriggerEnum(_gen.OpenStrEnum):
-    """What started the turn a tool-permission rule applies to
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    CRON = "CRON"
-    HTTP = "HTTP"
-    INVOKE = "INVOKE"
-    MESSAGING = "MESSAGING"
-    SCHEDULED = "SCHEDULED"
-    SUBAGENT = "SUBAGENT"
-
-
-class PublicCloudAiAgentsProviderConfig(_gen.BaseModel):
-    """A language-model provider connection, referenced by id from other configuration blocks that need to call a model"""
-
-    ai_endpoints: bool | None = _p.Field(
-        default=None, validation_alias="aiEndpoints", serialization_alias="aiEndpoints"
-    )
-    """Materialize this provider from the OVHcloud AI Endpoints preset. Only accepted on the reserved provider id, which no other provider may use, and on a single provider. Mutually exclusive with apiBase and displayName, which the preset supplies. Refused when the deployment has the preset disabled. Defaults to false."""
-
-    ai_endpoints_integrated_auth: bool | None = _p.Field(
-        default=None,
-        validation_alias="aiEndpointsIntegratedAuth",
-        serialization_alias="aiEndpointsIntegratedAuth",
-    )
-    """Have OVHcloud mint this provider's bearer token itself. Requires aiEndpoints, and is mutually exclusive with apiKey. Refused when the deployment has the preset's integrated authentication disabled. Defaults to false."""
-
-    api_base: str | None = _p.Field(
-        default=None, validation_alias="apiBase", serialization_alias="apiBase"
-    )
-    """Base URL of the provider's API endpoint, for example `https://api.openai.com/v1`. No trailing slash."""
-
-    api_key: str | None = _p.Field(
-        default=None, validation_alias="apiKey", serialization_alias="apiKey"
-    )
-    """API key used to authenticate to this provider. Kept secret and never returned in plain text once set."""
-
-    display_name: str | None = _p.Field(
-        default=None, validation_alias="displayName", serialization_alias="displayName"
-    )
-    """Human-readable label for this provider, shown in the interface. Defaults to the provider's id when empty."""
-
-    models: dict[str, PublicCloudAiAgentsModelCapabilityOverride] | None = _p.Field(default=None)
-    """Per-model capability overrides for models hosted by this provider, keyed by model id"""
-
-
-class PublicCloudAiAgentsRelayConfig(_gen.BaseModel):
-    """Settings for hosting a local messaging relay that other participants can join."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Master switch for hosting a relay. When false, the relay and its rooms are not available."""
-
-    max_messages_per_room: int | None = _p.Field(
-        default=None,
-        validation_alias="maxMessagesPerRoom",
-        serialization_alias="maxMessagesPerRoom",
-    )
-    """Maximum number of messages retained per room. Unset means unlimited."""
-
-    max_rooms: int | None = _p.Field(
-        default=None, validation_alias="maxRooms", serialization_alias="maxRooms"
-    )
-    """Maximum number of rooms this relay may host. Unset means unlimited."""
-
-    room_creation: PublicCloudAiAgentsRelayRoomCreationEnum | None = _p.Field(
-        default=None, validation_alias="roomCreation", serialization_alias="roomCreation"
-    )
-    """Controls who may create a new room on this relay: by default only the host can create rooms, but this can be relaxed so that any authenticated member creates one simply by joining a room that does not yet exist."""
-
-
-class PublicCloudAiAgentsRelayRoomCreationEnum(_gen.OpenStrEnum):
-    """Who may create a new room on a relay
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    OPEN = "OPEN"
-    OWNER = "OWNER"
-
-
-class PublicCloudAiAgentsScratchpadConfig(_gen.BaseModel):
-    """Temporary per-conversation working files the agent can generate, download into, and re-read across turns, cleaned up automatically after a retention period. Unset means on with defaults."""
-
-    cleanup_cron: str | None = _p.Field(
-        default=None, validation_alias="cleanupCron", serialization_alias="cleanupCron"
-    )
-    """Schedule, as a five-field cron expression, for the pass that deletes expired scratchpads. Defaults to daily at 4:30 AM."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Whether scratchpads are available. When omitted, automatically on whenever the agent has durable file storage. Set to false to disable them explicitly."""
-
-    max_download_bytes: int | None = _p.Field(
-        default=None, validation_alias="maxDownloadBytes", serialization_alias="maxDownloadBytes"
-    )
-    """Largest single download in bytes that may be saved to a scratchpad. Defaults to 25 MiB."""
-
-    path: str | None = _p.Field(default=None)
-    """Absolute path of the directory holding one subdirectory per conversation. Defaults to `/scratchpad`."""
-
-    retention_days: int | None = _p.Field(
-        default=None, validation_alias="retentionDays", serialization_alias="retentionDays"
-    )
-    """Number of days a conversation's scratchpad may go untouched before it is deleted. Defaults to 7."""
-
-    spill_bytes: int | None = _p.Field(
-        default=None, validation_alias="spillBytes", serialization_alias="spillBytes"
-    )
-    """Size in bytes above which a fetched page is saved to the scratchpad and summarized instead of being returned in full. Defaults to 128 KiB."""
-
-
-class PublicCloudAiAgentsSkillSeed(_gen.BaseModel):
-    """A single skill definition: what it does and how the agent should perform it."""
-
-    description: str | None = _p.Field(default=None)
-    """Short summary of what this skill does, shown to the user when listing available skills."""
-
-    instructions: str | None = _p.Field(default=None)
-    """Detailed instructions the agent follows when invoking this skill."""
-
-
-class PublicCloudAiAgentsSkillsConfig(_gen.BaseModel):
-    """Reusable skills the agent can invoke: named bundles of instructions it can follow on demand."""
-
-    builtins: list[str] | None = _p.Field(default=None)
-    """Ids of built-in skills to enable, or '-id' to disable one that is on by default."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Whether the agent's skills are offered to the model. Absent means yes. When false the prompt catalogue and the 'skill_*' tools go away, so the model is not told about them and cannot invoke them — but their files stay mounted in the workspace ('workspace.skills_path', default '/skills'), where a model with filesystem tools can still read them."""
-
-    items: dict[str, PublicCloudAiAgentsSkillSeed] | None = _p.Field(default=None)
-    """Skills defined directly in this configuration, keyed by skill name. Skills created through other means are left untouched."""
-
-
-class PublicCloudAiAgentsTelegramChannelConfig(_gen.BaseModel):
-    """Telegram integration settings. Unset means Telegram is not connected."""
-
-    bot_token: str | None = _p.Field(
-        default=None, validation_alias="botToken", serialization_alias="botToken"
-    )
-    """Bot token issued by Telegram's BotFather. Kept secret and never returned in plain text once set."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Master switch for the Telegram integration. When false, this channel is unavailable to the agent."""
-
-    webhook_secret: str | None = _p.Field(
-        default=None, validation_alias="webhookSecret", serialization_alias="webhookSecret"
-    )
-    """Shared secret used to verify that incoming Telegram messages genuinely come from Telegram. Leaving it empty disables this verification, which is not recommended."""
-
-
-class PublicCloudAiAgentsTemplate(_gen.BaseModel):
-    """An AI agent configuration template"""
-
-    created_at: datetime.datetime | None = _p.Field(
-        default=None, validation_alias="createdAt", serialization_alias="createdAt"
-    )
-    """Date of the template creation
-
-    Read-only: the API sets it.
-    """
-
-    id: str | None = _p.Field(default=None)
-    """Unique identifier of the template
-
-    Read-only: the API sets it.
-    """
-
-    resource_status: CommonResourceStatusEnum | None = _p.Field(
-        default=None, validation_alias="resourceStatus", serialization_alias="resourceStatus"
-    )
-    """Reflects the readiness of the template: READY, or DELETING on the response to its deletion
-
-    Read-only: the API sets it.
-    """
-
-    source: PublicCloudAiAgentsTemplateSourceEnum | None = _p.Field(default=None)
-    """Distinguishes built-in (code-defined) from user-authored templates
-
-    Read-only: the API sets it.
-    """
-
-    target_spec: PublicCloudAiAgentsTemplateTargetSpec | None = _p.Field(
-        default=None, validation_alias="targetSpec", serialization_alias="targetSpec"
-    )
-    """Desired specification to replace the template with
-
-    Read-only: the API sets it.
-    """
-
-    updated_at: datetime.datetime | None = _p.Field(
-        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
-    )
-    """Date of the last template update
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsTemplateCreation(_gen.BaseModel):
-    """Input parameters for creating an AI agent template"""
-
-    target_spec: PublicCloudAiAgentsTemplateCreationTargetSpec = _p.Field(
-        validation_alias="targetSpec", serialization_alias="targetSpec"
-    )
-    """Desired specification of the template to create"""
-
-
-class PublicCloudAiAgentsTemplateCreationTargetSpec(_gen.BaseModel):
-    """Desired specification of the template to create"""
-
-    config: PublicCloudAiAgentsConfig = _p.Field()
-    """Templated AI agent configuration"""
-
-    description: str | None = _p.Field(default=None)
-    """Optional human-readable description"""
-
-    name: str = _p.Field()
-    """Name of the template, unique within the namespace"""
-
-
-class PublicCloudAiAgentsTemplatePreset(_gen.BaseModel):
-    """One ready-made AI agent configuration OVHcloud publishes, offered alongside the templates a caller writes for themselves. Its identifier is what a creation names to build an agent from it, and carries a reserved prefix that distinguishes it from a caller's own template."""
-
-    ai_endpoints: bool | None = _p.Field(
-        default=None, validation_alias="aiEndpoints", serialization_alias="aiEndpoints"
-    )
-    """Whether an agent created from this preset uses the OVHcloud AI Endpoints provider preset
-
-    Read-only: the API sets it.
-    """
-
-    ai_endpoints_integrated_auth: bool | None = _p.Field(
-        default=None,
-        validation_alias="aiEndpointsIntegratedAuth",
-        serialization_alias="aiEndpointsIntegratedAuth",
-    )
-    """Whether the AI Endpoints credential is minted by this service rather than supplied by the caller
-
-    Read-only: the API sets it.
-    """
-
-    description: str | None = _p.Field(default=None)
-    """What this preset is for. Empty when the deployment states none.
-
-    Read-only: the API sets it.
-    """
-
-    id: str | None = _p.Field(default=None)
-    """Identifier to pass as targetSpec.template.id when creating an agent from this preset
-
-    Read-only: the API sets it.
-    """
-
-    name: str | None = _p.Field(default=None)
-    """Human-readable name of the preset
-
-    Read-only: the API sets it.
-    """
-
-
-class PublicCloudAiAgentsTemplateSourceEnum(_gen.OpenStrEnum):
-    """Origin of an AI agent template
-
-    Open: a value the SDK does not know yet is accepted as a new member.
-    """
-
-    BUILTIN = "BUILTIN"
-    USER = "USER"
-
-
-class PublicCloudAiAgentsTemplateTargetSpec(_gen.BaseModel):
-    """Desired specification to replace the template with"""
-
-    config: PublicCloudAiAgentsConfig | None = _p.Field(default=None)
-    """Templated AI agent configuration"""
-
-    description: str | None = _p.Field(default=None)
-    """Optional human-readable description"""
-
-    name: str = _p.Field()
-    """Name of the template"""
-
-
-class PublicCloudAiAgentsTemplateUpdate(_gen.BaseModel):
-    """Input for AI agent template update"""
-
-    target_spec: PublicCloudAiAgentsTemplateTargetSpec = _p.Field(
-        validation_alias="targetSpec", serialization_alias="targetSpec"
-    )
-    """Desired specification to replace the template with"""
-
-
-class PublicCloudAiAgentsToolPermissionsConfig(_gen.BaseModel):
-    """Rules applied to every tool call, matched on its name, arguments and what triggered the turn: before the call runs and — for a rule that says so — on what it returned. A matching rule allows the call, refuses it, asks a human, or defers to an LLM reviewer."""
-
-    judge: PublicCloudAiAgentsJudgeConfig | None = _p.Field(default=None)
-    """The LLM reviewer that rules with 'action: judge' defer to."""
-
-    rules: list[PublicCloudAiAgentsPermissionRule] | None = _p.Field(default=None)
-    """Permission rules, evaluated in order within a phase; the LAST one that matches decides."""
-
-
-class PublicCloudAiAgentsWebexChannelConfig(_gen.BaseModel):
-    """Webex integration settings. Unset means Webex is not connected."""
-
-    access_token: str | None = _p.Field(
-        default=None, validation_alias="accessToken", serialization_alias="accessToken"
-    )
-    """Bot access token issued by Webex. Kept secret and never returned in plain text once set."""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Master switch for the Webex integration. When false, this channel is unavailable to the agent."""
-
-    webhook_secret: str | None = _p.Field(
-        default=None, validation_alias="webhookSecret", serialization_alias="webhookSecret"
-    )
-    """Shared secret used to verify that incoming Webex messages genuinely come from Webex. Leaving it empty skips this verification."""
-
-
-class PublicCloudAiAgentsWorkspace(_gen.BaseModel):
-    """The agent's file storage: an ordered list of mount points and the backend serving each one"""
-
-    agents_path: str | None = _p.Field(
-        default=None, validation_alias="agentsPath", serialization_alias="agentsPath"
-    )
-    """Path where the read-only view of delegated sub-personas is mounted. Defaults to `/agents`."""
-
-    mount: list[PublicCloudAiAgentsMountConfig] | None = _p.Field(default=None)
-    """Ordered list of storage mount points available to the agent"""
-
-    scratchpad: PublicCloudAiAgentsScratchpadConfig | None = _p.Field(default=None)
-    """Temporary per-conversation working files the agent can generate, download into, and re-read across turns, cleaned up automatically after a retention period. When omitted, on with defaults."""
-
-    skills_path: str | None = _p.Field(
-        default=None, validation_alias="skillsPath", serialization_alias="skillsPath"
-    )
-    """Path where the read-only view of the agent's skills is mounted. Defaults to `/skills`."""
-
-    zerofs: PublicCloudAiAgentsZerofsConfig | None = _p.Field(default=None)
-    """Optional shared scratch storage mount, also reachable from any remote command-execution session tied to this agent"""
-
-
-class PublicCloudAiAgentsZerofsConfig(_gen.BaseModel):
-    """Optional shared scratch storage mount, also reachable from any remote command-execution session tied to this agent"""
-
-    enabled: bool | None = _p.Field(default=None)
-    """Whether this mount is active. When omitted, automatically on whenever remote command execution is configured. Set to false to disable it explicitly."""
-
-    mount_path: str | None = _p.Field(
-        default=None, validation_alias="mountPath", serialization_alias="mountPath"
-    )
-    """Absolute path where this mount appears in the agent's filesystem. Defaults to `/wrk`."""
+    LOCAL_ZONE = "LOCAL-ZONE"
+    REGION_1_AZ = "REGION-1-AZ"
+    REGION_3_AZ = "REGION-3-AZ"
 
 
 class PublicCloudBlockStorageBackup(_gen.BaseModel):
@@ -4857,6 +4044,50 @@ class PublicCloudBlockStorageBackup(_gen.BaseModel):
     """
 
 
+class PublicCloudBlockStorageBackupCapability(_gen.BaseModel):
+    """Availability of a single backup action for the current backup state"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether the action can currently be performed
+
+    Read-only: the API sets it.
+    """
+
+    name: PublicCloudBlockStorageBackupCapabilityNameEnum | None = _p.Field(default=None)
+    """Action the capability refers to
+
+    Read-only: the API sets it.
+    """
+
+    reason: PublicCloudBlockStorageBackupCapabilityReasonEnum | None = _p.Field(default=None)
+    """Why the action is disabled. Null when `enabled` is true.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudBlockStorageBackupCapabilityNameEnum(_gen.OpenStrEnum):
+    """Backup actions exposed through capabilities
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATE_VOLUME = "CREATE_VOLUME"
+    DELETE = "DELETE"
+    RENAME = "RENAME"
+    RESTORE_TO_VOLUME = "RESTORE_TO_VOLUME"
+
+
+class PublicCloudBlockStorageBackupCapabilityReasonEnum(_gen.OpenStrEnum):
+    """Reason a backup action is currently disabled
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    HAS_DEPENDENT_BACKUPS = "HAS_DEPENDENT_BACKUPS"
+    INVALID_STATUS = "INVALID_STATUS"
+
+
 class PublicCloudBlockStorageBackupCreation(_gen.BaseModel):
     """Payload to create a Public Cloud block storage backup"""
 
@@ -4869,8 +4100,20 @@ class PublicCloudBlockStorageBackupCreation(_gen.BaseModel):
 class PublicCloudBlockStorageBackupCurrentState(_gen.BaseModel):
     """Current state of a block storage backup as observed from the infrastructure"""
 
+    capabilities: list[PublicCloudBlockStorageBackupCapability] | None = _p.Field(default=None)
+    """Per-action availability for the current backup state
+
+    Read-only: the API sets it.
+    """
+
     description: str | None = _p.Field(default=None)
     """Backup description
+
+    Read-only: the API sets it.
+    """
+
+    encryption: PublicCloudBlockStorageBlockEncryption | None = _p.Field(default=None)
+    """Encryption of the source volume at backup time. Null when `volumeType` is null and the backup records no customer key, or when the backup cannot be read.
 
     Read-only: the API sets it.
     """
@@ -4893,6 +4136,12 @@ class PublicCloudBlockStorageBackupCurrentState(_gen.BaseModel):
     Read-only: the API sets it.
     """
 
+    status: PublicCloudBlockStorageBackupStatusEnum | None = _p.Field(default=None)
+    """Backup status on the infrastructure
+
+    Read-only: the API sets it.
+    """
+
     volume_id: str | None = _p.Field(
         default=None, validation_alias="volumeId", serialization_alias="volumeId"
     )
@@ -4900,6 +4149,31 @@ class PublicCloudBlockStorageBackupCurrentState(_gen.BaseModel):
 
     Read-only: the API sets it.
     """
+
+    volume_type: PublicCloudBlockStorageVolumeTypeEnum | None = _p.Field(
+        default=None, validation_alias="volumeType", serialization_alias="volumeType"
+    )
+    """Volume type of the source volume at backup time. Null when the backup did not record it, when the type has no API value, or when the backup cannot be read.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudBlockStorageBackupStatusEnum(_gen.OpenStrEnum):
+    """Possible statuses for a block storage backup
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AVAILABLE = "AVAILABLE"
+    CREATING = "CREATING"
+    DELETED = "DELETED"
+    DELETING = "DELETING"
+    ERROR = "ERROR"
+    ERROR_DELETING = "ERROR_DELETING"
+    ERROR_RESTORING = "ERROR_RESTORING"
+    RESTORING = "RESTORING"
+    UNMANAGING = "UNMANAGING"
 
 
 class PublicCloudBlockStorageBackupTargetSpec(_gen.BaseModel):
@@ -5036,6 +4310,28 @@ class PublicCloudBlockStorageBlockAttachedInstance(_gen.BaseModel):
     """
 
 
+class PublicCloudBlockStorageBlockCapability(_gen.BaseModel):
+    """Availability of a single volume action for the current volume state"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether the action can currently be performed
+
+    Read-only: the API sets it.
+    """
+
+    name: PublicCloudBlockStorageVolumeCapabilityNameEnum | None = _p.Field(default=None)
+    """Action the capability refers to
+
+    Read-only: the API sets it.
+    """
+
+    reason: PublicCloudBlockStorageVolumeCapabilityReasonEnum | None = _p.Field(default=None)
+    """Why the action is disabled. Present only when enabled is false.
+
+    Read-only: the API sets it.
+    """
+
+
 class PublicCloudBlockStorageBlockCreateFrom(_gen.BaseModel):
     """Optional source to create a block storage volume from (backup, snapshot, or image). Only one source may be specified."""
 
@@ -5077,6 +4373,12 @@ class PublicCloudBlockStorageBlockCurrentState(_gen.BaseModel):
 
     bootable: bool | None = _p.Field(default=None)
     """Whether the volume is bootable
+
+    Read-only: the API sets it.
+    """
+
+    capabilities: list[PublicCloudBlockStorageBlockCapability] | None = _p.Field(default=None)
+    """Per-action availability for the current volume state. Null in the response to an update of the volume.
 
     Read-only: the API sets it.
     """
@@ -5283,6 +4585,48 @@ class PublicCloudBlockStorageSnapshot(_gen.BaseModel):
     """
 
 
+class PublicCloudBlockStorageSnapshotCapability(_gen.BaseModel):
+    """Availability of a single snapshot action for the current snapshot state"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether the action can currently be performed
+
+    Read-only: the API sets it.
+    """
+
+    name: PublicCloudBlockStorageSnapshotCapabilityNameEnum | None = _p.Field(default=None)
+    """Action the capability refers to
+
+    Read-only: the API sets it.
+    """
+
+    reason: PublicCloudBlockStorageSnapshotCapabilityReasonEnum | None = _p.Field(default=None)
+    """Why the action is disabled. Null when `enabled` is true.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudBlockStorageSnapshotCapabilityNameEnum(_gen.OpenStrEnum):
+    """Snapshot actions exposed through capabilities
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATE_VOLUME = "CREATE_VOLUME"
+    DELETE = "DELETE"
+    RENAME = "RENAME"
+
+
+class PublicCloudBlockStorageSnapshotCapabilityReasonEnum(_gen.OpenStrEnum):
+    """Reason a snapshot action is currently disabled
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    INVALID_STATUS = "INVALID_STATUS"
+
+
 class PublicCloudBlockStorageSnapshotCreation(_gen.BaseModel):
     """Payload to create a Public Cloud block storage volume snapshot"""
 
@@ -5294,6 +4638,12 @@ class PublicCloudBlockStorageSnapshotCreation(_gen.BaseModel):
 
 class PublicCloudBlockStorageSnapshotCurrentState(_gen.BaseModel):
     """Current state of a block storage volume snapshot as observed from the infrastructure"""
+
+    capabilities: list[PublicCloudBlockStorageSnapshotCapability] | None = _p.Field(default=None)
+    """Per-action availability for the current snapshot state
+
+    Read-only: the API sets it.
+    """
 
     description: str | None = _p.Field(default=None)
     """Snapshot description
@@ -5328,7 +4678,7 @@ class PublicCloudBlockStorageSnapshotCurrentState(_gen.BaseModel):
     volume_id: str | None = _p.Field(
         default=None, validation_alias="volumeId", serialization_alias="volumeId"
     )
-    """ID of the volume this snapshot was created from
+    """Identifier of the source volume
 
     Read-only: the API sets it.
     """
@@ -5399,6 +4749,36 @@ class PublicCloudBlockStorageVolumeActionTypeEnum(_gen.OpenStrEnum):
     RESTORE_FROM_BACKUP = "RESTORE_FROM_BACKUP"
 
 
+class PublicCloudBlockStorageVolumeCapabilityNameEnum(_gen.OpenStrEnum):
+    """Volume actions exposed through capabilities
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ATTACH = "ATTACH"
+    CREATE_BACKUP = "CREATE_BACKUP"
+    CREATE_SNAPSHOT = "CREATE_SNAPSHOT"
+    DELETE = "DELETE"
+    DETACH = "DETACH"
+    EXTEND = "EXTEND"
+    RENAME = "RENAME"
+    RETYPE = "RETYPE"
+
+
+class PublicCloudBlockStorageVolumeCapabilityReasonEnum(_gen.OpenStrEnum):
+    """Reason a volume action is currently disabled
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ATTACH_LIMIT_REACHED = "ATTACH_LIMIT_REACHED"
+    HAS_DEPENDENT_SNAPSHOTS = "HAS_DEPENDENT_SNAPSHOTS"
+    INVALID_STATUS = "INVALID_STATUS"
+    NEEDS_DETACH = "NEEDS_DETACH"
+    NOT_ATTACHED = "NOT_ATTACHED"
+    UNSUPPORTED_VOLUME_TYPE = "UNSUPPORTED_VOLUME_TYPE"
+
+
 class PublicCloudBlockStorageVolumeStatusEnum(_gen.OpenStrEnum):
     """Possible statuses for a block storage volume
 
@@ -5448,6 +4828,4347 @@ class PublicCloudCommonLocation(_gen.BaseModel):
 
     region: str = _p.Field()
     """Region code"""
+
+
+class PublicCloudDatabaseAuthorizedIPs(_gen.BaseModel):
+    """IP authorization configuration of a managed database service. When at least one rule is defined, only traffic from matching CIDR ranges is allowed."""
+
+    rules: list[PublicCloudDatabaseAuthorizedIPsRule] | None = _p.Field(default=None)
+    """Authorization entries. An empty list removes all restrictions, allowing access from any IP."""
+
+    def writable(self) -> PublicCloudDatabaseAuthorizedIPsWritable:
+        """This object as a PublicCloudDatabaseAuthorizedIPsWritable, the form a request body takes.
+
+        It has no read-only field, at any depth. Change what you need in it, then send it.
+        It is a deep copy: this object stays as it was.
+        """
+        return _gen.writable(self, PublicCloudDatabaseAuthorizedIPsWritable)
+
+
+class PublicCloudDatabaseAuthorizedIPsReplace(_gen.BaseModel):
+    """IP authorization configuration of a managed database service, given in full. When at least one rule is defined, only traffic from matching CIDR ranges is allowed."""
+
+    rules: list[PublicCloudDatabaseAuthorizedIPsRuleReplace] = _p.Field()
+    """Authorization entries. An empty list removes all restrictions, allowing access from any IP."""
+
+
+class PublicCloudDatabaseAuthorizedIPsRule(_gen.BaseModel):
+    """An authorization entry granting a CIDR range access to a managed database service"""
+
+    cidr: IPBlock = _p.Field()
+    """CIDR range allowed to connect to the service, for example 203.0.113.0/24. Use 0.0.0.0/0 to allow all IPs."""
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which this rule was created
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable label for this rule"""
+
+    def writable(self) -> PublicCloudDatabaseAuthorizedIPsRuleWritable:
+        """This object as a PublicCloudDatabaseAuthorizedIPsRuleWritable, the form a request body takes.
+
+        It has no read-only field, at any depth. Change what you need in it, then send it.
+        It is a deep copy: this object stays as it was.
+        """
+        return _gen.writable(self, PublicCloudDatabaseAuthorizedIPsRuleWritable)
+
+
+class PublicCloudDatabaseAuthorizedIPsRuleReplace(_gen.BaseModel):
+    """An authorization entry granting a CIDR range access to a managed database service"""
+
+    cidr: IPBlock = _p.Field()
+    """CIDR range allowed to connect to the service, for example 203.0.113.0/24. Use 0.0.0.0/0 to allow all IPs."""
+
+    description: str | None = _p.Field()
+    """Human-readable label for this rule. Null for a rule without a label."""
+
+
+class PublicCloudDatabaseAuthorizedIPsRuleWritable(_gen.BaseModel):
+    """PublicCloudDatabaseAuthorizedIPsRule without its read-only fields, which the API sets: the form a request body takes."""
+
+    cidr: IPBlock = _p.Field()
+    """CIDR range allowed to connect to the service, for example 203.0.113.0/24. Use 0.0.0.0/0 to allow all IPs."""
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable label for this rule"""
+
+
+class PublicCloudDatabaseAuthorizedIPsWritable(_gen.BaseModel):
+    """PublicCloudDatabaseAuthorizedIPs without its read-only fields, which the API sets: the form a request body takes."""
+
+    rules: list[PublicCloudDatabaseAuthorizedIPsRuleWritable] | None = _p.Field(default=None)
+    """Authorization entries. An empty list removes all restrictions, allowing access from any IP."""
+
+
+class PublicCloudDatabaseAvailability(_gen.BaseModel):
+    """Availability of a database engine configuration"""
+
+    backups: PublicCloudDatabaseAvailabilityBackups | None = _p.Field(default=None)
+    """Backup strategy for this availability
+
+    Read-only: the API sets it.
+    """
+
+    category: PublicCloudDatabaseCategoryEnum | None = _p.Field(default=None)
+    """Category of the engine (database or analytics)
+
+    Read-only: the API sets it.
+    """
+
+    default: bool | None = _p.Field(default=None)
+    """Whether this availability can be used by default
+
+    Read-only: the API sets it.
+    """
+
+    engine: PublicCloudDatabaseEngineEnum | None = _p.Field(default=None)
+    """Database engine name
+
+    Read-only: the API sets it.
+    """
+
+    lifecycle: PublicCloudDatabaseAvailabilityLifecycle | None = _p.Field(default=None)
+    """Lifecycle information
+
+    Read-only: the API sets it.
+    """
+
+    plan: str | None = _p.Field(default=None)
+    """Plan name
+
+    Read-only: the API sets it.
+    """
+
+    plan_code: str | None = _p.Field(
+        default=None, validation_alias="planCode", serialization_alias="planCode"
+    )
+    """Billing plan code
+
+    Read-only: the API sets it.
+    """
+
+    plan_code_storage: str | None = _p.Field(
+        default=None, validation_alias="planCodeStorage", serialization_alias="planCodeStorage"
+    )
+    """Billing plan code for storage
+
+    Read-only: the API sets it.
+    """
+
+    region: CommonRegionEnum | None = _p.Field(default=None)
+    """Region name
+
+    Read-only: the API sets it.
+    """
+
+    specifications: PublicCloudDatabaseAvailabilitySpecifications | None = _p.Field(default=None)
+    """Technical specifications
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Version name
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseBackup(_gen.BaseModel):
+    """A backup of a managed database service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the backup was created
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable description of the backup
+
+    Read-only: the API sets it.
+    """
+
+    expired_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="expiredAt", serialization_alias="expiredAt"
+    )
+    """Date until point-in-time recovery is available from this backup
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the backup
+
+    Read-only: the API sets it.
+    """
+
+    regions: list[CommonRegionEnum] | None = _p.Field(default=None)
+    """Regions where this backup is stored
+
+    Read-only: the API sets it.
+    """
+
+    service_id: str | None = _p.Field(
+        default=None, validation_alias="serviceId", serialization_alias="serviceId"
+    )
+    """Identifier of the service this backup belongs to
+
+    Read-only: the API sets it.
+    """
+
+    size: PublicCloudDatabaseUnitAndValue | None = _p.Field(default=None)
+    """Size of the backup
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseBackupStatusEnum | None = _p.Field(default=None)
+    """Current readiness status of the backup
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseBackupTypeEnum | None = _p.Field(default=None)
+    """Type of this backup
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseBackupCurrentState(_gen.BaseModel):
+    """Current backup configuration of a managed database service"""
+
+    pitr: datetime.datetime | None = _p.Field(default=None)
+    """Date until which point-in-time recovery is available for this service
+
+    Read-only: the API sets it.
+    """
+
+    regions: list[CommonRegionEnum] | None = _p.Field(default=None)
+    """Regions where backups of this service are stored
+
+    Read-only: the API sets it.
+    """
+
+    retention_days: int | None = _p.Field(
+        default=None, validation_alias="retentionDays", serialization_alias="retentionDays"
+    )
+    """Number of days backups are retained for this service
+
+    Read-only: the API sets it.
+    """
+
+    time: str | None = _p.Field(default=None)
+    """Time of day at which automatic backups are scheduled, in HH:MM UTC format
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseBackupReplaceSpec(_gen.BaseModel):
+    """Backup configuration for a managed database service, given in full"""
+
+    regions: list[CommonRegionEnum] | None = _p.Field()
+    """Regions where backups should be stored. Supported values depend on the engine and plan. Null for engines that do not support cross-region backups."""
+
+    time: str = _p.Field()
+    """Preferred time of day for automatic backups, in HH:MM UTC format"""
+
+
+class PublicCloudDatabaseBackupSpec(_gen.BaseModel):
+    """Backup configuration for a managed database service"""
+
+    regions: list[CommonRegionEnum] | None = _p.Field(default=None)
+    """Regions where backups should be stored. Supported values depend on the engine and plan."""
+
+    time: str | None = _p.Field(default=None)
+    """Preferred time of day for automatic backups, in HH:MM UTC format"""
+
+
+class PublicCloudDatabaseBackupStatusEnum(_gen.OpenStrEnum):
+    """Readiness status of a managed database backup
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "CREATING"
+    DELETING = "DELETING"
+    ERROR = "ERROR"
+    READY = "READY"
+
+
+class PublicCloudDatabaseBackupTypeEnum(_gen.OpenStrEnum):
+    """Type of a managed database backup
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AUTOMATIC = "AUTOMATIC"
+    MANUAL = "MANUAL"
+    NONE = "NONE"
+    PITR = "PITR"
+    SNAPSHOT = "SNAPSHOT"
+
+
+class PublicCloudDatabaseCategoryEnum(_gen.OpenStrEnum):
+    """Database Category of the managed database and analytics service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ANALYTICS = "ANALYTICS"
+    DATABASE = "DATABASE"
+
+
+class PublicCloudDatabaseCertificates(_gen.BaseModel):
+    """TLS certificates for a managed database service"""
+
+    ca: str | None = _p.Field(default=None)
+    """CA certificate in PEM format used to verify the service connection
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCurrentQuery(_gen.BaseModel):
+    """A currently running query on a managed database service"""
+
+    application_name: str | None = _p.Field(
+        default=None, validation_alias="applicationName", serialization_alias="applicationName"
+    )
+    """Name of the application that initiated the query
+
+    Read-only: the API sets it.
+    """
+
+    backend_started_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="backendStartedAt", serialization_alias="backendStartedAt"
+    )
+    """Timestamp when the backend process started
+
+    Read-only: the API sets it.
+    """
+
+    client_ip: IP | None = _p.Field(
+        default=None, validation_alias="clientIp", serialization_alias="clientIp"
+    )
+    """IP address of the client
+
+    Read-only: the API sets it.
+    """
+
+    client_port: int | None = _p.Field(
+        default=None, validation_alias="clientPort", serialization_alias="clientPort"
+    )
+    """Port of the client connection
+
+    Read-only: the API sets it.
+    """
+
+    database_name: str | None = _p.Field(
+        default=None, validation_alias="databaseName", serialization_alias="databaseName"
+    )
+    """Name of the database the query is running on
+
+    Read-only: the API sets it.
+    """
+
+    pid: int | None = _p.Field(default=None)
+    """Process ID of the connection
+
+    Read-only: the API sets it.
+    """
+
+    query: str | None = _p.Field(default=None)
+    """SQL text of the currently running query
+
+    Read-only: the API sets it.
+    """
+
+    query_duration: float | None = _p.Field(
+        default=None, validation_alias="queryDuration", serialization_alias="queryDuration"
+    )
+    """Duration of the query in seconds
+
+    Read-only: the API sets it.
+    """
+
+    query_started_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="queryStartedAt", serialization_alias="queryStartedAt"
+    )
+    """Timestamp when the query started
+
+    Read-only: the API sets it.
+    """
+
+    state: PublicCloudDatabaseCurrentQueryStateEnum | None = _p.Field(default=None)
+    """Current state of the connection
+
+    Read-only: the API sets it.
+    """
+
+    user_name: str | None = _p.Field(
+        default=None, validation_alias="userName", serialization_alias="userName"
+    )
+    """Name of the user running the query
+
+    Read-only: the API sets it.
+    """
+
+    wait_event: str | None = _p.Field(
+        default=None, validation_alias="waitEvent", serialization_alias="waitEvent"
+    )
+    """Name of the wait event the connection is waiting on, if any
+
+    Read-only: the API sets it.
+    """
+
+    wait_event_type: PublicCloudDatabaseCurrentQueryWaitEventTypeEnum | None = _p.Field(
+        default=None, validation_alias="waitEventType", serialization_alias="waitEventType"
+    )
+    """Type of wait event the connection is waiting on, if any
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCurrentQueryStateEnum(_gen.OpenStrEnum):
+    """Possible states of a currently running query
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACTIVE = "ACTIVE"
+    DISABLED = "DISABLED"
+    FASTPATH_FUNCTION_CALL = "FASTPATH_FUNCTION_CALL"
+    IDLE = "IDLE"
+    IDLE_IN_TRANSACTION = "IDLE_IN_TRANSACTION"
+    IDLE_IN_TRANSACTION_ABORTED = "IDLE_IN_TRANSACTION_ABORTED"
+
+
+class PublicCloudDatabaseCurrentQueryWaitEventTypeEnum(_gen.OpenStrEnum):
+    """Possible event types on which a database connection backend is waiting
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACTIVITY = "ACTIVITY"
+    BUFFER_PIN = "BUFFER_PIN"
+    CLIENT = "CLIENT"
+    EXTENSION = "EXTENSION"
+    IO = "IO"
+    IPC = "IPC"
+    LOCK = "LOCK"
+    LWLOCK = "LWLOCK"
+    TIMEOUT = "TIMEOUT"
+
+
+class PublicCloudDatabaseDataPoint(_gen.BaseModel):
+    """A single metric data point"""
+
+    timestamp: int | None = _p.Field(default=None)
+    """Timestamp in seconds since epoch
+
+    Read-only: the API sets it.
+    """
+
+    value: float | None = _p.Field(default=None)
+    """Value of the data point
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseDatabase(_gen.BaseModel):
+    """A logical database on a managed database service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    default: bool | None = _p.Field(default=None)
+    """Whether this is the engine default database created automatically at provisioning time
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the database
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the database
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseDatabaseCreation(_gen.BaseModel):
+    """Input parameters for creating a logical database on a managed database service"""
+
+    name: str = _p.Field()
+    """Name of the database to create"""
+
+
+class PublicCloudDatabaseEndpoint(_gen.BaseModel):
+    """Connection endpoint exposed by a managed database service"""
+
+    component: PublicCloudDatabaseEndpointComponentEnum | None = _p.Field(default=None)
+    """Component accessible through this endpoint
+
+    Read-only: the API sets it.
+    """
+
+    domain: str | None = _p.Field(default=None)
+    """Fully qualified domain name of the endpoint
+
+    Read-only: the API sets it.
+    """
+
+    path: str | None = _p.Field(default=None)
+    """URL path appended to the domain when applicable
+
+    Read-only: the API sets it.
+    """
+
+    port: int | None = _p.Field(default=None)
+    """TCP port of the endpoint
+
+    Read-only: the API sets it.
+    """
+
+    public: bool | None = _p.Field(default=None)
+    """True on the endpoints that use the public domain name of the service, false on the private ones. Null for an engine or a service that does not support public exposure.
+
+    Read-only: the API sets it.
+    """
+
+    scheme: str | None = _p.Field(default=None)
+    """URI scheme of the endpoint, for example kafka, postgresql, https
+
+    Read-only: the API sets it.
+    """
+
+    ssl: bool | None = _p.Field(default=None)
+    """Whether TLS is enabled on this endpoint
+
+    Read-only: the API sets it.
+    """
+
+    ssl_mode: PublicCloudDatabaseSSLModeEnum | None = _p.Field(
+        default=None, validation_alias="sslMode", serialization_alias="sslMode"
+    )
+    """TLS verification mode of the endpoint
+
+    Read-only: the API sets it.
+    """
+
+    uri: str | None = _p.Field(default=None)
+    """Full connection URI combining scheme, domain, port, and path
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseEndpointComponentEnum(_gen.OpenStrEnum):
+    """Component exposed by a connection endpoint of a managed database service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CLICKHOUSE = "CLICKHOUSE"
+    GRAFANA = "GRAFANA"
+    KAFKA = "KAFKA"
+    KAFKA_CONNECT = "KAFKA_CONNECT"
+    KAFKA_REST = "KAFKA_REST"
+    KAFKA_SCHEMA_REGISTRY = "KAFKA_SCHEMA_REGISTRY"
+    MONGODB = "MONGODB"
+    MYSQL = "MYSQL"
+    OPENSEARCH = "OPENSEARCH"
+    OPENSEARCH_DASHBOARDS = "OPENSEARCH_DASHBOARDS"
+    POSTGRESQL = "POSTGRESQL"
+    VALKEY = "VALKEY"
+
+
+class PublicCloudDatabaseEngineCapability(_gen.BaseModel):
+    """Capability definition for a specific database engine"""
+
+    category: PublicCloudDatabaseCategoryEnum | None = _p.Field(default=None)
+    """Category of the engine (database or analytics)
+
+    Read-only: the API sets it.
+    """
+
+    default_version: str | None = _p.Field(
+        default=None, validation_alias="defaultVersion", serialization_alias="defaultVersion"
+    )
+    """Version used when no version is specified at service creation
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable description of the engine
+
+    Read-only: the API sets it.
+    """
+
+    lifecycle: PublicCloudDatabaseAvailabilityLifecycle | None = _p.Field(default=None)
+    """Lifecycle information of the engine
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Engine name
+
+    Read-only: the API sets it.
+    """
+
+    order: int | None = _p.Field(default=None)
+    """Display order
+
+    Read-only: the API sets it.
+    """
+
+    ssl_modes: list[str] | None = _p.Field(
+        default=None, validation_alias="sslModes", serialization_alias="sslModes"
+    )
+    """Supported TLS modes for connections
+
+    Read-only: the API sets it.
+    """
+
+    storage: PublicCloudDatabaseCapabilitiesEngineStorageStrategyEnum | None = _p.Field(
+        default=None
+    )
+    """Storage strategy of the engine
+
+    Read-only: the API sets it.
+    """
+
+    tags: list[str] | None = _p.Field(default=None)
+    """Display tags
+
+    Read-only: the API sets it.
+    """
+
+    versions: list[PublicCloudDatabaseEngineVersion] | None = _p.Field(default=None)
+    """Versions available for this engine
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseEngineEnum(_gen.OpenStrEnum):
+    """Database engine type of the managed database service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CLICKHOUSE = "CLICKHOUSE"
+    GRAFANA = "GRAFANA"
+    KAFKA = "KAFKA"
+    KAFKA_CONNECT = "KAFKA_CONNECT"
+    KAFKA_MIRROR_MAKER = "KAFKA_MIRROR_MAKER"
+    MONGODB = "MONGODB"
+    MYSQL = "MYSQL"
+    OPENSEARCH = "OPENSEARCH"
+    POSTGRESQL = "POSTGRESQL"
+    VALKEY = "VALKEY"
+
+
+class PublicCloudDatabaseEngineVersion(_gen.BaseModel):
+    """A version available for a database engine"""
+
+    default: bool | None = _p.Field(default=None)
+    """Whether this is the default version for the engine
+
+    Read-only: the API sets it.
+    """
+
+    lifecycle: PublicCloudDatabaseAvailabilityLifecycle | None = _p.Field(default=None)
+    """Lifecycle information of the version
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Version name
+
+    Read-only: the API sets it.
+    """
+
+    tags: list[str] | None = _p.Field(default=None)
+    """Display tags
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseHostMetric(_gen.BaseModel):
+    """Metric datapoints from a specific host"""
+
+    data_points: list[PublicCloudDatabaseDataPoint] | None = _p.Field(
+        default=None, validation_alias="dataPoints", serialization_alias="dataPoints"
+    )
+    """List of metric samples
+
+    Read-only: the API sets it.
+    """
+
+    hostname: str | None = _p.Field(default=None)
+    """Name of the originating host
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseIntegration(_gen.BaseModel):
+    """An integration linking two managed database services"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    destination_service_id: str | None = _p.Field(
+        default=None,
+        validation_alias="destinationServiceId",
+        serialization_alias="destinationServiceId",
+    )
+    """Identifier of the destination service. Null for external integrations.
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the integration
+
+    Read-only: the API sets it.
+    """
+
+    parameters: dict[str, str] | None = _p.Field(default=None)
+    """Engine-specific configuration parameters for the integration
+
+    Read-only: the API sets it.
+    """
+
+    source_service_id: str | None = _p.Field(
+        default=None, validation_alias="sourceServiceId", serialization_alias="sourceServiceId"
+    )
+    """Identifier of the source service
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseIntegrationStatusEnum | None = _p.Field(default=None)
+    """Current readiness status of the integration
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseIntegrationTypeEnum | None = _p.Field(default=None)
+    """Type of the integration
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseIntegrationCreation(_gen.BaseModel):
+    """Input parameters for creating an integration between managed database services"""
+
+    destination_service_id: str = _p.Field(
+        validation_alias="destinationServiceId", serialization_alias="destinationServiceId"
+    )
+    """Identifier of the destination service. Compatible source and destination engine pairs can be retrieved from the capabilities endpoint."""
+
+    parameters: dict[str, str] | None = _p.Field(default=None)
+    """Engine-specific configuration parameters for the integration"""
+
+    source_service_id: str = _p.Field(
+        validation_alias="sourceServiceId", serialization_alias="sourceServiceId"
+    )
+    """Identifier of the source service"""
+
+    type: PublicCloudDatabaseIntegrationTypeEnum = _p.Field()
+    """Type of the integration"""
+
+
+class PublicCloudDatabaseIntegrationStatusEnum(_gen.OpenStrEnum):
+    """Readiness status of a managed database integration
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "CREATING"
+    DELETING = "DELETING"
+    ERROR = "ERROR"
+    READY = "READY"
+    UPDATING = "UPDATING"
+
+
+class PublicCloudDatabaseIntegrationTypeEnum(_gen.OpenStrEnum):
+    """Type of integration between two managed database services
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    GRAFANA_DASHBOARD = "GRAFANA_DASHBOARD"
+    GRAFANA_DATASOURCE = "GRAFANA_DATASOURCE"
+    KAFKA_CONNECT = "KAFKA_CONNECT"
+    KAFKA_LOGS = "KAFKA_LOGS"
+    KAFKA_MIRROR_MAKER = "KAFKA_MIRROR_MAKER"
+    OPENSEARCH_LOGS = "OPENSEARCH_LOGS"
+    POSTGRESQL_METRICS = "POSTGRESQL_METRICS"
+    PROMETHEUS = "PROMETHEUS"
+    RSYSLOG = "RSYSLOG"
+
+
+class PublicCloudDatabaseKindEnum(_gen.OpenStrEnum):
+    """Kind of logs forwarded for the managed database and analytics service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CUSTOMER_LOGS = "CUSTOMER_LOGS"
+
+
+class PublicCloudDatabaseMaintenanceCurrentState(_gen.BaseModel):
+    """Current maintenance window configuration of a managed database service"""
+
+    start_time_utc: str | None = _p.Field(
+        default=None, validation_alias="startTimeUtc", serialization_alias="startTimeUtc"
+    )
+    """Preferred start time for maintenance windows, in HH:MM UTC format
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseMaintenanceReplaceSpec(_gen.BaseModel):
+    """Desired maintenance window configuration for a managed database service, given in full"""
+
+    start_time_utc: str = _p.Field(
+        validation_alias="startTimeUtc", serialization_alias="startTimeUtc"
+    )
+    """Preferred start time for maintenance windows, in HH:MM UTC format"""
+
+
+class PublicCloudDatabaseMaintenanceSpec(_gen.BaseModel):
+    """Desired maintenance window configuration for a managed database service"""
+
+    start_time_utc: str | None = _p.Field(
+        default=None, validation_alias="startTimeUtc", serialization_alias="startTimeUtc"
+    )
+    """Preferred start time for maintenance windows, in HH:MM UTC format"""
+
+
+class PublicCloudDatabaseMaintenanceStatusEnum(_gen.OpenStrEnum):
+    """Status of a scheduled maintenance window
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    APPLIED = "APPLIED"
+    APPLYING = "APPLYING"
+    ERROR = "ERROR"
+    SCHEDULED = "SCHEDULED"
+
+
+class PublicCloudDatabaseMaintenanceWindow(_gen.BaseModel):
+    """A scheduled maintenance window for a managed database service"""
+
+    applied_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="appliedAt", serialization_alias="appliedAt"
+    )
+    """Date and time at which the maintenance was applied. Null when not yet applied.
+
+    Read-only: the API sets it.
+    """
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable description of the maintenance operations to be performed
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the maintenance window
+
+    Read-only: the API sets it.
+    """
+
+    scheduled_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="scheduledAt", serialization_alias="scheduledAt"
+    )
+    """Date and time at which the maintenance window is scheduled to start
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseMaintenanceStatusEnum | None = _p.Field(default=None)
+    """Current status of the maintenance window
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseMetric(_gen.BaseModel):
+    """Metric data for a managed database service"""
+
+    metrics: list[PublicCloudDatabaseHostMetric] | None = _p.Field(default=None)
+    """Metric values for each host in the cluster
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the metric
+
+    Read-only: the API sets it.
+    """
+
+    unit: PublicCloudDatabaseMetricUnitEnum | None = _p.Field(default=None)
+    """Unit of the metric values
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseMetricPeriodEnum(_gen.OpenStrEnum):
+    """Supported time periods for metric queries
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    LAST_DAY = "LAST_DAY"
+    LAST_HOUR = "LAST_HOUR"
+    LAST_MONTH = "LAST_MONTH"
+    LAST_WEEK = "LAST_WEEK"
+    LAST_YEAR = "LAST_YEAR"
+
+
+class PublicCloudDatabaseMetricUnitEnum(_gen.OpenStrEnum):
+    """Unit types for metric values
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    BYTES = "BYTES"
+    BYTES_PER_SECOND = "BYTES_PER_SECOND"
+    GIGABYTES = "GIGABYTES"
+    GIGABYTES_PER_HOUR = "GIGABYTES_PER_HOUR"
+    MEGABYTES = "MEGABYTES"
+    MEGABYTES_PER_SECOND = "MEGABYTES_PER_SECOND"
+    MILLISECONDS = "MILLISECONDS"
+    PERCENT = "PERCENT"
+    SCALAR = "SCALAR"
+    SCALAR_PER_SECOND = "SCALAR_PER_SECOND"
+    SECONDS = "SECONDS"
+    UNKNOWN = "UNKNOWN"
+
+
+class PublicCloudDatabaseNetworkCurrentState(_gen.BaseModel):
+    """Current network configuration of a managed database service"""
+
+    authorized_ips: PublicCloudDatabaseAuthorizedIPs | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """Current IP authorization configuration of the service
+
+    Read-only: the API sets it.
+    """
+
+    network_id: str | None = _p.Field(
+        default=None, validation_alias="networkId", serialization_alias="networkId"
+    )
+    """Private network identifier this service is attached to
+
+    Read-only: the API sets it.
+    """
+
+    public: bool | None = _p.Field(default=None)
+    """True while the service is published on a public address, false while it is not. Null for an engine or a service that does not support public exposure.
+
+    Read-only: the API sets it.
+    """
+
+    subnet_id: str | None = _p.Field(
+        default=None, validation_alias="subnetId", serialization_alias="subnetId"
+    )
+    """Subnet identifier within the private network
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseNetworkEnum(_gen.OpenStrEnum):
+    """Network type of the managed database service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    PRIVATE = "PRIVATE"
+    PUBLIC = "PUBLIC"
+
+
+class PublicCloudDatabaseNetworkReplaceSpec(_gen.BaseModel):
+    """Replaceable network configuration for a managed database service. Network and subnet identifiers are immutable after creation. Public exposure is not part of it: a replacement keeps it as it is, and a partial update changes it."""
+
+    authorized_ips: PublicCloudDatabaseAuthorizedIPsReplace = _p.Field(
+        validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """IP authorization configuration to apply to the service"""
+
+
+class PublicCloudDatabaseNetworkSpecWritable(_gen.BaseModel):
+    """Network configuration for a managed database service. Without the read-only fields, which the API sets."""
+
+    authorized_ips: PublicCloudDatabaseAuthorizedIPsWritable | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """IP authorization configuration to apply to the service"""
+
+    network_id: str | None = _p.Field(
+        default=None, validation_alias="networkId", serialization_alias="networkId"
+    )
+    """Private network identifier to attach the service to. Immutable after creation."""
+
+    public: bool | None = _p.Field(default=None)
+    """Set to true to publish the service on a public address once it is created: a public IP address in front of the service, and a public domain name with TLS. The authorized IPs apply to the public address as they do to the private one. Null or absent keeps the service private. Engines and services that do not support public exposure ignore this field."""
+
+    subnet_id: str | None = _p.Field(
+        default=None, validation_alias="subnetId", serialization_alias="subnetId"
+    )
+    """Subnet identifier within the private network. Immutable after creation."""
+
+
+class PublicCloudDatabaseNetworkUpdateSpec(_gen.BaseModel):
+    """Updatable network configuration for a managed database service. Network and subnet identifiers are immutable after creation."""
+
+    authorized_ips: PublicCloudDatabaseAuthorizedIPs | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """IP authorization configuration to apply to the service"""
+
+    public: bool | None = _p.Field(default=None)
+    """Set to true to publish the service on a public address: a public IP address in front of the service, and a public domain name with TLS. Set to false to take it off that address. The authorized IPs apply to the public address as they do to the private one. Null or absent keeps the current exposure. Engines and services that do not support public exposure ignore this field."""
+
+    def writable(self) -> PublicCloudDatabaseNetworkUpdateSpecWritable:
+        """This object as a PublicCloudDatabaseNetworkUpdateSpecWritable, the form a request body takes.
+
+        It has no read-only field, at any depth. Change what you need in it, then send it.
+        It is a deep copy: this object stays as it was.
+        """
+        return _gen.writable(self, PublicCloudDatabaseNetworkUpdateSpecWritable)
+
+
+class PublicCloudDatabaseNetworkUpdateSpecWritable(_gen.BaseModel):
+    """PublicCloudDatabaseNetworkUpdateSpec without its read-only fields, which the API sets: the form a request body takes."""
+
+    authorized_ips: PublicCloudDatabaseAuthorizedIPsWritable | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """IP authorization configuration to apply to the service"""
+
+    public: bool | None = _p.Field(default=None)
+    """Set to true to publish the service on a public address: a public IP address in front of the service, and a public domain name with TLS. Set to false to take it off that address. The authorized IPs apply to the public address as they do to the private one. Null or absent keeps the current exposure. Engines and services that do not support public exposure ignore this field."""
+
+
+class PublicCloudDatabaseNode(_gen.BaseModel):
+    """A cluster node belonging to a managed database service"""
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the node was created
+
+    Read-only: the API sets it.
+    """
+
+    flavor: str | None = _p.Field(default=None)
+    """Compute flavor of the node
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the node
+
+    Read-only: the API sets it.
+    """
+
+    location: PublicCloudCommonLocation | None = _p.Field(default=None)
+    """Location of this node
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the node
+
+    Read-only: the API sets it.
+    """
+
+    port: int | None = _p.Field(default=None)
+    """TCP port on which the node listens
+
+    Read-only: the API sets it.
+    """
+
+    role: PublicCloudDatabaseNodeRoleEnum | None = _p.Field(default=None)
+    """Role of this node within the cluster
+
+    Read-only: the API sets it.
+    """
+
+    status: CommonResourceStatusEnum | None = _p.Field(default=None)
+    """Current readiness status of the node
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseNodeRoleEnum(_gen.OpenStrEnum):
+    """Role of a node within a managed database service cluster
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ANALYTICS = "ANALYTICS"
+    PRIMARY = "PRIMARY"
+    SECONDARY = "SECONDARY"
+    STANDBY = "STANDBY"
+
+
+class PublicCloudDatabasePrometheusAccess(_gen.BaseModel):
+    """Prometheus credentials returned after a credential reset"""
+
+    password: str | None = _p.Field(default=None)
+    """Password for Prometheus authentication
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Username for Prometheus authentication
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabasePrometheusEndpoint(_gen.BaseModel):
+    """Prometheus scraping endpoint for a managed database service"""
+
+    targets: list[PublicCloudDatabasePrometheusTarget] | None = _p.Field(default=None)
+    """Scraping targets
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Username for Prometheus authentication
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabasePrometheusTarget(_gen.BaseModel):
+    """A Prometheus scraping target"""
+
+    host: str | None = _p.Field(default=None)
+    """Hostname of the target
+
+    Read-only: the API sets it.
+    """
+
+    port: int | None = _p.Field(default=None)
+    """Port of the target
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseQueryCancelRequest(_gen.BaseModel):
+    """Request to cancel a running query"""
+
+    terminate: bool | None = _p.Field(default=None)
+    """Whether to forcefully terminate the query instead of gracefully canceling it"""
+
+
+class PublicCloudDatabaseQueryCancelResult(_gen.BaseModel):
+    """Result of a query cancellation request"""
+
+    success: bool | None = _p.Field(default=None)
+    """Whether the query was successfully canceled
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseQueryStatistic(_gen.BaseModel):
+    """Statistics for a single query pattern on a managed database service"""
+
+    calls: int | None = _p.Field(default=None)
+    """Number of times this query pattern has been executed
+
+    Read-only: the API sets it.
+    """
+
+    database_name: str | None = _p.Field(
+        default=None, validation_alias="databaseName", serialization_alias="databaseName"
+    )
+    """Name of the database
+
+    Read-only: the API sets it.
+    """
+
+    digest: str | None = _p.Field(default=None)
+    """Digest hash of the normalized query
+
+    Read-only: the API sets it.
+    """
+
+    first_seen: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="firstSeen", serialization_alias="firstSeen"
+    )
+    """Timestamp of the first execution
+
+    Read-only: the API sets it.
+    """
+
+    last_seen: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastSeen", serialization_alias="lastSeen"
+    )
+    """Timestamp of the most recent execution
+
+    Read-only: the API sets it.
+    """
+
+    max_time: float | None = _p.Field(
+        default=None, validation_alias="maxTime", serialization_alias="maxTime"
+    )
+    """Maximum execution time in milliseconds
+
+    Read-only: the API sets it.
+    """
+
+    mean_time: float | None = _p.Field(
+        default=None, validation_alias="meanTime", serialization_alias="meanTime"
+    )
+    """Mean execution time in milliseconds
+
+    Read-only: the API sets it.
+    """
+
+    min_time: float | None = _p.Field(
+        default=None, validation_alias="minTime", serialization_alias="minTime"
+    )
+    """Minimum execution time in milliseconds
+
+    Read-only: the API sets it.
+    """
+
+    query: str | None = _p.Field(default=None)
+    """Representative SQL text of the query pattern
+
+    Read-only: the API sets it.
+    """
+
+    rows: int | None = _p.Field(default=None)
+    """Total number of rows retrieved or affected
+
+    Read-only: the API sets it.
+    """
+
+    total_time: float | None = _p.Field(
+        default=None, validation_alias="totalTime", serialization_alias="totalTime"
+    )
+    """Total cumulative execution time in milliseconds
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Name of the user who executed the query
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseRestoreRequest(_gen.BaseModel):
+    """Request to restore a backup"""
+
+    point_in_time: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="pointInTime", serialization_alias="pointInTime"
+    )
+    """Point in time to restore to. When null, the backup is restored as-is."""
+
+
+class PublicCloudDatabaseRole(_gen.BaseModel):
+    """A role that can be assigned to users on a managed database service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the role
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the role
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseSSLModeEnum(_gen.OpenStrEnum):
+    """SSL mode of the connection pool of the managed database and analytics service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    REQUIRE = "REQUIRE"
+
+
+class PublicCloudDatabaseService(_gen.BaseModel):
+    """A managed database service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the service was created
+
+    Read-only: the API sets it.
+    """
+
+    current_state: PublicCloudDatabaseServiceCurrentState | None = _p.Field(
+        default=None, validation_alias="currentState", serialization_alias="currentState"
+    )
+    """Current configuration deployed on the service
+
+    Read-only: the API sets it.
+    """
+
+    current_tasks: list[CommonCurrentTask] | None = _p.Field(
+        default=None, validation_alias="currentTasks", serialization_alias="currentTasks"
+    )
+    """Asynchronous operations currently running on the service
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the service
+
+    Read-only: the API sets it.
+    """
+
+    resource_status: CommonResourceStatusEnum | None = _p.Field(
+        default=None, validation_alias="resourceStatus", serialization_alias="resourceStatus"
+    )
+    """Readiness status of the service. A new target specification is accepted only in READY status.
+
+    Read-only: the API sets it.
+    """
+
+    target_spec: PublicCloudDatabaseServiceTargetSpec | None = _p.Field(
+        default=None, validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Last requested target specification for the service
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the service
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseServiceCreationTargetSpecWritable(_gen.BaseModel):
+    """Desired state of a managed database service at creation time. Extends the update target specification with immutable creation-time fields. Without the read-only fields, which the API sets."""
+
+    backup: PublicCloudDatabaseBackupSpec | None = _p.Field(default=None)
+    """Backup configuration for the new service"""
+
+    deletion_protected: bool | None = _p.Field(
+        default=None, validation_alias="deletionProtected", serialization_alias="deletionProtected"
+    )
+    """Whether to protect this service from accidental deletion. Defaults to false."""
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable description of the service"""
+
+    flavor: str = _p.Field()
+    """Compute flavor for the nodes of the cluster. All the nodes of a cluster share the same flavor. Available flavors can be retrieved from the capabilities endpoint."""
+
+    fork_source_backup_id: str | None = _p.Field(
+        default=None,
+        validation_alias="forkSourceBackupId",
+        serialization_alias="forkSourceBackupId",
+    )
+    """Identifier of the backup to restore from when forking. Mutually exclusive with forkSourcePointInTime. When both are null and forkSourceServiceId is set, the latest backup is used."""
+
+    fork_source_point_in_time: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="forkSourcePointInTime",
+        serialization_alias="forkSourcePointInTime",
+    )
+    """Point-in-time to restore from when forking. Mutually exclusive with forkSourceBackupId. Requires the source service to have PITR enabled."""
+
+    fork_source_service_id: str | None = _p.Field(
+        default=None,
+        validation_alias="forkSourceServiceId",
+        serialization_alias="forkSourceServiceId",
+    )
+    """Identifier of an existing service to fork from. When set, the new service is created from a backup of the source service."""
+
+    maintenance_window: PublicCloudDatabaseMaintenanceSpec | None = _p.Field(
+        default=None, validation_alias="maintenanceWindow", serialization_alias="maintenanceWindow"
+    )
+    """Maintenance window configuration for the service"""
+
+    network: PublicCloudDatabaseNetworkSpecWritable | None = _p.Field(default=None)
+    """Network configuration for the new service"""
+
+    nodes_count: int | None = _p.Field(
+        default=None, validation_alias="nodesCount", serialization_alias="nodesCount"
+    )
+    """Number of nodes composing the cluster. When null, the minimum node count of the plan is applied. The accepted range for a given plan is exposed as specifications.nodes.minimum and specifications.nodes.maximum on the availability endpoint."""
+
+    plan: str = _p.Field()
+    """Service plan. Available plans can be retrieved from the capabilities endpoint."""
+
+    prometheus_enabled: bool | None = _p.Field(
+        default=None, validation_alias="prometheusEnabled", serialization_alias="prometheusEnabled"
+    )
+    """Whether to enable Prometheus monitoring on this service"""
+
+    region: CommonRegionEnum | str = _p.Field(union_mode="left_to_right")
+    """Region in which the nodes of the cluster are deployed. All the nodes of a cluster share the same region. Immutable after creation. Available regions can be retrieved from the availability endpoint."""
+
+    storage: PublicCloudDatabaseStorageWritable | None = _p.Field(default=None)
+    """Storage configuration for the service. Applies only to engines using block storage."""
+
+    version: str = _p.Field()
+    """Engine version to deploy on the cluster. Available versions can be retrieved from the capabilities endpoint."""
+
+
+class PublicCloudDatabaseServiceCreationWritable(_gen.BaseModel):
+    """Input parameters for creating a managed database service. Without the read-only fields, which the API sets."""
+
+    target_spec: PublicCloudDatabaseServiceCreationTargetSpecWritable = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Desired configuration of the new service"""
+
+
+class PublicCloudDatabaseServiceCurrentState(_gen.BaseModel):
+    """Current state of a managed database service as deployed by the system"""
+
+    advanced_configuration: dict[str, str] | None = _p.Field(
+        default=None,
+        validation_alias="advancedConfiguration",
+        serialization_alias="advancedConfiguration",
+    )
+    """Current advanced configuration key-value pairs. Null for engines that do not support advanced configuration.
+
+    Read-only: the API sets it.
+    """
+
+    backup: PublicCloudDatabaseBackupCurrentState | None = _p.Field(default=None)
+    """Current backup configuration of the service
+
+    Read-only: the API sets it.
+    """
+
+    capabilities: dict[str, PublicCloudDatabaseServiceCapabilityActions] | None = _p.Field(
+        default=None
+    )
+    """Map of capabilities available for this service, keyed by capability name. Each entry describes which CRUD actions are enabled or disabled.
+
+    Read-only: the API sets it.
+    """
+
+    deletion_protected: bool | None = _p.Field(
+        default=None, validation_alias="deletionProtected", serialization_alias="deletionProtected"
+    )
+    """Whether deletion of this service is protected. A protected service cannot be deleted until this flag is set to false.
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable description of the service
+
+    Read-only: the API sets it.
+    """
+
+    endpoints: list[PublicCloudDatabaseEndpoint] | None = _p.Field(default=None)
+    """Connection endpoints exposed by this service
+
+    Read-only: the API sets it.
+    """
+
+    engine_capabilities: PublicCloudDatabaseServiceEngineCapabilities | None = _p.Field(
+        default=None,
+        validation_alias="engineCapabilities",
+        serialization_alias="engineCapabilities",
+    )
+    """Engine-specific capabilities of this service
+
+    Read-only: the API sets it.
+    """
+
+    flavor: str | None = _p.Field(default=None)
+    """Compute flavor used by the nodes of this service. Null when flavor is determined by the plan.
+
+    Read-only: the API sets it.
+    """
+
+    maintenance_window: PublicCloudDatabaseMaintenanceCurrentState | None = _p.Field(
+        default=None, validation_alias="maintenanceWindow", serialization_alias="maintenanceWindow"
+    )
+    """Current maintenance window configuration of the service
+
+    Read-only: the API sets it.
+    """
+
+    network: PublicCloudDatabaseNetworkCurrentState | None = _p.Field(default=None)
+    """Current network configuration of the service
+
+    Read-only: the API sets it.
+    """
+
+    nodes: list[PublicCloudDatabaseNode] | None = _p.Field(default=None)
+    """Nodes composing this service cluster
+
+    Read-only: the API sets it.
+    """
+
+    nodes_count: int | None = _p.Field(
+        default=None, validation_alias="nodesCount", serialization_alias="nodesCount"
+    )
+    """Number of nodes currently composing the cluster. While the cluster is being created or scaled, this reflects the number of nodes requested rather than the number already deployed in nodes.
+
+    Read-only: the API sets it.
+    """
+
+    plan: str | None = _p.Field(default=None)
+    """Service plan currently applied
+
+    Read-only: the API sets it.
+    """
+
+    prometheus_enabled: bool | None = _p.Field(
+        default=None, validation_alias="prometheusEnabled", serialization_alias="prometheusEnabled"
+    )
+    """Whether Prometheus monitoring is enabled on this service
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseServiceStatusEnum | None = _p.Field(default=None)
+    """Operational status of the service as reported by the database engine
+
+    Read-only: the API sets it.
+    """
+
+    storage: PublicCloudDatabaseStorage | None = _p.Field(default=None)
+    """Storage configuration of the service. Null for engines that do not use block storage.
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Engine version currently running
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseServiceEngineCapabilities(_gen.BaseModel):
+    """Engine-specific capabilities of a managed database or analytics service"""
+
+    advanced_configuration_properties: (
+        list[PublicCloudDatabaseCapabilitiesAdvancedConfigurationProperty] | None
+    ) = _p.Field(
+        default=None,
+        validation_alias="advancedConfigurationProperties",
+        serialization_alias="advancedConfigurationProperties",
+    )
+    """Available advanced configuration properties and their constraints. Null for engines that do not support advanced configuration.
+
+    Read-only: the API sets it.
+    """
+
+    backup_regions: list[str] | None = _p.Field(
+        default=None, validation_alias="backupRegions", serialization_alias="backupRegions"
+    )
+    """Available regions for backup storage. Null for engines that do not support cross-region backups.
+
+    Read-only: the API sets it.
+    """
+
+    categories: list[str] | None = _p.Field(default=None)
+    """Available command categories. Only applicable to Valkey services.
+
+    Read-only: the API sets it.
+    """
+
+    commands: list[str] | None = _p.Field(default=None)
+    """Available commands. Only applicable to Valkey services.
+
+    Read-only: the API sets it.
+    """
+
+    connectors: list[PublicCloudDatabaseKafkaConnectCapabilitiesConnectorCapability] | None = (
+        _p.Field(default=None)
+    )
+    """Available connector types. Only applicable to Kafka Connect services.
+
+    Read-only: the API sets it.
+    """
+
+    integrations: list[PublicCloudDatabaseCapabilitiesIntegrationCapability] | None = _p.Field(
+        default=None
+    )
+    """Available integration types and their parameters
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseServiceReplace(_gen.BaseModel):
+    """Input parameters for replacing the configuration of a managed database service. Every field is required: the request describes the whole desired configuration."""
+
+    target_spec: PublicCloudDatabaseServiceReplaceTargetSpec = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Desired configuration of the service"""
+
+
+class PublicCloudDatabaseServiceReplaceTargetSpec(_gen.BaseModel):
+    """Desired state of a managed database service, given in full. Changes are applied asynchronously."""
+
+    advanced_configuration: dict[str, str] | None = _p.Field(
+        validation_alias="advancedConfiguration", serialization_alias="advancedConfiguration"
+    )
+    """Advanced configuration key-value pairs to apply to the service. Null for engines that do not support advanced configuration."""
+
+    backup: PublicCloudDatabaseBackupReplaceSpec | None = _p.Field()
+    """Backup configuration for the service. Null for engines that do not support backups."""
+
+    deletion_protected: bool = _p.Field(
+        validation_alias="deletionProtected", serialization_alias="deletionProtected"
+    )
+    """Whether to protect this service from accidental deletion"""
+
+    description: str | None = _p.Field()
+    """Human-readable description of the service. Null removes the description."""
+
+    flavor: str = _p.Field()
+    """Desired compute flavor for the nodes. Available flavors can be retrieved from the capabilities endpoint."""
+
+    maintenance_window: PublicCloudDatabaseMaintenanceReplaceSpec = _p.Field(
+        validation_alias="maintenanceWindow", serialization_alias="maintenanceWindow"
+    )
+    """Maintenance window configuration for the service"""
+
+    network: PublicCloudDatabaseNetworkReplaceSpec = _p.Field()
+    """Updatable network configuration for the service. Only IP restrictions can be modified after creation."""
+
+    nodes_count: int = _p.Field(validation_alias="nodesCount", serialization_alias="nodesCount")
+    """Desired number of nodes composing the cluster. Increasing or decreasing this value scales the cluster. The value must stay within the range accepted by the plan, exposed as specifications.nodes.minimum and specifications.nodes.maximum on the availability endpoint."""
+
+    plan: str = _p.Field()
+    """Desired service plan. Available plans can be retrieved from the capabilities endpoint."""
+
+    prometheus_enabled: bool | None = _p.Field(
+        validation_alias="prometheusEnabled", serialization_alias="prometheusEnabled"
+    )
+    """Whether to enable Prometheus monitoring on this service. Null for engines that do not expose a Prometheus endpoint."""
+
+    storage: PublicCloudDatabaseStorageReplaceSpec | None = _p.Field()
+    """Updatable storage configuration. Only size can be modified after creation. Null for engines that do not use block storage."""
+
+    version: str = _p.Field()
+    """Desired engine version. Available versions can be retrieved from the capabilities endpoint."""
+
+
+class PublicCloudDatabaseServiceTargetSpec(_gen.BaseModel):
+    """Desired state of a managed database service. Changes are applied asynchronously."""
+
+    advanced_configuration: dict[str, str] | None = _p.Field(
+        default=None,
+        validation_alias="advancedConfiguration",
+        serialization_alias="advancedConfiguration",
+    )
+    """Advanced configuration key-value pairs requested for the service. Null for engines that do not support advanced configuration.
+
+    Read-only: the API sets it.
+    """
+
+    backup: PublicCloudDatabaseBackupSpec | None = _p.Field(default=None)
+    """Requested backup configuration for the service
+
+    Read-only: the API sets it.
+    """
+
+    deletion_protected: bool | None = _p.Field(
+        default=None, validation_alias="deletionProtected", serialization_alias="deletionProtected"
+    )
+    """Whether deletion protection is requested on this service
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable description of the service
+
+    Read-only: the API sets it.
+    """
+
+    flavor: str | None = _p.Field(default=None)
+    """Requested compute flavor for the nodes
+
+    Read-only: the API sets it.
+    """
+
+    maintenance_window: PublicCloudDatabaseMaintenanceSpec | None = _p.Field(
+        default=None, validation_alias="maintenanceWindow", serialization_alias="maintenanceWindow"
+    )
+    """Requested maintenance window configuration for the service
+
+    Read-only: the API sets it.
+    """
+
+    network: PublicCloudDatabaseNetworkUpdateSpec | None = _p.Field(default=None)
+    """Requested network configuration for the service. Only IP restrictions can change after creation.
+
+    Read-only: the API sets it.
+    """
+
+    nodes_count: int | None = _p.Field(
+        default=None, validation_alias="nodesCount", serialization_alias="nodesCount"
+    )
+    """Requested number of nodes composing the cluster
+
+    Read-only: the API sets it.
+    """
+
+    plan: str | None = _p.Field(default=None)
+    """Requested service plan
+
+    Read-only: the API sets it.
+    """
+
+    prometheus_enabled: bool | None = _p.Field(
+        default=None, validation_alias="prometheusEnabled", serialization_alias="prometheusEnabled"
+    )
+    """Whether Prometheus monitoring is requested on this service. Null for engines that do not expose a Prometheus endpoint.
+
+    Read-only: the API sets it.
+    """
+
+    storage: PublicCloudDatabaseStorageUpdateSpec | None = _p.Field(default=None)
+    """Requested storage configuration. Only size can change after creation. Null for engines that do not use block storage.
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Requested engine version
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseServiceUpdateTargetSpecWritable(_gen.BaseModel):
+    """Changes to apply to a managed database service. Fields left out keep their current value. Changes are applied asynchronously. Without the read-only fields, which the API sets."""
+
+    advanced_configuration: dict[str, str] | None = _p.Field(
+        default=None,
+        validation_alias="advancedConfiguration",
+        serialization_alias="advancedConfiguration",
+    )
+    """Advanced configuration key-value pairs to apply to the service. Null for engines that do not support advanced configuration."""
+
+    backup: PublicCloudDatabaseBackupSpec | None = _p.Field(default=None)
+    """Backup configuration for the service"""
+
+    deletion_protected: bool | None = _p.Field(
+        default=None, validation_alias="deletionProtected", serialization_alias="deletionProtected"
+    )
+    """Whether to protect this service from accidental deletion. Omit or set to null to leave the current setting unchanged."""
+
+    description: str | None = _p.Field(default=None)
+    """Human-readable description of the service"""
+
+    flavor: str | None = _p.Field(default=None)
+    """Desired compute flavor for the nodes. Available flavors can be retrieved from the capabilities endpoint."""
+
+    maintenance_window: PublicCloudDatabaseMaintenanceSpec | None = _p.Field(
+        default=None, validation_alias="maintenanceWindow", serialization_alias="maintenanceWindow"
+    )
+    """Maintenance window configuration for the service"""
+
+    network: PublicCloudDatabaseNetworkUpdateSpecWritable | None = _p.Field(default=None)
+    """Updatable network configuration for the service. Only IP restrictions can be modified after creation."""
+
+    nodes_count: int | None = _p.Field(
+        default=None, validation_alias="nodesCount", serialization_alias="nodesCount"
+    )
+    """Desired number of nodes composing the cluster. Increasing or decreasing this value scales the cluster. The value must stay within the range accepted by the plan, exposed as specifications.nodes.minimum and specifications.nodes.maximum on the availability endpoint."""
+
+    plan: str | None = _p.Field(default=None)
+    """Desired service plan. Available plans can be retrieved from the capabilities endpoint."""
+
+    prometheus_enabled: bool | None = _p.Field(
+        default=None, validation_alias="prometheusEnabled", serialization_alias="prometheusEnabled"
+    )
+    """Whether to enable Prometheus monitoring on this service. Null for engines that do not expose a Prometheus endpoint."""
+
+    storage: PublicCloudDatabaseStorageUpdateSpec | None = _p.Field(default=None)
+    """Updatable storage configuration. Only size can be modified after creation. Null for engines that do not use block storage."""
+
+    version: str | None = _p.Field(default=None)
+    """Desired engine version. Available versions can be retrieved from the capabilities endpoint."""
+
+
+class PublicCloudDatabaseServiceUpdateWritable(_gen.BaseModel):
+    """Input parameters for updating a managed database service. Without the read-only fields, which the API sets."""
+
+    target_spec: PublicCloudDatabaseServiceUpdateTargetSpecWritable = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Desired configuration of the service"""
+
+
+class PublicCloudDatabaseStorage(_gen.BaseModel):
+    """Storage configuration of a managed database service"""
+
+    size: PublicCloudDatabaseUnitAndValue | None = _p.Field(default=None)
+    """Storage size allocated to the service"""
+
+    type: PublicCloudDatabaseStorageTypeEnum | None = _p.Field(default=None)
+    """Type of storage used by the service. Immutable after creation.
+
+    Read-only: the API sets it.
+    """
+
+    def writable(self) -> PublicCloudDatabaseStorageWritable:
+        """This object as a PublicCloudDatabaseStorageWritable, the form a request body takes.
+
+        It has no read-only field, at any depth. Change what you need in it, then send it.
+        It is a deep copy: this object stays as it was.
+        """
+        return _gen.writable(self, PublicCloudDatabaseStorageWritable)
+
+
+class PublicCloudDatabaseStorageReplaceSpec(_gen.BaseModel):
+    """Replaceable storage configuration for a managed database service. Storage type is immutable after creation."""
+
+    size: PublicCloudDatabaseUnitAndValueReplace = _p.Field()
+    """Storage size allocated to the service"""
+
+
+class PublicCloudDatabaseStorageTypeEnum(_gen.OpenStrEnum):
+    """Type of storage used by a managed database service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    HIGH_SPEED = "HIGH_SPEED"
+    HIGH_SPEED_GEN2 = "HIGH_SPEED_GEN2"
+
+
+class PublicCloudDatabaseStorageUnitEnum(_gen.OpenStrEnum):
+    """Unit for storage size values
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    GB = "GB"
+    MB = "MB"
+
+
+class PublicCloudDatabaseStorageUpdateSpec(_gen.BaseModel):
+    """Updatable storage configuration for a managed database service. Storage type is immutable after creation."""
+
+    size: PublicCloudDatabaseUnitAndValue | None = _p.Field(default=None)
+    """Storage size allocated to the service"""
+
+
+class PublicCloudDatabaseStorageWritable(_gen.BaseModel):
+    """PublicCloudDatabaseStorage without its read-only fields, which the API sets: the form a request body takes."""
+
+    size: PublicCloudDatabaseUnitAndValue | None = _p.Field(default=None)
+    """Storage size allocated to the service"""
+
+
+class PublicCloudDatabaseTemporaryWriteDeadline(_gen.BaseModel):
+    """Temporary write permission deadline"""
+
+    expires_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="expiresAt", serialization_alias="expiresAt"
+    )
+    """Date and time when the temporary write permissions will be revoked
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseUnitAndValue(_gen.BaseModel):
+    """A numeric size value with its associated unit"""
+
+    unit: PublicCloudDatabaseStorageUnitEnum | None = _p.Field(default=None)
+    """Unit of the value"""
+
+    value: int | None = _p.Field(default=None)
+    """Numeric value"""
+
+
+class PublicCloudDatabaseUnitAndValueReplace(_gen.BaseModel):
+    """A numeric size value with its associated unit"""
+
+    unit: PublicCloudDatabaseStorageUnitEnum = _p.Field()
+    """Unit of the value"""
+
+    value: int = _p.Field()
+    """Numeric value"""
+
+
+class PublicCloudDatabaseUser(_gen.BaseModel):
+    """A user account on a managed database or analytics service"""
+
+    admin: bool | None = _p.Field(default=None)
+    """Whether this is the service administrator, the user created automatically at provisioning time, which cannot be deleted
+
+    Read-only: the API sets it.
+    """
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the user was created
+
+    Read-only: the API sets it.
+    """
+
+    credentials_last_updated_at: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="credentialsLastUpdatedAt",
+        serialization_alias="credentialsLastUpdatedAt",
+    )
+    """Date at which the user credentials were last updated
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the user
+
+    Read-only: the API sets it.
+    """
+
+    password: str | None = _p.Field(default=None)
+    """Password of the user. Returned only on creation or password reset.
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseUserStatusEnum | None = _p.Field(default=None)
+    """Current readiness status of the user
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Login name of the user
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseUserCreation(_gen.BaseModel):
+    """Input parameters for creating a user on a managed database or analytics service"""
+
+    name: str = _p.Field()
+    """Login name of the new user"""
+
+
+class PublicCloudDatabaseUserCredentialsUpdate(_gen.BaseModel):
+    """Input parameters for resetting the credentials of a user on a managed database or analytics service"""
+
+    credentials_last_updated_at: datetime.datetime = _p.Field(
+        validation_alias="credentialsLastUpdatedAt", serialization_alias="credentialsLastUpdatedAt"
+    )
+    """Date at which the user credentials were last updated. Setting this field triggers a credential reset and returns the new password."""
+
+
+class PublicCloudDatabaseUserReplace(_gen.BaseModel):
+    """Input parameters for replacing a user on a managed service whose users are assigned roles. Every field is required: the request describes the whole user."""
+
+    roles: list[str] = _p.Field()
+    """List of roles to assign to the user. Available roles depend on the engine."""
+
+
+class PublicCloudDatabaseUserStatusEnum(_gen.OpenStrEnum):
+    """Readiness status of a managed database user
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "CREATING"
+    DELETING = "DELETING"
+    ERROR = "ERROR"
+    READY = "READY"
+    UPDATING = "UPDATING"
+
+
+class PublicCloudDatabaseUserUpdate(_gen.BaseModel):
+    """Input parameters for updating a user on a managed service whose users are assigned roles"""
+
+    credentials_last_updated_at: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="credentialsLastUpdatedAt",
+        serialization_alias="credentialsLastUpdatedAt",
+    )
+    """Date at which the user credentials were last updated. Setting this field triggers a credential reset and returns the new password."""
+
+    roles: list[str] | None = _p.Field(default=None)
+    """List of roles to assign to the user. Available roles depend on the engine."""
+
+
+class PublicCloudDatabaseUserWithRoles(_gen.BaseModel):
+    """A user account on a managed service whose users are assigned roles"""
+
+    admin: bool | None = _p.Field(default=None)
+    """Whether this is the service administrator, the user created automatically at provisioning time, which cannot be deleted
+
+    Read-only: the API sets it.
+    """
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the user was created
+
+    Read-only: the API sets it.
+    """
+
+    credentials_last_updated_at: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="credentialsLastUpdatedAt",
+        serialization_alias="credentialsLastUpdatedAt",
+    )
+    """Date at which the user credentials were last updated
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the user
+
+    Read-only: the API sets it.
+    """
+
+    password: str | None = _p.Field(default=None)
+    """Password of the user. Returned only on creation or password reset.
+
+    Read-only: the API sets it.
+    """
+
+    roles: list[str] | None = _p.Field(default=None)
+    """List of roles assigned to the user. Available roles depend on the engine.
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseUserStatusEnum | None = _p.Field(default=None)
+    """Current readiness status of the user
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Login name of the user
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseUserWithRolesCreation(_gen.BaseModel):
+    """Input parameters for creating a user on a managed service whose users are assigned roles"""
+
+    name: str = _p.Field()
+    """Login name of the new user"""
+
+    roles: list[str] | None = _p.Field(default=None)
+    """List of roles to assign to the user. Available roles depend on the engine."""
+
+
+class PublicCloudDatabaseAvailabilityActionEnum(_gen.OpenStrEnum):
+    """Action type to filter availabilities
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    FORK = "FORK"
+    READ = "READ"
+    UPDATE = "UPDATE"
+
+
+class PublicCloudDatabaseAvailabilityBackups(_gen.BaseModel):
+    """Backup availability for a database engine offer"""
+
+    available: bool | None = _p.Field(default=None)
+    """Whether backups are available for this offer
+
+    Read-only: the API sets it.
+    """
+
+    retention_days: int | None = _p.Field(
+        default=None, validation_alias="retentionDays", serialization_alias="retentionDays"
+    )
+    """Number of retention days for the backups
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseAvailabilityLifecycle(_gen.BaseModel):
+    """Lifecycle information for an availability"""
+
+    end_of_life_at: datetime.date | None = _p.Field(
+        default=None, validation_alias="endOfLifeAt", serialization_alias="endOfLifeAt"
+    )
+    """End of life date
+
+    Read-only: the API sets it.
+    """
+
+    end_of_sale_at: datetime.date | None = _p.Field(
+        default=None, validation_alias="endOfSaleAt", serialization_alias="endOfSaleAt"
+    )
+    """End of sale date
+
+    Read-only: the API sets it.
+    """
+
+    started_at: datetime.date | None = _p.Field(
+        default=None, validation_alias="startedAt", serialization_alias="startedAt"
+    )
+    """Release date
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseAvailabilityStatusEnum | None = _p.Field(default=None)
+    """Current status
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseAvailabilitySpecifications(_gen.BaseModel):
+    """Technical specifications of an availability"""
+
+    flavor: str | None = _p.Field(default=None)
+    """Flavor name
+
+    Read-only: the API sets it.
+    """
+
+    network: PublicCloudDatabaseNetworkEnum | None = _p.Field(default=None)
+    """Type of network (public or private)
+
+    Read-only: the API sets it.
+    """
+
+    nodes: PublicCloudDatabaseAvailabilitySpecificationsNodes | None = _p.Field(default=None)
+    """Node count specifications
+
+    Read-only: the API sets it.
+    """
+
+    storage: PublicCloudDatabaseAvailabilitySpecificationsStorage | None = _p.Field(default=None)
+    """Storage specifications
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseAvailabilityStatusEnum(_gen.OpenStrEnum):
+    """Status of an availability
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    BETA = "BETA"
+    DEPRECATED = "DEPRECATED"
+    END_OF_LIFE = "END_OF_LIFE"
+    END_OF_SALE = "END_OF_SALE"
+    STABLE = "STABLE"
+    UNAVAILABLE = "UNAVAILABLE"
+
+
+class PublicCloudDatabaseAvailabilitySuggestion(_gen.BaseModel):
+    """Suggested availability for a database engine"""
+
+    default: bool | None = _p.Field(default=None)
+    """Whether this suggestion is the default
+
+    Read-only: the API sets it.
+    """
+
+    engine: PublicCloudDatabaseEngineEnum | None = _p.Field(default=None)
+    """Engine name
+
+    Read-only: the API sets it.
+    """
+
+    flavor: str | None = _p.Field(default=None)
+    """Flavor name
+
+    Read-only: the API sets it.
+    """
+
+    plan: str | None = _p.Field(default=None)
+    """Plan name
+
+    Read-only: the API sets it.
+    """
+
+    region: CommonRegionEnum | None = _p.Field(default=None)
+    """Region name
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Version name
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseAvailabilityTargetEnum(_gen.OpenStrEnum):
+    """Target type to filter availabilities
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    FLAVOR = "FLAVOR"
+    PLAN = "PLAN"
+    SELF = "SELF"
+    VERSION = "VERSION"
+
+
+class PublicCloudDatabaseAvailabilitySpecificationsNodes(_gen.BaseModel):
+    """Node count specifications for an availability"""
+
+    maximum: int | None = _p.Field(default=None)
+    """Maximum number of nodes
+
+    Read-only: the API sets it.
+    """
+
+    minimum: int | None = _p.Field(default=None)
+    """Minimum number of nodes
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseAvailabilitySpecificationsStorage(_gen.BaseModel):
+    """Storage specifications for an availability"""
+
+    maximum: PublicCloudDatabaseUnitAndValue | None = _p.Field(default=None)
+    """Maximum storage size
+
+    Read-only: the API sets it.
+    """
+
+    minimum: PublicCloudDatabaseUnitAndValue | None = _p.Field(default=None)
+    """Minimum storage size
+
+    Read-only: the API sets it.
+    """
+
+    step: PublicCloudDatabaseUnitAndValue | None = _p.Field(default=None)
+    """Storage increment step between minimum and maximum
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesAdvancedConfigurationProperty(_gen.BaseModel):
+    """Description of an advanced configuration property that can be set on a service"""
+
+    default: str | None = _p.Field(default=None)
+    """Default value of the property. Null when the engine does not provide one.
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Description of the property
+
+    Read-only: the API sets it.
+    """
+
+    maximum: float | None = _p.Field(default=None)
+    """Maximum value if numeric and applicable
+
+    Read-only: the API sets it.
+    """
+
+    minimum: float | None = _p.Field(default=None)
+    """Minimum value if numeric and applicable
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Property name
+
+    Read-only: the API sets it.
+    """
+
+    requires_restart: bool | None = _p.Field(
+        default=None, validation_alias="requiresRestart", serialization_alias="requiresRestart"
+    )
+    """Whether changing the property restarts the service. Null when the service does not report it.
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseCapabilitiesAdvancedConfigurationPropertyTypeEnum | None = _p.Field(
+        default=None
+    )
+    """Data type of the property
+
+    Read-only: the API sets it.
+    """
+
+    values: list[str] | None = _p.Field(default=None)
+    """Possible values if string type and applicable
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesAdvancedConfigurationPropertyTypeEnum(_gen.OpenStrEnum):
+    """Data type of an advanced configuration property
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    BOOLEAN = "BOOLEAN"
+    DOUBLE = "DOUBLE"
+    LONG = "LONG"
+    STRING = "STRING"
+
+
+class PublicCloudDatabaseCapabilitiesDiskType(_gen.BaseModel):
+    """A disk type available for database services, with its performance specifications"""
+
+    iops_per_gigabyte: int | None = _p.Field(
+        default=None, validation_alias="iopsPerGigabyte", serialization_alias="iopsPerGigabyte"
+    )
+    """Number of IOPS per GB of disk. Null when IOPS are fixed regardless of disk size.
+
+    Read-only: the API sets it.
+    """
+
+    maximum_iops: int | None = _p.Field(
+        default=None, validation_alias="maximumIops", serialization_alias="maximumIops"
+    )
+    """Maximum IOPS per volume
+
+    Read-only: the API sets it.
+    """
+
+    maximum_throughput: float | None = _p.Field(
+        default=None, validation_alias="maximumThroughput", serialization_alias="maximumThroughput"
+    )
+    """Maximum throughput in MB/s per volume. Null when no throughput limit applies.
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the disk type
+
+    Read-only: the API sets it.
+    """
+
+    throughput_per_gigabyte: float | None = _p.Field(
+        default=None,
+        validation_alias="throughputPerGigabyte",
+        serialization_alias="throughputPerGigabyte",
+    )
+    """Throughput in MB/s per GB of disk. Null when no throughput scaling applies.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesFlavor(_gen.BaseModel):
+    """A compute flavor available for database services"""
+
+    generation: PublicCloudDatabaseCapabilitiesFlavorGenerationEnum | None = _p.Field(default=None)
+    """Generation tag used to group flavors in the order funnel
+
+    Read-only: the API sets it.
+    """
+
+    lifecycle: PublicCloudDatabaseAvailabilityLifecycle | None = _p.Field(default=None)
+    """Lifecycle information of the flavor
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the flavor
+
+    Read-only: the API sets it.
+    """
+
+    order: int | None = _p.Field(default=None)
+    """Display order
+
+    Read-only: the API sets it.
+    """
+
+    specifications: PublicCloudDatabaseCapabilitiesFlavorSpecifications | None = _p.Field(
+        default=None
+    )
+    """Technical specifications
+
+    Read-only: the API sets it.
+    """
+
+    tags: list[str] | None = _p.Field(default=None)
+    """Display tags
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesFlavorGenerationEnum(_gen.OpenStrEnum):
+    """Generation tag used to group flavors in the order funnel
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    GEN1 = "GEN1"
+    GEN2 = "GEN2"
+    GEN3 = "GEN3"
+
+
+class PublicCloudDatabaseCapabilitiesIntegrationCapability(_gen.BaseModel):
+    """An available integration type between database engines"""
+
+    destination_engine: PublicCloudDatabaseEngineEnum | None = _p.Field(
+        default=None, validation_alias="destinationEngine", serialization_alias="destinationEngine"
+    )
+    """Destination engine for the integration
+
+    Read-only: the API sets it.
+    """
+
+    parameters: list[PublicCloudDatabaseCapabilitiesIntegrationParameter] | None = _p.Field(
+        default=None
+    )
+    """Parameters for the integration
+
+    Read-only: the API sets it.
+    """
+
+    source_engine: PublicCloudDatabaseEngineEnum | None = _p.Field(
+        default=None, validation_alias="sourceEngine", serialization_alias="sourceEngine"
+    )
+    """Source engine for the integration
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseIntegrationTypeEnum | None = _p.Field(default=None)
+    """Type of the integration
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesIntegrationParameter(_gen.BaseModel):
+    """A parameter for an integration capability"""
+
+    name: str | None = _p.Field(default=None)
+    """Name of the parameter
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseCapabilitiesIntegrationParameterTypeEnum | None = _p.Field(
+        default=None
+    )
+    """Data type of the parameter
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesIntegrationParameterTypeEnum(_gen.OpenStrEnum):
+    """Data type of an integration capability parameter
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    INTEGER = "INTEGER"
+    STRING = "STRING"
+
+
+class PublicCloudDatabaseCapabilitiesOption(_gen.BaseModel):
+    """An option available for database services"""
+
+    name: str | None = _p.Field(default=None)
+    """Name of the option
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseCapabilitiesOptionTypeEnum | None = _p.Field(default=None)
+    """Data type of the option
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesOptionTypeEnum(_gen.OpenStrEnum):
+    """Data type of a capability option
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    BOOLEAN = "BOOLEAN"
+    DOUBLE = "DOUBLE"
+    DURATION = "DURATION"
+    LONG = "LONG"
+    STRING = "STRING"
+
+
+class PublicCloudDatabaseCapabilitiesPlan(_gen.BaseModel):
+    """A service plan available for database services"""
+
+    backup_retention: str | None = _p.Field(
+        default=None, validation_alias="backupRetention", serialization_alias="backupRetention"
+    )
+    """Automatic backup retention duration
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Description of the plan
+
+    Read-only: the API sets it.
+    """
+
+    lifecycle: PublicCloudDatabaseAvailabilityLifecycle | None = _p.Field(default=None)
+    """Lifecycle information of the plan
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the plan
+
+    Read-only: the API sets it.
+    """
+
+    order: int | None = _p.Field(default=None)
+    """Display order
+
+    Read-only: the API sets it.
+    """
+
+    tags: list[str] | None = _p.Field(default=None)
+    """Display tags
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesRegion(_gen.BaseModel):
+    """A region available for database services"""
+
+    lifecycle: PublicCloudDatabaseAvailabilityLifecycle | None = _p.Field(default=None)
+    """Lifecycle information of the region
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the region
+
+    Read-only: the API sets it.
+    """
+
+    order: int | None = _p.Field(default=None)
+    """Display order
+
+    Read-only: the API sets it.
+    """
+
+    tags: list[str] | None = _p.Field(default=None)
+    """Display tags
+
+    Read-only: the API sets it.
+    """
+
+    type: LocationTypeEnum | None = _p.Field(default=None)
+    """Type of the region
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseCapabilitiesEngineStorageStrategyEnum(_gen.OpenStrEnum):
+    """Storage strategy of a database engine
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DISTRIBUTED = "DISTRIBUTED"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+    REPLICATED = "REPLICATED"
+
+
+class PublicCloudDatabaseCapabilitiesFlavorSpecifications(_gen.BaseModel):
+    """Technical specifications of a compute flavor"""
+
+    memory: PublicCloudDatabaseUnitAndValue | None = _p.Field(default=None)
+    """RAM size
+
+    Read-only: the API sets it.
+    """
+
+    vcpus: int | None = _p.Field(default=None)
+    """Number of vCPU cores
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaACL(_gen.BaseModel):
+    """A Kafka topic ACL entry on a managed Kafka service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the ACL entry
+
+    Read-only: the API sets it.
+    """
+
+    permission: PublicCloudDatabaseKafkaACLPermissionEnum | None = _p.Field(default=None)
+    """Permission level granted by this ACL entry
+
+    Read-only: the API sets it.
+    """
+
+    topic: str | None = _p.Field(default=None)
+    """Topic name pattern this ACL entry applies to. Supports wildcards (*).
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Username this ACL entry applies to
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaACLCreation(_gen.BaseModel):
+    """Input parameters for creating a Kafka topic ACL entry"""
+
+    permission: PublicCloudDatabaseKafkaACLPermissionEnum = _p.Field()
+    """Permission level to grant"""
+
+    topic: str = _p.Field()
+    """Topic name pattern this ACL applies to. Use * to match all topics."""
+
+    username: str = _p.Field()
+    """Username to grant access to"""
+
+
+class PublicCloudDatabaseKafkaACLPermissionEnum(_gen.OpenStrEnum):
+    """Permission level of a Kafka topic ACL entry
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ADMIN = "ADMIN"
+    READ = "READ"
+    READ_WRITE = "READ_WRITE"
+    WRITE = "WRITE"
+
+
+class PublicCloudDatabaseKafkaPermissions(_gen.BaseModel):
+    """Available permission names for Kafka ACL entries"""
+
+    schema_registry: list[str] | None = _p.Field(
+        default=None, validation_alias="schemaRegistry", serialization_alias="schemaRegistry"
+    )
+    """Available Schema Registry permission names
+
+    Read-only: the API sets it.
+    """
+
+    topic: list[str] | None = _p.Field(default=None)
+    """Available topic permission names
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaSchemaRegistryACL(_gen.BaseModel):
+    """A Schema Registry ACL entry on a managed Kafka service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the Schema Registry ACL entry
+
+    Read-only: the API sets it.
+    """
+
+    permission: PublicCloudDatabaseKafkaSchemaRegistryACLPermissionEnum | None = _p.Field(
+        default=None
+    )
+    """Permission level granted by this ACL entry
+
+    Read-only: the API sets it.
+    """
+
+    resource: str | None = _p.Field(default=None)
+    """Schema Registry resource pattern this ACL entry applies to. Supports wildcards (*).
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Username this ACL entry applies to
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaSchemaRegistryACLCreation(_gen.BaseModel):
+    """Input parameters for creating a Kafka Schema Registry ACL entry"""
+
+    permission: PublicCloudDatabaseKafkaSchemaRegistryACLPermissionEnum = _p.Field()
+    """Permission level to grant on the Schema Registry resource"""
+
+    resource: str = _p.Field()
+    """Schema Registry resource pattern this ACL applies to. Use * to match all subjects."""
+
+    username: str = _p.Field()
+    """Username to grant access to"""
+
+
+class PublicCloudDatabaseKafkaSchemaRegistryACLPermissionEnum(_gen.OpenStrEnum):
+    """Permission level of a Kafka Schema Registry ACL entry
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    READ = "READ"
+    READ_WRITE = "READ_WRITE"
+    WRITE = "WRITE"
+
+
+class PublicCloudDatabaseKafkaTopic(_gen.BaseModel):
+    """A Kafka topic on a managed Kafka service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the topic
+
+    Read-only: the API sets it.
+    """
+
+    minimum_in_sync_replicas: int | None = _p.Field(
+        default=None,
+        validation_alias="minimumInSyncReplicas",
+        serialization_alias="minimumInSyncReplicas",
+    )
+    """Minimum number of in-sync replicas required before a write is acknowledged
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the Kafka topic
+
+    Read-only: the API sets it.
+    """
+
+    partitions: int | None = _p.Field(default=None)
+    """Number of partitions for this topic
+
+    Read-only: the API sets it.
+    """
+
+    replication: int | None = _p.Field(default=None)
+    """Replication factor for this topic
+
+    Read-only: the API sets it.
+    """
+
+    retention_bytes: int | None = _p.Field(
+        default=None, validation_alias="retentionBytes", serialization_alias="retentionBytes"
+    )
+    """Maximum size in bytes retained per partition. -1 means unlimited.
+
+    Read-only: the API sets it.
+    """
+
+    retention_hours: int | None = _p.Field(
+        default=None, validation_alias="retentionHours", serialization_alias="retentionHours"
+    )
+    """Maximum time in hours that messages are retained. -1 means unlimited.
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaTopicCreation(_gen.BaseModel):
+    """Input parameters for creating a Kafka topic on a managed Kafka service"""
+
+    minimum_in_sync_replicas: int | None = _p.Field(
+        default=None,
+        validation_alias="minimumInSyncReplicas",
+        serialization_alias="minimumInSyncReplicas",
+    )
+    """Minimum number of in-sync replicas. Defaults to 1 when null."""
+
+    name: str = _p.Field()
+    """Name of the Kafka topic"""
+
+    partitions: int | None = _p.Field(default=None)
+    """Number of partitions. Defaults to 1 when null."""
+
+    replication: int | None = _p.Field(default=None)
+    """Replication factor. Must not exceed the number of brokers. Defaults to 1 when null."""
+
+    retention_bytes: int | None = _p.Field(
+        default=None, validation_alias="retentionBytes", serialization_alias="retentionBytes"
+    )
+    """Maximum size in bytes retained per partition. -1 means unlimited. Defaults to -1 when null."""
+
+    retention_hours: int | None = _p.Field(
+        default=None, validation_alias="retentionHours", serialization_alias="retentionHours"
+    )
+    """Maximum time in hours that messages are retained. -1 means unlimited. Defaults to 168 (7 days) when null."""
+
+
+class PublicCloudDatabaseKafkaTopicReplace(_gen.BaseModel):
+    """Input parameters for replacing a Kafka topic on a managed Kafka service. Every field is required: the request describes the whole topic."""
+
+    minimum_in_sync_replicas: int = _p.Field(
+        validation_alias="minimumInSyncReplicas", serialization_alias="minimumInSyncReplicas"
+    )
+    """Minimum number of in-sync replicas required before a write is acknowledged"""
+
+    partitions: int = _p.Field()
+    """New number of partitions. Can only be increased, never decreased."""
+
+    replication: int = _p.Field()
+    """New replication factor. Must not exceed the number of brokers."""
+
+    retention_bytes: int = _p.Field(
+        validation_alias="retentionBytes", serialization_alias="retentionBytes"
+    )
+    """Maximum size in bytes retained per partition. -1 means unlimited."""
+
+    retention_hours: int = _p.Field(
+        validation_alias="retentionHours", serialization_alias="retentionHours"
+    )
+    """Maximum time in hours that messages are retained. -1 means unlimited."""
+
+
+class PublicCloudDatabaseKafkaTopicUpdate(_gen.BaseModel):
+    """Input parameters for updating a Kafka topic on a managed Kafka service"""
+
+    minimum_in_sync_replicas: int | None = _p.Field(
+        default=None,
+        validation_alias="minimumInSyncReplicas",
+        serialization_alias="minimumInSyncReplicas",
+    )
+    """Minimum number of in-sync replicas required before a write is acknowledged"""
+
+    partitions: int | None = _p.Field(default=None)
+    """New number of partitions. Can only be increased, never decreased."""
+
+    replication: int | None = _p.Field(default=None)
+    """New replication factor. Must not exceed the number of brokers."""
+
+    retention_bytes: int | None = _p.Field(
+        default=None, validation_alias="retentionBytes", serialization_alias="retentionBytes"
+    )
+    """Maximum size in bytes retained per partition. -1 means unlimited."""
+
+    retention_hours: int | None = _p.Field(
+        default=None, validation_alias="retentionHours", serialization_alias="retentionHours"
+    )
+    """Maximum time in hours that messages are retained. -1 means unlimited."""
+
+
+class PublicCloudDatabaseKafkaUserAccess(_gen.BaseModel):
+    """Client certificate and key for Kafka SSL authentication"""
+
+    cert: str | None = _p.Field(default=None)
+    """Client certificate in PEM format
+
+    Read-only: the API sets it.
+    """
+
+    key: str | None = _p.Field(default=None)
+    """Private key for the client certificate
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaConnectConnector(_gen.BaseModel):
+    """A connector on a managed Kafka Connect service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    configuration: dict[str, str] | None = _p.Field(default=None)
+    """Connector configuration key-value pairs
+
+    Read-only: the API sets it.
+    """
+
+    connector_capability_id: str | None = _p.Field(
+        default=None,
+        validation_alias="connectorCapabilityId",
+        serialization_alias="connectorCapabilityId",
+    )
+    """Identifier of the connector type from capabilities
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the connector
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the connector
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseKafkaConnectConnectorStatusEnum | None = _p.Field(default=None)
+    """Current status of the connector
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaConnectConnectorActionEnum(_gen.OpenStrEnum):
+    """Actions that can be performed on a Kafka Connect connector
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    PAUSE = "PAUSE"
+    RESTART = "RESTART"
+    RESUME = "RESUME"
+
+
+class PublicCloudDatabaseKafkaConnectConnectorCreation(_gen.BaseModel):
+    """Input parameters for creating a connector on a managed Kafka Connect service"""
+
+    configuration: dict[str, str] = _p.Field()
+    """Connector configuration key-value pairs"""
+
+    connector_capability_id: str = _p.Field(
+        validation_alias="connectorCapabilityId", serialization_alias="connectorCapabilityId"
+    )
+    """Identifier of the connector type from capabilities"""
+
+    name: str = _p.Field()
+    """Name of the connector"""
+
+
+class PublicCloudDatabaseKafkaConnectConnectorReplace(_gen.BaseModel):
+    """Input parameters for replacing a connector on a managed Kafka Connect service"""
+
+    configuration: dict[str, str] = _p.Field()
+    """Connector configuration key-value pairs. The whole configuration is replaced: keys omitted here are removed from the connector."""
+
+
+class PublicCloudDatabaseKafkaConnectConnectorStatusEnum(_gen.OpenStrEnum):
+    """Possible states of a Kafka Connect connector
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "CREATING"
+    FAILED = "FAILED"
+    PAUSED = "PAUSED"
+    RUNNING = "RUNNING"
+    UNASSIGNED = "UNASSIGNED"
+
+
+class PublicCloudDatabaseKafkaConnectConnectorStatusUpdate(_gen.BaseModel):
+    """Input parameters for updating the status of a Kafka Connect connector"""
+
+    action: PublicCloudDatabaseKafkaConnectConnectorActionEnum = _p.Field()
+    """Action to perform on the connector"""
+
+
+class PublicCloudDatabaseKafkaConnectCapabilitiesConnectorCapability(_gen.BaseModel):
+    """An available Kafka Connect connector type"""
+
+    author: str | None = _p.Field(default=None)
+    """Author of the connector
+
+    Read-only: the API sets it.
+    """
+
+    configuration: (
+        list[PublicCloudDatabaseKafkaConnectCapabilitiesConnectorConfigurationProperty] | None
+    ) = _p.Field(default=None)
+    """Configuration properties for this connector type
+
+    Read-only: the API sets it.
+    """
+
+    documentation_url: str | None = _p.Field(
+        default=None, validation_alias="documentationUrl", serialization_alias="documentationUrl"
+    )
+    """URL of the connector documentation
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the connector type
+
+    Read-only: the API sets it.
+    """
+
+    latest: bool | None = _p.Field(default=None)
+    """Whether this is the latest version available
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the connector
+
+    Read-only: the API sets it.
+    """
+
+    preview: bool | None = _p.Field(default=None)
+    """Whether the connector is in preview
+
+    Read-only: the API sets it.
+    """
+
+    transforms: list[PublicCloudDatabaseKafkaConnectCapabilitiesConnectorTransform] | None = (
+        _p.Field(default=None)
+    )
+    """Available transforms for this connector type
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseKafkaConnectCapabilitiesConnectorTypeEnum | None = _p.Field(
+        default=None
+    )
+    """Connector type (sink or source)
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Version of the connector
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaConnectCapabilitiesConnectorConfigurationProperty(_gen.BaseModel):
+    """A configuration property for a Kafka Connect connector type"""
+
+    default_value: str | None = _p.Field(
+        default=None, validation_alias="defaultValue", serialization_alias="defaultValue"
+    )
+    """Default value if applicable
+
+    Read-only: the API sets it.
+    """
+
+    description: str | None = _p.Field(default=None)
+    """Description of the property
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Display name of the property
+
+    Read-only: the API sets it.
+    """
+
+    group: str | None = _p.Field(default=None)
+    """Configuration group the property belongs to
+
+    Read-only: the API sets it.
+    """
+
+    importance: (
+        PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyImportanceEnum | None
+    ) = _p.Field(default=None)
+    """Importance level of the property
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Property name
+
+    Read-only: the API sets it.
+    """
+
+    required: bool | None = _p.Field(default=None)
+    """Whether the property is required
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyTypeEnum | None = _p.Field(
+        default=None
+    )
+    """Data type of the property
+
+    Read-only: the API sets it.
+    """
+
+    values: list[str] | None = _p.Field(default=None)
+    """Possible values if applicable
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyImportanceEnum(_gen.OpenStrEnum):
+    """Importance level of a Kafka Connect connector property
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    HIGH = "HIGH"
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+
+
+class PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyTypeEnum(_gen.OpenStrEnum):
+    """Data type of a Kafka Connect connector property
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    BOOLEAN = "BOOLEAN"
+    CLASS = "CLASS"
+    DOUBLE = "DOUBLE"
+    INT16 = "INT16"
+    INT32 = "INT32"
+    INT64 = "INT64"
+    LIST = "LIST"
+    PASSWORD = "PASSWORD"
+    STRING = "STRING"
+    TRANSFORM = "TRANSFORM"
+
+
+class PublicCloudDatabaseKafkaConnectCapabilitiesConnectorTransform(_gen.BaseModel):
+    """A transform definition for a Kafka Connect connector type"""
+
+    description: str | None = _p.Field(default=None)
+    """Description of the transform
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Display name of the transform
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the transform
+
+    Read-only: the API sets it.
+    """
+
+    required: bool | None = _p.Field(default=None)
+    """Whether the transform is required
+
+    Read-only: the API sets it.
+    """
+
+    transform_type: str | None = _p.Field(
+        default=None, validation_alias="transformType", serialization_alias="transformType"
+    )
+    """Transform type this relates to
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudDatabaseKafkaConnectCapabilitiesConnectorPropertyTypeEnum | None = _p.Field(
+        default=None
+    )
+    """Data type of the transform
+
+    Read-only: the API sets it.
+    """
+
+    values: list[str] | None = _p.Field(default=None)
+    """Possible values if applicable
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaConnectCapabilitiesConnectorTypeEnum(_gen.OpenStrEnum):
+    """Type of Kafka Connect connector
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    SINK = "SINK"
+    SOURCE = "SOURCE"
+
+
+class PublicCloudDatabaseKafkaConnectConnectorTask(_gen.BaseModel):
+    """A task running within a Kafka Connect connector"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    id: int | None = _p.Field(default=None)
+    """Identifier of the task within the connector
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseKafkaConnectConnectorTaskStatusEnum | None = _p.Field(default=None)
+    """Current status of the task
+
+    Read-only: the API sets it.
+    """
+
+    trace: str | None = _p.Field(default=None)
+    """Error trace if the task is in error state
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaConnectConnectorTaskStatusEnum(_gen.OpenStrEnum):
+    """Possible states of a Kafka Connect connector task
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    FAILED = "FAILED"
+    PAUSED = "PAUSED"
+    RUNNING = "RUNNING"
+
+
+class PublicCloudDatabaseKafkaMirrorMakerReplication(_gen.BaseModel):
+    """A replication flow on a managed Kafka MirrorMaker service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    emit_heartbeats: bool | None = _p.Field(
+        default=None, validation_alias="emitHeartbeats", serialization_alias="emitHeartbeats"
+    )
+    """Whether heartbeats are emitted on the replication flow
+
+    Read-only: the API sets it.
+    """
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether this replication flow is enabled
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the replication flow
+
+    Read-only: the API sets it.
+    """
+
+    replication_policy_class: (
+        PublicCloudDatabaseKafkaMirrorMakerReplicationPolicyClassEnum | None
+    ) = _p.Field(
+        default=None,
+        validation_alias="replicationPolicyClass",
+        serialization_alias="replicationPolicyClass",
+    )
+    """Replication policy class used for this replication flow
+
+    Read-only: the API sets it.
+    """
+
+    source_integration_id: str | None = _p.Field(
+        default=None,
+        validation_alias="sourceIntegrationId",
+        serialization_alias="sourceIntegrationId",
+    )
+    """Identifier of the source integration
+
+    Read-only: the API sets it.
+    """
+
+    sync_group_offsets_enabled: bool | None = _p.Field(
+        default=None,
+        validation_alias="syncGroupOffsetsEnabled",
+        serialization_alias="syncGroupOffsetsEnabled",
+    )
+    """Whether consumer group offsets are synced
+
+    Read-only: the API sets it.
+    """
+
+    sync_interval: int | None = _p.Field(
+        default=None, validation_alias="syncInterval", serialization_alias="syncInterval"
+    )
+    """Sync interval in seconds
+
+    Read-only: the API sets it.
+    """
+
+    target_integration_id: str | None = _p.Field(
+        default=None,
+        validation_alias="targetIntegrationId",
+        serialization_alias="targetIntegrationId",
+    )
+    """Identifier of the target integration
+
+    Read-only: the API sets it.
+    """
+
+    topic_exclude_list: list[str] | None = _p.Field(
+        default=None, validation_alias="topicExcludeList", serialization_alias="topicExcludeList"
+    )
+    """List of topic patterns to exclude from replication
+
+    Read-only: the API sets it.
+    """
+
+    topic_include_list: list[str] | None = _p.Field(
+        default=None, validation_alias="topicIncludeList", serialization_alias="topicIncludeList"
+    )
+    """List of topic patterns to include in replication
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseKafkaMirrorMakerReplicationCreation(_gen.BaseModel):
+    """Input parameters for creating a replication flow"""
+
+    emit_heartbeats: bool | None = _p.Field(
+        default=None, validation_alias="emitHeartbeats", serialization_alias="emitHeartbeats"
+    )
+    """Whether heartbeats are emitted on the replication flow"""
+
+    enabled: bool = _p.Field()
+    """Whether this replication flow is enabled"""
+
+    replication_policy_class: (
+        PublicCloudDatabaseKafkaMirrorMakerReplicationPolicyClassEnum | None
+    ) = _p.Field(
+        default=None,
+        validation_alias="replicationPolicyClass",
+        serialization_alias="replicationPolicyClass",
+    )
+    """Replication policy class used for this replication flow"""
+
+    source_integration_id: str = _p.Field(
+        validation_alias="sourceIntegrationId", serialization_alias="sourceIntegrationId"
+    )
+    """Identifier of the source integration"""
+
+    sync_group_offsets_enabled: bool | None = _p.Field(
+        default=None,
+        validation_alias="syncGroupOffsetsEnabled",
+        serialization_alias="syncGroupOffsetsEnabled",
+    )
+    """Whether to sync consumer group offsets"""
+
+    sync_interval: int | None = _p.Field(
+        default=None, validation_alias="syncInterval", serialization_alias="syncInterval"
+    )
+    """Sync interval in seconds"""
+
+    target_integration_id: str = _p.Field(
+        validation_alias="targetIntegrationId", serialization_alias="targetIntegrationId"
+    )
+    """Identifier of the target integration"""
+
+    topic_exclude_list: list[str] | None = _p.Field(
+        default=None, validation_alias="topicExcludeList", serialization_alias="topicExcludeList"
+    )
+    """Topic patterns to exclude from replication"""
+
+    topic_include_list: list[str] | None = _p.Field(
+        default=None, validation_alias="topicIncludeList", serialization_alias="topicIncludeList"
+    )
+    """Topic patterns to include in replication"""
+
+
+class PublicCloudDatabaseKafkaMirrorMakerReplicationPolicyClassEnum(_gen.OpenStrEnum):
+    """Replication policy class used by a Kafka MirrorMaker replication flow. Values are fully-qualified Java class names defined by the Kafka MirrorMaker protocol and cannot follow UPPER_SNAKE_CASE.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ORG_APACHE_KAFKA_CONNECT_MIRROR_DEFAULT_REPLICATION_POLICY = (
+        "org.apache.kafka.connect.mirror.DefaultReplicationPolicy"
+    )
+    ORG_APACHE_KAFKA_CONNECT_MIRROR_IDENTITY_REPLICATION_POLICY = (
+        "org.apache.kafka.connect.mirror.IdentityReplicationPolicy"
+    )
+
+
+class PublicCloudDatabaseKafkaMirrorMakerReplicationReplace(_gen.BaseModel):
+    """Input parameters for replacing a replication flow. Every field is required: the request describes the whole replication flow."""
+
+    emit_heartbeats: bool = _p.Field(
+        validation_alias="emitHeartbeats", serialization_alias="emitHeartbeats"
+    )
+    """Whether heartbeats are emitted on the replication flow"""
+
+    enabled: bool = _p.Field()
+    """Whether this replication flow is enabled"""
+
+    replication_policy_class: PublicCloudDatabaseKafkaMirrorMakerReplicationPolicyClassEnum = (
+        _p.Field(
+            validation_alias="replicationPolicyClass", serialization_alias="replicationPolicyClass"
+        )
+    )
+    """Replication policy class used for this replication flow"""
+
+    sync_group_offsets_enabled: bool = _p.Field(
+        validation_alias="syncGroupOffsetsEnabled", serialization_alias="syncGroupOffsetsEnabled"
+    )
+    """Whether to sync consumer group offsets"""
+
+    sync_interval: int = _p.Field(
+        validation_alias="syncInterval", serialization_alias="syncInterval"
+    )
+    """Sync interval in seconds"""
+
+    topic_exclude_list: list[str] = _p.Field(
+        validation_alias="topicExcludeList", serialization_alias="topicExcludeList"
+    )
+    """Topic patterns to exclude"""
+
+    topic_include_list: list[str] = _p.Field(
+        validation_alias="topicIncludeList", serialization_alias="topicIncludeList"
+    )
+    """Topic patterns to include"""
+
+
+class PublicCloudDatabaseKafkaMirrorMakerReplicationUpdate(_gen.BaseModel):
+    """Input parameters for updating a replication flow"""
+
+    emit_heartbeats: bool | None = _p.Field(
+        default=None, validation_alias="emitHeartbeats", serialization_alias="emitHeartbeats"
+    )
+    """Whether heartbeats are emitted on the replication flow"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether this replication flow is enabled"""
+
+    replication_policy_class: (
+        PublicCloudDatabaseKafkaMirrorMakerReplicationPolicyClassEnum | None
+    ) = _p.Field(
+        default=None,
+        validation_alias="replicationPolicyClass",
+        serialization_alias="replicationPolicyClass",
+    )
+    """Replication policy class used for this replication flow"""
+
+    sync_group_offsets_enabled: bool | None = _p.Field(
+        default=None,
+        validation_alias="syncGroupOffsetsEnabled",
+        serialization_alias="syncGroupOffsetsEnabled",
+    )
+    """Whether to sync consumer group offsets"""
+
+    sync_interval: int | None = _p.Field(
+        default=None, validation_alias="syncInterval", serialization_alias="syncInterval"
+    )
+    """Sync interval in seconds"""
+
+    topic_exclude_list: list[str] | None = _p.Field(
+        default=None, validation_alias="topicExcludeList", serialization_alias="topicExcludeList"
+    )
+    """Topic patterns to exclude"""
+
+    topic_include_list: list[str] | None = _p.Field(
+        default=None, validation_alias="topicIncludeList", serialization_alias="topicIncludeList"
+    )
+    """Topic patterns to include"""
+
+
+class PublicCloudDatabaseMongodbPrometheusEndpoint(_gen.BaseModel):
+    """Prometheus scraping endpoint for a managed MongoDB service"""
+
+    srv_domain: str | None = _p.Field(
+        default=None, validation_alias="srvDomain", serialization_alias="srvDomain"
+    )
+    """Domain of the DNS SRV record (RFC 2782) listing the Prometheus targets to scrape. The abbreviation is imposed by the record type defined in that standard.
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Username for Prometheus authentication
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseOpensearchACLPermissionEnum(_gen.OpenStrEnum):
+    """Permission level of an OpenSearch ACL entry
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ADMIN = "ADMIN"
+    DENY = "DENY"
+    READ = "READ"
+    READ_WRITE = "READ_WRITE"
+    WRITE = "WRITE"
+
+
+class PublicCloudDatabaseOpensearchIndex(_gen.BaseModel):
+    """An OpenSearch index on a managed OpenSearch service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the index was created
+
+    Read-only: the API sets it.
+    """
+
+    document_count: int | None = _p.Field(
+        default=None, validation_alias="documentCount", serialization_alias="documentCount"
+    )
+    """Number of documents stored in this index
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the index
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the OpenSearch index
+
+    Read-only: the API sets it.
+    """
+
+    replica_count: int | None = _p.Field(
+        default=None, validation_alias="replicaCount", serialization_alias="replicaCount"
+    )
+    """Number of replica shards for this index
+
+    Read-only: the API sets it.
+    """
+
+    shard_count: int | None = _p.Field(
+        default=None, validation_alias="shardCount", serialization_alias="shardCount"
+    )
+    """Number of primary shards for this index
+
+    Read-only: the API sets it.
+    """
+
+    size: int | None = _p.Field(default=None)
+    """Total size of the index in bytes
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseOpensearchPattern(_gen.BaseModel):
+    """An index pattern on a managed OpenSearch service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the index pattern
+
+    Read-only: the API sets it.
+    """
+
+    maximum_index_count: int | None = _p.Field(
+        default=None, validation_alias="maximumIndexCount", serialization_alias="maximumIndexCount"
+    )
+    """Maximum number of indexes matching this pattern. Oldest indexes are deleted when this limit is reached.
+
+    Read-only: the API sets it.
+    """
+
+    pattern: str | None = _p.Field(default=None)
+    """Glob pattern matching index names
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseOpensearchPatternCreation(_gen.BaseModel):
+    """Input parameters for creating an index pattern"""
+
+    maximum_index_count: int = _p.Field(
+        validation_alias="maximumIndexCount", serialization_alias="maximumIndexCount"
+    )
+    """Maximum number of indexes matching this pattern"""
+
+    pattern: str = _p.Field()
+    """Glob pattern matching index names"""
+
+
+class PublicCloudDatabaseOpensearchUser(_gen.BaseModel):
+    """A user account on a managed OpenSearch service"""
+
+    acls: list[PublicCloudDatabaseOpensearchUserACL] | None = _p.Field(default=None)
+    """ACL entries granted to the user
+
+    Read-only: the API sets it.
+    """
+
+    admin: bool | None = _p.Field(default=None)
+    """Whether this is the service administrator, the user created automatically at provisioning time, which cannot be deleted
+
+    Read-only: the API sets it.
+    """
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the user was created
+
+    Read-only: the API sets it.
+    """
+
+    credentials_last_updated_at: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="credentialsLastUpdatedAt",
+        serialization_alias="credentialsLastUpdatedAt",
+    )
+    """Date at which the user credentials were last updated
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the user
+
+    Read-only: the API sets it.
+    """
+
+    password: str | None = _p.Field(default=None)
+    """Password of the user. Returned only on creation or password reset.
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseUserStatusEnum | None = _p.Field(default=None)
+    """Current readiness status of the user
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Login name of the user
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseOpensearchUserACL(_gen.BaseModel):
+    """An ACL entry for an OpenSearch user"""
+
+    pattern: str = _p.Field()
+    """Index pattern this ACL applies to"""
+
+    permission: PublicCloudDatabaseOpensearchACLPermissionEnum = _p.Field()
+    """Permission granted on the matching indexes"""
+
+
+class PublicCloudDatabaseOpensearchUserCreation(_gen.BaseModel):
+    """Input parameters for creating a user on a managed OpenSearch service"""
+
+    acls: list[PublicCloudDatabaseOpensearchUserACL] | None = _p.Field(default=None)
+    """ACL entries to grant to the user"""
+
+    name: str = _p.Field()
+    """Login name of the new user"""
+
+
+class PublicCloudDatabaseOpensearchUserReplace(_gen.BaseModel):
+    """Input parameters for replacing an OpenSearch user. Every field is required: the request describes the whole user."""
+
+    acls: list[PublicCloudDatabaseOpensearchUserACL] = _p.Field()
+    """ACL entries for the user"""
+
+
+class PublicCloudDatabaseOpensearchUserUpdate(_gen.BaseModel):
+    """Input parameters for updating an OpenSearch user"""
+
+    acls: list[PublicCloudDatabaseOpensearchUserACL] | None = _p.Field(default=None)
+    """ACL entries for the user"""
+
+    credentials_last_updated_at: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="credentialsLastUpdatedAt",
+        serialization_alias="credentialsLastUpdatedAt",
+    )
+    """Date at which the user credentials were last updated. Setting this field triggers a credential reset and returns the new password."""
+
+
+class PublicCloudDatabasePostgresqlConnectionPool(_gen.BaseModel):
+    """A PgBouncer connection pool on a managed PostgreSQL service"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the resource was created
+
+    Read-only: the API sets it.
+    """
+
+    database_id: str | None = _p.Field(
+        default=None, validation_alias="databaseId", serialization_alias="databaseId"
+    )
+    """Identifier of the target database schema
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the connection pool
+
+    Read-only: the API sets it.
+    """
+
+    mode: PublicCloudDatabasePostgresqlConnectionPoolModeEnum | None = _p.Field(default=None)
+    """PgBouncer pooling mode
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Name of the connection pool
+
+    Read-only: the API sets it.
+    """
+
+    port: int | None = _p.Field(default=None)
+    """TCP port on which the connection pool listens
+
+    Read-only: the API sets it.
+    """
+
+    size: int | None = _p.Field(default=None)
+    """Maximum number of server connections in the pool
+
+    Read-only: the API sets it.
+    """
+
+    ssl_mode: PublicCloudDatabaseSSLModeEnum | None = _p.Field(
+        default=None, validation_alias="sslMode", serialization_alias="sslMode"
+    )
+    """SSL connection mode for the pool
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of the last update to the resource
+
+    Read-only: the API sets it.
+    """
+
+    uri: str | None = _p.Field(default=None)
+    """Connection URI to the pool
+
+    Read-only: the API sets it.
+    """
+
+    user_id: str | None = _p.Field(
+        default=None, validation_alias="userId", serialization_alias="userId"
+    )
+    """Unique identifier of the database user used to establish server connections. Null when no user is assigned.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabasePostgresqlConnectionPoolCreation(_gen.BaseModel):
+    """Input parameters for creating a PgBouncer connection pool on a managed PostgreSQL service"""
+
+    database_id: str = _p.Field(validation_alias="databaseId", serialization_alias="databaseId")
+    """Identifier of the target database schema"""
+
+    mode: PublicCloudDatabasePostgresqlConnectionPoolModeEnum = _p.Field()
+    """PgBouncer pooling mode"""
+
+    name: str = _p.Field()
+    """Name of the connection pool"""
+
+    size: int = _p.Field()
+    """Maximum number of server connections in the pool"""
+
+    user_id: str | None = _p.Field(
+        default=None, validation_alias="userId", serialization_alias="userId"
+    )
+    """Unique identifier of the database user for server connections. Null to use a system user."""
+
+
+class PublicCloudDatabasePostgresqlConnectionPoolModeEnum(_gen.OpenStrEnum):
+    """PgBouncer pooling mode of a PostgreSQL connection pool
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    SESSION = "SESSION"
+    STATEMENT = "STATEMENT"
+    TRANSACTION = "TRANSACTION"
+
+
+class PublicCloudDatabasePostgresqlConnectionPoolReplace(_gen.BaseModel):
+    """Input parameters for replacing a PgBouncer connection pool on a managed PostgreSQL service. Every field is required: the request describes the whole pool."""
+
+    database_id: str = _p.Field(validation_alias="databaseId", serialization_alias="databaseId")
+    """Identifier of the target database schema"""
+
+    mode: PublicCloudDatabasePostgresqlConnectionPoolModeEnum = _p.Field()
+    """PgBouncer pooling mode"""
+
+    size: int = _p.Field()
+    """Maximum number of server connections in the pool"""
+
+    user_id: str | None = _p.Field(validation_alias="userId", serialization_alias="userId")
+    """Unique identifier of the database user for server connections. Null to remove the user assignment."""
+
+
+class PublicCloudDatabasePostgresqlConnectionPoolUpdate(_gen.BaseModel):
+    """Input parameters for updating a PgBouncer connection pool on a managed PostgreSQL service"""
+
+    database_id: str | None = _p.Field(
+        default=None, validation_alias="databaseId", serialization_alias="databaseId"
+    )
+    """Identifier of the target database schema"""
+
+    mode: PublicCloudDatabasePostgresqlConnectionPoolModeEnum | None = _p.Field(default=None)
+    """PgBouncer pooling mode"""
+
+    size: int | None = _p.Field(default=None)
+    """Maximum number of server connections in the pool"""
+
+    user_id: str | None = _p.Field(
+        default=None, validation_alias="userId", serialization_alias="userId"
+    )
+    """Unique identifier of the database user for server connections. Null to remove the user assignment."""
+
+
+class PublicCloudDatabaseServiceCapabilityActions(_gen.BaseModel):
+    """CRUD actions available for a capability on a service"""
+
+    create: PublicCloudDatabaseServiceCapabilityStateEnum | None = _p.Field(default=None)
+    """Whether the capability supports creation
+
+    Read-only: the API sets it.
+    """
+
+    delete: PublicCloudDatabaseServiceCapabilityStateEnum | None = _p.Field(default=None)
+    """Whether the capability supports deletion
+
+    Read-only: the API sets it.
+    """
+
+    read: PublicCloudDatabaseServiceCapabilityStateEnum | None = _p.Field(default=None)
+    """Whether the capability supports reading
+
+    Read-only: the API sets it.
+    """
+
+    update: PublicCloudDatabaseServiceCapabilityStateEnum | None = _p.Field(default=None)
+    """Whether the capability supports update
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseServiceStatusEnum(_gen.OpenStrEnum):
+    """Operational status of a managed database or analytics service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "CREATING"
+    DELETING = "DELETING"
+    DRAINED = "DRAINED"
+    ERROR = "ERROR"
+    LOCKED = "LOCKED"
+    LOCKED_PENDING = "LOCKED_PENDING"
+    LOCKED_UPDATING = "LOCKED_UPDATING"
+    PENDING = "PENDING"
+    READY = "READY"
+    SHELVED = "SHELVED"
+    TO_DRAIN = "TO_DRAIN"
+    UPDATING = "UPDATING"
+
+
+class PublicCloudDatabaseServiceCapabilityStateEnum(_gen.OpenStrEnum):
+    """State of a capability for a service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DISABLED = "DISABLED"
+    ENABLED = "ENABLED"
+
+
+class PublicCloudDatabaseValkeyUser(_gen.BaseModel):
+    """A user account on a managed Valkey service"""
+
+    admin: bool | None = _p.Field(default=None)
+    """Whether this is the service administrator, the user created automatically at provisioning time, which cannot be deleted
+
+    Read-only: the API sets it.
+    """
+
+    categories: list[str] | None = _p.Field(default=None)
+    """Command category rules granted to the user, each written as a category name prefixed with `+@` when it is allowed or `-@` when it is denied, for example `+@read`, `-@dangerous`
+
+    Read-only: the API sets it.
+    """
+
+    channels: list[str] | None = _p.Field(default=None)
+    """Glob patterns of the Pub/Sub channels the user can subscribe to and publish on, for example `news:*`, `chat:room1`. `*` means every channel, and an empty list means the user cannot use any channel.
+
+    Read-only: the API sets it.
+    """
+
+    checksum: str | None = _p.Field(default=None)
+    """Hash of the resource used for concurrency control
+
+    Read-only: the API sets it.
+    """
+
+    commands: list[str] | None = _p.Field(default=None)
+    """Individual command rules refining the permissions granted through the categories, each written as a Valkey command name prefixed with `+` when it is allowed or `-` when it is denied, for example `+get`, `-flushall`
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date at which the user was created
+
+    Read-only: the API sets it.
+    """
+
+    credentials_last_updated_at: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="credentialsLastUpdatedAt",
+        serialization_alias="credentialsLastUpdatedAt",
+    )
+    """Date at which the user credentials were last updated
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the user
+
+    Read-only: the API sets it.
+    """
+
+    keys: list[str] | None = _p.Field(default=None)
+    """Glob patterns of the keys the user can access, for example `cache:*`, `session:user:42`. `*` means every key, and an empty list means the user cannot access any key.
+
+    Read-only: the API sets it.
+    """
+
+    password: str | None = _p.Field(default=None)
+    """Password of the user. Returned only on creation or password reset.
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudDatabaseUserStatusEnum | None = _p.Field(default=None)
+    """Current readiness status of the user
+
+    Read-only: the API sets it.
+    """
+
+    username: str | None = _p.Field(default=None)
+    """Login name of the user
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudDatabaseValkeyUserCreation(_gen.BaseModel):
+    """Input parameters for creating a user on a managed Valkey service"""
+
+    categories: list[str] | None = _p.Field(default=None)
+    """Command category rules granted to the user, each written as a category name prefixed with `+@` to allow it or `-@` to deny it, for example `+@read`, `-@dangerous`. Available categories are all, admin, bitmap, blocking, connection, dangerous, fast, geo, hash, hyperloglog, keyspace, list, pubsub, read, scripting, set, slow, sortedset, stream, string, transaction and write."""
+
+    channels: list[str] | None = _p.Field(default=None)
+    """Glob patterns of the Pub/Sub channels the user can subscribe to and publish on, for example `news:*`, `chat:room1`. Use `*` to allow every channel. When the list is empty, the user cannot use any channel."""
+
+    commands: list[str] | None = _p.Field(default=None)
+    """Individual command rules that refine the permissions granted through the categories, each written as a Valkey command name in lowercase prefixed with `+` to allow it or `-` to deny it, for example `+get`, `-flushall`"""
+
+    keys: list[str] | None = _p.Field(default=None)
+    """Glob patterns of the keys the user can access, for example `cache:*`, `session:user:42`. Use `*` to allow every key. When the list is empty, the user cannot access any key."""
+
+    name: str = _p.Field()
+    """Login name of the new user, unique on the service. It must be 1 to 32 characters long, start with a letter, a digit or an underscore, and contain only letters, digits, underscores, dots and hyphens."""
+
+
+class PublicCloudDatabaseValkeyUserReplace(_gen.BaseModel):
+    """Input parameters for replacing a Valkey user. Every field is required: the request describes the whole user."""
+
+    categories: list[str] = _p.Field()
+    """Command category rules granted to the user, each written as a category name prefixed with `+@` to allow it or `-@` to deny it, for example `+@read`, `-@dangerous`. Available categories are all, admin, bitmap, blocking, connection, dangerous, fast, geo, hash, hyperloglog, keyspace, list, pubsub, read, scripting, set, slow, sortedset, stream, string, transaction and write. The list replaces the one currently set on the user."""
+
+    channels: list[str] = _p.Field()
+    """Glob patterns of the Pub/Sub channels the user can subscribe to and publish on, for example `news:*`, `chat:room1`. Use `*` to allow every channel. The list replaces the one currently set on the user, and an empty list revokes access to every channel."""
+
+    commands: list[str] = _p.Field()
+    """Individual command rules that refine the permissions granted through the categories, each written as a Valkey command name in lowercase prefixed with `+` to allow it or `-` to deny it, for example `+get`, `-flushall`. The list replaces the one currently set on the user."""
+
+    keys: list[str] = _p.Field()
+    """Glob patterns of the keys the user can access, for example `cache:*`, `session:user:42`. Use `*` to allow every key. The list replaces the one currently set on the user, and an empty list revokes access to every key."""
+
+
+class PublicCloudDatabaseValkeyUserUpdate(_gen.BaseModel):
+    """Input parameters for updating a Valkey user"""
+
+    categories: list[str] | None = _p.Field(default=None)
+    """Command category rules granted to the user, each written as a category name prefixed with `+@` to allow it or `-@` to deny it, for example `+@read`, `-@dangerous`. Available categories are all, admin, bitmap, blocking, connection, dangerous, fast, geo, hash, hyperloglog, keyspace, list, pubsub, read, scripting, set, slow, sortedset, stream, string, transaction and write. The list replaces the one currently set on the user."""
+
+    channels: list[str] | None = _p.Field(default=None)
+    """Glob patterns of the Pub/Sub channels the user can subscribe to and publish on, for example `news:*`, `chat:room1`. Use `*` to allow every channel. The list replaces the one currently set on the user, and an empty list revokes access to every channel."""
+
+    commands: list[str] | None = _p.Field(default=None)
+    """Individual command rules that refine the permissions granted through the categories, each written as a Valkey command name in lowercase prefixed with `+` to allow it or `-` to deny it, for example `+get`, `-flushall`. The list replaces the one currently set on the user."""
+
+    credentials_last_updated_at: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="credentialsLastUpdatedAt",
+        serialization_alias="credentialsLastUpdatedAt",
+    )
+    """Date at which the user credentials were last updated. Setting this field triggers a credential reset and returns the new password."""
+
+    keys: list[str] | None = _p.Field(default=None)
+    """Glob patterns of the keys the user can access, for example `cache:*`, `session:user:42`. Use `*` to allow every key. The list replaces the one currently set on the user, and an empty list revokes access to every key."""
 
 
 class PublicCloudGatewayExternalGateway(_gen.BaseModel):
@@ -5997,7 +9718,7 @@ class PublicCloudInstanceInstanceCurrentState(_gen.BaseModel):
     """
 
     volumes: list[PublicCloudInstanceInstanceVolume] | None = _p.Field(default=None)
-    """Observed block volumes attached to the instance, with details (name, size). See InstanceVolume.
+    """Observed block volumes attached to the instance, with details (name, size) and their role for the instance (role). See InstanceVolume.
 
     Read-only: the API sets it.
     """
@@ -6233,7 +9954,7 @@ class PublicCloudInstanceInstanceReadTargetSpec(_gen.BaseModel):
     """
 
     image: PublicCloudInstanceInstanceImageRef | None = _p.Field(default=None)
-    """Reference to the image the instance boots from. Carries only the image id. Changing the referenced image on PUT triggers a rebuild of the instance from the new image. Null for boot-from-volume instances, which have no backing image.
+    """Reference to the image the instance boots from. Carries only the image id. Changing the referenced image on PUT triggers a rebuild of the instance from the new image. Null for boot-from-volume instances, which have no backing image: their boot volume is the entry of volumes with role BOOT.
 
     Read-only: the API sets it.
     """
@@ -6287,7 +10008,7 @@ class PublicCloudInstanceInstanceReadTargetSpec(_gen.BaseModel):
     """
 
     volumes: list[PublicCloudInstanceInstanceVolumeRef] | None = _p.Field(default=None)
-    """Declarative list of block volumes attached to the instance, each referencing a volume by id (see InstanceVolumeRef). Attach/detach is driven by diffing this list on PUT. There is no imperative attach/detach sub-route. Adding a volume reference attaches that volume. Removing one detaches it.
+    """Declarative list of block volumes attached to the instance, each referencing a volume by id (see InstanceVolumeRef). For a boot-from-volume instance, the boot volume has role BOOT. For one created outside this API, every volume is DATA until its boot volume has been identified. Attach/detach is driven by diffing this list on PUT. There is no imperative attach/detach sub-route. Adding a volume reference attaches that volume. Removing one detaches it. The boot volume cannot be detached.
 
     Read-only: the API sets it.
     """
@@ -6347,7 +10068,7 @@ class PublicCloudInstanceInstanceTargetSpec(_gen.BaseModel):
     """Optional reference to the instance (placement) group the instance is created into, controlling affinity/anti-affinity placement. Immutable after creation. The group is set only at creation time. OpenStack/Nova server groups are immutable. There is no group change on PUT and membership cannot be changed after the instance exists."""
 
     image: PublicCloudInstanceInstanceImageRef | None = _p.Field(default=None)
-    """Reference to the image the instance boots from. Carries only the image id. Changing the referenced image on PUT triggers a rebuild of the instance from the new image."""
+    """Reference to the image the instance boots from. Carries only the image id. The instance needs exactly one boot source: either this image, or one volume of the volumes list with role BOOT. Omit image (or set it to null) to boot from that volume. Setting both, or neither, is rejected. Changing the referenced image on PUT triggers a rebuild of the instance from the new image. An instance booted from a volume cannot be given an image later."""
 
     location: PublicCloudInstanceInstanceLocation = _p.Field()
     """Target location. Region (and optional availability zone) where the instance is provisioned. Immutable after creation. An instance cannot be moved to another region/zone, which is why location is absent from InstanceUpdateTargetSpec."""
@@ -6382,7 +10103,7 @@ class PublicCloudInstanceInstanceTargetSpec(_gen.BaseModel):
     """User data (cloud-init). Base64-encoded (strict standard encoding) cloud-init payload handed to the instance at boot through the OpenStack metadata service / config drive, and interpreted by cloud-init inside the guest image. The submitted string itself must be at most 65535 bytes once base64-encoded. Write-only: never returned by GET/LIST. Deliberately absent from InstanceReadTargetSpec and InstanceCurrentState. Not persisted or stored by the Public Cloud API: the payload is handed to the compute service, which makes it available to the instance via the metadata service. Only a non-reversible fingerprint of the value is retained, for change detection. Mutable, but destructively: changing userData on PUT REINSTALLS the instance (a Nova rebuild on the current image), wiping the root disk and all data on it. See InstanceUpdateTargetSpec for the tri-state update semantics."""
 
     volumes: list[PublicCloudInstanceInstanceVolumeRef] | None = _p.Field(default=None)
-    """Declarative list of block volumes attached to the instance, each referencing a volume by id (see InstanceVolumeRef). Attach/detach is driven by diffing this list on PUT. There is no imperative attach/detach sub-route. Adding a volume reference attaches that volume. Removing one detaches it."""
+    """Declarative list of block volumes attached to the instance, each referencing a volume by id (see InstanceVolumeRef). At creation, at most one entry may have role BOOT, when image is omitted. The instance then boots from that volume, and the other volumes are attached once the instance is running. Attach/detach is driven by diffing this list on PUT. There is no imperative attach/detach sub-route. Adding a volume reference attaches that volume. Removing one detaches it. The boot volume cannot be detached."""
 
 
 class PublicCloudInstanceInstanceUpdate(_gen.BaseModel):
@@ -6404,7 +10125,7 @@ class PublicCloudInstanceInstanceUpdateTargetSpec(_gen.BaseModel):
     """Reference to the desired flavor (vCPUs, RAM, local disk). Carries only the flavor id. Sending a different flavor triggers a resize of the instance."""
 
     image: PublicCloudInstanceInstanceImageRef | None = _p.Field(default=None)
-    """Reference to the desired image. Carries only the image id. Sending a different image triggers a rebuild of the instance from the new image."""
+    """Reference to the desired image. Carries only the image id. Sending a different image triggers a rebuild of the instance from the new image. Rejected on an instance booted from a volume, which has no image and cannot be rebuilt: leave image null for such an instance."""
 
     name: str = _p.Field()
     """Desired display name of the instance. Changing it triggers a rename."""
@@ -6428,10 +10149,10 @@ class PublicCloudInstanceInstanceUpdateTargetSpec(_gen.BaseModel):
     user_data: str | None = _p.Field(
         default=None, validation_alias="userData", serialization_alias="userData"
     )
-    """User data (cloud-init). Base64-encoded (strict standard encoding) cloud-init payload, at most 65535 bytes once base64-encoded. Write-only: never returned by GET/LIST. Not persisted or stored by the Public Cloud API: the payload is handed to the compute service, which makes it available to the instance via the metadata service on boot/rebuild. Only a non-reversible fingerprint of the value is retained, for change detection. Tri-state: omitted or null keeps the current value unchanged. An empty string clears it. A non-empty value replaces it. Destructive: any change (clear or replace) REINSTALLS the instance — a Nova rebuild on the current image — wiping the root disk and all data on it."""
+    """User data (cloud-init). Base64-encoded (strict standard encoding) cloud-init payload, at most 65535 bytes once base64-encoded. Write-only: never returned by GET/LIST. Not persisted or stored by the Public Cloud API: the payload is handed to the compute service, which makes it available to the instance via the metadata service on boot/rebuild. Only a non-reversible fingerprint of the value is retained, for change detection. Tri-state: omitted or null keeps the current value unchanged. An empty string clears it. A non-empty value replaces it. Destructive: any change (clear or replace) REINSTALLS the instance — a Nova rebuild on the current image — wiping the root disk and all data on it. Rejected on an instance booted from a volume, which has no image to rebuild from."""
 
     volumes: list[PublicCloudInstanceInstanceVolumeRef] | None = _p.Field(default=None)
-    """Declarative list of block volumes attached to the instance (see InstanceVolumeRef). Attach/detach is driven by diffing this list. Adding a reference attaches the volume, removing one detaches it. There is no imperative attach/detach sub-route."""
+    """Declarative list of block volumes attached to the instance (see InstanceVolumeRef). Attach/detach is driven by diffing this list. Adding a reference attaches the volume, removing one detaches it. There is no imperative attach/detach sub-route. The boot volume of an instance booted from a volume must stay in the list, with role omitted or BOOT. It cannot be detached, and no other volume can become BOOT after creation."""
 
 
 class PublicCloudInstanceInstanceVolume(_gen.BaseModel):
@@ -6449,6 +10170,12 @@ class PublicCloudInstanceInstanceVolume(_gen.BaseModel):
     Read-only: the API sets it.
     """
 
+    role: PublicCloudInstanceInstanceVolumeRoleEnum | None = _p.Field(default=None)
+    """Role of this volume for the instance: BOOT for the root volume of an instance booted from a volume, DATA for any other attached volume. For an instance booted from a volume but created outside this API, DATA on every volume until its boot volume has been identified.
+
+    Read-only: the API sets it.
+    """
+
     size: int | None = _p.Field(default=None)
     """Size of the attached volume in GB
 
@@ -6457,10 +10184,23 @@ class PublicCloudInstanceInstanceVolume(_gen.BaseModel):
 
 
 class PublicCloudInstanceInstanceVolumeRef(_gen.BaseModel):
-    """User-controlled reference to a block volume attached to the instance, used within the declarative volumes list of targetSpec. It carries only the volume id. The full observed volume is exposed in currentState through InstanceVolume."""
+    """User-controlled reference to a block volume attached to the instance, used within the declarative volumes list of targetSpec. It carries the volume id and its role for the instance, boot or data volume. The full observed volume is exposed in currentState through InstanceVolume."""
 
     id: str = _p.Field()
     """Identifier of the volume to attach. Adding this reference attaches the volume. Removing it from the volumes list detaches it."""
+
+    role: PublicCloudInstanceInstanceVolumeRoleEnum | None = _p.Field(default=None)
+    """Role of this volume for the instance: BOOT when the instance boots from it instead of an image, DATA otherwise. When omitted or null, the role is DATA. At most one entry of the volumes list may be BOOT, and only when targetSpec.image is omitted. The boot volume must be bootable (see the bootable field of the block storage volume), available, not multi-attach, and in the region of the instance. The boot volume can only be chosen at creation: on update, it must stay in the volumes list, with role omitted or BOOT, and no other volume can become BOOT. The boot volume cannot be detached, and it is kept when the instance is deleted."""
+
+
+class PublicCloudInstanceInstanceVolumeRoleEnum(_gen.OpenStrEnum):
+    """Role of a volume attached to an instance: BOOT when the instance boots from it instead of an image, DATA for any other attached volume
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    BOOT = "BOOT"
+    DATA = "DATA"
 
 
 class PublicCloudInstancePowerStateEnum(_gen.OpenStrEnum):
@@ -9229,6 +12969,1725 @@ class PublicCloudLoadbalancerSessionPersistenceTypeEnum(_gen.OpenStrEnum):
     APP_COOKIE = "APP_COOKIE"
     HTTP_COOKIE = "HTTP_COOKIE"
     SOURCE_IP = "SOURCE_IP"
+
+
+class PublicCloudManagedKubernetesAdmissionPlugin(_gen.BaseModel):
+    """A Kubernetes admission plugin configuration"""
+
+    enabled: bool = _p.Field()
+    """Whether the admission plugin is enabled"""
+
+
+class PublicCloudManagedKubernetesAntiAffinity(_gen.BaseModel):
+    """Anti-affinity placement of the nodepool nodes"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether anti-affinity placement is enabled for the nodepool"""
+
+    policy: PublicCloudManagedKubernetesAntiAffinityPolicyEnum | None = _p.Field(default=None)
+    """Placement policy applied when anti-affinity is enabled"""
+
+
+class PublicCloudManagedKubernetesAntiAffinityPolicyEnum(_gen.OpenStrEnum):
+    """Placement policy between nodepool nodes. HARD spreads nodes across distinct hypervisors and caps the nodepool at the size the anti-affinity group allows.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    HARD = "HARD"
+
+
+class PublicCloudManagedKubernetesAPIServer(_gen.BaseModel):
+    """Cluster control-plane configuration: exposure and IP filtering (access) and admission plugins"""
+
+    access: PublicCloudManagedKubernetesAPIServerAccess | None = _p.Field(default=None)
+    """Exposure and IP filtering of the API server"""
+
+    admission_plugins: dict[str, PublicCloudManagedKubernetesAdmissionPlugin] | None = _p.Field(
+        default=None, validation_alias="admissionPlugins", serialization_alias="admissionPlugins"
+    )
+    """Admission plugin configurations. Plugin names are validated against a platform allowlist. An unknown name is rejected with 400."""
+
+
+class PublicCloudManagedKubernetesAPIServerAccess(_gen.BaseModel):
+    """IP filtering for the cluster API server"""
+
+    authorized_ips: PublicCloudManagedKubernetesAuthorizedIPs | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """IP allowlist for the API server"""
+
+
+class PublicCloudManagedKubernetesAPIServerPublicEndpoint(_gen.BaseModel):
+    """Public endpoint exposing the cluster API server"""
+
+    url: str | None = _p.Field(default=None)
+    """URL of the control plane, available once the cluster is ready
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesAttachFloatingIP(_gen.BaseModel):
+    """Floating IP attachment for the nodepool nodes"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether a floating IP is attached to each node of the nodepool"""
+
+
+class PublicCloudManagedKubernetesAuthentication(_gen.BaseModel):
+    """Control-plane authentication. The type field selects the variant."""
+
+    oidc: PublicCloudManagedKubernetesOidc | None = _p.Field(default=None)
+    """Single-provider OpenID Connect payload. Present when type is OIDC, absent otherwise."""
+
+    type: PublicCloudManagedKubernetesAuthenticationTypeEnum = _p.Field()
+    """Selected authentication variant"""
+
+
+class PublicCloudManagedKubernetesAuthenticationTypeEnum(_gen.OpenStrEnum):
+    """Control-plane authentication variant. OIDC uses single-provider OpenID Connect.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    OIDC = "OIDC"
+
+
+class PublicCloudManagedKubernetesAuthorizedIPRule(_gen.BaseModel):
+    """A single allow rule in the API server IP allowlist"""
+
+    cidr: IPBlock = _p.Field()
+    """Authorized CIDR block, for example 203.0.113.0/24. Allow-all is expressed as 0.0.0.0/0."""
+
+
+class PublicCloudManagedKubernetesAuthorizedIPs(_gen.BaseModel):
+    """IP allowlist for the API server. When no rule is set, any IP can reach the API server. When at least one rule is set, any IP that no rule allows is blocked."""
+
+    rules: list[PublicCloudManagedKubernetesAuthorizedIPRule] | None = _p.Field(default=None)
+    """Authorization rules for the API server"""
+
+
+class PublicCloudManagedKubernetesAutoUpgrade(_gen.BaseModel):
+    """Automatic Kubernetes version upgrade policy for the patch track"""
+
+    patch: PublicCloudManagedKubernetesAutoUpgradeTrack | None = _p.Field(default=None)
+    """Automatic upgrade track for patch versions, for example 1.34.1-1 to 1.34.2-1. Enabled by default."""
+
+
+class PublicCloudManagedKubernetesAutoUpgradeTrack(_gen.BaseModel):
+    """Configuration of a single automatic upgrade track"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether automatic upgrade is enabled for this track"""
+
+
+class PublicCloudManagedKubernetesAutoscaler(_gen.BaseModel):
+    """Automatic node scaling for the nodepool. When enabled, the node count varies between minNodes and maxNodes based on cluster load."""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether automatic scaling is enabled for the nodepool"""
+
+    max_nodes: int | None = _p.Field(
+        default=None, validation_alias="maxNodes", serialization_alias="maxNodes"
+    )
+    """Maximum number of nodes the autoscaler provisions"""
+
+    min_nodes: int | None = _p.Field(
+        default=None, validation_alias="minNodes", serialization_alias="minNodes"
+    )
+    """Minimum number of nodes the autoscaler maintains. Lower bound of desiredNodes."""
+
+    scale_down: PublicCloudManagedKubernetesAutoscalerScaleDown | None = _p.Field(
+        default=None, validation_alias="scaleDown", serialization_alias="scaleDown"
+    )
+    """Thresholds governing when the autoscaler removes underused nodes"""
+
+
+class PublicCloudManagedKubernetesAutoscalerScaleDown(_gen.BaseModel):
+    """Scale-down thresholds the autoscaler applies when removing underused nodes"""
+
+    unneeded_time_seconds: int | None = _p.Field(
+        default=None,
+        validation_alias="unneededTimeSeconds",
+        serialization_alias="unneededTimeSeconds",
+    )
+    """Time in seconds a node must stay below the utilization threshold before it is removed"""
+
+    unready_time_seconds: int | None = _p.Field(
+        default=None,
+        validation_alias="unreadyTimeSeconds",
+        serialization_alias="unreadyTimeSeconds",
+    )
+    """Time in seconds an unready node is kept before it is removed"""
+
+    utilization_threshold: float | None = _p.Field(
+        default=None,
+        validation_alias="utilizationThreshold",
+        serialization_alias="utilizationThreshold",
+    )
+    """Node utilization ratio below which a node becomes a scale-down candidate, as a fraction between 0 and 1. Defaults to 0.5."""
+
+
+class PublicCloudManagedKubernetesCiliumClusterMesh(_gen.BaseModel):
+    """ClusterMesh multi-cluster connectivity configuration for the Cilium CNI"""
+
+    api_server: PublicCloudManagedKubernetesCiliumClusterMeshAPIServer | None = _p.Field(
+        default=None, validation_alias="apiServer", serialization_alias="apiServer"
+    )
+    """ClusterMesh API server exposure settings"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether ClusterMesh is enabled"""
+
+
+class PublicCloudManagedKubernetesCiliumClusterMeshAPIServer(_gen.BaseModel):
+    """ClusterMesh API server exposure settings for the Cilium CNI"""
+
+    node_port: int | None = _p.Field(
+        default=None, validation_alias="nodePort", serialization_alias="nodePort"
+    )
+    """Node port exposing the ClusterMesh API server"""
+
+    service_type: PublicCloudManagedKubernetesCiliumClusterMeshServiceTypeEnum | None = _p.Field(
+        default=None, validation_alias="serviceType", serialization_alias="serviceType"
+    )
+    """Kubernetes service type exposing the ClusterMesh API server"""
+
+
+class PublicCloudManagedKubernetesCiliumClusterMeshServiceTypeEnum(_gen.OpenStrEnum):
+    """Kubernetes service type exposing the ClusterMesh API server
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    LOAD_BALANCER = "LoadBalancer"
+    NODE_PORT = "NodePort"
+
+
+class PublicCloudManagedKubernetesCiliumHubble(_gen.BaseModel):
+    """Hubble observability configuration for the Cilium CNI"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether Hubble observability is enabled"""
+
+    relay: PublicCloudManagedKubernetesCiliumHubbleRelay | None = _p.Field(default=None)
+    """Hubble relay configuration"""
+
+    ui: PublicCloudManagedKubernetesCiliumHubbleUI | None = _p.Field(default=None)
+    """Hubble UI configuration"""
+
+
+class PublicCloudManagedKubernetesCiliumHubbleRelay(_gen.BaseModel):
+    """Hubble relay configuration for the Cilium CNI"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether the Hubble relay is enabled"""
+
+
+class PublicCloudManagedKubernetesCiliumHubbleUI(_gen.BaseModel):
+    """Hubble UI configuration for the Cilium CNI"""
+
+    backend_resources: PublicCloudManagedKubernetesCiliumResourceRequirements | None = _p.Field(
+        default=None, validation_alias="backendResources", serialization_alias="backendResources"
+    )
+    """Compute resource requirements of the Hubble UI backend"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether the Hubble UI is enabled"""
+
+    frontend_resources: PublicCloudManagedKubernetesCiliumResourceRequirements | None = _p.Field(
+        default=None, validation_alias="frontendResources", serialization_alias="frontendResources"
+    )
+    """Compute resource requirements of the Hubble UI frontend"""
+
+
+class PublicCloudManagedKubernetesCiliumResourceList(_gen.BaseModel):
+    """Kubernetes compute resource quantities for a Cilium component"""
+
+    cpu: str | None = _p.Field(default=None)
+    """CPU resource quantity, for example 250m or 1"""
+
+    memory: str | None = _p.Field(default=None)
+    """Memory resource quantity, for example 128Mi or 1Gi"""
+
+
+class PublicCloudManagedKubernetesCiliumResourceRequirements(_gen.BaseModel):
+    """Kubernetes compute resource requirements for a Cilium component"""
+
+    limits: PublicCloudManagedKubernetesCiliumResourceList | None = _p.Field(default=None)
+    """Maximum compute resources allowed"""
+
+    requests: PublicCloudManagedKubernetesCiliumResourceList | None = _p.Field(default=None)
+    """Minimum compute resources guaranteed"""
+
+
+class PublicCloudManagedKubernetesCluster(_gen.BaseModel):
+    """A managed Kubernetes cluster"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Concurrency control hash of the target specification
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Cluster creation timestamp
+
+    Read-only: the API sets it.
+    """
+
+    current_state: PublicCloudManagedKubernetesClusterCurrentState | None = _p.Field(
+        default=None, validation_alias="currentState", serialization_alias="currentState"
+    )
+    """Actual cluster state
+
+    Read-only: the API sets it.
+    """
+
+    current_tasks: list[CommonCurrentTask] | None = _p.Field(
+        default=None, validation_alias="currentTasks", serialization_alias="currentTasks"
+    )
+    """In-progress asynchronous operations on the cluster
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the cluster
+
+    Read-only: the API sets it.
+    """
+
+    resource_status: CommonResourceStatusEnum | None = _p.Field(
+        default=None, validation_alias="resourceStatus", serialization_alias="resourceStatus"
+    )
+    """Current lifecycle status of the cluster
+
+    Read-only: the API sets it.
+    """
+
+    target_spec: PublicCloudManagedKubernetesClusterTargetSpec | None = _p.Field(
+        default=None, validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Desired cluster specification
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last cluster modification timestamp
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesClusterCreation(_gen.BaseModel):
+    """Request body for creating a managed Kubernetes cluster"""
+
+    target_spec: PublicCloudManagedKubernetesClusterTargetSpec = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Desired cluster specification"""
+
+
+class PublicCloudManagedKubernetesClusterCurrentState(_gen.BaseModel):
+    """Observed state of the cluster as reported by the backend. May differ from targetSpec while the cluster reconciles, or when the cluster is changed outside the API (resourceStatus becomes OUT_OF_SYNC)."""
+
+    api_server: PublicCloudManagedKubernetesCurrentStateAPIServer | None = _p.Field(
+        default=None, validation_alias="apiServer", serialization_alias="apiServer"
+    )
+    """Observed API server state: configuration and resolved control-plane URL
+
+    Read-only: the API sets it.
+    """
+
+    authentication: PublicCloudManagedKubernetesCurrentStateAuthentication | None = _p.Field(
+        default=None
+    )
+    """Observed control-plane authentication state
+
+    Read-only: the API sets it.
+    """
+
+    auto_upgrade: PublicCloudManagedKubernetesAutoUpgrade | None = _p.Field(
+        default=None, validation_alias="autoUpgrade", serialization_alias="autoUpgrade"
+    )
+    """Observed automatic Kubernetes version upgrade policy
+
+    Read-only: the API sets it.
+    """
+
+    cni: PublicCloudManagedKubernetesCni | None = _p.Field(default=None)
+    """Observed Container Network Interface plugin and its settings
+
+    Read-only: the API sets it.
+    """
+
+    deployed_version: str | None = _p.Field(
+        default=None, validation_alias="deployedVersion", serialization_alias="deployedVersion"
+    )
+    """Full Kubernetes version currently deployed on the cluster, for example 1.34.1-2
+
+    Read-only: the API sets it.
+    """
+
+    ip_allocation_policy: PublicCloudManagedKubernetesIPAllocationPolicy | None = _p.Field(
+        default=None,
+        validation_alias="ipAllocationPolicy",
+        serialization_alias="ipAllocationPolicy",
+    )
+    """Observed internal pod and service CIDRs allocated by the backend, including any applied platform defaults
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Observed cluster name
+
+    Read-only: the API sets it.
+    """
+
+    network: PublicCloudManagedKubernetesNetwork | None = _p.Field(default=None)
+    """Observed network topology and resolved network identifiers
+
+    Read-only: the API sets it.
+    """
+
+    plan: PublicCloudManagedKubernetesPlanNameEnum | None = _p.Field(default=None)
+    """Observed platform tier (FREE or STANDARD)
+
+    Read-only: the API sets it.
+    """
+
+    region: str | None = _p.Field(default=None)
+    """Observed deployment region identifier
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Minor Kubernetes version currently running on the cluster, for example 1.34. See deployedVersion for the full version.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesClusterTargetSpec(_gen.BaseModel):
+    """Desired specification of the cluster"""
+
+    api_server: PublicCloudManagedKubernetesAPIServer | None = _p.Field(
+        default=None, validation_alias="apiServer", serialization_alias="apiServer"
+    )
+    """Control-plane exposure, IP filtering, and admission plugins"""
+
+    authentication: PublicCloudManagedKubernetesAuthentication | None = _p.Field(default=None)
+    """Control-plane authentication variant"""
+
+    auto_upgrade: PublicCloudManagedKubernetesAutoUpgrade | None = _p.Field(
+        default=None, validation_alias="autoUpgrade", serialization_alias="autoUpgrade"
+    )
+    """Automatic Kubernetes version upgrade policy, by track"""
+
+    cni: PublicCloudManagedKubernetesCni = _p.Field()
+    """Container Network Interface plugin"""
+
+    ip_allocation_policy: PublicCloudManagedKubernetesIPAllocationPolicy | None = _p.Field(
+        default=None,
+        validation_alias="ipAllocationPolicy",
+        serialization_alias="ipAllocationPolicy",
+    )
+    """Internal pod and service addressing. Immutable after creation."""
+
+    name: str | None = _p.Field(default=None)
+    """Cluster name. Not an identifier. Can be changed after creation by PUT. Automatically generated when omitted at creation."""
+
+    network: PublicCloudManagedKubernetesNetwork = _p.Field()
+    """Network topology of the cluster nodes. The variant and its identifiers are immutable after creation. defaultEgress remains mutable."""
+
+    plan: PublicCloudManagedKubernetesPlanNameEnum = _p.Field()
+    """Platform tier (FREE or STANDARD)"""
+
+    region: str = _p.Field()
+    """Deployment region name"""
+
+    version: str | None = _p.Field(default=None)
+    """Desired Kubernetes version. On creation, minor, for example 1.34 or full, for example 1.34.1-2. A minor resolves to its latest patch. On update, minor or full."""
+
+
+class PublicCloudManagedKubernetesClusterUpdate(_gen.BaseModel):
+    """Request body for updating a managed Kubernetes cluster"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Optional concurrency-control checksum. When supplied, it must match the resource's current checksum or the request is rejected with a 409 checksum-mismatch conflict. When omitted or empty, the concurrency check is skipped and the write is forced (last-write-wins)."""
+
+    target_spec: PublicCloudManagedKubernetesClusterUpdateTargetSpec = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Updated cluster specification with mutable fields only"""
+
+
+class PublicCloudManagedKubernetesClusterUpdateTargetSpec(_gen.BaseModel):
+    """Desired specification of the cluster on update, restricted to the mutable surface. Immutable fields (region, plan, network variant and identifiers, cni variant, ipAllocationPolicy) are excluded from the body. Sending any is rejected with 400. Every configured mutable field must be present. A missing configured field is rejected with 400."""
+
+    api_server: PublicCloudManagedKubernetesAPIServer | None = _p.Field(
+        default=None, validation_alias="apiServer", serialization_alias="apiServer"
+    )
+    """Control-plane exposure, IP filtering, and admission plugins"""
+
+    authentication: PublicCloudManagedKubernetesAuthentication | None = _p.Field(default=None)
+    """Control-plane authentication variant"""
+
+    auto_upgrade: PublicCloudManagedKubernetesAutoUpgrade | None = _p.Field(
+        default=None, validation_alias="autoUpgrade", serialization_alias="autoUpgrade"
+    )
+    """Automatic Kubernetes version upgrade policy, by track"""
+
+    cni: PublicCloudManagedKubernetesCniUpdate | None = _p.Field(default=None)
+    """Mutable CNI settings only. The CNI variant is immutable. Its discriminant must not be sent."""
+
+    name: str = _p.Field()
+    """Cluster name. Not an identifier. Can be changed after creation."""
+
+    network: PublicCloudManagedKubernetesNetworkUpdate | None = _p.Field(default=None)
+    """Mutable network settings only. The network variant and its identifiers are immutable and must not be sent."""
+
+    version: str = _p.Field()
+    """Desired Kubernetes version, full, for example 1.34.1-2 or minor, for example 1.34. The current minor changes nothing. The next minor upgrades to its latest patch. Changing this drives a version upgrade reconciliation."""
+
+
+class PublicCloudManagedKubernetesClusterVersions(_gen.BaseModel):
+    """Version currently deployed on the cluster, and the versions it can move to"""
+
+    available_updates: list[PublicCloudManagedKubernetesVersionReference] | None = _p.Field(
+        default=None, validation_alias="availableUpdates", serialization_alias="availableUpdates"
+    )
+    """Patch versions of the current minor the cluster can update to, for example 1.32.8-1 to 1.32.8-2
+
+    Read-only: the API sets it.
+    """
+
+    available_upgrades: list[PublicCloudManagedKubernetesVersionReference] | None = _p.Field(
+        default=None, validation_alias="availableUpgrades", serialization_alias="availableUpgrades"
+    )
+    """Versions of the next minor the cluster can upgrade to, for example 1.32.8-1 to 1.33.1-2. Multi-minor jumps are never listed.
+
+    Read-only: the API sets it.
+    """
+
+    current_version: str | None = _p.Field(
+        default=None, validation_alias="currentVersion", serialization_alias="currentVersion"
+    )
+    """Full Kubernetes version currently deployed on the cluster, for example 1.32.8-1
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesCni(_gen.BaseModel):
+    """Container Network Interface plugin. FREE requires CANAL, STANDARD requires CILIUM. A mismatch is rejected with 400. The variant and the Canal kube-proxy mode are immutable after creation. Other internal settings stay mutable."""
+
+    canal: PublicCloudManagedKubernetesCniCanal | None = _p.Field(default=None)
+    """Canal payload, valid only on the FREE plan. Present when type is CANAL, absent otherwise."""
+
+    cilium: PublicCloudManagedKubernetesCniCilium | None = _p.Field(default=None)
+    """Cilium payload, valid only on the STANDARD plan. Present when type is CILIUM, absent otherwise."""
+
+    type: PublicCloudManagedKubernetesCniTypeEnum = _p.Field()
+    """Selected CNI variant"""
+
+
+class PublicCloudManagedKubernetesCniCanal(_gen.BaseModel):
+    """Canal CNI configuration, valid only on the FREE plan. The kube-proxy mode is immutable after creation. Its other settings stay mutable."""
+
+    kube_proxy: PublicCloudManagedKubernetesKubeProxy | None = _p.Field(
+        default=None, validation_alias="kubeProxy", serialization_alias="kubeProxy"
+    )
+    """kube-proxy configuration"""
+
+
+class PublicCloudManagedKubernetesCniCanalUpdate(_gen.BaseModel):
+    """Mutable Canal CNI settings, valid only on the FREE plan. The kube-proxy mode is immutable."""
+
+    kube_proxy: PublicCloudManagedKubernetesKubeProxyUpdate | None = _p.Field(
+        default=None, validation_alias="kubeProxy", serialization_alias="kubeProxy"
+    )
+    """Mutable kube-proxy settings"""
+
+
+class PublicCloudManagedKubernetesCniCilium(_gen.BaseModel):
+    """Cilium CNI configuration, valid only on the STANDARD plan"""
+
+    cluster_id: int | None = _p.Field(
+        default=None, validation_alias="clusterId", serialization_alias="clusterId"
+    )
+    """ClusterMesh cluster identifier, between 1 and 255"""
+
+    cluster_mesh: PublicCloudManagedKubernetesCiliumClusterMesh | None = _p.Field(
+        default=None, validation_alias="clusterMesh", serialization_alias="clusterMesh"
+    )
+    """ClusterMesh multi-cluster connectivity configuration"""
+
+    hubble: PublicCloudManagedKubernetesCiliumHubble | None = _p.Field(default=None)
+    """Hubble observability configuration"""
+
+
+class PublicCloudManagedKubernetesCniTypeEnum(_gen.OpenStrEnum):
+    """Container Network Interface. CANAL requires the FREE plan. CILIUM requires the STANDARD plan. A mismatch is rejected. Immutable after creation.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CANAL = "CANAL"
+    CILIUM = "CILIUM"
+
+
+class PublicCloudManagedKubernetesCniUpdate(_gen.BaseModel):
+    """Mutable CNI settings. The variant is immutable and its discriminant must not be sent, else 400."""
+
+    canal: PublicCloudManagedKubernetesCniCanalUpdate | None = _p.Field(default=None)
+    """Mutable Canal settings. Present on the FREE plan. The kube-proxy mode is immutable."""
+
+    cilium: PublicCloudManagedKubernetesCniCilium | None = _p.Field(default=None)
+    """Mutable Cilium settings. Present on the STANDARD plan."""
+
+
+class PublicCloudManagedKubernetesCurrentStateAPIServer(_gen.BaseModel):
+    """Observed API server state"""
+
+    access: PublicCloudManagedKubernetesCurrentStateAPIServerAccess | None = _p.Field(default=None)
+    """Observed exposure and IP filtering of the API server
+
+    Read-only: the API sets it.
+    """
+
+    admission_plugins: dict[str, PublicCloudManagedKubernetesAdmissionPlugin] | None = _p.Field(
+        default=None, validation_alias="admissionPlugins", serialization_alias="admissionPlugins"
+    )
+    """Observed admission plugin configurations
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesCurrentStateAPIServerAccess(_gen.BaseModel):
+    """Observed exposure of the cluster API server: public endpoint and IP filtering"""
+
+    authorized_ips: PublicCloudManagedKubernetesAuthorizedIPs | None = _p.Field(
+        default=None, validation_alias="authorizedIps", serialization_alias="authorizedIps"
+    )
+    """Observed IP allowlist for the API server
+
+    Read-only: the API sets it.
+    """
+
+    public_endpoint: PublicCloudManagedKubernetesAPIServerPublicEndpoint | None = _p.Field(
+        default=None, validation_alias="publicEndpoint", serialization_alias="publicEndpoint"
+    )
+    """Observed public endpoint of the API server
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesCurrentStateAuthentication(_gen.BaseModel):
+    """Observed control-plane authentication state"""
+
+    oidc: PublicCloudManagedKubernetesCurrentStateOidc | None = _p.Field(default=None)
+    """Observed OpenID Connect configuration, present when type is OIDC
+
+    Read-only: the API sets it.
+    """
+
+    type: PublicCloudManagedKubernetesAuthenticationTypeEnum | None = _p.Field(default=None)
+    """Observed active authentication variant
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesCurrentStateOidc(_gen.BaseModel):
+    """Observed single-provider OpenID Connect configuration"""
+
+    ca_content: str | None = _p.Field(
+        default=None, validation_alias="caContent", serialization_alias="caContent"
+    )
+    """CA certificate of the OIDC provider, PEM-encoded
+
+    Read-only: the API sets it.
+    """
+
+    client_id: str | None = _p.Field(
+        default=None, validation_alias="clientId", serialization_alias="clientId"
+    )
+    """Identifier of the OIDC client
+
+    Read-only: the API sets it.
+    """
+
+    groups_claim: list[str] | None = _p.Field(
+        default=None, validation_alias="groupsClaim", serialization_alias="groupsClaim"
+    )
+    """JWT claims used as Kubernetes groups
+
+    Read-only: the API sets it.
+    """
+
+    groups_prefix: str | None = _p.Field(
+        default=None, validation_alias="groupsPrefix", serialization_alias="groupsPrefix"
+    )
+    """Prefix prepended to group claims
+
+    Read-only: the API sets it.
+    """
+
+    issuer_url: str | None = _p.Field(
+        default=None, validation_alias="issuerUrl", serialization_alias="issuerUrl"
+    )
+    """OIDC issuer URL
+
+    Read-only: the API sets it.
+    """
+
+    required_claim: list[str] | None = _p.Field(
+        default=None, validation_alias="requiredClaim", serialization_alias="requiredClaim"
+    )
+    """Claims that must be present in the JWT token
+
+    Read-only: the API sets it.
+    """
+
+    signing_algs: list[PublicCloudManagedKubernetesOidcSigningAlgEnum] | None = _p.Field(
+        default=None, validation_alias="signingAlgs", serialization_alias="signingAlgs"
+    )
+    """Accepted signing algorithms for OIDC tokens
+
+    Read-only: the API sets it.
+    """
+
+    username_claim: str | None = _p.Field(
+        default=None, validation_alias="usernameClaim", serialization_alias="usernameClaim"
+    )
+    """JWT claim used as the Kubernetes username
+
+    Read-only: the API sets it.
+    """
+
+    username_prefix: str | None = _p.Field(
+        default=None, validation_alias="usernamePrefix", serialization_alias="usernamePrefix"
+    )
+    """Prefix prepended to username claims
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesDefaultEgress(_gen.BaseModel):
+    """Default egress route for nodes on a private network cluster. userGateway is required if and only if type is USER_GATEWAY, else the request is rejected."""
+
+    type: PublicCloudManagedKubernetesDefaultEgressTypeEnum = _p.Field()
+    """Default egress route type for the cluster nodes"""
+
+    user_gateway: PublicCloudManagedKubernetesUserGateway | None = _p.Field(
+        default=None, validation_alias="userGateway", serialization_alias="userGateway"
+    )
+    """User-provided egress gateway. Required if and only if type is USER_GATEWAY."""
+
+
+class PublicCloudManagedKubernetesDefaultEgressTypeEnum(_gen.OpenStrEnum):
+    """Default egress route for nodes on a private network cluster. NODE_PUBLIC_INTERFACE uses the public interface. MANAGED_GATEWAY uses the subnet gateway. USER_GATEWAY uses a caller-provided gateway (requires userGateway).
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    MANAGED_GATEWAY = "MANAGED_GATEWAY"
+    NODE_PUBLIC_INTERFACE = "NODE_PUBLIC_INTERFACE"
+    USER_GATEWAY = "USER_GATEWAY"
+
+
+class PublicCloudManagedKubernetesEtcdUsage(_gen.BaseModel):
+    """Etcd database usage metrics for a managed Kubernetes cluster"""
+
+    limit: int | None = _p.Field(default=None)
+    """Etcd storage quota in bytes
+
+    Read-only: the API sets it.
+    """
+
+    used: int | None = _p.Field(default=None)
+    """Current etcd storage usage in bytes
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesFlavor(_gen.BaseModel):
+    """A node flavor available for managed Kubernetes node pools in a region"""
+
+    category: PublicCloudManagedKubernetesFlavorCategoryEnum | None = _p.Field(default=None)
+    """Category of the flavor
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Flavor name, for example b3-8
+
+    Read-only: the API sets it.
+    """
+
+    resources: PublicCloudManagedKubernetesFlavorResources | None = _p.Field(default=None)
+    """Compute resources provided by the flavor
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudManagedKubernetesFlavorStatusEnum | None = _p.Field(default=None)
+    """Availability of the flavor for node pool creation
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesFlavorCategoryEnum(_gen.OpenStrEnum):
+    """Resource profile a node flavor is optimized for
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CPU_OPTIMIZED = "CPU_OPTIMIZED"
+    DISCOVERY = "DISCOVERY"
+    GENERAL_PURPOSE = "GENERAL_PURPOSE"
+    GPU = "GPU"
+    IOPS_OPTIMIZED = "IOPS_OPTIMIZED"
+    MEMORY_OPTIMIZED = "MEMORY_OPTIMIZED"
+
+
+class PublicCloudManagedKubernetesFlavorResources(_gen.BaseModel):
+    """Compute resources provided by a node flavor"""
+
+    gpus: int | None = _p.Field(default=None)
+    """Number of GPUs
+
+    Read-only: the API sets it.
+    """
+
+    memory_gi_b: int | None = _p.Field(
+        default=None, validation_alias="memoryGiB", serialization_alias="memoryGiB"
+    )
+    """Memory in GiB
+
+    Read-only: the API sets it.
+    """
+
+    vcpus: int | None = _p.Field(default=None)
+    """Number of virtual CPUs
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesFlavorStatusEnum(_gen.OpenStrEnum):
+    """Availability of a node flavor for node pool creation
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AVAILABLE = "AVAILABLE"
+    UNAVAILABLE = "UNAVAILABLE"
+
+
+class PublicCloudManagedKubernetesIPAllocationPolicy(_gen.BaseModel):
+    """Internal pod and service addressing. Both CIDRs are immutable after creation. When omitted, platform defaults apply."""
+
+    pods: IPv4Block | None = _p.Field(default=None)
+    """IPv4 CIDR block allocated for pod networking, for example 10.0.0.0/16. Immutable after creation. A non-IPv4, invalid or overlapping CIDR is rejected with 400."""
+
+    services: IPv4Block | None = _p.Field(default=None)
+    """IPv4 CIDR block allocated for service networking, for example 10.96.0.0/12. Immutable after creation. A non-IPv4, invalid or overlapping CIDR is rejected with 400."""
+
+
+class PublicCloudManagedKubernetesKubeProxy(_gen.BaseModel):
+    """kube-proxy configuration for the Canal CNI"""
+
+    iptables: PublicCloudManagedKubernetesKubeProxyIptables | None = _p.Field(default=None)
+    """iptables mode payload. Provided when mode is IPTABLES. Must be absent otherwise."""
+
+    ipvs: PublicCloudManagedKubernetesKubeProxyIpvs | None = _p.Field(default=None)
+    """IPVS mode payload. Provided when mode is IPVS. Must be absent otherwise."""
+
+    mode: PublicCloudManagedKubernetesKubeProxyModeEnum = _p.Field()
+    """Selected kube-proxy mode. Immutable after creation."""
+
+
+class PublicCloudManagedKubernetesKubeProxyIptables(_gen.BaseModel):
+    """Kube-proxy iptables mode settings"""
+
+    min_sync_period: str | None = _p.Field(
+        default=None, validation_alias="minSyncPeriod", serialization_alias="minSyncPeriod"
+    )
+    """The minimum period that iptables rules are refreshed, in RFC3339 duration format, for example `PT60S`"""
+
+    sync_period: str | None = _p.Field(
+        default=None, validation_alias="syncPeriod", serialization_alias="syncPeriod"
+    )
+    """The period that iptables rules are refreshed, in RFC3339 duration format, for example `PT60S`. Must be greater than 0."""
+
+
+class PublicCloudManagedKubernetesKubeProxyIpvs(_gen.BaseModel):
+    """Kube-proxy IPVS mode settings"""
+
+    min_sync_period: str | None = _p.Field(
+        default=None, validation_alias="minSyncPeriod", serialization_alias="minSyncPeriod"
+    )
+    """The minimum period that ipvs rules are refreshed in RFC3339 duration format, for example `PT60S`"""
+
+    scheduler: PublicCloudManagedKubernetesKubeProxyIpvsSchedulerEnum | None = _p.Field(
+        default=None
+    )
+    """IPVS scheduling algorithm"""
+
+    sync_period: str | None = _p.Field(
+        default=None, validation_alias="syncPeriod", serialization_alias="syncPeriod"
+    )
+    """The period that ipvs rules are refreshed in RFC3339 duration format, for example `PT60S`. Must be greater than 0."""
+
+    tcp_fin_timeout: str | None = _p.Field(
+        default=None, validation_alias="tcpFinTimeout", serialization_alias="tcpFinTimeout"
+    )
+    """The timeout value used for IPVS TCP sessions after receiving a FIN in RFC3339 duration format, for example `PT60S`. Defaults to `PT0S`, which preserves the current timeout value on the system."""
+
+    tcp_timeout: str | None = _p.Field(
+        default=None, validation_alias="tcpTimeout", serialization_alias="tcpTimeout"
+    )
+    """The timeout value used for idle IPVS TCP sessions in RFC3339 duration format, for example `PT60S`. Defaults to `PT0S`, which preserves the current timeout value on the system. Cannot be set between `PT0S` and `PT5S`, in order to prevent in-cluster networking issues."""
+
+    udp_timeout: str | None = _p.Field(
+        default=None, validation_alias="udpTimeout", serialization_alias="udpTimeout"
+    )
+    """The timeout value used for IPVS UDP packets in RFC3339 duration format, for example `PT60S`. Defaults to `PT0S`, which preserves the current timeout value on the system."""
+
+
+class PublicCloudManagedKubernetesKubeProxyIpvsSchedulerEnum(_gen.OpenStrEnum):
+    """Algorithm IPVS uses to pick the backend pod for a new connection. ROUND_ROBIN cycles through backends. LEAST_CONNECTION picks the backend with the fewest active connections. SHORTEST_EXPECTED_DELAY and NEVER_QUEUE weight the choice on expected latency. DESTINATION_HASHING and SOURCE_HASHING pin a connection to a backend based on the destination or source address.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DESTINATION_HASHING = "DESTINATION_HASHING"
+    LEAST_CONNECTION = "LEAST_CONNECTION"
+    NEVER_QUEUE = "NEVER_QUEUE"
+    ROUND_ROBIN = "ROUND_ROBIN"
+    SHORTEST_EXPECTED_DELAY = "SHORTEST_EXPECTED_DELAY"
+    SOURCE_HASHING = "SOURCE_HASHING"
+
+
+class PublicCloudManagedKubernetesKubeProxyModeEnum(_gen.OpenStrEnum):
+    """kube-proxy mode for the Canal CNI
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    IPTABLES = "IPTABLES"
+    IPVS = "IPVS"
+
+
+class PublicCloudManagedKubernetesKubeProxyUpdate(_gen.BaseModel):
+    """Mutable kube-proxy settings for the Canal CNI. The mode is immutable after creation."""
+
+    iptables: PublicCloudManagedKubernetesKubeProxyIptables | None = _p.Field(default=None)
+    """iptables mode payload. Provided when the cluster runs in IPTABLES mode. Must be absent otherwise."""
+
+    ipvs: PublicCloudManagedKubernetesKubeProxyIpvs | None = _p.Field(default=None)
+    """IPVS mode payload. Provided when the cluster runs in IPVS mode. Must be absent otherwise."""
+
+
+class PublicCloudManagedKubernetesKubeconfig(_gen.BaseModel):
+    """Kubeconfig file content for a managed Kubernetes cluster"""
+
+    content: str | None = _p.Field(default=None)
+    """Kubeconfig file content in YAML format
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesNetwork(_gen.BaseModel):
+    """Network topology of the cluster nodes. Immutable after creation. For VRACK, the vrack identifiers are immutable while defaultEgress stays mutable."""
+
+    type: PublicCloudManagedKubernetesNetworkTypeEnum = _p.Field()
+    """Selected network topology variant"""
+
+    vrack: PublicCloudManagedKubernetesNetworkVrack | None = _p.Field(default=None)
+    """Private network (vRack) payload. Required when type is VRACK. Must be absent otherwise."""
+
+
+class PublicCloudManagedKubernetesNetworkTypeEnum(_gen.OpenStrEnum):
+    """Network topology of the cluster nodes. PUBLIC for a public cluster. VRACK for a vRack private network cluster. Immutable after creation.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    PUBLIC = "PUBLIC"
+    VRACK = "VRACK"
+
+
+class PublicCloudManagedKubernetesNetworkUpdate(_gen.BaseModel):
+    """Mutable network settings. The variant and its identifiers are immutable and must not be sent, else 400."""
+
+    vrack: PublicCloudManagedKubernetesNetworkVrackUpdate | None = _p.Field(default=None)
+    """Mutable private network (vRack) settings. Present for a vRack cluster."""
+
+
+class PublicCloudManagedKubernetesNetworkVrack(_gen.BaseModel):
+    """Private network (vRack) topology for cluster nodes. The private network and subnet identifiers are immutable after creation. defaultEgress stays mutable."""
+
+    default_egress: PublicCloudManagedKubernetesDefaultEgress | None = _p.Field(
+        default=None, validation_alias="defaultEgress", serialization_alias="defaultEgress"
+    )
+    """Default egress route for the cluster nodes. Defaults is MANAGED_GATEWAY for STANDARD plan, NODE_PUBLIC_INTERFACE for FREE plan."""
+
+    load_balancer_subnet_id: str | None = _p.Field(
+        default=None,
+        validation_alias="loadBalancerSubnetId",
+        serialization_alias="loadBalancerSubnetId",
+    )
+    """Subnet identifier used by load balancers. Immutable after creation on STANDARD plan."""
+
+    private_network_id: str = _p.Field(
+        validation_alias="privateNetworkId", serialization_alias="privateNetworkId"
+    )
+    """Identifier of the target private network. Immutable after creation."""
+
+    subnet_id: str = _p.Field(validation_alias="subnetId", serialization_alias="subnetId")
+    """Subnet identifier used by cluster nodes. Immutable after creation."""
+
+
+class PublicCloudManagedKubernetesNetworkVrackUpdate(_gen.BaseModel):
+    """Mutable private network (vRack) settings. The variant and its identifiers are immutable and must not be sent."""
+
+    default_egress: PublicCloudManagedKubernetesDefaultEgress | None = _p.Field(
+        default=None, validation_alias="defaultEgress", serialization_alias="defaultEgress"
+    )
+    """Default egress route for the cluster nodes"""
+
+    load_balancer_subnet_id: str | None = _p.Field(
+        default=None,
+        validation_alias="loadBalancerSubnetId",
+        serialization_alias="loadBalancerSubnetId",
+    )
+    """Subnet identifier used by load balancers. Immutable on STANDARD plan."""
+
+
+class PublicCloudManagedKubernetesNode(_gen.BaseModel):
+    """A node of a managed Kubernetes cluster nodepool"""
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Node creation timestamp
+
+    Read-only: the API sets it.
+    """
+
+    current_state: PublicCloudManagedKubernetesNodeCurrentState | None = _p.Field(
+        default=None, validation_alias="currentState", serialization_alias="currentState"
+    )
+    """Actual node state
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the node
+
+    Read-only: the API sets it.
+    """
+
+    resource_status: PublicCloudManagedKubernetesNodeResourceStatusEnum | None = _p.Field(
+        default=None, validation_alias="resourceStatus", serialization_alias="resourceStatus"
+    )
+    """Current lifecycle status of the node
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last node modification timestamp
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesNodeConfig(_gen.BaseModel):
+    """Hardware configuration of the nodepool nodes"""
+
+    attach_floating_ip: PublicCloudManagedKubernetesAttachFloatingIP | None = _p.Field(
+        default=None, validation_alias="attachFloatingIp", serialization_alias="attachFloatingIp"
+    )
+    """Floating IP attachment for the nodepool nodes"""
+
+    flavor: str = _p.Field()
+    """Node flavor identifier defining the CPU, memory and disk of each node, for example b3-8. Immutable after creation."""
+
+
+class PublicCloudManagedKubernetesNodeCurrentState(_gen.BaseModel):
+    """Observed state of the node"""
+
+    deleted_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="deletedAt", serialization_alias="deletedAt"
+    )
+    """Timestamp when the node was removed. Present only for a deleted node kept in retention.
+
+    Read-only: the API sets it.
+    """
+
+    deployed_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="deployedAt", serialization_alias="deployedAt"
+    )
+    """Timestamp when the node joined the cluster. Absent until the node has joined.
+
+    Read-only: the API sets it.
+    """
+
+    flavor: str | None = _p.Field(default=None)
+    """Flavor of the Public Cloud instance backing the node
+
+    Read-only: the API sets it.
+    """
+
+    instance_id: str | None = _p.Field(
+        default=None, validation_alias="instanceId", serialization_alias="instanceId"
+    )
+    """Identifier of the Public Cloud instance backing the node. Absent until the instance is provisioned.
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Node name
+
+    Read-only: the API sets it.
+    """
+
+    node_pool_id: str | None = _p.Field(
+        default=None, validation_alias="nodePoolId", serialization_alias="nodePoolId"
+    )
+    """Identifier of the nodepool the node belongs to
+
+    Read-only: the API sets it.
+    """
+
+    up_to_date: bool | None = _p.Field(
+        default=None, validation_alias="upToDate", serialization_alias="upToDate"
+    )
+    """Whether the node runs the current nodepool specification
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Kubernetes version currently installed on the node
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesNodeResourceStatusEnum(_gen.OpenStrEnum):
+    """Lifecycle status of the node. CREATING while provisioning, before the node joins the cluster. READY when operational on the current nodepool spec. UPDATING while a change reconciles. ERROR when the node is detected as failed. DELETING while being removed. DELETED once removed, kept in retention until it expires.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "CREATING"
+    DELETED = "DELETED"
+    DELETING = "DELETING"
+    ERROR = "ERROR"
+    OUT_OF_SYNC = "OUT_OF_SYNC"
+    READY = "READY"
+    SUSPENDED = "SUSPENDED"
+    UNKNOWN = "UNKNOWN"
+    UPDATING = "UPDATING"
+
+
+class PublicCloudManagedKubernetesNodeTemplate(_gen.BaseModel):
+    """Kubernetes metadata and scheduling settings applied to every node of the nodepool"""
+
+    metadata: PublicCloudManagedKubernetesNodeTemplateMetadata | None = _p.Field(default=None)
+    """Kubernetes metadata applied to each node"""
+
+    spec: PublicCloudManagedKubernetesNodeTemplateSpec | None = _p.Field(default=None)
+    """Kubernetes scheduling settings applied to each node"""
+
+
+class PublicCloudManagedKubernetesNodeTemplateMetadata(_gen.BaseModel):
+    """Kubernetes metadata applied to every node of the nodepool"""
+
+    annotations: dict[str, str] | None = _p.Field(default=None)
+    """Annotations applied to each node, as key-value pairs"""
+
+    finalizers: list[str] | None = _p.Field(default=None)
+    """Finalizers applied to each node, blocking deletion until the associated cleanup completes"""
+
+    labels: dict[str, str] | None = _p.Field(default=None)
+    """Labels applied to each node, as key-value pairs"""
+
+
+class PublicCloudManagedKubernetesNodeTemplateSpec(_gen.BaseModel):
+    """Kubernetes scheduling settings applied to every node of the nodepool"""
+
+    taints: list[PublicCloudManagedKubernetesTaint] | None = _p.Field(default=None)
+    """Taints applied to each node"""
+
+    unschedulable: bool | None = _p.Field(default=None)
+    """Whether the nodes are marked unschedulable, preventing new pods from being placed on them"""
+
+
+class PublicCloudManagedKubernetesNodepool(_gen.BaseModel):
+    """A nodepool of a managed Kubernetes cluster"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Concurrency control hash of the target specification
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Nodepool creation timestamp
+
+    Read-only: the API sets it.
+    """
+
+    current_state: PublicCloudManagedKubernetesNodepoolCurrentState | None = _p.Field(
+        default=None, validation_alias="currentState", serialization_alias="currentState"
+    )
+    """Actual nodepool state
+
+    Read-only: the API sets it.
+    """
+
+    current_tasks: list[CommonCurrentTask] | None = _p.Field(
+        default=None, validation_alias="currentTasks", serialization_alias="currentTasks"
+    )
+    """In-progress asynchronous operations on the nodepool
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the nodepool
+
+    Read-only: the API sets it.
+    """
+
+    resource_status: CommonResourceStatusEnum | None = _p.Field(
+        default=None, validation_alias="resourceStatus", serialization_alias="resourceStatus"
+    )
+    """Current lifecycle status of the nodepool
+
+    Read-only: the API sets it.
+    """
+
+    target_spec: PublicCloudManagedKubernetesNodepoolTargetSpec | None = _p.Field(
+        default=None, validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Desired nodepool specification
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last nodepool modification timestamp
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesNodepoolBillingTypeEnum(_gen.OpenStrEnum):
+    """Billing period for the nodepool nodes. HOURLY bills per hour. MONTHLY bills a fixed monthly rate. Immutable after creation.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    HOURLY = "HOURLY"
+    MONTHLY = "MONTHLY"
+
+
+class PublicCloudManagedKubernetesNodepoolCreation(_gen.BaseModel):
+    """Request body for creating a nodepool"""
+
+    target_spec: PublicCloudManagedKubernetesNodepoolTargetSpec = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Desired nodepool specification"""
+
+
+class PublicCloudManagedKubernetesNodepoolCurrentState(_gen.BaseModel):
+    """Observed state of the nodepool. May differ from targetSpec while reconciling, or when the nodepool is changed outside the API (resourceStatus becomes OUT_OF_SYNC)."""
+
+    anti_affinity: PublicCloudManagedKubernetesAntiAffinity | None = _p.Field(
+        default=None, validation_alias="antiAffinity", serialization_alias="antiAffinity"
+    )
+    """Observed anti-affinity placement of the nodepool nodes
+
+    Read-only: the API sets it.
+    """
+
+    autoscaler: PublicCloudManagedKubernetesAutoscaler | None = _p.Field(default=None)
+    """Observed automatic node scaling configuration
+
+    Read-only: the API sets it.
+    """
+
+    availability_zone: str | None = _p.Field(
+        default=None, validation_alias="availabilityZone", serialization_alias="availabilityZone"
+    )
+    """Observed availability zone the nodepool nodes are placed in
+
+    Read-only: the API sets it.
+    """
+
+    billing_type: PublicCloudManagedKubernetesNodepoolBillingTypeEnum | None = _p.Field(
+        default=None, validation_alias="billingType", serialization_alias="billingType"
+    )
+    """Observed billing period applied to the nodepool nodes
+
+    Read-only: the API sets it.
+    """
+
+    desired_nodes: int | None = _p.Field(
+        default=None, validation_alias="desiredNodes", serialization_alias="desiredNodes"
+    )
+    """Observed desired number of nodes in the nodepool
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Observed nodepool name
+
+    Read-only: the API sets it.
+    """
+
+    node_config: PublicCloudManagedKubernetesNodeConfig | None = _p.Field(
+        default=None, validation_alias="nodeConfig", serialization_alias="nodeConfig"
+    )
+    """Observed hardware configuration of the nodepool nodes
+
+    Read-only: the API sets it.
+    """
+
+    rollout: PublicCloudManagedKubernetesNodepoolRollout | None = _p.Field(default=None)
+    """Observed strategy used to apply node changes across the nodepool
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudManagedKubernetesNodepoolStatus | None = _p.Field(default=None)
+    """Observed size and readiness of the nodepool nodes
+
+    Read-only: the API sets it.
+    """
+
+    template: PublicCloudManagedKubernetesNodeTemplate | None = _p.Field(default=None)
+    """Observed Kubernetes metadata and scheduling settings applied to the nodepool nodes
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesNodepoolRollout(_gen.BaseModel):
+    """Observed strategy used to apply node changes across the nodepool"""
+
+    strategy: PublicCloudManagedKubernetesNodepoolRolloutStrategyEnum | None = _p.Field(
+        default=None
+    )
+    """Strategy used to apply node changes across the nodepool
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesNodepoolRolloutStrategyEnum(_gen.OpenStrEnum):
+    """How node changes roll out across the nodepool. ROLLING_UPDATE replaces nodes progressively. IN_PLACE updates existing nodes without replacing them.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    IN_PLACE = "IN_PLACE"
+    ROLLING_UPDATE = "ROLLING_UPDATE"
+
+
+class PublicCloudManagedKubernetesNodepoolStatus(_gen.BaseModel):
+    """Observed size and readiness of the nodepool nodes"""
+
+    current_nodes: int | None = _p.Field(
+        default=None, validation_alias="currentNodes", serialization_alias="currentNodes"
+    )
+    """Number of nodes currently provisioned in the nodepool
+
+    Read-only: the API sets it.
+    """
+
+    ready_nodes: int | None = _p.Field(
+        default=None, validation_alias="readyNodes", serialization_alias="readyNodes"
+    )
+    """Number of nodes reporting a Ready condition
+
+    Read-only: the API sets it.
+    """
+
+    up_to_date_nodes: int | None = _p.Field(
+        default=None, validation_alias="upToDateNodes", serialization_alias="upToDateNodes"
+    )
+    """Number of nodes running the current nodepool specification
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesNodepoolTargetSpec(_gen.BaseModel):
+    """Desired specification for a nodepool"""
+
+    anti_affinity: PublicCloudManagedKubernetesAntiAffinity | None = _p.Field(
+        default=None, validation_alias="antiAffinity", serialization_alias="antiAffinity"
+    )
+    """Anti-affinity placement of the nodepool nodes. Immutable after creation."""
+
+    autoscaler: PublicCloudManagedKubernetesAutoscaler | None = _p.Field(default=None)
+    """Automatic node scaling for the nodepool"""
+
+    availability_zone: str | None = _p.Field(
+        default=None, validation_alias="availabilityZone", serialization_alias="availabilityZone"
+    )
+    """Availability zone the nodepool nodes are placed in. Immutable after creation."""
+
+    billing_type: PublicCloudManagedKubernetesNodepoolBillingTypeEnum | None = _p.Field(
+        default=None, validation_alias="billingType", serialization_alias="billingType"
+    )
+    """Billing period applied to the nodepool nodes. Immutable after creation."""
+
+    desired_nodes: int | None = _p.Field(
+        default=None, validation_alias="desiredNodes", serialization_alias="desiredNodes"
+    )
+    """Desired number of nodes in the nodepool. When the autoscaler is enabled, must be at least autoscaler.minNodes."""
+
+    name: str | None = _p.Field(default=None)
+    """Nodepool name. Immutable after creation."""
+
+    node_config: PublicCloudManagedKubernetesNodeConfig = _p.Field(
+        validation_alias="nodeConfig", serialization_alias="nodeConfig"
+    )
+    """Hardware configuration of the nodepool nodes. Immutable after creation."""
+
+    template: PublicCloudManagedKubernetesNodeTemplate | None = _p.Field(default=None)
+    """Kubernetes metadata and scheduling settings applied to every node of the nodepool"""
+
+
+class PublicCloudManagedKubernetesNodepoolUpdate(_gen.BaseModel):
+    """Request body for updating a nodepool"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Optional concurrency-control checksum. When supplied, it must match the resource's current checksum or the request is rejected with a 409 checksum-mismatch conflict. When omitted or empty, the concurrency check is skipped and the write is forced (last-write-wins)."""
+
+    target_spec: PublicCloudManagedKubernetesNodepoolUpdateTargetSpec = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Updated nodepool specification with mutable fields only"""
+
+
+class PublicCloudManagedKubernetesNodepoolUpdateTargetSpec(_gen.BaseModel):
+    """Desired nodepool specification on update. Mutable fields only."""
+
+    autoscaler: PublicCloudManagedKubernetesAutoscaler | None = _p.Field(default=None)
+    """Automatic node scaling for the nodepool"""
+
+    desired_nodes: int | None = _p.Field(
+        default=None, validation_alias="desiredNodes", serialization_alias="desiredNodes"
+    )
+    """Desired number of nodes in the nodepool. When the autoscaler is enabled, must be at least autoscaler.minNodes."""
+
+    template: PublicCloudManagedKubernetesNodeTemplate | None = _p.Field(default=None)
+    """Kubernetes metadata and scheduling settings applied to every node of the nodepool"""
+
+
+class PublicCloudManagedKubernetesOidc(_gen.BaseModel):
+    """Single-provider OpenID Connect configuration for control-plane authentication"""
+
+    ca_content: str | None = _p.Field(
+        default=None, validation_alias="caContent", serialization_alias="caContent"
+    )
+    """CA certificate of the OIDC provider, PEM-encoded"""
+
+    client_id: str = _p.Field(validation_alias="clientId", serialization_alias="clientId")
+    """Identifier of the OIDC client"""
+
+    groups_claim: list[str] | None = _p.Field(
+        default=None, validation_alias="groupsClaim", serialization_alias="groupsClaim"
+    )
+    """JWT claims to use as Kubernetes groups"""
+
+    groups_prefix: str | None = _p.Field(
+        default=None, validation_alias="groupsPrefix", serialization_alias="groupsPrefix"
+    )
+    """Prefix prepended to group claims"""
+
+    issuer_url: str = _p.Field(validation_alias="issuerUrl", serialization_alias="issuerUrl")
+    """OIDC issuer URL"""
+
+    required_claim: list[str] | None = _p.Field(
+        default=None, validation_alias="requiredClaim", serialization_alias="requiredClaim"
+    )
+    """Claims that must be present in the JWT token"""
+
+    signing_algs: list[PublicCloudManagedKubernetesOidcSigningAlgEnum] | None = _p.Field(
+        default=None, validation_alias="signingAlgs", serialization_alias="signingAlgs"
+    )
+    """Accepted signing algorithms for OIDC tokens"""
+
+    username_claim: str | None = _p.Field(
+        default=None, validation_alias="usernameClaim", serialization_alias="usernameClaim"
+    )
+    """JWT claim to use as the Kubernetes username"""
+
+    username_prefix: str | None = _p.Field(
+        default=None, validation_alias="usernamePrefix", serialization_alias="usernamePrefix"
+    )
+    """Prefix prepended to username claims"""
+
+
+class PublicCloudManagedKubernetesOidcSigningAlgEnum(_gen.OpenStrEnum):
+    """JSON Web Signature algorithm accepted for OIDC tokens. RS* are RSASSA-PKCS1-v1_5, ES* are ECDSA and PS* are RSASSA-PSS, each with the SHA-256, SHA-384 or SHA-512 digest.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ES256 = "ES256"
+    ES384 = "ES384"
+    ES512 = "ES512"
+    PS256 = "PS256"
+    PS384 = "PS384"
+    PS512 = "PS512"
+    RS256 = "RS256"
+    RS384 = "RS384"
+    RS512 = "RS512"
+
+
+class PublicCloudManagedKubernetesPlan(_gen.BaseModel):
+    """A plan available for managed Kubernetes clusters, with its control plane characteristics and limits"""
+
+    control_plane: PublicCloudManagedKubernetesPlanControlPlane | None = _p.Field(
+        default=None, validation_alias="controlPlane", serialization_alias="controlPlane"
+    )
+    """Control plane characteristics of the plan
+
+    Read-only: the API sets it.
+    """
+
+    limits: PublicCloudManagedKubernetesPlanLimits | None = _p.Field(default=None)
+    """Limits enforced by the plan
+
+    Read-only: the API sets it.
+    """
+
+    name: PublicCloudManagedKubernetesPlanNameEnum | None = _p.Field(default=None)
+    """Plan name
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudManagedKubernetesPlanStatusEnum | None = _p.Field(default=None)
+    """Availability of the plan for cluster creation
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesPlanControlPlane(_gen.BaseModel):
+    """Control plane characteristics of a managed Kubernetes plan"""
+
+    etcd: PublicCloudManagedKubernetesPlanEtcd | None = _p.Field(default=None)
+    """Etcd characteristics of the control plane
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesPlanEtcd(_gen.BaseModel):
+    """etcd characteristics of a managed Kubernetes control plane"""
+
+    dedicated: bool | None = _p.Field(default=None)
+    """Whether etcd runs on storage dedicated to the cluster
+
+    Read-only: the API sets it.
+    """
+
+    storage: PublicCloudManagedKubernetesPlanEtcdStorage | None = _p.Field(default=None)
+    """Etcd storage quota
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesPlanEtcdStorage(_gen.BaseModel):
+    """etcd storage quota of a managed Kubernetes plan"""
+
+    limit: int | None = _p.Field(default=None)
+    """Storage quota, expressed in the given unit
+
+    Read-only: the API sets it.
+    """
+
+    unit: PublicCloudQuotaQuotaUnitEnum | None = _p.Field(default=None)
+    """Unit of the storage quota
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesPlanLimits(_gen.BaseModel):
+    """Limits enforced by a managed Kubernetes plan"""
+
+    max_nodes: int | None = _p.Field(
+        default=None, validation_alias="maxNodes", serialization_alias="maxNodes"
+    )
+    """Maximum number of nodes allowed across the cluster
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesPlanNameEnum(_gen.OpenStrEnum):
+    """Plan offered for managed Kubernetes clusters
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    FREE = "FREE"
+    STANDARD = "STANDARD"
+
+
+class PublicCloudManagedKubernetesPlanStatusEnum(_gen.OpenStrEnum):
+    """Availability of a plan for cluster creation
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AVAILABLE = "AVAILABLE"
+    UNAVAILABLE = "UNAVAILABLE"
+
+
+class PublicCloudManagedKubernetesRegion(_gen.BaseModel):
+    """A region where managed Kubernetes clusters can be created, with its availability zones and the plans offered there"""
+
+    availability_zones: list[str] | None = _p.Field(
+        default=None, validation_alias="availabilityZones", serialization_alias="availabilityZones"
+    )
+    """Availability zones in the region. Empty for a single-zone (mono-AZ) region.
+
+    Read-only: the API sets it.
+    """
+
+    available_plans: list[PublicCloudManagedKubernetesPlanNameEnum] | None = _p.Field(
+        default=None, validation_alias="availablePlans", serialization_alias="availablePlans"
+    )
+    """Plans that can be selected when creating a cluster in this region
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Region identifier, for example EU-WEST-PAR
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesTaint(_gen.BaseModel):
+    """A Kubernetes taint applied to every node of the nodepool. Pods that do not tolerate the taint are kept off the nodes according to its effect."""
+
+    effect: PublicCloudManagedKubernetesTaintEffectEnum = _p.Field()
+    """Effect applied to pods that do not tolerate the taint"""
+
+    key: str = _p.Field()
+    """Taint key"""
+
+    value: str = _p.Field()
+    """Taint value matched by a pod toleration"""
+
+
+class PublicCloudManagedKubernetesTaintEffectEnum(_gen.OpenStrEnum):
+    """Effect a taint has on pods that do not tolerate it. NoSchedule blocks scheduling new pods. PreferNoSchedule avoids scheduling when possible. NoExecute also evicts running pods that do not tolerate it. Refer to the Kubernetes documentation to get more information.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    NO_EXECUTE = "NoExecute"
+    NO_SCHEDULE = "NoSchedule"
+    PREFER_NO_SCHEDULE = "PreferNoSchedule"
+
+
+class PublicCloudManagedKubernetesUserGateway(_gen.BaseModel):
+    """User-provided egress gateway for nodes on a private network cluster"""
+
+    ip: IP = _p.Field()
+    """IP address of the user-provided egress gateway"""
+
+
+class PublicCloudManagedKubernetesVersionCatalog(_gen.BaseModel):
+    """Kubernetes minor versions available for cluster creation, and the version applied when a creation request does not specify one"""
+
+    available_versions: list[PublicCloudManagedKubernetesVersionReference] | None = _p.Field(
+        default=None, validation_alias="availableVersions", serialization_alias="availableVersions"
+    )
+    """Minor versions available for cluster creation, for example 1.34, newest first
+
+    Read-only: the API sets it.
+    """
+
+    default_version: str | None = _p.Field(
+        default=None, validation_alias="defaultVersion", serialization_alias="defaultVersion"
+    )
+    """Minor version applied when a creation request does not specify one, for example 1.34
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesVersionReference(_gen.BaseModel):
+    """A Kubernetes version with its support status"""
+
+    status: PublicCloudManagedKubernetesVersionStatusEnum | None = _p.Field(default=None)
+    """Support status of the version
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Kubernetes version. Minor in the creation catalog, for example 1.34, full in the cluster update and upgrade lists, for example 1.34.2-1.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudManagedKubernetesVersionStatusEnum(_gen.OpenStrEnum):
+    """Support status of a Kubernetes version
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    END_OF_SUPPORT = "END_OF_SUPPORT"
+    SUPPORTED = "SUPPORTED"
 
 
 class PublicCloudNetworkNetwork(_gen.BaseModel):
@@ -13986,6 +19445,9 @@ IP: t.TypeAlias = str
 
 IPBlock: t.TypeAlias = str
 """IP (v4 or v6) CIDR notation (e.g., 192.0.2.0/24)"""
+
+IPv4Block: t.TypeAlias = str
+"""IPv4 CIDR notation (e.g., 192.0.2.0/24)"""
 
 MacAddress: t.TypeAlias = str
 """MAC address (e.g., 00:00:5e:00:53:01)"""

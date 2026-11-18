@@ -19,6 +19,16 @@ SECTION_KEY = "dedicatedcluster"
 #: The /v2 contract the section was generated from, sent as X-Schemas-Version.
 SCHEMAS_VERSION: str | None = None
 
+OP_LIST_CLUSTERS = Operation(
+    name="dedicatedcluster.list_clusters",
+    method="GET",
+    path="/v1/dedicated/cluster",
+    summary="List dedicated clusters",
+    iam_actions=("clusterDelivery:apiovh:get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_LIST_AVAILABILITIES = Operation(
     name="dedicatedcluster.list_availabilities",
     method="GET",
@@ -29,4 +39,84 @@ OP_LIST_AVAILABILITIES = Operation(
     schemas_version=None,
 )
 
-OPERATIONS: tuple[Operation, ...] = (OP_LIST_AVAILABILITIES,)
+OP_LIST_AVAILABILITIES_RAWS = Operation(
+    name="dedicatedcluster.list_availabilities_raws",
+    method="GET",
+    path="/v1/dedicated/cluster/availabilities/raw",
+    summary="List the raw cluster hardware availability",
+    iam_actions=(),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_CLUSTER = Operation(
+    name="dedicatedcluster.get_cluster",
+    method="GET",
+    path="/v1/dedicated/cluster/{serviceName}",
+    summary="Get a dedicated cluster",
+    iam_actions=("clusterDelivery:apiovh:get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CHANGE_CONTACT = Operation(
+    name="dedicatedcluster.change_contact",
+    method="POST",
+    path="/v1/dedicated/cluster/{serviceName}/changeContact",
+    summary="Launch a contact change procedure",
+    iam_actions=("clusterDelivery:apiovh:changeContact",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CONFIRM_TERMINATION = Operation(
+    name="dedicatedcluster.confirm_termination",
+    method="POST",
+    path="/v1/dedicated/cluster/{serviceName}/confirmTermination",
+    summary="Confirm service termination",
+    iam_actions=("clusterDelivery:apiovh:confirmTermination",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_SERVICE_INFOS = Operation(
+    name="dedicatedcluster.get_service_infos",
+    method="GET",
+    path="/v1/dedicated/cluster/{serviceName}/serviceInfos",
+    summary="Get service information",
+    iam_actions=("clusterDelivery:apiovh:serviceInfos/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_UPDATE_SERVICE_INFOS = Operation(
+    name="dedicatedcluster.update_service_infos",
+    method="PUT",
+    path="/v1/dedicated/cluster/{serviceName}/serviceInfos",
+    summary="Update service information",
+    iam_actions=("clusterDelivery:apiovh:serviceInfos/edit",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_TERMINATE = Operation(
+    name="dedicatedcluster.terminate",
+    method="POST",
+    path="/v1/dedicated/cluster/{serviceName}/terminate",
+    summary="Ask for the termination of your service",
+    iam_actions=("clusterDelivery:apiovh:terminate",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OPERATIONS: tuple[Operation, ...] = (
+    OP_LIST_CLUSTERS,
+    OP_LIST_AVAILABILITIES,
+    OP_LIST_AVAILABILITIES_RAWS,
+    OP_GET_CLUSTER,
+    OP_CHANGE_CONTACT,
+    OP_CONFIRM_TERMINATION,
+    OP_GET_SERVICE_INFOS,
+    OP_UPDATE_SERVICE_INFOS,
+    OP_TERMINATE,
+)

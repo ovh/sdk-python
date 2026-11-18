@@ -10,9 +10,9 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.dedicatedcluster``. Its types are in
 ``ovhcloud.api.dedicatedcluster.models``.
 
-It has 1 operation, on the routes under /v1/dedicated/cluster/availabilities.
+It has 9 operations, on the routes under /v1/dedicated/cluster.
 
-To start, list what the account has: list_availabilities.
+To start, list what the account has: list_clusters, list_availabilities, list_availabilities_raws.
 
 To find the method for a route, search index/dedicatedcluster.jsonl: one line per method, with its
 route, its signature and the IAM actions it requires. It is at the root of the SDK repository, and

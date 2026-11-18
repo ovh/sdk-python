@@ -26,14 +26,79 @@ class EmailproApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 32 operations, on the routes under /v1/email/pro.
+    It has 60 operations, on the routes under /v1/email/pro.
 
-    To start, list what the account has: list_domain_dkim_selectors.
+    To start, list what the account has: list_pros, list_accounts, list_domains,
+    list_external_contacts, list_tasks, list_account_alias, list_account_full_access,
+    list_account_send_as, and 5 more.
 
     To find the method for a route, search index/emailpro.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
     and in the installed package.
     """
+
+    def list_pros(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_pros calls GET /v1/email/pro: List Email Pro services
+
+        Returns the names of the Email Pro services of the account. Filter them by IAM tags with
+        `iamTags`.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        Requires the IAM action emailPro:apiovh:get.
+        """
+        return self._call(
+            _r.OP_LIST_PROS,
+            query=(("iamTags", iam_tags),),
+            result=list[str],
+        )
+
+    def get_pro(self, service: str) -> models.EmailProServiceNativeWithIAM:
+        """get_pro calls GET /v1/email/pro/{service}: Get the Email Pro service
+
+        Returns the state, offer, hostname and web interface URL of the service, its message size
+        limits, its password and lockout policy, and its spam and virus configuration.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:get.
+        """
+        return self._call(
+            _r.OP_GET_PRO,
+            path_params={
+                "service": service,
+            },
+            result=models.EmailProServiceNativeWithIAM,
+        )
+
+    def all_pros(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.EmailProServiceNativeWithIAM]:
+        """all_pros iterates over GET /v1/email/pro (List Email Pro services).
+
+        It lists the IDs with list_pros, then gets each object with get_pro,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        The two calls require the IAM action emailPro:apiovh:get.
+        """
+        return self._each(
+            lambda: self.list_pros(
+                iam_tags=iam_tags,
+            ),
+            lambda listed_id: self.get_pro(listed_id),
+        )
 
     def update_pro(self, service: str, body: models.EmailProServiceWritable) -> None:
         """update_pro calls PUT /v1/email/pro/{service}: Update the Email Pro service
@@ -54,6 +119,87 @@ class EmailproApi(_gen.SectionApi):
             },
             body=body,
             body_type=models.EmailProServiceWritable,
+        )
+
+    def list_accounts(
+        self,
+        service: str,
+        *,
+        id: int | None | NotGiven = NOT_GIVEN,
+        primary_email_address: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_accounts calls GET /v1/email/pro/{service}/account: List email accounts
+
+        Returns the email addresses of the email accounts of the service. Filter them by
+        `primaryEmailAddress` or `id`.
+
+        Args:
+            service: Service
+            id: Filter the value of id property (like) (optional)
+            primary_email_address: Filter the value of primaryEmailAddress property (like) (optional)
+
+        Requires the IAM action emailPro:apiovh:account/get.
+        """
+        return self._call(
+            _r.OP_LIST_ACCOUNTS,
+            path_params={
+                "service": service,
+            },
+            query=(
+                ("id", id),
+                ("primaryEmailAddress", primary_email_address),
+            ),
+            result=list[str],
+        )
+
+    def get_account(self, service: str, email: str) -> models.EmailProAccountNative:
+        """get_account calls GET /v1/email/pro/{service}/account/{email}: Get an email account
+
+        Returns the login, names, domain, state, quota and usage of the email account, its renewal
+        and expiration settings, and its spam and virus configuration.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=models.EmailProAccountNative,
+        )
+
+    def all_accounts(
+        self,
+        service: str,
+        *,
+        id: int | None | NotGiven = NOT_GIVEN,
+        primary_email_address: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.EmailProAccountNative]:
+        """all_accounts iterates over GET /v1/email/pro/{service}/account (List email accounts).
+
+        It lists the IDs with list_accounts, then gets each object with get_account,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            id: Filter the value of id property (like) (optional)
+            primary_email_address: Filter the value of primaryEmailAddress property (like) (optional)
+
+        The two calls require the IAM action emailPro:apiovh:account/get.
+        """
+        return self._each(
+            lambda: self.list_accounts(
+                service,
+                id=id,
+                primary_email_address=primary_email_address,
+            ),
+            lambda listed_id: self.get_account(service, listed_id),
         )
 
     def update_account(
@@ -102,6 +248,26 @@ class EmailproApi(_gen.SectionApi):
             result=models.EmailProTask,
         )
 
+    def list_account_alias(self, service: str, email: str) -> list[str]:
+        """list_account_alias calls GET /v1/email/pro/{service}/account/{email}/alias: List account aliases
+
+        Returns the aliases of the email account: extra addresses that deliver to the same mailbox.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/alias/get.
+        """
+        return self._call(
+            _r.OP_LIST_ACCOUNT_ALIAS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[str],
+        )
+
     def create_account_alias(
         self, service: str, email: str, body: models.CreateAccountAliasRequest
     ) -> models.EmailProTask:
@@ -126,6 +292,54 @@ class EmailproApi(_gen.SectionApi):
             body=body,
             body_type=models.CreateAccountAliasRequest,
             result=models.EmailProTask,
+        )
+
+    def get_account_alias(
+        self, service: str, email: str, alias: str
+    ) -> models.EmailProAccountAlias:
+        """get_account_alias calls GET /v1/email/pro/{service}/account/{email}/alias/{alias}: Get an account alias
+
+        Returns the alias address, its creation date and the ID of its pending task, if any
+        (`taskPendingId`).
+
+        Args:
+            service: Service
+            email: Email
+            alias: Alias
+
+        Requires the IAM action emailPro:apiovh:account/alias/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_ALIAS,
+            path_params={
+                "service": service,
+                "email": email,
+                "alias": alias,
+            },
+            result=models.EmailProAccountAlias,
+        )
+
+    def all_account_alias(
+        self, service: str, email: str
+    ) -> t.Iterator[models.EmailProAccountAlias]:
+        """all_account_alias iterates over GET /v1/email/pro/{service}/account/{email}/alias (List account aliases).
+
+        It lists the IDs with list_account_alias, then gets each object with get_account_alias,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/alias/get.
+        """
+        return self._each(
+            lambda: self.list_account_alias(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_alias(service, email, listed_id),
         )
 
     def delete_account_alias(self, service: str, email: str, alias: str) -> models.EmailProTask:
@@ -176,6 +390,28 @@ class EmailproApi(_gen.SectionApi):
             result=models.EmailProTask,
         )
 
+    def get_account_diagnostics(self, service: str, email: str) -> models.EmailProAccountDiagnosis:
+        """get_account_diagnostics calls GET /v1/email/pro/{service}/account/{email}/diagnostics: Get the account diagnosis
+
+        Returns the results of the last diagnosis of the email account: account locked, suspended or
+        flagged as spammer, login with its credentials, MX and SRV records, and sending and
+        receiving of emails.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/diagnostics/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_DIAGNOSTICS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=models.EmailProAccountDiagnosis,
+        )
+
     def create_account_diagnostics(
         self, service: str, email: str, body: models.CreateAccountDiagnosticsRequest
     ) -> models.EmailProTask:
@@ -200,6 +436,26 @@ class EmailproApi(_gen.SectionApi):
             body=body,
             body_type=models.CreateAccountDiagnosticsRequest,
             result=models.EmailProTask,
+        )
+
+    def list_account_full_access(self, service: str, email: str) -> list[int]:
+        """list_account_full_access calls GET /v1/email/pro/{service}/account/{email}/fullAccess: List full access permissions
+
+        Returns the IDs of the accounts that have full access to the email account.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/fullAccess/get.
+        """
+        return self._call(
+            _r.OP_LIST_ACCOUNT_FULL_ACCESS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[int],
         )
 
     def create_account_full_access(
@@ -227,6 +483,54 @@ class EmailproApi(_gen.SectionApi):
             result=models.EmailProTask,
         )
 
+    def get_account_full_access(
+        self, service: str, email: str, allowed_account_id: int
+    ) -> models.EmailProAccountFullAccess:
+        """get_account_full_access calls GET /v1/email/pro/{service}/account/{email}/fullAccess/{allowedAccountId}: Get a full access permission
+
+        Returns the ID of the account that has full access to the email account, and the creation
+        date of the permission.
+
+        Args:
+            service: Service
+            email: Email
+            allowed_account_id: Allowed account ID
+
+        Requires the IAM action emailPro:apiovh:account/fullAccess/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_FULL_ACCESS,
+            path_params={
+                "service": service,
+                "email": email,
+                "allowedAccountId": allowed_account_id,
+            },
+            result=models.EmailProAccountFullAccess,
+        )
+
+    def all_account_full_access(
+        self, service: str, email: str
+    ) -> t.Iterator[models.EmailProAccountFullAccess]:
+        """all_account_full_access iterates over GET /v1/email/pro/{service}/account/{email}/fullAccess (List full access permissions).
+
+        It lists the IDs with list_account_full_access, then gets each object with get_account_full_access,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/fullAccess/get.
+        """
+        return self._each(
+            lambda: self.list_account_full_access(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_full_access(service, email, listed_id),
+        )
+
     def delete_account_full_access(
         self, service: str, email: str, allowed_account_id: int
     ) -> models.EmailProTask:
@@ -250,6 +554,26 @@ class EmailproApi(_gen.SectionApi):
                 "allowedAccountId": allowed_account_id,
             },
             result=models.EmailProTask,
+        )
+
+    def list_account_send_as(self, service: str, email: str) -> list[int]:
+        """list_account_send_as calls GET /v1/email/pro/{service}/account/{email}/sendAs: List send as permissions
+
+        Returns the IDs of the accounts allowed to send emails as the email account.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/sendAs/get.
+        """
+        return self._call(
+            _r.OP_LIST_ACCOUNT_SEND_AS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[int],
         )
 
     def create_account_send_as(
@@ -278,6 +602,54 @@ class EmailproApi(_gen.SectionApi):
             result=models.EmailProTask,
         )
 
+    def get_account_send_as(
+        self, service: str, email: str, allowed_account_id: int
+    ) -> models.EmailProAccountSendAs:
+        """get_account_send_as calls GET /v1/email/pro/{service}/account/{email}/sendAs/{allowedAccountId}: Get a send as permission
+
+        Returns the ID of the account allowed to send emails as the email account, and the creation
+        date of the permission.
+
+        Args:
+            service: Service
+            email: Email
+            allowed_account_id: Allowed account ID
+
+        Requires the IAM action emailPro:apiovh:account/sendAs/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_SEND_AS,
+            path_params={
+                "service": service,
+                "email": email,
+                "allowedAccountId": allowed_account_id,
+            },
+            result=models.EmailProAccountSendAs,
+        )
+
+    def all_account_send_as(
+        self, service: str, email: str
+    ) -> t.Iterator[models.EmailProAccountSendAs]:
+        """all_account_send_as iterates over GET /v1/email/pro/{service}/account/{email}/sendAs (List send as permissions).
+
+        It lists the IDs with list_account_send_as, then gets each object with get_account_send_as,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/sendAs/get.
+        """
+        return self._each(
+            lambda: self.list_account_send_as(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_send_as(service, email, listed_id),
+        )
+
     def delete_account_send_as(
         self, service: str, email: str, allowed_account_id: int
     ) -> models.EmailProTask:
@@ -301,6 +673,26 @@ class EmailproApi(_gen.SectionApi):
                 "allowedAccountId": allowed_account_id,
             },
             result=models.EmailProTask,
+        )
+
+    def list_account_send_on_behalf_tos(self, service: str, email: str) -> list[int]:
+        """list_account_send_on_behalf_tos calls GET /v1/email/pro/{service}/account/{email}/sendOnBehalfTo: List send on behalf permissions
+
+        Returns the IDs of the accounts allowed to send emails on behalf of the email account.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/sendOnBehalfTo/get.
+        """
+        return self._call(
+            _r.OP_LIST_ACCOUNT_SEND_ON_BEHALF_TOS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[int],
         )
 
     def create_account_send_on_behalf_to(
@@ -329,6 +721,54 @@ class EmailproApi(_gen.SectionApi):
             result=models.EmailProTask,
         )
 
+    def get_account_send_on_behalf_to(
+        self, service: str, email: str, allowed_account_id: int
+    ) -> models.EmailProAccountSendOnBehalfTo:
+        """get_account_send_on_behalf_to calls GET /v1/email/pro/{service}/account/{email}/sendOnBehalfTo/{allowedAccountId}: Get a send on behalf permission
+
+        Returns the ID of the account allowed to send emails on behalf of the email account, and the
+        creation date of the permission.
+
+        Args:
+            service: Service
+            email: Email
+            allowed_account_id: Allowed account ID
+
+        Requires the IAM action emailPro:apiovh:account/sendOnBehalfTo/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_SEND_ON_BEHALF_TO,
+            path_params={
+                "service": service,
+                "email": email,
+                "allowedAccountId": allowed_account_id,
+            },
+            result=models.EmailProAccountSendOnBehalfTo,
+        )
+
+    def all_account_send_on_behalf_tos(
+        self, service: str, email: str
+    ) -> t.Iterator[models.EmailProAccountSendOnBehalfTo]:
+        """all_account_send_on_behalf_tos iterates over GET /v1/email/pro/{service}/account/{email}/sendOnBehalfTo (List send on behalf permissions).
+
+        It lists the IDs with list_account_send_on_behalf_tos, then gets each object with get_account_send_on_behalf_to,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/sendOnBehalfTo/get.
+        """
+        return self._each(
+            lambda: self.list_account_send_on_behalf_tos(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_send_on_behalf_to(service, email, listed_id),
+        )
+
     def delete_account_send_on_behalf_to(
         self, service: str, email: str, allowed_account_id: int
     ) -> models.EmailProTask:
@@ -354,6 +794,71 @@ class EmailproApi(_gen.SectionApi):
             result=models.EmailProTask,
         )
 
+    def list_account_tasks(self, service: str, email: str) -> list[int]:
+        """list_account_tasks calls GET /v1/email/pro/{service}/account/{email}/tasks: List email account tasks
+
+        Returns the IDs of the tasks of the email account. Read one with `GET
+        /email/pro/{service}/task/{id}`.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/tasks/get.
+        """
+        return self._call(
+            _r.OP_LIST_ACCOUNT_TASKS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[int],
+        )
+
+    def get_account_tasks(self, service: str, email: str, id: int) -> models.EmailProTask:
+        """get_account_tasks calls GET /v1/email/pro/{service}/account/{email}/tasks/{id}: Get a task
+
+        Returns the function, status, creation date and completion date of the task. The status is
+        todo, doing, done, error or cancelled.
+
+        Args:
+            service: Service
+            email: Email
+            id: Id
+
+        Requires the IAM action emailPro:apiovh:account/tasks/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_TASKS,
+            path_params={
+                "service": service,
+                "email": email,
+                "id": id,
+            },
+            result=models.EmailProTask,
+        )
+
+    def all_account_tasks(self, service: str, email: str) -> t.Iterator[models.EmailProTask]:
+        """all_account_tasks iterates over GET /v1/email/pro/{service}/account/{email}/tasks (List email account tasks).
+
+        It lists the IDs with list_account_tasks, then gets each object with get_account_tasks,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/tasks/get.
+        """
+        return self._each(
+            lambda: self.list_account_tasks(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_tasks(service, email, listed_id),
+        )
+
     def terminate_account(self, service: str, email: str) -> str:
         """terminate_account calls POST /v1/email/pro/{service}/account/{email}/terminate: Terminate an email account at expiration
 
@@ -371,6 +876,42 @@ class EmailproApi(_gen.SectionApi):
             path_params={
                 "service": service,
                 "email": email,
+            },
+            result=str,
+        )
+
+    def get_billing_migrated(self, service: str) -> bool:
+        """get_billing_migrated calls GET /v1/email/pro/{service}/billingMigrated: Get the billing migration status
+
+        Returns `true` when the service is billed by the new OVHcloud billing system.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:billingMigrated/get.
+        """
+        return self._call(
+            _r.OP_GET_BILLING_MIGRATED,
+            path_params={
+                "service": service,
+            },
+            result=bool,
+        )
+
+    def get_billing_plan(self, service: str) -> str:
+        """get_billing_plan calls GET /v1/email/pro/{service}/billingPlan: Get the billing plan
+
+        Returns the name of the billing plan of the service.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:billingPlan/get.
+        """
+        return self._call(
+            _r.OP_GET_BILLING_PLAN,
+            path_params={
+                "service": service,
             },
             result=str,
         )
@@ -396,6 +937,32 @@ class EmailproApi(_gen.SectionApi):
             result=list[int],
         )
 
+    def list_domains(
+        self,
+        service: str,
+        *,
+        state: models.EmailProObjectStateEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_domains calls GET /v1/email/pro/{service}/domain: List domains
+
+        Returns the names of the domains attached to the service. Filter them by `state`, such as ok
+        or suspended.
+
+        Args:
+            service: Service
+            state: Filter the value of state property (=) (optional)
+
+        Requires the IAM action emailPro:apiovh:domain/get.
+        """
+        return self._call(
+            _r.OP_LIST_DOMAINS,
+            path_params={
+                "service": service,
+            },
+            query=(("state", state),),
+            result=list[str],
+        )
+
     def create_domain(self, service: str, body: models.CreateDomainRequest) -> models.EmailProTask:
         """create_domain calls POST /v1/email/pro/{service}/domain: Add a domain
 
@@ -417,6 +984,53 @@ class EmailproApi(_gen.SectionApi):
             body=body,
             body_type=models.CreateDomainRequest,
             result=models.EmailProTask,
+        )
+
+    def get_domain(self, service: str, domain_name: str) -> models.EmailProDomainNative:
+        """get_domain calls GET /v1/email/pro/{service}/domain/{domainName}: Get a domain
+
+        Returns the type and state of the domain, its MX, SRV and SPF records with their validation
+        status, the expected records, its DKIM diagnostics, its MX relay and its aliases.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        Requires the IAM action emailPro:apiovh:domain/get.
+        """
+        return self._call(
+            _r.OP_GET_DOMAIN,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+            },
+            result=models.EmailProDomainNative,
+        )
+
+    def all_domains(
+        self,
+        service: str,
+        *,
+        state: models.EmailProObjectStateEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.EmailProDomainNative]:
+        """all_domains iterates over GET /v1/email/pro/{service}/domain (List domains).
+
+        It lists the IDs with list_domains, then gets each object with get_domain,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            state: Filter the value of state property (=) (optional)
+
+        The two calls require the IAM action emailPro:apiovh:domain/get.
+        """
+        return self._each(
+            lambda: self.list_domains(
+                service,
+                state=state,
+            ),
+            lambda listed_id: self.get_domain(service, listed_id),
         )
 
     def update_domain(
@@ -463,6 +1077,29 @@ class EmailproApi(_gen.SectionApi):
                 "domainName": domain_name,
             },
             result=models.EmailProTask,
+        )
+
+    def get_domain_disclaimer(
+        self, service: str, domain_name: str
+    ) -> models.EmailProDisclaimerNative:
+        """get_domain_disclaimer calls GET /v1/email/pro/{service}/domain/{domainName}/disclaimer: Get the disclaimer
+
+        Returns the content of the disclaimer added at the bottom of the emails of the domain, and
+        whether it is added only to external emails.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        Requires the IAM action emailPro:apiovh:domain/disclaimer/get.
+        """
+        return self._call(
+            _r.OP_GET_DOMAIN_DISCLAIMER,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+            },
+            result=models.EmailProDisclaimerNative,
         )
 
     def create_domain_disclaimer(
@@ -538,6 +1175,51 @@ class EmailproApi(_gen.SectionApi):
             result=models.EmailProTask,
         )
 
+    def list_domain_disclaimer_attributes(
+        self, service: str, domain_name: str
+    ) -> list[models.EmailProDisclaimerAttributeEnum]:
+        """list_domain_disclaimer_attributes calls GET /v1/email/pro/{service}/domain/{domainName}/disclaimerAttribute: List disclaimer attributes
+
+        Returns the Active Directory attributes that can be substituted in the disclaimer content,
+        such as DisplayName, Email or PhoneNumber. Insert one in the disclaimer content as
+        `%%AttributeName%%`.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        Requires the IAM action emailPro:apiovh:domain/disclaimerAttribute/get.
+        """
+        return self._call(
+            _r.OP_LIST_DOMAIN_DISCLAIMER_ATTRIBUTES,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+            },
+            result=list[models.EmailProDisclaimerAttributeEnum],
+        )
+
+    def list_domain_dkims(self, service: str, domain_name: str) -> list[str]:
+        """list_domain_dkims calls GET /v1/email/pro/{service}/domain/{domainName}/dkim: List DKIM selectors
+
+        Returns the names of the DKIM selectors of the domain. Get one to read its DNS record and
+        its status.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        Requires the IAM action emailPro:apiovh:domain/dkim/get.
+        """
+        return self._call(
+            _r.OP_LIST_DOMAIN_DKIMS,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+            },
+            result=list[str],
+        )
+
     def create_domain_dkim(
         self, service: str, domain_name: str, body: models.CreateDomainDkimRequest
     ) -> models.EmailProTask:
@@ -563,6 +1245,54 @@ class EmailproApi(_gen.SectionApi):
             body=body,
             body_type=models.CreateDomainDkimRequest,
             result=models.EmailProTask,
+        )
+
+    def get_domain_dkim(
+        self, service: str, domain_name: str, selector_name: str
+    ) -> models.EmailProDkimAlt:
+        """get_domain_dkim calls GET /v1/email/pro/{service}/domain/{domainName}/dkim/{selectorName}: Get a DKIM selector
+
+        Returns the status of the DKIM selector, the CNAME record to add to the DNS zone with its
+        target and validation status, and the header used for the DKIM signature.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+            selector_name: Selector name
+
+        Requires the IAM action emailPro:apiovh:domain/dkim/get.
+        """
+        return self._call(
+            _r.OP_GET_DOMAIN_DKIM,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+                "selectorName": selector_name,
+            },
+            result=models.EmailProDkimAlt,
+        )
+
+    def all_domain_dkims(
+        self, service: str, domain_name: str
+    ) -> t.Iterator[models.EmailProDkimAlt]:
+        """all_domain_dkims iterates over GET /v1/email/pro/{service}/domain/{domainName}/dkim (List DKIM selectors).
+
+        It lists the IDs with list_domain_dkims, then gets each object with get_domain_dkim,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        The two calls require the IAM action emailPro:apiovh:domain/dkim/get.
+        """
+        return self._each(
+            lambda: self.list_domain_dkims(
+                service,
+                domain_name,
+            ),
+            lambda listed_id: self.get_domain_dkim(service, domain_name, listed_id),
         )
 
     def delete_domain_dkim(
@@ -660,6 +1390,46 @@ class EmailproApi(_gen.SectionApi):
             result=list[str],
         )
 
+    def list_external_contacts(
+        self,
+        service: str,
+        *,
+        display_name: str | None | NotGiven = NOT_GIVEN,
+        external_email_address: str | None | NotGiven = NOT_GIVEN,
+        first_name: str | None | NotGiven = NOT_GIVEN,
+        id: int | None | NotGiven = NOT_GIVEN,
+        last_name: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_external_contacts calls GET /v1/email/pro/{service}/externalContact: List external contacts
+
+        Returns the email addresses of the external contacts of the service. Filter them by
+        `externalEmailAddress`, `firstName`, `lastName`, `displayName` or `id`.
+
+        Args:
+            service: Service
+            display_name: Filter the value of displayName property (like) (optional)
+            external_email_address: Filter the value of externalEmailAddress property (like) (optional)
+            first_name: Filter the value of firstName property (like) (optional)
+            id: Filter the value of id property (like) (optional)
+            last_name: Filter the value of lastName property (like) (optional)
+
+        Requires the IAM action emailPro:apiovh:externalContact/get.
+        """
+        return self._call(
+            _r.OP_LIST_EXTERNAL_CONTACTS,
+            path_params={
+                "service": service,
+            },
+            query=(
+                ("displayName", display_name),
+                ("externalEmailAddress", external_email_address),
+                ("firstName", first_name),
+                ("id", id),
+                ("lastName", last_name),
+            ),
+            result=list[str],
+        )
+
     def create_external_contact(
         self, service: str, body: models.CreateExternalContactRequest
     ) -> models.EmailProTask:
@@ -682,6 +1452,67 @@ class EmailproApi(_gen.SectionApi):
             body=body,
             body_type=models.CreateExternalContactRequest,
             result=models.EmailProTask,
+        )
+
+    def get_external_contact(
+        self, service: str, external_email_address: str
+    ) -> models.EmailProExternalContactNative:
+        """get_external_contact calls GET /v1/email/pro/{service}/externalContact/{externalEmailAddress}: Get an external contact
+
+        Returns the email address, names, state and Global Address List visibility of the external
+        contact.
+
+        Args:
+            service: Service
+            external_email_address: External email address
+
+        Requires the IAM action emailPro:apiovh:externalContact/get.
+        """
+        return self._call(
+            _r.OP_GET_EXTERNAL_CONTACT,
+            path_params={
+                "service": service,
+                "externalEmailAddress": external_email_address,
+            },
+            result=models.EmailProExternalContactNative,
+        )
+
+    def all_external_contacts(
+        self,
+        service: str,
+        *,
+        display_name: str | None | NotGiven = NOT_GIVEN,
+        external_email_address: str | None | NotGiven = NOT_GIVEN,
+        first_name: str | None | NotGiven = NOT_GIVEN,
+        id: int | None | NotGiven = NOT_GIVEN,
+        last_name: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.EmailProExternalContactNative]:
+        """all_external_contacts iterates over GET /v1/email/pro/{service}/externalContact (List external contacts).
+
+        It lists the IDs with list_external_contacts, then gets each object with get_external_contact,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+            display_name: Filter the value of displayName property (like) (optional)
+            external_email_address: Filter the value of externalEmailAddress property (like) (optional)
+            first_name: Filter the value of firstName property (like) (optional)
+            id: Filter the value of id property (like) (optional)
+            last_name: Filter the value of lastName property (like) (optional)
+
+        The two calls require the IAM action emailPro:apiovh:externalContact/get.
+        """
+        return self._each(
+            lambda: self.list_external_contacts(
+                service,
+                display_name=display_name,
+                external_email_address=external_email_address,
+                first_name=first_name,
+                id=id,
+                last_name=last_name,
+            ),
+            lambda listed_id: self.get_external_contact(service, listed_id),
         )
 
     def update_external_contact(
@@ -735,6 +1566,25 @@ class EmailproApi(_gen.SectionApi):
             result=models.EmailProTask,
         )
 
+    def get_server(self, service: str) -> models.EmailProServer:
+        """get_server calls GET /v1/email/pro/{service}/server: Get the server
+
+        Returns the state, IPv4 and IPv6 addresses, version and disk usage of the server, and
+        whether its A, AAAA and PTR DNS records are valid.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:server/get.
+        """
+        return self._call(
+            _r.OP_GET_SERVER,
+            path_params={
+                "service": service,
+            },
+            result=models.EmailProServer,
+        )
+
     def get_service_infos(self, service: str) -> models.ServicesService:
         """get_service_infos calls GET /v1/email/pro/{service}/serviceInfos: Get service information
 
@@ -775,6 +1625,65 @@ class EmailproApi(_gen.SectionApi):
             body_type=models.ServicesServiceWritable,
         )
 
+    def list_tasks(self, service: str) -> list[int]:
+        """list_tasks calls GET /v1/email/pro/{service}/task: List service tasks
+
+        Returns the IDs of the tasks of the service. Get one to follow its function, status and
+        dates.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:task/get.
+        """
+        return self._call(
+            _r.OP_LIST_TASKS,
+            path_params={
+                "service": service,
+            },
+            result=list[int],
+        )
+
+    def get_task(self, service: str, id: int) -> models.EmailProTask:
+        """get_task calls GET /v1/email/pro/{service}/task/{id}: Get a task
+
+        Returns the function, status, creation date and completion date of the task. The status is
+        todo, doing, done, error or cancelled.
+
+        Args:
+            service: Service
+            id: Id
+
+        Requires the IAM action emailPro:apiovh:task/get.
+        """
+        return self._call(
+            _r.OP_GET_TASK,
+            path_params={
+                "service": service,
+                "id": id,
+            },
+            result=models.EmailProTask,
+        )
+
+    def all_tasks(self, service: str) -> t.Iterator[models.EmailProTask]:
+        """all_tasks iterates over GET /v1/email/pro/{service}/task (List service tasks).
+
+        It lists the IDs with list_tasks, then gets each object with get_task,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service: Service
+
+        The two calls require the IAM action emailPro:apiovh:task/get.
+        """
+        return self._each(
+            lambda: self.list_tasks(
+                service,
+            ),
+            lambda listed_id: self.get_task(service, listed_id),
+        )
+
     def update_flags_on_all_accounts(self, service: str) -> None:
         """update_flags_on_all_accounts calls POST /v1/email/pro/{service}/updateFlagsOnAllAccounts: Update spam and virus flags
 
@@ -799,14 +1708,79 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
 
     The methods of EmailproApi, with await. Iterators are async: use ``async for``.
 
-    It has 32 operations, on the routes under /v1/email/pro.
+    It has 60 operations, on the routes under /v1/email/pro.
 
-    To start, list what the account has: list_domain_dkim_selectors.
+    To start, list what the account has: list_pros, list_accounts, list_domains,
+    list_external_contacts, list_tasks, list_account_alias, list_account_full_access,
+    list_account_send_as, and 5 more.
 
     To find the method for a route, search index/emailpro.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
     and in the installed package.
     """
+
+    async def list_pros(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_pros calls GET /v1/email/pro: List Email Pro services
+
+        Returns the names of the Email Pro services of the account. Filter them by IAM tags with
+        `iamTags`.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        Requires the IAM action emailPro:apiovh:get.
+        """
+        return await self._call(
+            _r.OP_LIST_PROS,
+            query=(("iamTags", iam_tags),),
+            result=list[str],
+        )
+
+    async def get_pro(self, service: str) -> models.EmailProServiceNativeWithIAM:
+        """get_pro calls GET /v1/email/pro/{service}: Get the Email Pro service
+
+        Returns the state, offer, hostname and web interface URL of the service, its message size
+        limits, its password and lockout policy, and its spam and virus configuration.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:get.
+        """
+        return await self._call(
+            _r.OP_GET_PRO,
+            path_params={
+                "service": service,
+            },
+            result=models.EmailProServiceNativeWithIAM,
+        )
+
+    def all_pros(
+        self,
+        *,
+        iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.EmailProServiceNativeWithIAM]:
+        """all_pros iterates over GET /v1/email/pro (List Email Pro services).
+
+        It lists the IDs with list_pros, then gets each object with get_pro,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            iam_tags: Filter resources on IAM tags (optional)
+
+        The two calls require the IAM action emailPro:apiovh:get.
+        """
+        return self._each(
+            lambda: self.list_pros(
+                iam_tags=iam_tags,
+            ),
+            lambda listed_id: self.get_pro(listed_id),
+        )
 
     async def update_pro(self, service: str, body: models.EmailProServiceWritable) -> None:
         """update_pro calls PUT /v1/email/pro/{service}: Update the Email Pro service
@@ -827,6 +1801,87 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             },
             body=body,
             body_type=models.EmailProServiceWritable,
+        )
+
+    async def list_accounts(
+        self,
+        service: str,
+        *,
+        id: int | None | NotGiven = NOT_GIVEN,
+        primary_email_address: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_accounts calls GET /v1/email/pro/{service}/account: List email accounts
+
+        Returns the email addresses of the email accounts of the service. Filter them by
+        `primaryEmailAddress` or `id`.
+
+        Args:
+            service: Service
+            id: Filter the value of id property (like) (optional)
+            primary_email_address: Filter the value of primaryEmailAddress property (like) (optional)
+
+        Requires the IAM action emailPro:apiovh:account/get.
+        """
+        return await self._call(
+            _r.OP_LIST_ACCOUNTS,
+            path_params={
+                "service": service,
+            },
+            query=(
+                ("id", id),
+                ("primaryEmailAddress", primary_email_address),
+            ),
+            result=list[str],
+        )
+
+    async def get_account(self, service: str, email: str) -> models.EmailProAccountNative:
+        """get_account calls GET /v1/email/pro/{service}/account/{email}: Get an email account
+
+        Returns the login, names, domain, state, quota and usage of the email account, its renewal
+        and expiration settings, and its spam and virus configuration.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=models.EmailProAccountNative,
+        )
+
+    def all_accounts(
+        self,
+        service: str,
+        *,
+        id: int | None | NotGiven = NOT_GIVEN,
+        primary_email_address: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.EmailProAccountNative]:
+        """all_accounts iterates over GET /v1/email/pro/{service}/account (List email accounts).
+
+        It lists the IDs with list_accounts, then gets each object with get_account,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            id: Filter the value of id property (like) (optional)
+            primary_email_address: Filter the value of primaryEmailAddress property (like) (optional)
+
+        The two calls require the IAM action emailPro:apiovh:account/get.
+        """
+        return self._each(
+            lambda: self.list_accounts(
+                service,
+                id=id,
+                primary_email_address=primary_email_address,
+            ),
+            lambda listed_id: self.get_account(service, listed_id),
         )
 
     async def update_account(
@@ -875,6 +1930,26 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=models.EmailProTask,
         )
 
+    async def list_account_alias(self, service: str, email: str) -> list[str]:
+        """list_account_alias calls GET /v1/email/pro/{service}/account/{email}/alias: List account aliases
+
+        Returns the aliases of the email account: extra addresses that deliver to the same mailbox.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/alias/get.
+        """
+        return await self._call(
+            _r.OP_LIST_ACCOUNT_ALIAS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[str],
+        )
+
     async def create_account_alias(
         self, service: str, email: str, body: models.CreateAccountAliasRequest
     ) -> models.EmailProTask:
@@ -899,6 +1974,54 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.CreateAccountAliasRequest,
             result=models.EmailProTask,
+        )
+
+    async def get_account_alias(
+        self, service: str, email: str, alias: str
+    ) -> models.EmailProAccountAlias:
+        """get_account_alias calls GET /v1/email/pro/{service}/account/{email}/alias/{alias}: Get an account alias
+
+        Returns the alias address, its creation date and the ID of its pending task, if any
+        (`taskPendingId`).
+
+        Args:
+            service: Service
+            email: Email
+            alias: Alias
+
+        Requires the IAM action emailPro:apiovh:account/alias/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_ALIAS,
+            path_params={
+                "service": service,
+                "email": email,
+                "alias": alias,
+            },
+            result=models.EmailProAccountAlias,
+        )
+
+    def all_account_alias(
+        self, service: str, email: str
+    ) -> t.AsyncIterator[models.EmailProAccountAlias]:
+        """all_account_alias iterates over GET /v1/email/pro/{service}/account/{email}/alias (List account aliases).
+
+        It lists the IDs with list_account_alias, then gets each object with get_account_alias,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/alias/get.
+        """
+        return self._each(
+            lambda: self.list_account_alias(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_alias(service, email, listed_id),
         )
 
     async def delete_account_alias(
@@ -951,6 +2074,30 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=models.EmailProTask,
         )
 
+    async def get_account_diagnostics(
+        self, service: str, email: str
+    ) -> models.EmailProAccountDiagnosis:
+        """get_account_diagnostics calls GET /v1/email/pro/{service}/account/{email}/diagnostics: Get the account diagnosis
+
+        Returns the results of the last diagnosis of the email account: account locked, suspended or
+        flagged as spammer, login with its credentials, MX and SRV records, and sending and
+        receiving of emails.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/diagnostics/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_DIAGNOSTICS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=models.EmailProAccountDiagnosis,
+        )
+
     async def create_account_diagnostics(
         self, service: str, email: str, body: models.CreateAccountDiagnosticsRequest
     ) -> models.EmailProTask:
@@ -975,6 +2122,26 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.CreateAccountDiagnosticsRequest,
             result=models.EmailProTask,
+        )
+
+    async def list_account_full_access(self, service: str, email: str) -> list[int]:
+        """list_account_full_access calls GET /v1/email/pro/{service}/account/{email}/fullAccess: List full access permissions
+
+        Returns the IDs of the accounts that have full access to the email account.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/fullAccess/get.
+        """
+        return await self._call(
+            _r.OP_LIST_ACCOUNT_FULL_ACCESS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[int],
         )
 
     async def create_account_full_access(
@@ -1002,6 +2169,54 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=models.EmailProTask,
         )
 
+    async def get_account_full_access(
+        self, service: str, email: str, allowed_account_id: int
+    ) -> models.EmailProAccountFullAccess:
+        """get_account_full_access calls GET /v1/email/pro/{service}/account/{email}/fullAccess/{allowedAccountId}: Get a full access permission
+
+        Returns the ID of the account that has full access to the email account, and the creation
+        date of the permission.
+
+        Args:
+            service: Service
+            email: Email
+            allowed_account_id: Allowed account ID
+
+        Requires the IAM action emailPro:apiovh:account/fullAccess/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_FULL_ACCESS,
+            path_params={
+                "service": service,
+                "email": email,
+                "allowedAccountId": allowed_account_id,
+            },
+            result=models.EmailProAccountFullAccess,
+        )
+
+    def all_account_full_access(
+        self, service: str, email: str
+    ) -> t.AsyncIterator[models.EmailProAccountFullAccess]:
+        """all_account_full_access iterates over GET /v1/email/pro/{service}/account/{email}/fullAccess (List full access permissions).
+
+        It lists the IDs with list_account_full_access, then gets each object with get_account_full_access,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/fullAccess/get.
+        """
+        return self._each(
+            lambda: self.list_account_full_access(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_full_access(service, email, listed_id),
+        )
+
     async def delete_account_full_access(
         self, service: str, email: str, allowed_account_id: int
     ) -> models.EmailProTask:
@@ -1025,6 +2240,26 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
                 "allowedAccountId": allowed_account_id,
             },
             result=models.EmailProTask,
+        )
+
+    async def list_account_send_as(self, service: str, email: str) -> list[int]:
+        """list_account_send_as calls GET /v1/email/pro/{service}/account/{email}/sendAs: List send as permissions
+
+        Returns the IDs of the accounts allowed to send emails as the email account.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/sendAs/get.
+        """
+        return await self._call(
+            _r.OP_LIST_ACCOUNT_SEND_AS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[int],
         )
 
     async def create_account_send_as(
@@ -1053,6 +2288,54 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=models.EmailProTask,
         )
 
+    async def get_account_send_as(
+        self, service: str, email: str, allowed_account_id: int
+    ) -> models.EmailProAccountSendAs:
+        """get_account_send_as calls GET /v1/email/pro/{service}/account/{email}/sendAs/{allowedAccountId}: Get a send as permission
+
+        Returns the ID of the account allowed to send emails as the email account, and the creation
+        date of the permission.
+
+        Args:
+            service: Service
+            email: Email
+            allowed_account_id: Allowed account ID
+
+        Requires the IAM action emailPro:apiovh:account/sendAs/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_SEND_AS,
+            path_params={
+                "service": service,
+                "email": email,
+                "allowedAccountId": allowed_account_id,
+            },
+            result=models.EmailProAccountSendAs,
+        )
+
+    def all_account_send_as(
+        self, service: str, email: str
+    ) -> t.AsyncIterator[models.EmailProAccountSendAs]:
+        """all_account_send_as iterates over GET /v1/email/pro/{service}/account/{email}/sendAs (List send as permissions).
+
+        It lists the IDs with list_account_send_as, then gets each object with get_account_send_as,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/sendAs/get.
+        """
+        return self._each(
+            lambda: self.list_account_send_as(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_send_as(service, email, listed_id),
+        )
+
     async def delete_account_send_as(
         self, service: str, email: str, allowed_account_id: int
     ) -> models.EmailProTask:
@@ -1076,6 +2359,26 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
                 "allowedAccountId": allowed_account_id,
             },
             result=models.EmailProTask,
+        )
+
+    async def list_account_send_on_behalf_tos(self, service: str, email: str) -> list[int]:
+        """list_account_send_on_behalf_tos calls GET /v1/email/pro/{service}/account/{email}/sendOnBehalfTo: List send on behalf permissions
+
+        Returns the IDs of the accounts allowed to send emails on behalf of the email account.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/sendOnBehalfTo/get.
+        """
+        return await self._call(
+            _r.OP_LIST_ACCOUNT_SEND_ON_BEHALF_TOS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[int],
         )
 
     async def create_account_send_on_behalf_to(
@@ -1104,6 +2407,54 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=models.EmailProTask,
         )
 
+    async def get_account_send_on_behalf_to(
+        self, service: str, email: str, allowed_account_id: int
+    ) -> models.EmailProAccountSendOnBehalfTo:
+        """get_account_send_on_behalf_to calls GET /v1/email/pro/{service}/account/{email}/sendOnBehalfTo/{allowedAccountId}: Get a send on behalf permission
+
+        Returns the ID of the account allowed to send emails on behalf of the email account, and the
+        creation date of the permission.
+
+        Args:
+            service: Service
+            email: Email
+            allowed_account_id: Allowed account ID
+
+        Requires the IAM action emailPro:apiovh:account/sendOnBehalfTo/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_SEND_ON_BEHALF_TO,
+            path_params={
+                "service": service,
+                "email": email,
+                "allowedAccountId": allowed_account_id,
+            },
+            result=models.EmailProAccountSendOnBehalfTo,
+        )
+
+    def all_account_send_on_behalf_tos(
+        self, service: str, email: str
+    ) -> t.AsyncIterator[models.EmailProAccountSendOnBehalfTo]:
+        """all_account_send_on_behalf_tos iterates over GET /v1/email/pro/{service}/account/{email}/sendOnBehalfTo (List send on behalf permissions).
+
+        It lists the IDs with list_account_send_on_behalf_tos, then gets each object with get_account_send_on_behalf_to,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/sendOnBehalfTo/get.
+        """
+        return self._each(
+            lambda: self.list_account_send_on_behalf_tos(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_send_on_behalf_to(service, email, listed_id),
+        )
+
     async def delete_account_send_on_behalf_to(
         self, service: str, email: str, allowed_account_id: int
     ) -> models.EmailProTask:
@@ -1129,6 +2480,71 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=models.EmailProTask,
         )
 
+    async def list_account_tasks(self, service: str, email: str) -> list[int]:
+        """list_account_tasks calls GET /v1/email/pro/{service}/account/{email}/tasks: List email account tasks
+
+        Returns the IDs of the tasks of the email account. Read one with `GET
+        /email/pro/{service}/task/{id}`.
+
+        Args:
+            service: Service
+            email: Email
+
+        Requires the IAM action emailPro:apiovh:account/tasks/get.
+        """
+        return await self._call(
+            _r.OP_LIST_ACCOUNT_TASKS,
+            path_params={
+                "service": service,
+                "email": email,
+            },
+            result=list[int],
+        )
+
+    async def get_account_tasks(self, service: str, email: str, id: int) -> models.EmailProTask:
+        """get_account_tasks calls GET /v1/email/pro/{service}/account/{email}/tasks/{id}: Get a task
+
+        Returns the function, status, creation date and completion date of the task. The status is
+        todo, doing, done, error or cancelled.
+
+        Args:
+            service: Service
+            email: Email
+            id: Id
+
+        Requires the IAM action emailPro:apiovh:account/tasks/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_TASKS,
+            path_params={
+                "service": service,
+                "email": email,
+                "id": id,
+            },
+            result=models.EmailProTask,
+        )
+
+    def all_account_tasks(self, service: str, email: str) -> t.AsyncIterator[models.EmailProTask]:
+        """all_account_tasks iterates over GET /v1/email/pro/{service}/account/{email}/tasks (List email account tasks).
+
+        It lists the IDs with list_account_tasks, then gets each object with get_account_tasks,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            email: Email
+
+        The two calls require the IAM action emailPro:apiovh:account/tasks/get.
+        """
+        return self._each(
+            lambda: self.list_account_tasks(
+                service,
+                email,
+            ),
+            lambda listed_id: self.get_account_tasks(service, email, listed_id),
+        )
+
     async def terminate_account(self, service: str, email: str) -> str:
         """terminate_account calls POST /v1/email/pro/{service}/account/{email}/terminate: Terminate an email account at expiration
 
@@ -1146,6 +2562,42 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             path_params={
                 "service": service,
                 "email": email,
+            },
+            result=str,
+        )
+
+    async def get_billing_migrated(self, service: str) -> bool:
+        """get_billing_migrated calls GET /v1/email/pro/{service}/billingMigrated: Get the billing migration status
+
+        Returns `true` when the service is billed by the new OVHcloud billing system.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:billingMigrated/get.
+        """
+        return await self._call(
+            _r.OP_GET_BILLING_MIGRATED,
+            path_params={
+                "service": service,
+            },
+            result=bool,
+        )
+
+    async def get_billing_plan(self, service: str) -> str:
+        """get_billing_plan calls GET /v1/email/pro/{service}/billingPlan: Get the billing plan
+
+        Returns the name of the billing plan of the service.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:billingPlan/get.
+        """
+        return await self._call(
+            _r.OP_GET_BILLING_PLAN,
+            path_params={
+                "service": service,
             },
             result=str,
         )
@@ -1171,6 +2623,32 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=list[int],
         )
 
+    async def list_domains(
+        self,
+        service: str,
+        *,
+        state: models.EmailProObjectStateEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_domains calls GET /v1/email/pro/{service}/domain: List domains
+
+        Returns the names of the domains attached to the service. Filter them by `state`, such as ok
+        or suspended.
+
+        Args:
+            service: Service
+            state: Filter the value of state property (=) (optional)
+
+        Requires the IAM action emailPro:apiovh:domain/get.
+        """
+        return await self._call(
+            _r.OP_LIST_DOMAINS,
+            path_params={
+                "service": service,
+            },
+            query=(("state", state),),
+            result=list[str],
+        )
+
     async def create_domain(
         self, service: str, body: models.CreateDomainRequest
     ) -> models.EmailProTask:
@@ -1194,6 +2672,53 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.CreateDomainRequest,
             result=models.EmailProTask,
+        )
+
+    async def get_domain(self, service: str, domain_name: str) -> models.EmailProDomainNative:
+        """get_domain calls GET /v1/email/pro/{service}/domain/{domainName}: Get a domain
+
+        Returns the type and state of the domain, its MX, SRV and SPF records with their validation
+        status, the expected records, its DKIM diagnostics, its MX relay and its aliases.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        Requires the IAM action emailPro:apiovh:domain/get.
+        """
+        return await self._call(
+            _r.OP_GET_DOMAIN,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+            },
+            result=models.EmailProDomainNative,
+        )
+
+    def all_domains(
+        self,
+        service: str,
+        *,
+        state: models.EmailProObjectStateEnum | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.EmailProDomainNative]:
+        """all_domains iterates over GET /v1/email/pro/{service}/domain (List domains).
+
+        It lists the IDs with list_domains, then gets each object with get_domain,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            state: Filter the value of state property (=) (optional)
+
+        The two calls require the IAM action emailPro:apiovh:domain/get.
+        """
+        return self._each(
+            lambda: self.list_domains(
+                service,
+                state=state,
+            ),
+            lambda listed_id: self.get_domain(service, listed_id),
         )
 
     async def update_domain(
@@ -1240,6 +2765,29 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
                 "domainName": domain_name,
             },
             result=models.EmailProTask,
+        )
+
+    async def get_domain_disclaimer(
+        self, service: str, domain_name: str
+    ) -> models.EmailProDisclaimerNative:
+        """get_domain_disclaimer calls GET /v1/email/pro/{service}/domain/{domainName}/disclaimer: Get the disclaimer
+
+        Returns the content of the disclaimer added at the bottom of the emails of the domain, and
+        whether it is added only to external emails.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        Requires the IAM action emailPro:apiovh:domain/disclaimer/get.
+        """
+        return await self._call(
+            _r.OP_GET_DOMAIN_DISCLAIMER,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+            },
+            result=models.EmailProDisclaimerNative,
         )
 
     async def create_domain_disclaimer(
@@ -1315,6 +2863,51 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=models.EmailProTask,
         )
 
+    async def list_domain_disclaimer_attributes(
+        self, service: str, domain_name: str
+    ) -> list[models.EmailProDisclaimerAttributeEnum]:
+        """list_domain_disclaimer_attributes calls GET /v1/email/pro/{service}/domain/{domainName}/disclaimerAttribute: List disclaimer attributes
+
+        Returns the Active Directory attributes that can be substituted in the disclaimer content,
+        such as DisplayName, Email or PhoneNumber. Insert one in the disclaimer content as
+        `%%AttributeName%%`.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        Requires the IAM action emailPro:apiovh:domain/disclaimerAttribute/get.
+        """
+        return await self._call(
+            _r.OP_LIST_DOMAIN_DISCLAIMER_ATTRIBUTES,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+            },
+            result=list[models.EmailProDisclaimerAttributeEnum],
+        )
+
+    async def list_domain_dkims(self, service: str, domain_name: str) -> list[str]:
+        """list_domain_dkims calls GET /v1/email/pro/{service}/domain/{domainName}/dkim: List DKIM selectors
+
+        Returns the names of the DKIM selectors of the domain. Get one to read its DNS record and
+        its status.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        Requires the IAM action emailPro:apiovh:domain/dkim/get.
+        """
+        return await self._call(
+            _r.OP_LIST_DOMAIN_DKIMS,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+            },
+            result=list[str],
+        )
+
     async def create_domain_dkim(
         self, service: str, domain_name: str, body: models.CreateDomainDkimRequest
     ) -> models.EmailProTask:
@@ -1340,6 +2933,54 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.CreateDomainDkimRequest,
             result=models.EmailProTask,
+        )
+
+    async def get_domain_dkim(
+        self, service: str, domain_name: str, selector_name: str
+    ) -> models.EmailProDkimAlt:
+        """get_domain_dkim calls GET /v1/email/pro/{service}/domain/{domainName}/dkim/{selectorName}: Get a DKIM selector
+
+        Returns the status of the DKIM selector, the CNAME record to add to the DNS zone with its
+        target and validation status, and the header used for the DKIM signature.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+            selector_name: Selector name
+
+        Requires the IAM action emailPro:apiovh:domain/dkim/get.
+        """
+        return await self._call(
+            _r.OP_GET_DOMAIN_DKIM,
+            path_params={
+                "service": service,
+                "domainName": domain_name,
+                "selectorName": selector_name,
+            },
+            result=models.EmailProDkimAlt,
+        )
+
+    def all_domain_dkims(
+        self, service: str, domain_name: str
+    ) -> t.AsyncIterator[models.EmailProDkimAlt]:
+        """all_domain_dkims iterates over GET /v1/email/pro/{service}/domain/{domainName}/dkim (List DKIM selectors).
+
+        It lists the IDs with list_domain_dkims, then gets each object with get_domain_dkim,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            domain_name: Domain name
+
+        The two calls require the IAM action emailPro:apiovh:domain/dkim/get.
+        """
+        return self._each(
+            lambda: self.list_domain_dkims(
+                service,
+                domain_name,
+            ),
+            lambda listed_id: self.get_domain_dkim(service, domain_name, listed_id),
         )
 
     async def delete_domain_dkim(
@@ -1437,6 +3078,46 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=list[str],
         )
 
+    async def list_external_contacts(
+        self,
+        service: str,
+        *,
+        display_name: str | None | NotGiven = NOT_GIVEN,
+        external_email_address: str | None | NotGiven = NOT_GIVEN,
+        first_name: str | None | NotGiven = NOT_GIVEN,
+        id: int | None | NotGiven = NOT_GIVEN,
+        last_name: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_external_contacts calls GET /v1/email/pro/{service}/externalContact: List external contacts
+
+        Returns the email addresses of the external contacts of the service. Filter them by
+        `externalEmailAddress`, `firstName`, `lastName`, `displayName` or `id`.
+
+        Args:
+            service: Service
+            display_name: Filter the value of displayName property (like) (optional)
+            external_email_address: Filter the value of externalEmailAddress property (like) (optional)
+            first_name: Filter the value of firstName property (like) (optional)
+            id: Filter the value of id property (like) (optional)
+            last_name: Filter the value of lastName property (like) (optional)
+
+        Requires the IAM action emailPro:apiovh:externalContact/get.
+        """
+        return await self._call(
+            _r.OP_LIST_EXTERNAL_CONTACTS,
+            path_params={
+                "service": service,
+            },
+            query=(
+                ("displayName", display_name),
+                ("externalEmailAddress", external_email_address),
+                ("firstName", first_name),
+                ("id", id),
+                ("lastName", last_name),
+            ),
+            result=list[str],
+        )
+
     async def create_external_contact(
         self, service: str, body: models.CreateExternalContactRequest
     ) -> models.EmailProTask:
@@ -1459,6 +3140,67 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.CreateExternalContactRequest,
             result=models.EmailProTask,
+        )
+
+    async def get_external_contact(
+        self, service: str, external_email_address: str
+    ) -> models.EmailProExternalContactNative:
+        """get_external_contact calls GET /v1/email/pro/{service}/externalContact/{externalEmailAddress}: Get an external contact
+
+        Returns the email address, names, state and Global Address List visibility of the external
+        contact.
+
+        Args:
+            service: Service
+            external_email_address: External email address
+
+        Requires the IAM action emailPro:apiovh:externalContact/get.
+        """
+        return await self._call(
+            _r.OP_GET_EXTERNAL_CONTACT,
+            path_params={
+                "service": service,
+                "externalEmailAddress": external_email_address,
+            },
+            result=models.EmailProExternalContactNative,
+        )
+
+    def all_external_contacts(
+        self,
+        service: str,
+        *,
+        display_name: str | None | NotGiven = NOT_GIVEN,
+        external_email_address: str | None | NotGiven = NOT_GIVEN,
+        first_name: str | None | NotGiven = NOT_GIVEN,
+        id: int | None | NotGiven = NOT_GIVEN,
+        last_name: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.EmailProExternalContactNative]:
+        """all_external_contacts iterates over GET /v1/email/pro/{service}/externalContact (List external contacts).
+
+        It lists the IDs with list_external_contacts, then gets each object with get_external_contact,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+            display_name: Filter the value of displayName property (like) (optional)
+            external_email_address: Filter the value of externalEmailAddress property (like) (optional)
+            first_name: Filter the value of firstName property (like) (optional)
+            id: Filter the value of id property (like) (optional)
+            last_name: Filter the value of lastName property (like) (optional)
+
+        The two calls require the IAM action emailPro:apiovh:externalContact/get.
+        """
+        return self._each(
+            lambda: self.list_external_contacts(
+                service,
+                display_name=display_name,
+                external_email_address=external_email_address,
+                first_name=first_name,
+                id=id,
+                last_name=last_name,
+            ),
+            lambda listed_id: self.get_external_contact(service, listed_id),
         )
 
     async def update_external_contact(
@@ -1512,6 +3254,25 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             result=models.EmailProTask,
         )
 
+    async def get_server(self, service: str) -> models.EmailProServer:
+        """get_server calls GET /v1/email/pro/{service}/server: Get the server
+
+        Returns the state, IPv4 and IPv6 addresses, version and disk usage of the server, and
+        whether its A, AAAA and PTR DNS records are valid.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:server/get.
+        """
+        return await self._call(
+            _r.OP_GET_SERVER,
+            path_params={
+                "service": service,
+            },
+            result=models.EmailProServer,
+        )
+
     async def get_service_infos(self, service: str) -> models.ServicesService:
         """get_service_infos calls GET /v1/email/pro/{service}/serviceInfos: Get service information
 
@@ -1552,6 +3313,65 @@ class AsyncEmailproApi(_gen.AsyncSectionApi):
             },
             body=body,
             body_type=models.ServicesServiceWritable,
+        )
+
+    async def list_tasks(self, service: str) -> list[int]:
+        """list_tasks calls GET /v1/email/pro/{service}/task: List service tasks
+
+        Returns the IDs of the tasks of the service. Get one to follow its function, status and
+        dates.
+
+        Args:
+            service: Service
+
+        Requires the IAM action emailPro:apiovh:task/get.
+        """
+        return await self._call(
+            _r.OP_LIST_TASKS,
+            path_params={
+                "service": service,
+            },
+            result=list[int],
+        )
+
+    async def get_task(self, service: str, id: int) -> models.EmailProTask:
+        """get_task calls GET /v1/email/pro/{service}/task/{id}: Get a task
+
+        Returns the function, status, creation date and completion date of the task. The status is
+        todo, doing, done, error or cancelled.
+
+        Args:
+            service: Service
+            id: Id
+
+        Requires the IAM action emailPro:apiovh:task/get.
+        """
+        return await self._call(
+            _r.OP_GET_TASK,
+            path_params={
+                "service": service,
+                "id": id,
+            },
+            result=models.EmailProTask,
+        )
+
+    def all_tasks(self, service: str) -> t.AsyncIterator[models.EmailProTask]:
+        """all_tasks iterates over GET /v1/email/pro/{service}/task (List service tasks).
+
+        It lists the IDs with list_tasks, then gets each object with get_task,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service: Service
+
+        The two calls require the IAM action emailPro:apiovh:task/get.
+        """
+        return self._each(
+            lambda: self.list_tasks(
+                service,
+            ),
+            lambda listed_id: self.get_task(service, listed_id),
         )
 
     async def update_flags_on_all_accounts(self, service: str) -> None:

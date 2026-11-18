@@ -1862,6 +1862,16 @@ OP_DELETE_IDENTITY_PROVIDER = Operation(
     schemas_version=None,
 )
 
+OP_GET_IDENTITY_PROVIDER_SAML_SERVICE_PROVIDER_INFO = Operation(
+    name="me.get_identity_provider_saml_service_provider_info",
+    method="GET",
+    path="/v1/me/identity/provider/samlServiceProviderInfo",
+    summary="Get information related to OVHcloud as a SAMLv2 service provider",
+    iam_actions=(),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_LIST_IDENTITY_USERS = Operation(
     name="me.list_identity_users",
     method="GET",
@@ -3822,6 +3832,7 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_CREATE_IDENTITY_PROVIDER,
     OP_UPDATE_IDENTITY_PROVIDER,
     OP_DELETE_IDENTITY_PROVIDER,
+    OP_GET_IDENTITY_PROVIDER_SAML_SERVICE_PROVIDER_INFO,
     OP_LIST_IDENTITY_USERS,
     OP_CREATE_IDENTITY_USER,
     OP_GET_IDENTITY_USER,

@@ -40,7 +40,10 @@ class LicensecloudLinuxApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_cloud_linuxes calls GET /v1/license/cloudLinux: List available services
+        """list_cloud_linuxes calls GET /v1/license/cloudLinux: List your CloudLinux licenses
+
+        Returns the names of the CloudLinux licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -58,6 +61,8 @@ class LicensecloudLinuxApi(_gen.SectionApi):
     ) -> list[models.LicenseCloudLinuxOrderConfiguration]:
         """list_orderable_versions calls GET /v1/license/cloudLinux/orderableVersions: Get the orderable CloudLinux versions
 
+        Returns the versions that can be ordered for the given IP, grouped by service type.
+
         Args:
             ip: Your license Ip
 
@@ -70,7 +75,10 @@ class LicensecloudLinuxApi(_gen.SectionApi):
         )
 
     def get_cloud_linux(self, service_name: str) -> models.LicenseCloudLinuxCloudLinuxWithIAM:
-        """get_cloud_linux calls GET /v1/license/cloudLinux/{serviceName}: Get this object properties
+        """get_cloud_linux calls GET /v1/license/cloudLinux/{serviceName}: Get a CloudLinux license
+
+        Returns the license ID, version, status, the IP address the license is attached to, and the
+        creation date.
 
         Args:
             service_name: The name of your CloudLinux license
@@ -90,7 +98,7 @@ class LicensecloudLinuxApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseCloudLinuxCloudLinuxWithIAM]:
-        """all_cloud_linuxes iterates over GET /v1/license/cloudLinux (List available services).
+        """all_cloud_linuxes iterates over GET /v1/license/cloudLinux (List your CloudLinux licenses).
 
         It lists the IDs with list_cloud_linuxes, then gets each object with get_cloud_linux,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -177,7 +185,10 @@ class LicensecloudLinuxApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/cloudLinux/{serviceName}/tasks: Tasks linked to this license
+        """list_tasks calls GET /v1/license/cloudLinux/{serviceName}/tasks: List the tasks of a CloudLinux license
+
+        Returns the IDs of the tasks linked to the license, which can be filtered by status and
+        action.
 
         Args:
             service_name: The name of your CloudLinux license
@@ -199,7 +210,10 @@ class LicensecloudLinuxApi(_gen.SectionApi):
         )
 
     def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/cloudLinux/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/cloudLinux/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your CloudLinux license
@@ -223,7 +237,7 @@ class LicensecloudLinuxApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/cloudLinux/{serviceName}/tasks (Tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/cloudLinux/{serviceName}/tasks (List the tasks of a CloudLinux license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -284,7 +298,10 @@ class AsyncLicensecloudLinuxApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_cloud_linuxes calls GET /v1/license/cloudLinux: List available services
+        """list_cloud_linuxes calls GET /v1/license/cloudLinux: List your CloudLinux licenses
+
+        Returns the names of the CloudLinux licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -302,6 +319,8 @@ class AsyncLicensecloudLinuxApi(_gen.AsyncSectionApi):
     ) -> list[models.LicenseCloudLinuxOrderConfiguration]:
         """list_orderable_versions calls GET /v1/license/cloudLinux/orderableVersions: Get the orderable CloudLinux versions
 
+        Returns the versions that can be ordered for the given IP, grouped by service type.
+
         Args:
             ip: Your license Ip
 
@@ -314,7 +333,10 @@ class AsyncLicensecloudLinuxApi(_gen.AsyncSectionApi):
         )
 
     async def get_cloud_linux(self, service_name: str) -> models.LicenseCloudLinuxCloudLinuxWithIAM:
-        """get_cloud_linux calls GET /v1/license/cloudLinux/{serviceName}: Get this object properties
+        """get_cloud_linux calls GET /v1/license/cloudLinux/{serviceName}: Get a CloudLinux license
+
+        Returns the license ID, version, status, the IP address the license is attached to, and the
+        creation date.
 
         Args:
             service_name: The name of your CloudLinux license
@@ -334,7 +356,7 @@ class AsyncLicensecloudLinuxApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseCloudLinuxCloudLinuxWithIAM]:
-        """all_cloud_linuxes iterates over GET /v1/license/cloudLinux (List available services).
+        """all_cloud_linuxes iterates over GET /v1/license/cloudLinux (List your CloudLinux licenses).
 
         It lists the IDs with list_cloud_linuxes, then gets each object with get_cloud_linux,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -425,7 +447,10 @@ class AsyncLicensecloudLinuxApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/cloudLinux/{serviceName}/tasks: Tasks linked to this license
+        """list_tasks calls GET /v1/license/cloudLinux/{serviceName}/tasks: List the tasks of a CloudLinux license
+
+        Returns the IDs of the tasks linked to the license, which can be filtered by status and
+        action.
 
         Args:
             service_name: The name of your CloudLinux license
@@ -447,7 +472,10 @@ class AsyncLicensecloudLinuxApi(_gen.AsyncSectionApi):
         )
 
     async def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/cloudLinux/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/cloudLinux/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your CloudLinux license
@@ -471,7 +499,7 @@ class AsyncLicensecloudLinuxApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/cloudLinux/{serviceName}/tasks (Tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/cloudLinux/{serviceName}/tasks (List the tasks of a CloudLinux license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other

@@ -41,7 +41,10 @@ class LicenseworklightApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_worklights calls GET /v1/license/worklight: List available services
+        """list_worklights calls GET /v1/license/worklight: List your Worklight licenses
+
+        Returns the names of the Worklight licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -57,7 +60,9 @@ class LicenseworklightApi(_gen.SectionApi):
     def list_orderable_versions(
         self, ip: models.IPv4
     ) -> list[models.LicenseWorkLightOrderConfiguration]:
-        """list_orderable_versions calls GET /v1/license/worklight/orderableVersions: Get the orderable WorkLight versions
+        """list_orderable_versions calls GET /v1/license/worklight/orderableVersions: Get the orderable Worklight versions
+
+        Returns the versions that can be ordered for the given IP, grouped by service type.
 
         Args:
             ip: Your license Ip
@@ -71,7 +76,10 @@ class LicenseworklightApi(_gen.SectionApi):
         )
 
     def get_worklight(self, service_name: str) -> models.LicenseWorklightWorkLightWithIAM:
-        """get_worklight calls GET /v1/license/worklight/{serviceName}: Get this object properties
+        """get_worklight calls GET /v1/license/worklight/{serviceName}: Get a Worklight license
+
+        Returns the license ID, version, status, the IP address the license is attached to, and the
+        creation date.
 
         Args:
             service_name: The name of your WorkLight license
@@ -91,7 +99,7 @@ class LicenseworklightApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseWorklightWorkLightWithIAM]:
-        """all_worklights iterates over GET /v1/license/worklight (List available services).
+        """all_worklights iterates over GET /v1/license/worklight (List your Worklight licenses).
 
         It lists the IDs with list_worklights, then gets each object with get_worklight,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -112,7 +120,9 @@ class LicenseworklightApi(_gen.SectionApi):
     def update_worklight(
         self, service_name: str, body: models.LicenseWorklightWorkLightWritable
     ) -> None:
-        """update_worklight calls PUT /v1/license/worklight/{serviceName}: Alter this object properties
+        """update_worklight calls PUT /v1/license/worklight/{serviceName}: Update a Worklight license
+
+        Changes the settings that can be modified: the automatic deletion at expiration.
 
         Args:
             service_name: The name of your WorkLight license
@@ -130,7 +140,10 @@ class LicenseworklightApi(_gen.SectionApi):
         )
 
     def list_allowed_destination_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_allowed_destination_ips calls GET /v1/license/worklight/{serviceName}/allowedDestinationIp: Returns an array of ips where the license can be moved to
+        """list_allowed_destination_ips calls GET /v1/license/worklight/{serviceName}/allowedDestinationIp: List the IPs a Worklight license can be moved to
+
+        Returns the IP blocks that can receive the license, so you can pick the destination of a
+        move.
 
         Args:
             service_name: The name of your WorkLight license
@@ -148,7 +161,9 @@ class LicenseworklightApi(_gen.SectionApi):
     def get_can_license_be_moved_to(
         self, service_name: str, destination_ip: models.IPv4
     ) -> models.LicenseChangeIPStatus:
-        """get_can_license_be_moved_to calls GET /v1/license/worklight/{serviceName}/canLicenseBeMovedTo: Will tell if the ip can accept the license
+        """get_can_license_be_moved_to calls GET /v1/license/worklight/{serviceName}/canLicenseBeMovedTo: Check whether a Worklight license can be moved to an IP
+
+        Returns whether the destination IP can receive the license, with the reason when it cannot.
 
         Args:
             service_name: The name of your WorkLight license
@@ -166,7 +181,9 @@ class LicenseworklightApi(_gen.SectionApi):
         )
 
     def change_ip(self, service_name: str, body: models.ChangeIPRequest) -> models.LicenseTask:
-        """change_ip calls POST /v1/license/worklight/{serviceName}/changeIp: Move this license to another Ip
+        """change_ip calls POST /v1/license/worklight/{serviceName}/changeIp: Move a Worklight license to another IP
+
+        Starts the move of the license to the given IP and returns the task that performs it.
 
         Args:
             service_name: The name of your WorkLight license
@@ -253,7 +270,10 @@ class LicenseworklightApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/worklight/{serviceName}/tasks: Tasks linked to this license
+        """list_tasks calls GET /v1/license/worklight/{serviceName}/tasks: List the tasks of a Worklight license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade or an IP change.
 
         Args:
             service_name: The name of your WorkLight license
@@ -275,7 +295,10 @@ class LicenseworklightApi(_gen.SectionApi):
         )
 
     def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/worklight/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/worklight/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your WorkLight license
@@ -299,7 +322,7 @@ class LicenseworklightApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/worklight/{serviceName}/tasks (Tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/worklight/{serviceName}/tasks (List the tasks of a Worklight license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -361,7 +384,10 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_worklights calls GET /v1/license/worklight: List available services
+        """list_worklights calls GET /v1/license/worklight: List your Worklight licenses
+
+        Returns the names of the Worklight licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -377,7 +403,9 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
     async def list_orderable_versions(
         self, ip: models.IPv4
     ) -> list[models.LicenseWorkLightOrderConfiguration]:
-        """list_orderable_versions calls GET /v1/license/worklight/orderableVersions: Get the orderable WorkLight versions
+        """list_orderable_versions calls GET /v1/license/worklight/orderableVersions: Get the orderable Worklight versions
+
+        Returns the versions that can be ordered for the given IP, grouped by service type.
 
         Args:
             ip: Your license Ip
@@ -391,7 +419,10 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
         )
 
     async def get_worklight(self, service_name: str) -> models.LicenseWorklightWorkLightWithIAM:
-        """get_worklight calls GET /v1/license/worklight/{serviceName}: Get this object properties
+        """get_worklight calls GET /v1/license/worklight/{serviceName}: Get a Worklight license
+
+        Returns the license ID, version, status, the IP address the license is attached to, and the
+        creation date.
 
         Args:
             service_name: The name of your WorkLight license
@@ -411,7 +442,7 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseWorklightWorkLightWithIAM]:
-        """all_worklights iterates over GET /v1/license/worklight (List available services).
+        """all_worklights iterates over GET /v1/license/worklight (List your Worklight licenses).
 
         It lists the IDs with list_worklights, then gets each object with get_worklight,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -432,7 +463,9 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
     async def update_worklight(
         self, service_name: str, body: models.LicenseWorklightWorkLightWritable
     ) -> None:
-        """update_worklight calls PUT /v1/license/worklight/{serviceName}: Alter this object properties
+        """update_worklight calls PUT /v1/license/worklight/{serviceName}: Update a Worklight license
+
+        Changes the settings that can be modified: the automatic deletion at expiration.
 
         Args:
             service_name: The name of your WorkLight license
@@ -450,7 +483,10 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
         )
 
     async def list_allowed_destination_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_allowed_destination_ips calls GET /v1/license/worklight/{serviceName}/allowedDestinationIp: Returns an array of ips where the license can be moved to
+        """list_allowed_destination_ips calls GET /v1/license/worklight/{serviceName}/allowedDestinationIp: List the IPs a Worklight license can be moved to
+
+        Returns the IP blocks that can receive the license, so you can pick the destination of a
+        move.
 
         Args:
             service_name: The name of your WorkLight license
@@ -468,7 +504,9 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
     async def get_can_license_be_moved_to(
         self, service_name: str, destination_ip: models.IPv4
     ) -> models.LicenseChangeIPStatus:
-        """get_can_license_be_moved_to calls GET /v1/license/worklight/{serviceName}/canLicenseBeMovedTo: Will tell if the ip can accept the license
+        """get_can_license_be_moved_to calls GET /v1/license/worklight/{serviceName}/canLicenseBeMovedTo: Check whether a Worklight license can be moved to an IP
+
+        Returns whether the destination IP can receive the license, with the reason when it cannot.
 
         Args:
             service_name: The name of your WorkLight license
@@ -488,7 +526,9 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
     async def change_ip(
         self, service_name: str, body: models.ChangeIPRequest
     ) -> models.LicenseTask:
-        """change_ip calls POST /v1/license/worklight/{serviceName}/changeIp: Move this license to another Ip
+        """change_ip calls POST /v1/license/worklight/{serviceName}/changeIp: Move a Worklight license to another IP
+
+        Starts the move of the license to the given IP and returns the task that performs it.
 
         Args:
             service_name: The name of your WorkLight license
@@ -579,7 +619,10 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/worklight/{serviceName}/tasks: Tasks linked to this license
+        """list_tasks calls GET /v1/license/worklight/{serviceName}/tasks: List the tasks of a Worklight license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade or an IP change.
 
         Args:
             service_name: The name of your WorkLight license
@@ -601,7 +644,10 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
         )
 
     async def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/worklight/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/worklight/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your WorkLight license
@@ -625,7 +671,7 @@ class AsyncLicenseworklightApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/worklight/{serviceName}/tasks (Tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/worklight/{serviceName}/tasks (List the tasks of a Worklight license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other

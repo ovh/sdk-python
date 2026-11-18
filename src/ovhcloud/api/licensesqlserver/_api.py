@@ -40,7 +40,10 @@ class LicensesqlserverApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_sqlservers calls GET /v1/license/sqlserver: List available services
+        """list_sqlservers calls GET /v1/license/sqlserver: List your SQL Server licenses
+
+        Returns the names of the SQL Server licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -56,7 +59,9 @@ class LicensesqlserverApi(_gen.SectionApi):
     def list_orderable_versions(
         self, ip: models.IPv4
     ) -> list[models.LicenseSQLServerOrderConfiguration]:
-        """list_orderable_versions calls GET /v1/license/sqlserver/orderableVersions: Get the orderable Sql Server versions
+        """list_orderable_versions calls GET /v1/license/sqlserver/orderableVersions: Get the orderable SQL Server versions
+
+        Returns the versions that can be ordered for the given IP, grouped by service type.
 
         Args:
             ip: Your license Ip
@@ -70,7 +75,10 @@ class LicensesqlserverApi(_gen.SectionApi):
         )
 
     def get_sqlserver(self, service_name: str) -> models.LicenseSqlserverSQLServerWithIAM:
-        """get_sqlserver calls GET /v1/license/sqlserver/{serviceName}: Get this object properties
+        """get_sqlserver calls GET /v1/license/sqlserver/{serviceName}: Get a SQL Server license
+
+        Returns the license ID, version, status, the IP address the license is attached to, and the
+        creation date.
 
         Args:
             service_name: The name of your SQL Server license
@@ -90,7 +98,7 @@ class LicensesqlserverApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseSqlserverSQLServerWithIAM]:
-        """all_sqlservers iterates over GET /v1/license/sqlserver (List available services).
+        """all_sqlservers iterates over GET /v1/license/sqlserver (List your SQL Server licenses).
 
         It lists the IDs with list_sqlservers, then gets each object with get_sqlserver,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -177,7 +185,10 @@ class LicensesqlserverApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/sqlserver/{serviceName}/tasks: Tasks linked to this license
+        """list_tasks calls GET /v1/license/sqlserver/{serviceName}/tasks: List the tasks of a SQL Server license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade.
 
         Args:
             service_name: The name of your SQL Server license
@@ -199,7 +210,10 @@ class LicensesqlserverApi(_gen.SectionApi):
         )
 
     def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/sqlserver/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/sqlserver/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your SQL Server license
@@ -223,7 +237,7 @@ class LicensesqlserverApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/sqlserver/{serviceName}/tasks (Tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/sqlserver/{serviceName}/tasks (List the tasks of a SQL Server license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -284,7 +298,10 @@ class AsyncLicensesqlserverApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_sqlservers calls GET /v1/license/sqlserver: List available services
+        """list_sqlservers calls GET /v1/license/sqlserver: List your SQL Server licenses
+
+        Returns the names of the SQL Server licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -300,7 +317,9 @@ class AsyncLicensesqlserverApi(_gen.AsyncSectionApi):
     async def list_orderable_versions(
         self, ip: models.IPv4
     ) -> list[models.LicenseSQLServerOrderConfiguration]:
-        """list_orderable_versions calls GET /v1/license/sqlserver/orderableVersions: Get the orderable Sql Server versions
+        """list_orderable_versions calls GET /v1/license/sqlserver/orderableVersions: Get the orderable SQL Server versions
+
+        Returns the versions that can be ordered for the given IP, grouped by service type.
 
         Args:
             ip: Your license Ip
@@ -314,7 +333,10 @@ class AsyncLicensesqlserverApi(_gen.AsyncSectionApi):
         )
 
     async def get_sqlserver(self, service_name: str) -> models.LicenseSqlserverSQLServerWithIAM:
-        """get_sqlserver calls GET /v1/license/sqlserver/{serviceName}: Get this object properties
+        """get_sqlserver calls GET /v1/license/sqlserver/{serviceName}: Get a SQL Server license
+
+        Returns the license ID, version, status, the IP address the license is attached to, and the
+        creation date.
 
         Args:
             service_name: The name of your SQL Server license
@@ -334,7 +356,7 @@ class AsyncLicensesqlserverApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseSqlserverSQLServerWithIAM]:
-        """all_sqlservers iterates over GET /v1/license/sqlserver (List available services).
+        """all_sqlservers iterates over GET /v1/license/sqlserver (List your SQL Server licenses).
 
         It lists the IDs with list_sqlservers, then gets each object with get_sqlserver,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -425,7 +447,10 @@ class AsyncLicensesqlserverApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/sqlserver/{serviceName}/tasks: Tasks linked to this license
+        """list_tasks calls GET /v1/license/sqlserver/{serviceName}/tasks: List the tasks of a SQL Server license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade.
 
         Args:
             service_name: The name of your SQL Server license
@@ -447,7 +472,10 @@ class AsyncLicensesqlserverApi(_gen.AsyncSectionApi):
         )
 
     async def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/sqlserver/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/sqlserver/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your SQL Server license
@@ -471,7 +499,7 @@ class AsyncLicensesqlserverApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/sqlserver/{serviceName}/tasks (Tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/sqlserver/{serviceName}/tasks (List the tasks of a SQL Server license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other

@@ -26,11 +26,11 @@ class DedicatedserverApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 104 operations, on the routes under /v1/dedicated/server.
+    It has 132 operations, on the routes under /v1/dedicated/server and /v2/dedicated/server.
 
     To start, list what the account has: list_servers, list_os_availabilities,
-    list_datacenter_availabilities, list_boots, list_interventions, list_ip_country_availables,
-    list_ips, list_mrtgs, and 14 more.
+    list_datacenter_availabilities, list_region_availabilities, list_boots, list_interventions,
+    list_ip_country_availables, list_ips, and 22 more.
 
     To find the method for a route, search index/dedicatedserver.jsonl: one line per method, with
     its route, its signature and the IAM actions it requires. It is at the root of the SDK
@@ -154,6 +154,51 @@ class DedicatedserverApi(_gen.SectionApi):
             result=list[str],
         )
 
+    def list_region_availabilities(
+        self,
+        *,
+        exclude_regions: bool | None | NotGiven = NOT_GIVEN,
+        gpu: str | None | NotGiven = NOT_GIVEN,
+        memory: str | None | NotGiven = NOT_GIVEN,
+        plan_code: str | None | NotGiven = NOT_GIVEN,
+        regions: list[models.DedicatedServerAvailabilityRegionalizationEnum]
+        | None
+        | NotGiven = NOT_GIVEN,
+        server: str | None | NotGiven = NOT_GIVEN,
+        storage: str | None | NotGiven = NOT_GIVEN,
+        system_storage: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[models.DedicatedServerRegionAvailability]:
+        """list_region_availabilities calls GET /v1/dedicated/server/region/availabilities: List server availability by region
+
+        Returns the availability of each server hardware configuration in each region and its
+        availability zones. Filter by plan code or hardware part, and choose regions with regions
+        and excludeRegions. Unlike the datacenter route, this call requires authentication.
+
+        Args:
+            exclude_regions: If true, all regions are returned except those listed in regions parameter (optional)
+            gpu: The name of the gpu hardware part (optional)
+            memory: The name of the memory hardware part (optional)
+            plan_code: The plan code in which the hardware is involved (optional)
+            regions: The names of regions (optional)
+            server: The name of the base hardware (optional)
+            storage: The name of the storage hardware part (optional)
+            system_storage: The name of the system storage hardware part (optional)
+        """
+        return self._call(
+            _r.OP_LIST_REGION_AVAILABILITIES,
+            query=(
+                ("excludeRegions", exclude_regions),
+                ("gpu", gpu),
+                ("memory", memory),
+                ("planCode", plan_code),
+                ("regions", regions),
+                ("server", server),
+                ("storage", storage),
+                ("systemStorage", system_storage),
+            ),
+            result=list[models.DedicatedServerRegionAvailability],
+        )
+
     def get_virtual_network_interface_by_uuid(
         self, uuid: str
     ) -> models.DedicatedServerVirtualNetworkInterface:
@@ -258,6 +303,93 @@ class DedicatedserverApi(_gen.SectionApi):
                 "serviceName": service_name,
             },
             result=list[models.DedicatedServerAccess],
+        )
+
+    def get_backup_cloud_offer_details(
+        self, service_name: str
+    ) -> models.DedicatedServerBackupBackupOffer:
+        """get_backup_cloud_offer_details calls GET /v1/dedicated/server/{serviceName}/backupCloudOfferDetails: Get the cloud backup offer
+
+        Returns the cloud backup offer available for the server: the maximum size and the monthly
+        read/write volume of the storage and archive containers. When no offer is available, the
+        call returns an error.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:backupCloudOfferDetails/get.
+        """
+        return self._call(
+            _r.OP_GET_BACKUP_CLOUD_OFFER_DETAILS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedServerBackupBackupOffer,
+        )
+
+    def get_bios_settings(self, service_name: str) -> models.DedicatedBiosSettingsBiosSettings:
+        """get_bios_settings calls GET /v1/dedicated/server/{serviceName}/biosSettings: Get the BIOS settings
+
+        Returns the configurable BIOS settings of the server. The response states whether SGX is
+        supported and lists the SGX statuses and PRMRR sizes the server accepts.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:biosSettings/get.
+        """
+        return self._call(
+            _r.OP_GET_BIOS_SETTINGS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedBiosSettingsBiosSettings,
+        )
+
+    def get_bios_settings_sgx(
+        self, service_name: str
+    ) -> models.DedicatedBiosSettingsSgxBiosSettingsSgx:
+        """get_bios_settings_sgx calls GET /v1/dedicated/server/{serviceName}/biosSettings/sgx: Get the SGX settings
+
+        Returns the SGX configuration of the server: the SGX status and the size of the Processor
+        Reserved Memory (PRMRR). To change it, use the configure operation.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:biosSettings/sgx/get.
+        """
+        return self._call(
+            _r.OP_GET_BIOS_SETTINGS_SGX,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedBiosSettingsSgxBiosSettingsSgx,
+        )
+
+    def configure_bios_settings_sgx(
+        self, service_name: str, body: models.ConfigureBiosSettingsSgxRequest
+    ) -> models.DedicatedServerTask:
+        """configure_bios_settings_sgx calls POST /v1/dedicated/server/{serviceName}/biosSettings/sgx/configure: Configure SGX
+
+        Enables or disables SGX and sets the size of the Processor Reserved Memory (PRMRR). The
+        server reboots one or several times. On a server without SGX BIOS settings, the call returns
+        an error.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:biosSettings/sgx/configure.
+        """
+        return self._call(
+            _r.OP_CONFIGURE_BIOS_SETTINGS_SGX,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ConfigureBiosSettingsSgxRequest,
+            result=models.DedicatedServerTask,
         )
 
     def list_boots(
@@ -485,6 +617,88 @@ class DedicatedserverApi(_gen.SectionApi):
             body=body,
             body_type=models.ConfirmTerminationRequest,
             result=str,
+        )
+
+    def get_features_backup_cloud(self, service_name: str) -> models.DedicatedServerBackupCloud:
+        """get_features_backup_cloud calls GET /v1/dedicated/server/{serviceName}/features/backupCloud: Get the cloud backup
+
+        Returns the cloud backup of the server: its storage and archive containers, its status and
+        the agreements waiting for validation.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:features/backupCloud/get.
+        """
+        return self._call(
+            _r.OP_GET_FEATURES_BACKUP_CLOUD,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedServerBackupCloud,
+        )
+
+    def create_features_backup_cloud(
+        self, service_name: str, body: models.CreateFeaturesBackupCloudRequest
+    ) -> models.DedicatedServerBackupCloud:
+        """create_features_backup_cloud calls POST /v1/dedicated/server/{serviceName}/features/backupCloud: Create the cloud backup
+
+        Creates the cloud backup of the server, with storage and archive containers in a cloud
+        project. Set cloudProjectId to use an existing project; otherwise a project is created,
+        described by projectDescription.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:features/backupCloud/create.
+        """
+        return self._call(
+            _r.OP_CREATE_FEATURES_BACKUP_CLOUD,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.CreateFeaturesBackupCloudRequest,
+            result=models.DedicatedServerBackupCloud,
+        )
+
+    def delete_features_backup_cloud(self, service_name: str) -> None:
+        """delete_features_backup_cloud calls DELETE /v1/dedicated/server/{serviceName}/features/backupCloud: Deactivate the cloud backup
+
+        Deactivates the cloud backup of the server. The container data is not deleted.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:features/backupCloud/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_FEATURES_BACKUP_CLOUD,
+            path_params={
+                "serviceName": service_name,
+            },
+        )
+
+    def password_features_backup_cloud(
+        self, service_name: str
+    ) -> models.DedicatedServerBackupBackupPassword:
+        """password_features_backup_cloud calls POST /v1/dedicated/server/{serviceName}/features/backupCloud/password: Regenerate cloud backup passwords
+
+        Regenerates the cloud backup passwords and returns them: the Swift and SFTP passwords of the
+        storage and archive containers.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:features/backupCloud/password/create.
+        """
+        return self._call(
+            _r.OP_PASSWORD_FEATURES_BACKUP_CLOUD,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedServerBackupBackupPassword,
         )
 
     def get_features_backup_ftp(self, service_name: str) -> models.DedicatedServerBackupFtp:
@@ -1262,8 +1476,168 @@ class DedicatedserverApi(_gen.SectionApi):
             result=models.DedicatedServerTask,
         )
 
+    def all_log_kinds(self, service_name: str) -> t.Iterator[str]:
+        """all_log_kinds iterates over GET /v2/dedicated/server/{serviceName}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds Dedicated Servers emits, which can be forwarded to a
+        stream.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action dedicatedServer:apiovh:log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_LOG_KINDS,
+            path_params={
+                "serviceName": service_name,
+            },
+            item=str,
+        )
+
+    def get_log_kind(self, service_name: str, name: str) -> models.DbaasLogsLogKind:
+        """get_log_kind calls GET /v2/dedicated/server/{serviceName}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            service_name: Service name
+            name: Name
+
+        Requires the IAM action dedicatedServer:apiovh:log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_LOG_KIND,
+            path_params={
+                "serviceName": service_name,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_log_subscriptions(
+        self, service_name: str, *, kind: str | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[str]:
+        """all_log_subscriptions iterates over GET /v2/dedicated/server/{serviceName}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the Dedicated Servers log subscriptions. Set `kind` to restrict
+        the list to one log kind.
+
+        Args:
+            service_name: Service name
+            kind: Filter on a specific kind (optional)
+
+        Requires the IAM action dedicatedServer:apiovh:log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_LOG_SUBSCRIPTIONS,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    def create_log_subscription(
+        self, service_name: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_log_subscription calls POST /v2/dedicated/server/{serviceName}/log/subscription: Create a log subscription
+
+        Forwards Dedicated Servers logs of one kind to a Logs Data Platform stream. The subscription
+        is created asynchronously and the response returns the operation identifier.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM actions dedicatedServer:apiovh:log/subscription,
+        ldp:apiovh:output/graylog/stream/forwardTo.
+        """
+        return self._call(
+            _r.OP_CREATE_LOG_SUBSCRIPTION,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_log_subscription(
+        self, service_name: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_log_subscription calls GET /v2/dedicated/server/{serviceName}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            service_name: Service name
+            subscription_id: Subscription ID
+
+        Requires the IAM action dedicatedServer:apiovh:log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_LOG_SUBSCRIPTION,
+            path_params={
+                "serviceName": service_name,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_log_subscription(
+        self, service_name: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_log_subscription calls DELETE /v2/dedicated/server/{serviceName}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Dedicated Servers logs to the stream.
+
+        Args:
+            service_name: Service name
+            subscription_id: Subscription ID
+
+        Requires the IAM action dedicatedServer:apiovh:log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_LOG_SUBSCRIPTION,
+            path_params={
+                "serviceName": service_name,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_log(
+        self, service_name: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_log calls POST /v2/dedicated/server/{serviceName}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:log/url.
+        """
+        return self._call(
+            _r.OP_URL_LOG,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2018-04-23. Use /dedicated/server/{serviceName}/networkInterfaceController instead.",
+        "The API has deprecated this operation, to be removed on 2018-04-23. Use /v1/dedicated/server/{serviceName}/networkInterfaceController instead.",
         category=None,
     )
     def list_mrtgs(
@@ -1286,7 +1660,7 @@ class DedicatedserverApi(_gen.SectionApi):
         Requires the IAM action dedicatedServer:apiovh:mrtg/get.
 
         Deprecated: the API has deprecated this operation. Removal date: 2018-04-23. Use
-        /dedicated/server/{serviceName}/networkInterfaceController instead.
+        /v1/dedicated/server/{serviceName}/networkInterfaceController instead.
         """
         return self._call(
             _r.OP_LIST_MRTGS,
@@ -1300,8 +1674,165 @@ class DedicatedserverApi(_gen.SectionApi):
             result=list[models.DedicatedServerMrtgTimestampValue],
         )
 
+    def list_network_interface_controllers(
+        self,
+        service_name: str,
+        *,
+        link_type: models.DedicatedNetworkInterfaceControllerNetworkInterfaceControllerLinkTypeEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> list[models.MacAddress]:
+        """list_network_interface_controllers calls GET /v1/dedicated/server/{serviceName}/networkInterfaceController: List network interface controllers
+
+        Returns the MAC addresses of the network interface controllers of the server. Filter them by
+        link type with the linkType parameter.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            link_type: Filter the value of linkType property (=) (optional)
+
+        Requires the IAM action dedicatedServer:apiovh:networkInterfaceController/get.
+        """
+        return self._call(
+            _r.OP_LIST_NETWORK_INTERFACE_CONTROLLERS,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(("linkType", link_type),),
+            result=list[models.MacAddress],
+        )
+
+    def get_network_interface_controller(
+        self, service_name: str, mac: models.MacAddress
+    ) -> models.DedicatedNetworkInterfaceControllerNetworkInterfaceController:
+        """get_network_interface_controller calls GET /v1/dedicated/server/{serviceName}/networkInterfaceController/{mac}: Get a network interface controller
+
+        Returns the MAC address of a network interface controller, its link type, such as public,
+        private or isolated, and the virtual network interface bound to it.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            mac: NetworkInterfaceController mac
+
+        Requires the IAM action dedicatedServer:apiovh:networkInterfaceController/get.
+        """
+        return self._call(
+            _r.OP_GET_NETWORK_INTERFACE_CONTROLLER,
+            path_params={
+                "serviceName": service_name,
+                "mac": mac,
+            },
+            result=models.DedicatedNetworkInterfaceControllerNetworkInterfaceController,
+        )
+
+    def all_network_interface_controllers(
+        self,
+        service_name: str,
+        *,
+        link_type: models.DedicatedNetworkInterfaceControllerNetworkInterfaceControllerLinkTypeEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.DedicatedNetworkInterfaceControllerNetworkInterfaceController]:
+        """all_network_interface_controllers iterates over GET /v1/dedicated/server/{serviceName}/networkInterfaceController (List network interface controllers).
+
+        It lists the IDs with list_network_interface_controllers, then gets each object with get_network_interface_controller,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            link_type: Filter the value of linkType property (=) (optional)
+
+        The two calls require the IAM action dedicatedServer:apiovh:networkInterfaceController/get.
+        """
+        return self._each(
+            lambda: self.list_network_interface_controllers(
+                service_name,
+                link_type=link_type,
+            ),
+            lambda listed_id: self.get_network_interface_controller(service_name, listed_id),
+        )
+
+    def list_network_interface_controller_mrtgs(
+        self,
+        service_name: str,
+        mac: models.MacAddress,
+        period: models.DedicatedServerMrtgPeriodEnum | str,
+        type: models.DedicatedServerMrtgTypeEnum | str,
+    ) -> list[models.DedicatedServerMrtgTimestampValue]:
+        """list_network_interface_controller_mrtgs calls GET /v1/dedicated/server/{serviceName}/networkInterfaceController/{mac}/mrtg: Get interface traffic statistics
+
+        Returns timestamped values for one network interface controller, for the requested type and
+        period. Types cover traffic, packets and errors, for download and upload.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            mac: NetworkInterfaceController mac
+            period: mrtg period
+            type: mrtg type
+
+        Requires the IAM action dedicatedServer:apiovh:networkInterfaceController/mrtg/get.
+        """
+        return self._call(
+            _r.OP_LIST_NETWORK_INTERFACE_CONTROLLER_MRTGS,
+            path_params={
+                "serviceName": service_name,
+                "mac": mac,
+            },
+            query=(
+                ("period", period),
+                ("type", type),
+            ),
+            result=list[models.DedicatedServerMrtgTimestampValue],
+        )
+
+    def get_networking(self, service_name: str) -> models.DedicatedServerNetworking:
+        """get_networking calls GET /v1/dedicated/server/{serviceName}/networking: Get the network configuration
+
+        Returns the network configuration of the server: its interfaces or interface aggregations,
+        and the status of the current operation, deploying or active.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:networking/get.
+        """
+        return self._call(
+            _r.OP_GET_NETWORKING,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedServerNetworking,
+        )
+
+    def aggregation_ola(
+        self, service_name: str, body: models.AggregationOlaRequest
+    ) -> models.DedicatedServerTask:
+        """aggregation_ola calls POST /v1/dedicated/server/{serviceName}/ola/aggregation: Aggregate network interfaces
+
+        Groups virtual network interfaces into one link aggregation, under the given name. Returns a
+        task.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:ola/aggregation/create.
+        """
+        return self._call(
+            _r.OP_AGGREGATION_OLA,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.AggregationOlaRequest,
+            result=models.DedicatedServerTask,
+        )
+
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/aggregation instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/aggregation instead.",
         category=None,
     )
     def group_ola(
@@ -1319,7 +1850,7 @@ class DedicatedserverApi(_gen.SectionApi):
         Requires the IAM action dedicatedServer:apiovh:ola/group/create.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/aggregation instead.
+        /v1/dedicated/server/{serviceName}/ola/aggregation instead.
         """
         return self._call(
             _r.OP_GROUP_OLA,
@@ -1331,8 +1862,31 @@ class DedicatedserverApi(_gen.SectionApi):
             result=models.DedicatedServerTask,
         )
 
+    def reset_ola(
+        self, service_name: str, body: models.ResetOlaRequest
+    ) -> models.DedicatedServerTask:
+        """reset_ola calls POST /v1/dedicated/server/{serviceName}/ola/reset: Reset a network interface
+
+        Resets a virtual network interface to its default configuration. Returns a task.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:ola/reset.
+        """
+        return self._call(
+            _r.OP_RESET_OLA,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ResetOlaRequest,
+            result=models.DedicatedServerTask,
+        )
+
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/reset instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/reset instead.",
         category=None,
     )
     def ungroup_ola(
@@ -1350,7 +1904,7 @@ class DedicatedserverApi(_gen.SectionApi):
         Requires the IAM action dedicatedServer:apiovh:ola/ungroup.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/reset instead.
+        /v1/dedicated/server/{serviceName}/ola/reset instead.
         """
         return self._call(
             _r.OP_UNGROUP_OLA,
@@ -1646,6 +2200,132 @@ class DedicatedserverApi(_gen.SectionApi):
                 "serviceName": service_name,
             },
             result=models.DedicatedServerUsbKeyOrderableDetails,
+        )
+
+    def list_planned_changes(self, service_name: str) -> list[str]:
+        """list_planned_changes calls GET /v1/dedicated/server/{serviceName}/plannedChange: List planned changes
+
+        Returns the UUIDs of the changes planned on the server. Get a change by its UUID to read its
+        purpose, status and expected dates.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:plannedChange/get.
+        """
+        return self._call(
+            _r.OP_LIST_PLANNED_CHANGES,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[str],
+        )
+
+    def get_planned_change(
+        self, service_name: str, change_uuid: str
+    ) -> models.DedicatedServerPlannedChange:
+        """get_planned_change calls GET /v1/dedicated/server/{serviceName}/plannedChange/{changeUuid}: Get a planned change
+
+        Returns a change planned on the server: its purpose, its status, its wanted start date and
+        its expected end date.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            change_uuid: UUID of the change
+
+        Requires the IAM action dedicatedServer:apiovh:plannedChange/get.
+        """
+        return self._call(
+            _r.OP_GET_PLANNED_CHANGE,
+            path_params={
+                "serviceName": service_name,
+                "changeUuid": change_uuid,
+            },
+            result=models.DedicatedServerPlannedChange,
+        )
+
+    def all_planned_changes(
+        self, service_name: str
+    ) -> t.Iterator[models.DedicatedServerPlannedChange]:
+        """all_planned_changes iterates over GET /v1/dedicated/server/{serviceName}/plannedChange (List planned changes).
+
+        It lists the IDs with list_planned_changes, then gets each object with get_planned_change,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        The two calls require the IAM action dedicatedServer:apiovh:plannedChange/get.
+        """
+        return self._each(
+            lambda: self.list_planned_changes(
+                service_name,
+            ),
+            lambda listed_id: self.get_planned_change(service_name, listed_id),
+        )
+
+    def list_planned_interventions(self, service_name: str) -> list[int]:
+        """list_planned_interventions calls GET /v1/dedicated/server/{serviceName}/plannedIntervention: List planned interventions
+
+        Returns the IDs of the interventions planned on the server. Get a planned intervention to
+        read its type, status and dates.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:plannedIntervention/get.
+        """
+        return self._call(
+            _r.OP_LIST_PLANNED_INTERVENTIONS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[int],
+        )
+
+    def get_planned_intervention(
+        self, service_name: str, intervention_id: int
+    ) -> models.DedicatedServerPlannedIntervention:
+        """get_planned_intervention calls GET /v1/dedicated/server/{serviceName}/plannedIntervention/{interventionId}: Get a planned intervention
+
+        Returns the type, status, wanted start date and expected end date of an intervention planned
+        on the server. The status is todo, doing or done.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            intervention_id: ID of the intervention
+
+        Requires the IAM action dedicatedServer:apiovh:plannedIntervention/get.
+        """
+        return self._call(
+            _r.OP_GET_PLANNED_INTERVENTION,
+            path_params={
+                "serviceName": service_name,
+                "interventionId": intervention_id,
+            },
+            result=models.DedicatedServerPlannedIntervention,
+        )
+
+    def all_planned_interventions(
+        self, service_name: str
+    ) -> t.Iterator[models.DedicatedServerPlannedIntervention]:
+        """all_planned_interventions iterates over GET /v1/dedicated/server/{serviceName}/plannedIntervention (List planned interventions).
+
+        It lists the IDs with list_planned_interventions, then gets each object with get_planned_intervention,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        The two calls require the IAM action dedicatedServer:apiovh:plannedIntervention/get.
+        """
+        return self._each(
+            lambda: self.list_planned_interventions(
+                service_name,
+            ),
+            lambda listed_id: self.get_planned_intervention(service_name, listed_id),
         )
 
     def reboot(self, service_name: str) -> models.DedicatedServerTask:
@@ -2474,8 +3154,111 @@ class DedicatedserverApi(_gen.SectionApi):
             result=models.DedicatedServerTask,
         )
 
+    def list_virtual_network_interfaces(
+        self,
+        service_name: str,
+        *,
+        enabled: bool | None | NotGiven = NOT_GIVEN,
+        mode: models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        name: str | None | NotGiven = NOT_GIVEN,
+        vrack: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_virtual_network_interfaces calls GET /v1/dedicated/server/{serviceName}/virtualNetworkInterface: List virtual network interfaces
+
+        Returns the UUIDs of the virtual network interfaces of the server. Filter them by enabled,
+        mode, vrack or name.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            enabled: Filter the value of enabled property (=) (optional)
+            mode: Filter the value of mode property (=) (optional)
+            name: Filter the value of name property (=) (optional)
+            vrack: Filter the value of vrack property (=) (optional)
+
+        Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/get.
+        """
+        return self._call(
+            _r.OP_LIST_VIRTUAL_NETWORK_INTERFACES,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(
+                ("enabled", enabled),
+                ("mode", mode),
+                ("name", name),
+                ("vrack", vrack),
+            ),
+            result=list[str],
+        )
+
+    def get_by_service_name_virtual_network_interface_by_uuid(
+        self, service_name: str, uuid: str
+    ) -> models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterface:
+        """get_by_service_name_virtual_network_interface_by_uuid calls GET /v1/dedicated/server/{serviceName}/virtualNetworkInterface/{uuid}: Get a virtual network interface
+
+        Returns the name, mode, activation state and vRack of a virtual network interface, and the
+        network interface controllers bound to it.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            uuid: VirtualNetworkInterface unique id
+
+        Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/get.
+        """
+        return self._call(
+            _r.OP_GET_BY_SERVICE_NAME_VIRTUAL_NETWORK_INTERFACE_BY_UUID,
+            path_params={
+                "serviceName": service_name,
+                "uuid": uuid,
+            },
+            result=models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterface,
+        )
+
+    def all_virtual_network_interfaces(
+        self,
+        service_name: str,
+        *,
+        enabled: bool | None | NotGiven = NOT_GIVEN,
+        mode: models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        name: str | None | NotGiven = NOT_GIVEN,
+        vrack: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterface]:
+        """all_virtual_network_interfaces iterates over GET /v1/dedicated/server/{serviceName}/virtualNetworkInterface (List virtual network interfaces).
+
+        It lists the IDs with list_virtual_network_interfaces, then gets each object with get_by_service_name_virtual_network_interface_by_uuid,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            enabled: Filter the value of enabled property (=) (optional)
+            mode: Filter the value of mode property (=) (optional)
+            name: Filter the value of name property (=) (optional)
+            vrack: Filter the value of vrack property (=) (optional)
+
+        The two calls require the IAM action dedicatedServer:apiovh:virtualNetworkInterface/get.
+        """
+        return self._each(
+            lambda: self.list_virtual_network_interfaces(
+                service_name,
+                enabled=enabled,
+                mode=mode,
+                name=name,
+                vrack=vrack,
+            ),
+            lambda listed_id: self.get_by_service_name_virtual_network_interface_by_uuid(
+                service_name, listed_id
+            ),
+        )
+
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/aggregation instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/aggregation instead.",
         category=None,
     )
     def update_virtual_network_interface(
@@ -2497,7 +3280,7 @@ class DedicatedserverApi(_gen.SectionApi):
         Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/edit.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/aggregation instead.
+        /v1/dedicated/server/{serviceName}/ola/aggregation instead.
         """
         return self._call(
             _r.OP_UPDATE_VIRTUAL_NETWORK_INTERFACE,
@@ -2510,7 +3293,7 @@ class DedicatedserverApi(_gen.SectionApi):
         )
 
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/aggregation instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/aggregation instead.",
         category=None,
     )
     def disable_virtual_network_interface(
@@ -2528,7 +3311,7 @@ class DedicatedserverApi(_gen.SectionApi):
         Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/disable.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/aggregation instead.
+        /v1/dedicated/server/{serviceName}/ola/aggregation instead.
         """
         return self._call(
             _r.OP_DISABLE_VIRTUAL_NETWORK_INTERFACE,
@@ -2540,7 +3323,7 @@ class DedicatedserverApi(_gen.SectionApi):
         )
 
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/aggregation instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/aggregation instead.",
         category=None,
     )
     def enable_virtual_network_interface(
@@ -2558,7 +3341,7 @@ class DedicatedserverApi(_gen.SectionApi):
         Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/enable.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/aggregation instead.
+        /v1/dedicated/server/{serviceName}/ola/aggregation instead.
         """
         return self._call(
             _r.OP_ENABLE_VIRTUAL_NETWORK_INTERFACE,
@@ -2589,7 +3372,7 @@ class DedicatedserverApi(_gen.SectionApi):
         )
 
     def get_vrack(self, service_name: str, vrack: str) -> models.VrackDedicatedServer:
-        """get_vrack calls GET /v1/dedicated/server/{serviceName}/vrack/{vrack}: Get a server link (legacy)
+        """get_vrack calls GET /v1/dedicated/server/{serviceName}/vrack/{vrack}: Get an attached dedicated server (legacy)
 
         Returns the attached server and its vRack. This is the legacy whole-server link, not an
         interface link.
@@ -2629,7 +3412,7 @@ class DedicatedserverApi(_gen.SectionApi):
         )
 
     def delete_vrack(self, service_name: str, vrack: str) -> models.VrackTask:
-        """delete_vrack calls DELETE /v1/dedicated/server/{serviceName}/vrack/{vrack}: Detach a server (legacy)
+        """delete_vrack calls DELETE /v1/dedicated/server/{serviceName}/vrack/{vrack}: Detach a dedicated server (legacy)
 
         Detaches a whole dedicated server from the vRack, in the legacy mode. Returns the task that
         performs it.
@@ -2650,7 +3433,7 @@ class DedicatedserverApi(_gen.SectionApi):
         )
 
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2018-04-23. Use /dedicated/server/{serviceName}/networkInterfaceController instead.",
+        "The API has deprecated this operation, to be removed on 2018-04-23. Use /v1/dedicated/server/{serviceName}/networkInterfaceController instead.",
         category=None,
     )
     def list_vrack_mrtgs(
@@ -2660,7 +3443,7 @@ class DedicatedserverApi(_gen.SectionApi):
         period: models.DedicatedServerMrtgPeriodEnum | str,
         type: models.DedicatedServerMrtgTypeEnum | str,
     ) -> list[models.DedicatedServerMrtgTimestampValue]:
-        """list_vrack_mrtgs calls GET /v1/dedicated/server/{serviceName}/vrack/{vrack}/mrtg: Get traffic graph values (deprecated)
+        """list_vrack_mrtgs calls GET /v1/dedicated/server/{serviceName}/vrack/{vrack}/mrtg: Get dedicated server traffic values (deprecated)
 
         Returns the traffic, packets or errors measured on the vRack port of the server, for a
         period from hourly to yearly. Deprecated: use the dedicated server statistics instead.
@@ -2674,7 +3457,7 @@ class DedicatedserverApi(_gen.SectionApi):
         Requires the IAM action dedicatedServer:apiovh:vrack/mrtg/get.
 
         Deprecated: the API has deprecated this operation. Removal date: 2018-04-23. Use
-        /dedicated/server/{serviceName}/networkInterfaceController instead.
+        /v1/dedicated/server/{serviceName}/networkInterfaceController instead.
         """
         return self._call(
             _r.OP_LIST_VRACK_MRTGS,
@@ -2695,11 +3478,11 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
 
     The methods of DedicatedserverApi, with await. Iterators are async: use ``async for``.
 
-    It has 104 operations, on the routes under /v1/dedicated/server.
+    It has 132 operations, on the routes under /v1/dedicated/server and /v2/dedicated/server.
 
     To start, list what the account has: list_servers, list_os_availabilities,
-    list_datacenter_availabilities, list_boots, list_interventions, list_ip_country_availables,
-    list_ips, list_mrtgs, and 14 more.
+    list_datacenter_availabilities, list_region_availabilities, list_boots, list_interventions,
+    list_ip_country_availables, list_ips, and 22 more.
 
     To find the method for a route, search index/dedicatedserver.jsonl: one line per method, with
     its route, its signature and the IAM actions it requires. It is at the root of the SDK
@@ -2823,6 +3606,51 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
             result=list[str],
         )
 
+    async def list_region_availabilities(
+        self,
+        *,
+        exclude_regions: bool | None | NotGiven = NOT_GIVEN,
+        gpu: str | None | NotGiven = NOT_GIVEN,
+        memory: str | None | NotGiven = NOT_GIVEN,
+        plan_code: str | None | NotGiven = NOT_GIVEN,
+        regions: list[models.DedicatedServerAvailabilityRegionalizationEnum]
+        | None
+        | NotGiven = NOT_GIVEN,
+        server: str | None | NotGiven = NOT_GIVEN,
+        storage: str | None | NotGiven = NOT_GIVEN,
+        system_storage: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[models.DedicatedServerRegionAvailability]:
+        """list_region_availabilities calls GET /v1/dedicated/server/region/availabilities: List server availability by region
+
+        Returns the availability of each server hardware configuration in each region and its
+        availability zones. Filter by plan code or hardware part, and choose regions with regions
+        and excludeRegions. Unlike the datacenter route, this call requires authentication.
+
+        Args:
+            exclude_regions: If true, all regions are returned except those listed in regions parameter (optional)
+            gpu: The name of the gpu hardware part (optional)
+            memory: The name of the memory hardware part (optional)
+            plan_code: The plan code in which the hardware is involved (optional)
+            regions: The names of regions (optional)
+            server: The name of the base hardware (optional)
+            storage: The name of the storage hardware part (optional)
+            system_storage: The name of the system storage hardware part (optional)
+        """
+        return await self._call(
+            _r.OP_LIST_REGION_AVAILABILITIES,
+            query=(
+                ("excludeRegions", exclude_regions),
+                ("gpu", gpu),
+                ("memory", memory),
+                ("planCode", plan_code),
+                ("regions", regions),
+                ("server", server),
+                ("storage", storage),
+                ("systemStorage", system_storage),
+            ),
+            result=list[models.DedicatedServerRegionAvailability],
+        )
+
     async def get_virtual_network_interface_by_uuid(
         self, uuid: str
     ) -> models.DedicatedServerVirtualNetworkInterface:
@@ -2927,6 +3755,95 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
                 "serviceName": service_name,
             },
             result=list[models.DedicatedServerAccess],
+        )
+
+    async def get_backup_cloud_offer_details(
+        self, service_name: str
+    ) -> models.DedicatedServerBackupBackupOffer:
+        """get_backup_cloud_offer_details calls GET /v1/dedicated/server/{serviceName}/backupCloudOfferDetails: Get the cloud backup offer
+
+        Returns the cloud backup offer available for the server: the maximum size and the monthly
+        read/write volume of the storage and archive containers. When no offer is available, the
+        call returns an error.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:backupCloudOfferDetails/get.
+        """
+        return await self._call(
+            _r.OP_GET_BACKUP_CLOUD_OFFER_DETAILS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedServerBackupBackupOffer,
+        )
+
+    async def get_bios_settings(
+        self, service_name: str
+    ) -> models.DedicatedBiosSettingsBiosSettings:
+        """get_bios_settings calls GET /v1/dedicated/server/{serviceName}/biosSettings: Get the BIOS settings
+
+        Returns the configurable BIOS settings of the server. The response states whether SGX is
+        supported and lists the SGX statuses and PRMRR sizes the server accepts.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:biosSettings/get.
+        """
+        return await self._call(
+            _r.OP_GET_BIOS_SETTINGS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedBiosSettingsBiosSettings,
+        )
+
+    async def get_bios_settings_sgx(
+        self, service_name: str
+    ) -> models.DedicatedBiosSettingsSgxBiosSettingsSgx:
+        """get_bios_settings_sgx calls GET /v1/dedicated/server/{serviceName}/biosSettings/sgx: Get the SGX settings
+
+        Returns the SGX configuration of the server: the SGX status and the size of the Processor
+        Reserved Memory (PRMRR). To change it, use the configure operation.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:biosSettings/sgx/get.
+        """
+        return await self._call(
+            _r.OP_GET_BIOS_SETTINGS_SGX,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedBiosSettingsSgxBiosSettingsSgx,
+        )
+
+    async def configure_bios_settings_sgx(
+        self, service_name: str, body: models.ConfigureBiosSettingsSgxRequest
+    ) -> models.DedicatedServerTask:
+        """configure_bios_settings_sgx calls POST /v1/dedicated/server/{serviceName}/biosSettings/sgx/configure: Configure SGX
+
+        Enables or disables SGX and sets the size of the Processor Reserved Memory (PRMRR). The
+        server reboots one or several times. On a server without SGX BIOS settings, the call returns
+        an error.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:biosSettings/sgx/configure.
+        """
+        return await self._call(
+            _r.OP_CONFIGURE_BIOS_SETTINGS_SGX,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ConfigureBiosSettingsSgxRequest,
+            result=models.DedicatedServerTask,
         )
 
     async def list_boots(
@@ -3158,6 +4075,90 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.ConfirmTerminationRequest,
             result=str,
+        )
+
+    async def get_features_backup_cloud(
+        self, service_name: str
+    ) -> models.DedicatedServerBackupCloud:
+        """get_features_backup_cloud calls GET /v1/dedicated/server/{serviceName}/features/backupCloud: Get the cloud backup
+
+        Returns the cloud backup of the server: its storage and archive containers, its status and
+        the agreements waiting for validation.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:features/backupCloud/get.
+        """
+        return await self._call(
+            _r.OP_GET_FEATURES_BACKUP_CLOUD,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedServerBackupCloud,
+        )
+
+    async def create_features_backup_cloud(
+        self, service_name: str, body: models.CreateFeaturesBackupCloudRequest
+    ) -> models.DedicatedServerBackupCloud:
+        """create_features_backup_cloud calls POST /v1/dedicated/server/{serviceName}/features/backupCloud: Create the cloud backup
+
+        Creates the cloud backup of the server, with storage and archive containers in a cloud
+        project. Set cloudProjectId to use an existing project; otherwise a project is created,
+        described by projectDescription.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:features/backupCloud/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_FEATURES_BACKUP_CLOUD,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.CreateFeaturesBackupCloudRequest,
+            result=models.DedicatedServerBackupCloud,
+        )
+
+    async def delete_features_backup_cloud(self, service_name: str) -> None:
+        """delete_features_backup_cloud calls DELETE /v1/dedicated/server/{serviceName}/features/backupCloud: Deactivate the cloud backup
+
+        Deactivates the cloud backup of the server. The container data is not deleted.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:features/backupCloud/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_FEATURES_BACKUP_CLOUD,
+            path_params={
+                "serviceName": service_name,
+            },
+        )
+
+    async def password_features_backup_cloud(
+        self, service_name: str
+    ) -> models.DedicatedServerBackupBackupPassword:
+        """password_features_backup_cloud calls POST /v1/dedicated/server/{serviceName}/features/backupCloud/password: Regenerate cloud backup passwords
+
+        Regenerates the cloud backup passwords and returns them: the Swift and SFTP passwords of the
+        storage and archive containers.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:features/backupCloud/password/create.
+        """
+        return await self._call(
+            _r.OP_PASSWORD_FEATURES_BACKUP_CLOUD,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedServerBackupBackupPassword,
         )
 
     async def get_features_backup_ftp(self, service_name: str) -> models.DedicatedServerBackupFtp:
@@ -3937,8 +4938,168 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
             result=models.DedicatedServerTask,
         )
 
+    def all_log_kinds(self, service_name: str) -> t.AsyncIterator[str]:
+        """all_log_kinds iterates over GET /v2/dedicated/server/{serviceName}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds Dedicated Servers emits, which can be forwarded to a
+        stream.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action dedicatedServer:apiovh:log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_LOG_KINDS,
+            path_params={
+                "serviceName": service_name,
+            },
+            item=str,
+        )
+
+    async def get_log_kind(self, service_name: str, name: str) -> models.DbaasLogsLogKind:
+        """get_log_kind calls GET /v2/dedicated/server/{serviceName}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            service_name: Service name
+            name: Name
+
+        Requires the IAM action dedicatedServer:apiovh:log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_LOG_KIND,
+            path_params={
+                "serviceName": service_name,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_log_subscriptions(
+        self, service_name: str, *, kind: str | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[str]:
+        """all_log_subscriptions iterates over GET /v2/dedicated/server/{serviceName}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the Dedicated Servers log subscriptions. Set `kind` to restrict
+        the list to one log kind.
+
+        Args:
+            service_name: Service name
+            kind: Filter on a specific kind (optional)
+
+        Requires the IAM action dedicatedServer:apiovh:log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_LOG_SUBSCRIPTIONS,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(("kind", kind),),
+            item=str,
+        )
+
+    async def create_log_subscription(
+        self, service_name: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_log_subscription calls POST /v2/dedicated/server/{serviceName}/log/subscription: Create a log subscription
+
+        Forwards Dedicated Servers logs of one kind to a Logs Data Platform stream. The subscription
+        is created asynchronously and the response returns the operation identifier.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM actions dedicatedServer:apiovh:log/subscription,
+        ldp:apiovh:output/graylog/stream/forwardTo.
+        """
+        return await self._call(
+            _r.OP_CREATE_LOG_SUBSCRIPTION,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_log_subscription(
+        self, service_name: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_log_subscription calls GET /v2/dedicated/server/{serviceName}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            service_name: Service name
+            subscription_id: Subscription ID
+
+        Requires the IAM action dedicatedServer:apiovh:log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_LOG_SUBSCRIPTION,
+            path_params={
+                "serviceName": service_name,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_log_subscription(
+        self, service_name: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_log_subscription calls DELETE /v2/dedicated/server/{serviceName}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Dedicated Servers logs to the stream.
+
+        Args:
+            service_name: Service name
+            subscription_id: Subscription ID
+
+        Requires the IAM action dedicatedServer:apiovh:log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_LOG_SUBSCRIPTION,
+            path_params={
+                "serviceName": service_name,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_log(
+        self, service_name: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_log calls POST /v2/dedicated/server/{serviceName}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            service_name: Service name
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:log/url.
+        """
+        return await self._call(
+            _r.OP_URL_LOG,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
+        )
+
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2018-04-23. Use /dedicated/server/{serviceName}/networkInterfaceController instead.",
+        "The API has deprecated this operation, to be removed on 2018-04-23. Use /v1/dedicated/server/{serviceName}/networkInterfaceController instead.",
         category=None,
     )
     async def list_mrtgs(
@@ -3961,7 +5122,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         Requires the IAM action dedicatedServer:apiovh:mrtg/get.
 
         Deprecated: the API has deprecated this operation. Removal date: 2018-04-23. Use
-        /dedicated/server/{serviceName}/networkInterfaceController instead.
+        /v1/dedicated/server/{serviceName}/networkInterfaceController instead.
         """
         return await self._call(
             _r.OP_LIST_MRTGS,
@@ -3975,8 +5136,165 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
             result=list[models.DedicatedServerMrtgTimestampValue],
         )
 
+    async def list_network_interface_controllers(
+        self,
+        service_name: str,
+        *,
+        link_type: models.DedicatedNetworkInterfaceControllerNetworkInterfaceControllerLinkTypeEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> list[models.MacAddress]:
+        """list_network_interface_controllers calls GET /v1/dedicated/server/{serviceName}/networkInterfaceController: List network interface controllers
+
+        Returns the MAC addresses of the network interface controllers of the server. Filter them by
+        link type with the linkType parameter.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            link_type: Filter the value of linkType property (=) (optional)
+
+        Requires the IAM action dedicatedServer:apiovh:networkInterfaceController/get.
+        """
+        return await self._call(
+            _r.OP_LIST_NETWORK_INTERFACE_CONTROLLERS,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(("linkType", link_type),),
+            result=list[models.MacAddress],
+        )
+
+    async def get_network_interface_controller(
+        self, service_name: str, mac: models.MacAddress
+    ) -> models.DedicatedNetworkInterfaceControllerNetworkInterfaceController:
+        """get_network_interface_controller calls GET /v1/dedicated/server/{serviceName}/networkInterfaceController/{mac}: Get a network interface controller
+
+        Returns the MAC address of a network interface controller, its link type, such as public,
+        private or isolated, and the virtual network interface bound to it.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            mac: NetworkInterfaceController mac
+
+        Requires the IAM action dedicatedServer:apiovh:networkInterfaceController/get.
+        """
+        return await self._call(
+            _r.OP_GET_NETWORK_INTERFACE_CONTROLLER,
+            path_params={
+                "serviceName": service_name,
+                "mac": mac,
+            },
+            result=models.DedicatedNetworkInterfaceControllerNetworkInterfaceController,
+        )
+
+    def all_network_interface_controllers(
+        self,
+        service_name: str,
+        *,
+        link_type: models.DedicatedNetworkInterfaceControllerNetworkInterfaceControllerLinkTypeEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.DedicatedNetworkInterfaceControllerNetworkInterfaceController]:
+        """all_network_interface_controllers iterates over GET /v1/dedicated/server/{serviceName}/networkInterfaceController (List network interface controllers).
+
+        It lists the IDs with list_network_interface_controllers, then gets each object with get_network_interface_controller,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            link_type: Filter the value of linkType property (=) (optional)
+
+        The two calls require the IAM action dedicatedServer:apiovh:networkInterfaceController/get.
+        """
+        return self._each(
+            lambda: self.list_network_interface_controllers(
+                service_name,
+                link_type=link_type,
+            ),
+            lambda listed_id: self.get_network_interface_controller(service_name, listed_id),
+        )
+
+    async def list_network_interface_controller_mrtgs(
+        self,
+        service_name: str,
+        mac: models.MacAddress,
+        period: models.DedicatedServerMrtgPeriodEnum | str,
+        type: models.DedicatedServerMrtgTypeEnum | str,
+    ) -> list[models.DedicatedServerMrtgTimestampValue]:
+        """list_network_interface_controller_mrtgs calls GET /v1/dedicated/server/{serviceName}/networkInterfaceController/{mac}/mrtg: Get interface traffic statistics
+
+        Returns timestamped values for one network interface controller, for the requested type and
+        period. Types cover traffic, packets and errors, for download and upload.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            mac: NetworkInterfaceController mac
+            period: mrtg period
+            type: mrtg type
+
+        Requires the IAM action dedicatedServer:apiovh:networkInterfaceController/mrtg/get.
+        """
+        return await self._call(
+            _r.OP_LIST_NETWORK_INTERFACE_CONTROLLER_MRTGS,
+            path_params={
+                "serviceName": service_name,
+                "mac": mac,
+            },
+            query=(
+                ("period", period),
+                ("type", type),
+            ),
+            result=list[models.DedicatedServerMrtgTimestampValue],
+        )
+
+    async def get_networking(self, service_name: str) -> models.DedicatedServerNetworking:
+        """get_networking calls GET /v1/dedicated/server/{serviceName}/networking: Get the network configuration
+
+        Returns the network configuration of the server: its interfaces or interface aggregations,
+        and the status of the current operation, deploying or active.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:networking/get.
+        """
+        return await self._call(
+            _r.OP_GET_NETWORKING,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.DedicatedServerNetworking,
+        )
+
+    async def aggregation_ola(
+        self, service_name: str, body: models.AggregationOlaRequest
+    ) -> models.DedicatedServerTask:
+        """aggregation_ola calls POST /v1/dedicated/server/{serviceName}/ola/aggregation: Aggregate network interfaces
+
+        Groups virtual network interfaces into one link aggregation, under the given name. Returns a
+        task.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:ola/aggregation/create.
+        """
+        return await self._call(
+            _r.OP_AGGREGATION_OLA,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.AggregationOlaRequest,
+            result=models.DedicatedServerTask,
+        )
+
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/aggregation instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/aggregation instead.",
         category=None,
     )
     async def group_ola(
@@ -3994,7 +5312,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         Requires the IAM action dedicatedServer:apiovh:ola/group/create.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/aggregation instead.
+        /v1/dedicated/server/{serviceName}/ola/aggregation instead.
         """
         return await self._call(
             _r.OP_GROUP_OLA,
@@ -4006,8 +5324,31 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
             result=models.DedicatedServerTask,
         )
 
+    async def reset_ola(
+        self, service_name: str, body: models.ResetOlaRequest
+    ) -> models.DedicatedServerTask:
+        """reset_ola calls POST /v1/dedicated/server/{serviceName}/ola/reset: Reset a network interface
+
+        Resets a virtual network interface to its default configuration. Returns a task.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            body: the request body
+
+        Requires the IAM action dedicatedServer:apiovh:ola/reset.
+        """
+        return await self._call(
+            _r.OP_RESET_OLA,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ResetOlaRequest,
+            result=models.DedicatedServerTask,
+        )
+
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/reset instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/reset instead.",
         category=None,
     )
     async def ungroup_ola(
@@ -4025,7 +5366,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         Requires the IAM action dedicatedServer:apiovh:ola/ungroup.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/reset instead.
+        /v1/dedicated/server/{serviceName}/ola/reset instead.
         """
         return await self._call(
             _r.OP_UNGROUP_OLA,
@@ -4323,6 +5664,132 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
                 "serviceName": service_name,
             },
             result=models.DedicatedServerUsbKeyOrderableDetails,
+        )
+
+    async def list_planned_changes(self, service_name: str) -> list[str]:
+        """list_planned_changes calls GET /v1/dedicated/server/{serviceName}/plannedChange: List planned changes
+
+        Returns the UUIDs of the changes planned on the server. Get a change by its UUID to read its
+        purpose, status and expected dates.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:plannedChange/get.
+        """
+        return await self._call(
+            _r.OP_LIST_PLANNED_CHANGES,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[str],
+        )
+
+    async def get_planned_change(
+        self, service_name: str, change_uuid: str
+    ) -> models.DedicatedServerPlannedChange:
+        """get_planned_change calls GET /v1/dedicated/server/{serviceName}/plannedChange/{changeUuid}: Get a planned change
+
+        Returns a change planned on the server: its purpose, its status, its wanted start date and
+        its expected end date.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            change_uuid: UUID of the change
+
+        Requires the IAM action dedicatedServer:apiovh:plannedChange/get.
+        """
+        return await self._call(
+            _r.OP_GET_PLANNED_CHANGE,
+            path_params={
+                "serviceName": service_name,
+                "changeUuid": change_uuid,
+            },
+            result=models.DedicatedServerPlannedChange,
+        )
+
+    def all_planned_changes(
+        self, service_name: str
+    ) -> t.AsyncIterator[models.DedicatedServerPlannedChange]:
+        """all_planned_changes iterates over GET /v1/dedicated/server/{serviceName}/plannedChange (List planned changes).
+
+        It lists the IDs with list_planned_changes, then gets each object with get_planned_change,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        The two calls require the IAM action dedicatedServer:apiovh:plannedChange/get.
+        """
+        return self._each(
+            lambda: self.list_planned_changes(
+                service_name,
+            ),
+            lambda listed_id: self.get_planned_change(service_name, listed_id),
+        )
+
+    async def list_planned_interventions(self, service_name: str) -> list[int]:
+        """list_planned_interventions calls GET /v1/dedicated/server/{serviceName}/plannedIntervention: List planned interventions
+
+        Returns the IDs of the interventions planned on the server. Get a planned intervention to
+        read its type, status and dates.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        Requires the IAM action dedicatedServer:apiovh:plannedIntervention/get.
+        """
+        return await self._call(
+            _r.OP_LIST_PLANNED_INTERVENTIONS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[int],
+        )
+
+    async def get_planned_intervention(
+        self, service_name: str, intervention_id: int
+    ) -> models.DedicatedServerPlannedIntervention:
+        """get_planned_intervention calls GET /v1/dedicated/server/{serviceName}/plannedIntervention/{interventionId}: Get a planned intervention
+
+        Returns the type, status, wanted start date and expected end date of an intervention planned
+        on the server. The status is todo, doing or done.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            intervention_id: ID of the intervention
+
+        Requires the IAM action dedicatedServer:apiovh:plannedIntervention/get.
+        """
+        return await self._call(
+            _r.OP_GET_PLANNED_INTERVENTION,
+            path_params={
+                "serviceName": service_name,
+                "interventionId": intervention_id,
+            },
+            result=models.DedicatedServerPlannedIntervention,
+        )
+
+    def all_planned_interventions(
+        self, service_name: str
+    ) -> t.AsyncIterator[models.DedicatedServerPlannedIntervention]:
+        """all_planned_interventions iterates over GET /v1/dedicated/server/{serviceName}/plannedIntervention (List planned interventions).
+
+        It lists the IDs with list_planned_interventions, then gets each object with get_planned_intervention,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service_name: The internal name of your dedicated server
+
+        The two calls require the IAM action dedicatedServer:apiovh:plannedIntervention/get.
+        """
+        return self._each(
+            lambda: self.list_planned_interventions(
+                service_name,
+            ),
+            lambda listed_id: self.get_planned_intervention(service_name, listed_id),
         )
 
     async def reboot(self, service_name: str) -> models.DedicatedServerTask:
@@ -5155,8 +6622,111 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
             result=models.DedicatedServerTask,
         )
 
+    async def list_virtual_network_interfaces(
+        self,
+        service_name: str,
+        *,
+        enabled: bool | None | NotGiven = NOT_GIVEN,
+        mode: models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        name: str | None | NotGiven = NOT_GIVEN,
+        vrack: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_virtual_network_interfaces calls GET /v1/dedicated/server/{serviceName}/virtualNetworkInterface: List virtual network interfaces
+
+        Returns the UUIDs of the virtual network interfaces of the server. Filter them by enabled,
+        mode, vrack or name.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            enabled: Filter the value of enabled property (=) (optional)
+            mode: Filter the value of mode property (=) (optional)
+            name: Filter the value of name property (=) (optional)
+            vrack: Filter the value of vrack property (=) (optional)
+
+        Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/get.
+        """
+        return await self._call(
+            _r.OP_LIST_VIRTUAL_NETWORK_INTERFACES,
+            path_params={
+                "serviceName": service_name,
+            },
+            query=(
+                ("enabled", enabled),
+                ("mode", mode),
+                ("name", name),
+                ("vrack", vrack),
+            ),
+            result=list[str],
+        )
+
+    async def get_by_service_name_virtual_network_interface_by_uuid(
+        self, service_name: str, uuid: str
+    ) -> models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterface:
+        """get_by_service_name_virtual_network_interface_by_uuid calls GET /v1/dedicated/server/{serviceName}/virtualNetworkInterface/{uuid}: Get a virtual network interface
+
+        Returns the name, mode, activation state and vRack of a virtual network interface, and the
+        network interface controllers bound to it.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            uuid: VirtualNetworkInterface unique id
+
+        Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/get.
+        """
+        return await self._call(
+            _r.OP_GET_BY_SERVICE_NAME_VIRTUAL_NETWORK_INTERFACE_BY_UUID,
+            path_params={
+                "serviceName": service_name,
+                "uuid": uuid,
+            },
+            result=models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterface,
+        )
+
+    def all_virtual_network_interfaces(
+        self,
+        service_name: str,
+        *,
+        enabled: bool | None | NotGiven = NOT_GIVEN,
+        mode: models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum
+        | str
+        | None
+        | NotGiven = NOT_GIVEN,
+        name: str | None | NotGiven = NOT_GIVEN,
+        vrack: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.DedicatedVirtualNetworkInterfaceVirtualNetworkInterface]:
+        """all_virtual_network_interfaces iterates over GET /v1/dedicated/server/{serviceName}/virtualNetworkInterface (List virtual network interfaces).
+
+        It lists the IDs with list_virtual_network_interfaces, then gets each object with get_by_service_name_virtual_network_interface_by_uuid,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service_name: The internal name of your dedicated server
+            enabled: Filter the value of enabled property (=) (optional)
+            mode: Filter the value of mode property (=) (optional)
+            name: Filter the value of name property (=) (optional)
+            vrack: Filter the value of vrack property (=) (optional)
+
+        The two calls require the IAM action dedicatedServer:apiovh:virtualNetworkInterface/get.
+        """
+        return self._each(
+            lambda: self.list_virtual_network_interfaces(
+                service_name,
+                enabled=enabled,
+                mode=mode,
+                name=name,
+                vrack=vrack,
+            ),
+            lambda listed_id: self.get_by_service_name_virtual_network_interface_by_uuid(
+                service_name, listed_id
+            ),
+        )
+
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/aggregation instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/aggregation instead.",
         category=None,
     )
     async def update_virtual_network_interface(
@@ -5178,7 +6748,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/edit.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/aggregation instead.
+        /v1/dedicated/server/{serviceName}/ola/aggregation instead.
         """
         return await self._call(
             _r.OP_UPDATE_VIRTUAL_NETWORK_INTERFACE,
@@ -5191,7 +6761,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         )
 
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/aggregation instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/aggregation instead.",
         category=None,
     )
     async def disable_virtual_network_interface(
@@ -5209,7 +6779,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/disable.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/aggregation instead.
+        /v1/dedicated/server/{serviceName}/ola/aggregation instead.
         """
         return await self._call(
             _r.OP_DISABLE_VIRTUAL_NETWORK_INTERFACE,
@@ -5221,7 +6791,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         )
 
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2021-04-08. Use /dedicated/server/{serviceName}/ola/aggregation instead.",
+        "The API has deprecated this operation, to be removed on 2021-04-08. Use /v1/dedicated/server/{serviceName}/ola/aggregation instead.",
         category=None,
     )
     async def enable_virtual_network_interface(
@@ -5239,7 +6809,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         Requires the IAM action dedicatedServer:apiovh:virtualNetworkInterface/enable.
 
         Deprecated: the API has deprecated this operation. Removal date: 2021-04-08. Use
-        /dedicated/server/{serviceName}/ola/aggregation instead.
+        /v1/dedicated/server/{serviceName}/ola/aggregation instead.
         """
         return await self._call(
             _r.OP_ENABLE_VIRTUAL_NETWORK_INTERFACE,
@@ -5270,7 +6840,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         )
 
     async def get_vrack(self, service_name: str, vrack: str) -> models.VrackDedicatedServer:
-        """get_vrack calls GET /v1/dedicated/server/{serviceName}/vrack/{vrack}: Get a server link (legacy)
+        """get_vrack calls GET /v1/dedicated/server/{serviceName}/vrack/{vrack}: Get an attached dedicated server (legacy)
 
         Returns the attached server and its vRack. This is the legacy whole-server link, not an
         interface link.
@@ -5310,7 +6880,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         )
 
     async def delete_vrack(self, service_name: str, vrack: str) -> models.VrackTask:
-        """delete_vrack calls DELETE /v1/dedicated/server/{serviceName}/vrack/{vrack}: Detach a server (legacy)
+        """delete_vrack calls DELETE /v1/dedicated/server/{serviceName}/vrack/{vrack}: Detach a dedicated server (legacy)
 
         Detaches a whole dedicated server from the vRack, in the legacy mode. Returns the task that
         performs it.
@@ -5331,7 +6901,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         )
 
     @_gen.deprecated(
-        "The API has deprecated this operation, to be removed on 2018-04-23. Use /dedicated/server/{serviceName}/networkInterfaceController instead.",
+        "The API has deprecated this operation, to be removed on 2018-04-23. Use /v1/dedicated/server/{serviceName}/networkInterfaceController instead.",
         category=None,
     )
     async def list_vrack_mrtgs(
@@ -5341,7 +6911,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         period: models.DedicatedServerMrtgPeriodEnum | str,
         type: models.DedicatedServerMrtgTypeEnum | str,
     ) -> list[models.DedicatedServerMrtgTimestampValue]:
-        """list_vrack_mrtgs calls GET /v1/dedicated/server/{serviceName}/vrack/{vrack}/mrtg: Get traffic graph values (deprecated)
+        """list_vrack_mrtgs calls GET /v1/dedicated/server/{serviceName}/vrack/{vrack}/mrtg: Get dedicated server traffic values (deprecated)
 
         Returns the traffic, packets or errors measured on the vRack port of the server, for a
         period from hourly to yearly. Deprecated: use the dedicated server statistics instead.
@@ -5355,7 +6925,7 @@ class AsyncDedicatedserverApi(_gen.AsyncSectionApi):
         Requires the IAM action dedicatedServer:apiovh:vrack/mrtg/get.
 
         Deprecated: the API has deprecated this operation. Removal date: 2018-04-23. Use
-        /dedicated/server/{serviceName}/networkInterfaceController instead.
+        /v1/dedicated/server/{serviceName}/networkInterfaceController instead.
         """
         return await self._call(
             _r.OP_LIST_VRACK_MRTGS,

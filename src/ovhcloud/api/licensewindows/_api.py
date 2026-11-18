@@ -41,7 +41,10 @@ class LicensewindowsApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_windows calls GET /v1/license/windows: List available services
+        """list_windows calls GET /v1/license/windows: List your Windows licenses
+
+        Returns the names of the Windows licenses of the account; each name is the service name used
+        by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -59,6 +62,9 @@ class LicensewindowsApi(_gen.SectionApi):
     ) -> list[models.LicenseWindowsOrderConfiguration]:
         """list_orderable_versions calls GET /v1/license/windows/orderableVersions: Get the orderable Windows versions
 
+        Returns the versions that can be ordered for the given IP, with their compliant SQL Server
+        versions.
+
         Args:
             ip: Your license Ip
 
@@ -71,7 +77,10 @@ class LicensewindowsApi(_gen.SectionApi):
         )
 
     def get_windows(self, service_name: str) -> models.LicenseWindowsWindowsWithIAM:
-        """get_windows calls GET /v1/license/windows/{serviceName}: Get this object properties
+        """get_windows calls GET /v1/license/windows/{serviceName}: Get a Windows license
+
+        Returns the license ID, version, status, the IP address the license is attached to, and the
+        creation date.
 
         Args:
             service_name: The name of your Windows license
@@ -91,7 +100,7 @@ class LicensewindowsApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseWindowsWindowsWithIAM]:
-        """all_windows iterates over GET /v1/license/windows (List available services).
+        """all_windows iterates over GET /v1/license/windows (List your Windows licenses).
 
         It lists the IDs with list_windows, then gets each object with get_windows,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -110,7 +119,9 @@ class LicensewindowsApi(_gen.SectionApi):
         )
 
     def update_windows(self, service_name: str, body: models.LicenseWindowsWindowsWritable) -> None:
-        """update_windows calls PUT /v1/license/windows/{serviceName}: Alter this object properties
+        """update_windows calls PUT /v1/license/windows/{serviceName}: Update a Windows license
+
+        Changes the settings that can be modified: the automatic deletion at expiration.
 
         Args:
             service_name: The name of your Windows license
@@ -150,7 +161,10 @@ class LicensewindowsApi(_gen.SectionApi):
         )
 
     def list_options(self, service_name: str) -> list[models.LicenseOptionLabel]:
-        """list_options calls GET /v1/license/windows/{serviceName}/option: options attached to this license
+        """list_options calls GET /v1/license/windows/{serviceName}/option: List the options of a Windows license
+
+        Returns the labels of the options attached to the license; get an option for its version,
+        quantity and expiration date.
 
         Args:
             service_name: The name of your Windows license
@@ -168,7 +182,10 @@ class LicensewindowsApi(_gen.SectionApi):
     def get_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseOption:
-        """get_option calls GET /v1/license/windows/{serviceName}/option/{label}: Get this object properties
+        """get_option calls GET /v1/license/windows/{serviceName}/option/{label}: Get an option of a license
+
+        Returns the label, version, quantity, expiration date and whether the option can be
+        released.
 
         Args:
             service_name: The name of your Windows license
@@ -186,7 +203,7 @@ class LicensewindowsApi(_gen.SectionApi):
         )
 
     def all_options(self, service_name: str) -> t.Iterator[models.LicenseOption]:
-        """all_options iterates over GET /v1/license/windows/{serviceName}/option (options attached to this license).
+        """all_options iterates over GET /v1/license/windows/{serviceName}/option (List the options of a Windows license).
 
         It lists the IDs with list_options, then gets each object with get_option,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -207,7 +224,9 @@ class LicensewindowsApi(_gen.SectionApi):
     def delete_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseTask:
-        """delete_option calls DELETE /v1/license/windows/{serviceName}/option/{label}: release this Option
+        """delete_option calls DELETE /v1/license/windows/{serviceName}/option/{label}: Release an option from a license
+
+        Removes the option from the license and returns the task that performs the release.
 
         Args:
             service_name: The name of your Windows license
@@ -265,7 +284,10 @@ class LicensewindowsApi(_gen.SectionApi):
         )
 
     def sql_server(self, service_name: str, body: models.SQLServerRequest) -> models.LicenseTask:
-        """sql_server calls POST /v1/license/windows/{serviceName}/sqlServer: Link your own sql server license to this Windows license
+        """sql_server calls POST /v1/license/windows/{serviceName}/sqlServer: Attach your own SQL Server license
+
+        Links a SQL Server license, identified by its version and serial number, to the Windows
+        license.
 
         Args:
             service_name: The name of your Windows license
@@ -290,7 +312,10 @@ class LicensewindowsApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/windows/{serviceName}/tasks: tasks linked to this license
+        """list_tasks calls GET /v1/license/windows/{serviceName}/tasks: List the tasks of a Windows license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade or an option change.
 
         Args:
             service_name: The name of your Windows license
@@ -312,7 +337,10 @@ class LicensewindowsApi(_gen.SectionApi):
         )
 
     def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/windows/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/windows/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your Windows license
@@ -336,7 +364,7 @@ class LicensewindowsApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/windows/{serviceName}/tasks (tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/windows/{serviceName}/tasks (List the tasks of a Windows license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -398,7 +426,10 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_windows calls GET /v1/license/windows: List available services
+        """list_windows calls GET /v1/license/windows: List your Windows licenses
+
+        Returns the names of the Windows licenses of the account; each name is the service name used
+        by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -416,6 +447,9 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
     ) -> list[models.LicenseWindowsOrderConfiguration]:
         """list_orderable_versions calls GET /v1/license/windows/orderableVersions: Get the orderable Windows versions
 
+        Returns the versions that can be ordered for the given IP, with their compliant SQL Server
+        versions.
+
         Args:
             ip: Your license Ip
 
@@ -428,7 +462,10 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
         )
 
     async def get_windows(self, service_name: str) -> models.LicenseWindowsWindowsWithIAM:
-        """get_windows calls GET /v1/license/windows/{serviceName}: Get this object properties
+        """get_windows calls GET /v1/license/windows/{serviceName}: Get a Windows license
+
+        Returns the license ID, version, status, the IP address the license is attached to, and the
+        creation date.
 
         Args:
             service_name: The name of your Windows license
@@ -448,7 +485,7 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseWindowsWindowsWithIAM]:
-        """all_windows iterates over GET /v1/license/windows (List available services).
+        """all_windows iterates over GET /v1/license/windows (List your Windows licenses).
 
         It lists the IDs with list_windows, then gets each object with get_windows,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -469,7 +506,9 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
     async def update_windows(
         self, service_name: str, body: models.LicenseWindowsWindowsWritable
     ) -> None:
-        """update_windows calls PUT /v1/license/windows/{serviceName}: Alter this object properties
+        """update_windows calls PUT /v1/license/windows/{serviceName}: Update a Windows license
+
+        Changes the settings that can be modified: the automatic deletion at expiration.
 
         Args:
             service_name: The name of your Windows license
@@ -511,7 +550,10 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
         )
 
     async def list_options(self, service_name: str) -> list[models.LicenseOptionLabel]:
-        """list_options calls GET /v1/license/windows/{serviceName}/option: options attached to this license
+        """list_options calls GET /v1/license/windows/{serviceName}/option: List the options of a Windows license
+
+        Returns the labels of the options attached to the license; get an option for its version,
+        quantity and expiration date.
 
         Args:
             service_name: The name of your Windows license
@@ -529,7 +571,10 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
     async def get_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseOption:
-        """get_option calls GET /v1/license/windows/{serviceName}/option/{label}: Get this object properties
+        """get_option calls GET /v1/license/windows/{serviceName}/option/{label}: Get an option of a license
+
+        Returns the label, version, quantity, expiration date and whether the option can be
+        released.
 
         Args:
             service_name: The name of your Windows license
@@ -547,7 +592,7 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
         )
 
     def all_options(self, service_name: str) -> t.AsyncIterator[models.LicenseOption]:
-        """all_options iterates over GET /v1/license/windows/{serviceName}/option (options attached to this license).
+        """all_options iterates over GET /v1/license/windows/{serviceName}/option (List the options of a Windows license).
 
         It lists the IDs with list_options, then gets each object with get_option,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -568,7 +613,9 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
     async def delete_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseTask:
-        """delete_option calls DELETE /v1/license/windows/{serviceName}/option/{label}: release this Option
+        """delete_option calls DELETE /v1/license/windows/{serviceName}/option/{label}: Release an option from a license
+
+        Removes the option from the license and returns the task that performs the release.
 
         Args:
             service_name: The name of your Windows license
@@ -630,7 +677,10 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
     async def sql_server(
         self, service_name: str, body: models.SQLServerRequest
     ) -> models.LicenseTask:
-        """sql_server calls POST /v1/license/windows/{serviceName}/sqlServer: Link your own sql server license to this Windows license
+        """sql_server calls POST /v1/license/windows/{serviceName}/sqlServer: Attach your own SQL Server license
+
+        Links a SQL Server license, identified by its version and serial number, to the Windows
+        license.
 
         Args:
             service_name: The name of your Windows license
@@ -655,7 +705,10 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/windows/{serviceName}/tasks: tasks linked to this license
+        """list_tasks calls GET /v1/license/windows/{serviceName}/tasks: List the tasks of a Windows license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade or an option change.
 
         Args:
             service_name: The name of your Windows license
@@ -677,7 +730,10 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
         )
 
     async def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/windows/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/windows/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your Windows license
@@ -701,7 +757,7 @@ class AsyncLicensewindowsApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/windows/{serviceName}/tasks (tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/windows/{serviceName}/tasks (List the tasks of a Windows license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other

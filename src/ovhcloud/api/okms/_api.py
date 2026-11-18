@@ -26,11 +26,11 @@ class OkmsApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 26 operations, on the routes under /v2/okms.
+    It has 33 operations, on the routes under /v2/okms.
 
     To start, list what the account has: all_resources, all_reference_regions,
     all_reference_service_keys, all_resource_credentials, all_resource_secrets,
-    all_resource_service_keys, all_resource_secret_versions.
+    all_resource_service_keys, all_resource_log_kinds, all_resource_log_subscriptions, and 1 more.
 
     To find the method for a route, search index/okms.jsonl: one line per method, with its route,
     its signature and the IAM actions it requires. It is at the root of the SDK repository, and in
@@ -251,6 +251,167 @@ class OkmsApi(_gen.SectionApi):
                 "credentialId": credential_id,
             },
             result=models.OkmsCredentialGetResponse,
+        )
+
+    def all_resource_log_kinds(self, okms_id: str) -> t.Iterator[models.DbaasLogsLogKind]:
+        """all_resource_log_kinds iterates over GET /v2/okms/resource/{okmsId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the names of the log kinds the service emits, which can be forwarded to a stream.
+
+        Args:
+            okms_id: Okms ID
+
+        Requires the IAM action okms:apiovh:log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_RESOURCE_LOG_KINDS,
+            path_params={
+                "okmsId": okms_id,
+            },
+            item=models.DbaasLogsLogKind,
+        )
+
+    def get_resource_log_kind(self, okms_id: str, name: str) -> models.DbaasLogsLogKind:
+        """get_resource_log_kind calls GET /v2/okms/resource/{okmsId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            okms_id: Okms ID
+            name: Name
+
+        Requires the IAM action okms:apiovh:log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_RESOURCE_LOG_KIND,
+            path_params={
+                "okmsId": okms_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_resource_log_subscriptions(
+        self, okms_id: str, *, kind: str | None | NotGiven = NOT_GIVEN
+    ) -> t.Iterator[models.DbaasLogsLogSubscription]:
+        """all_resource_log_subscriptions iterates over GET /v2/okms/resource/{okmsId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the identifiers of the log subscriptions of the service. Filter them by log kind
+        with the `kind` parameter.
+
+        Args:
+            okms_id: Okms ID
+            kind: Filter on a specific kind, for example audit (optional)
+
+        Requires the IAM action okms:apiovh:log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_RESOURCE_LOG_SUBSCRIPTIONS,
+            path_params={
+                "okmsId": okms_id,
+            },
+            query=(("kind", kind),),
+            item=models.DbaasLogsLogSubscription,
+        )
+
+    def create_resource_log_subscription(
+        self, okms_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_resource_log_subscription calls POST /v2/okms/resource/{okmsId}/log/subscription: Create a log subscription
+
+        Forwards the logs of one kind to a Logs Data Platform stream. The subscription is created
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            okms_id: Okms ID
+            body: the request body
+
+        Requires the IAM actions okms:apiovh:log/subscription/create,
+        ldp:apiovh:output/graylog/stream/forwardTo.
+        """
+        return self._call(
+            _r.OP_CREATE_RESOURCE_LOG_SUBSCRIPTION,
+            path_params={
+                "okmsId": okms_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_resource_log_subscription(
+        self, okms_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_resource_log_subscription calls GET /v2/okms/resource/{okmsId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            okms_id: Okms ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action okms:apiovh:log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_RESOURCE_LOG_SUBSCRIPTION,
+            path_params={
+                "okmsId": okms_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def delete_resource_log_subscription(
+        self, okms_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_resource_log_subscription calls DELETE /v2/okms/resource/{okmsId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding logs to the stream. The deletion runs
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            okms_id: Okms ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action okms:apiovh:log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_RESOURCE_LOG_SUBSCRIPTION,
+            path_params={
+                "okmsId": okms_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_resource_log(
+        self, okms_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_resource_log calls POST /v2/okms/resource/{okmsId}/log/url: Generate a temporary log URL
+
+        Returns a temporary signed URL for read-only access to the logs of the given kind. The link
+        expires.
+
+        Args:
+            okms_id: Okms ID
+            body: the request body
+
+        Requires the IAM action okms:apiovh:log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_RESOURCE_LOG,
+            path_params={
+                "okmsId": okms_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
         )
 
     def all_resource_secrets(
@@ -716,11 +877,11 @@ class AsyncOkmsApi(_gen.AsyncSectionApi):
 
     The methods of OkmsApi, with await. Iterators are async: use ``async for``.
 
-    It has 26 operations, on the routes under /v2/okms.
+    It has 33 operations, on the routes under /v2/okms.
 
     To start, list what the account has: all_resources, all_reference_regions,
     all_reference_service_keys, all_resource_credentials, all_resource_secrets,
-    all_resource_service_keys, all_resource_secret_versions.
+    all_resource_service_keys, all_resource_log_kinds, all_resource_log_subscriptions, and 1 more.
 
     To find the method for a route, search index/okms.jsonl: one line per method, with its route,
     its signature and the IAM actions it requires. It is at the root of the SDK repository, and in
@@ -941,6 +1102,167 @@ class AsyncOkmsApi(_gen.AsyncSectionApi):
                 "credentialId": credential_id,
             },
             result=models.OkmsCredentialGetResponse,
+        )
+
+    def all_resource_log_kinds(self, okms_id: str) -> t.AsyncIterator[models.DbaasLogsLogKind]:
+        """all_resource_log_kinds iterates over GET /v2/okms/resource/{okmsId}/log/kind (List log kinds).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the names of the log kinds the service emits, which can be forwarded to a stream.
+
+        Args:
+            okms_id: Okms ID
+
+        Requires the IAM action okms:apiovh:log/kind/get.
+        """
+        return self._pages(
+            _r.OP_ALL_RESOURCE_LOG_KINDS,
+            path_params={
+                "okmsId": okms_id,
+            },
+            item=models.DbaasLogsLogKind,
+        )
+
+    async def get_resource_log_kind(self, okms_id: str, name: str) -> models.DbaasLogsLogKind:
+        """get_resource_log_kind calls GET /v2/okms/resource/{okmsId}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            okms_id: Okms ID
+            name: Name
+
+        Requires the IAM action okms:apiovh:log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_RESOURCE_LOG_KIND,
+            path_params={
+                "okmsId": okms_id,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_resource_log_subscriptions(
+        self, okms_id: str, *, kind: str | None | NotGiven = NOT_GIVEN
+    ) -> t.AsyncIterator[models.DbaasLogsLogSubscription]:
+        """all_resource_log_subscriptions iterates over GET /v2/okms/resource/{okmsId}/log/subscription (List log subscriptions).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the identifiers of the log subscriptions of the service. Filter them by log kind
+        with the `kind` parameter.
+
+        Args:
+            okms_id: Okms ID
+            kind: Filter on a specific kind, for example audit (optional)
+
+        Requires the IAM action okms:apiovh:log/subscription/get.
+        """
+        return self._pages(
+            _r.OP_ALL_RESOURCE_LOG_SUBSCRIPTIONS,
+            path_params={
+                "okmsId": okms_id,
+            },
+            query=(("kind", kind),),
+            item=models.DbaasLogsLogSubscription,
+        )
+
+    async def create_resource_log_subscription(
+        self, okms_id: str, body: models.DbaasLogsLogSubscriptionCreation
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_resource_log_subscription calls POST /v2/okms/resource/{okmsId}/log/subscription: Create a log subscription
+
+        Forwards the logs of one kind to a Logs Data Platform stream. The subscription is created
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            okms_id: Okms ID
+            body: the request body
+
+        Requires the IAM actions okms:apiovh:log/subscription/create,
+        ldp:apiovh:output/graylog/stream/forwardTo.
+        """
+        return await self._call(
+            _r.OP_CREATE_RESOURCE_LOG_SUBSCRIPTION,
+            path_params={
+                "okmsId": okms_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_resource_log_subscription(
+        self, okms_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_resource_log_subscription calls GET /v2/okms/resource/{okmsId}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            okms_id: Okms ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action okms:apiovh:log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_RESOURCE_LOG_SUBSCRIPTION,
+            path_params={
+                "okmsId": okms_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    async def delete_resource_log_subscription(
+        self, okms_id: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_resource_log_subscription calls DELETE /v2/okms/resource/{okmsId}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding logs to the stream. The deletion runs
+        asynchronously and the response returns the operation identifier.
+
+        Args:
+            okms_id: Okms ID
+            subscription_id: Subscription ID
+
+        Requires the IAM action okms:apiovh:log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_RESOURCE_LOG_SUBSCRIPTION,
+            path_params={
+                "okmsId": okms_id,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_resource_log(
+        self, okms_id: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_resource_log calls POST /v2/okms/resource/{okmsId}/log/url: Generate a temporary log URL
+
+        Returns a temporary signed URL for read-only access to the logs of the given kind. The link
+        expires.
+
+        Args:
+            okms_id: Okms ID
+            body: the request body
+
+        Requires the IAM action okms:apiovh:log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_RESOURCE_LOG,
+            path_params={
+                "okmsId": okms_id,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
         )
 
     def all_resource_secrets(

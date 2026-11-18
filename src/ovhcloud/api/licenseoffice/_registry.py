@@ -19,6 +19,76 @@ SECTION_KEY = "licenseoffice"
 #: The /v2 contract the section was generated from, sent as X-Schemas-Version.
 SCHEMAS_VERSION: str | None = None
 
+OP_LIST_OFFICES = Operation(
+    name="licenseoffice.list_offices",
+    method="GET",
+    path="/v1/license/office",
+    summary="List tenants",
+    iam_actions=("licenseOffice:apiovh:get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_OFFICE = Operation(
+    name="licenseoffice.get_office",
+    method="GET",
+    path="/v1/license/office/{serviceName}",
+    summary="Get a tenant",
+    iam_actions=("licenseOffice:apiovh:get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_UPDATE_OFFICE = Operation(
+    name="licenseoffice.update_office",
+    method="PUT",
+    path="/v1/license/office/{serviceName}",
+    summary="Update a tenant",
+    iam_actions=("licenseOffice:apiovh:edit",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_DOMAINS = Operation(
+    name="licenseoffice.list_domains",
+    method="GET",
+    path="/v1/license/office/{serviceName}/domain",
+    summary="List domains",
+    iam_actions=("licenseOffice:apiovh:domain/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_DOMAIN = Operation(
+    name="licenseoffice.get_domain",
+    method="GET",
+    path="/v1/license/office/{serviceName}/domain/{domainName}",
+    summary="Get a domain",
+    iam_actions=("licenseOffice:apiovh:domain/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_PENDING_TASKS = Operation(
+    name="licenseoffice.list_pending_tasks",
+    method="GET",
+    path="/v1/license/office/{serviceName}/pendingTask",
+    summary="List tenant tasks",
+    iam_actions=("licenseOffice:apiovh:pendingTask/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_PENDING_TASK = Operation(
+    name="licenseoffice.get_pending_task",
+    method="GET",
+    path="/v1/license/office/{serviceName}/pendingTask/{id}",
+    summary="Get a tenant task",
+    iam_actions=("licenseOffice:apiovh:pendingTask/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_GET_SERVICE_INFOS = Operation(
     name="licenseoffice.get_service_infos",
     method="GET",
@@ -35,6 +105,16 @@ OP_UPDATE_SERVICE_INFOS = Operation(
     path="/v1/license/office/{serviceName}/serviceInfos",
     summary="Update service information",
     iam_actions=("licenseOffice:apiovh:serviceInfos/edit",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_USAGE_STATISTICS = Operation(
+    name="licenseoffice.list_usage_statistics",
+    method="GET",
+    path="/v1/license/office/{serviceName}/usageStatistics",
+    summary="Get tenant usage statistics",
+    iam_actions=("licenseOffice:apiovh:usageStatistics/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -100,8 +180,16 @@ OP_CHANGE_PASSWORD_USER = Operation(
 )
 
 OPERATIONS: tuple[Operation, ...] = (
+    OP_LIST_OFFICES,
+    OP_GET_OFFICE,
+    OP_UPDATE_OFFICE,
+    OP_LIST_DOMAINS,
+    OP_GET_DOMAIN,
+    OP_LIST_PENDING_TASKS,
+    OP_GET_PENDING_TASK,
     OP_GET_SERVICE_INFOS,
     OP_UPDATE_SERVICE_INFOS,
+    OP_LIST_USAGE_STATISTICS,
     OP_LIST_USERS,
     OP_CREATE_USER,
     OP_GET_USER,

@@ -10,7 +10,7 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.me``. Its types are in
 ``ovhcloud.api.me.models``.
 
-It has 361 operations, on the routes under /v1/me.
+It has 362 operations, on the routes under /v1/me.
 
 To start, list what the account has: list_agreements, list_bills, list_consents, list_contacts,
 list_corrective_invoices, list_deposits, list_deposit_requests, list_documents, and 76 more.

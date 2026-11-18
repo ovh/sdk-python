@@ -36667,6 +36667,13 @@ class CloudProjectDatabaseServiceCreationWritable(_gen.BaseModel):
     backups: CloudProjectDatabaseServiceBackupWritable | None = _p.Field(default=None)
     """Information related to the backups, null if the engine does not support backups"""
 
+    deletion_protection: bool | None = _p.Field(
+        default=None,
+        validation_alias="deletionProtection",
+        serialization_alias="deletionProtection",
+    )
+    """Whether to protect the cluster from deletion. Defaults to false."""
+
     description: str | None = _p.Field(default=None)
     """Description of the cluster"""
 

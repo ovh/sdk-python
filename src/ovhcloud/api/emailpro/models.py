@@ -32,18 +32,48 @@ __all__ = [
     "CreateDomainDkimRequest",
     "CreateDomainRequest",
     "CreateExternalContactRequest",
+    "EmailProAccountAlias",
+    "EmailProAccountDiagnosis",
+    "EmailProAccountFullAccess",
+    "EmailProAccountNative",
+    "EmailProAccountSendAs",
+    "EmailProAccountSendOnBehalfTo",
     "EmailProAccountWritable",
+    "EmailProDisclaimerAttributeEnum",
+    "EmailProDkimAlt",
+    "EmailProDkimRecordTypeEnumAlt",
+    "EmailProDkimStatusEnumAlt",
+    "EmailProDomainDkimDiagnostics",
+    "EmailProDomainDkimDiagnosticsStateEnum",
+    "EmailProDomainNative",
     "EmailProDomainTypeEnum",
     "EmailProDomainWritable",
+    "EmailProExternalContactNative",
     "EmailProExternalContactWritable",
     "EmailProMailingFilterEnum",
+    "EmailProObjectStateEnum",
+    "EmailProServer",
+    "EmailProServerStateEnum",
+    "EmailProServiceNativeWithIAM",
+    "EmailProServiceOfferEnum",
+    "EmailProServiceStateEnum",
     "EmailProServiceWritable",
     "EmailProTask",
     "EmailProTaskFunctionEnum",
     "EmailProTaskStatusEnum",
+    "EmailProDisclaimerNative",
     "EmailProDisclaimerWritable",
+    "EmailProDkim",
+    "EmailProDkimRecordTypeEnum",
+    "EmailProDkimStatusEnum",
     "EmailProRenewPeriodEnum",
     "EmailProSpamAndVirusConfiguration",
+    "IAMResourceMetadata",
+    "IAMResourceMetadataStateEnum",
+    "IAMResourceTagFilter",
+    "IAMResourceTagFilterOperatorEnum",
+    "IPv4",
+    "IPv6",
     "ServiceRenewType",
     "ServiceRenewalTypeEnum",
     "ServiceStateEnum",
@@ -224,6 +254,416 @@ class CreateExternalContactRequest(_gen.BaseModel):
     """Contact last name"""
 
 
+class EmailProAccountAlias(_gen.BaseModel):
+    """Aliases on this mailbox"""
+
+    alias: str | None = _p.Field(default=None)
+    """Alias
+
+    Read-only: the API sets it.
+    """
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending task id
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProAccountDiagnosis(_gen.BaseModel):
+    """Account Diagnosis"""
+
+    can_receive_email: bool | None = _p.Field(
+        default=None, validation_alias="canReceiveEmail", serialization_alias="canReceiveEmail"
+    )
+    """Determines if ingoing message has been received
+
+    Read-only: the API sets it.
+    """
+
+    can_send_email: bool | None = _p.Field(
+        default=None, validation_alias="canSendEmail", serialization_alias="canSendEmail"
+    )
+    """Determines if outgoing message has been delivered
+
+    Read-only: the API sets it.
+    """
+
+    connective_webmail: bool | None = _p.Field(
+        default=None, validation_alias="connectiveWebmail", serialization_alias="connectiveWebmail"
+    )
+    """Determines if possible to authenticate with credentials
+
+    Read-only: the API sets it.
+    """
+
+    is_locked: bool | None = _p.Field(
+        default=None, validation_alias="isLocked", serialization_alias="isLocked"
+    )
+    """Determines if account is locked
+
+    Read-only: the API sets it.
+    """
+
+    is_mx_valid: bool | None = _p.Field(
+        default=None, validation_alias="isMxValid", serialization_alias="isMxValid"
+    )
+    """Determines if MX record for account's domain is properly set
+
+    Read-only: the API sets it.
+    """
+
+    is_spammer: bool | None = _p.Field(
+        default=None, validation_alias="isSpammer", serialization_alias="isSpammer"
+    )
+    """Determines if account is flagged as spammer
+
+    Read-only: the API sets it.
+    """
+
+    is_srv_valid: bool | None = _p.Field(
+        default=None, validation_alias="isSrvValid", serialization_alias="isSrvValid"
+    )
+    """Determines if SRV (autodiscovery) record for account's domain is properly set
+
+    Read-only: the API sets it.
+    """
+
+    is_suspended: bool | None = _p.Field(
+        default=None, validation_alias="isSuspended", serialization_alias="isSuspended"
+    )
+    """Determines if account is suspended
+
+    Read-only: the API sets it.
+    """
+
+    last_check: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastCheck", serialization_alias="lastCheck"
+    )
+    """Last performed diagnostics date
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProAccountFullAccess(_gen.BaseModel):
+    """Users having full access on this mailbox"""
+
+    allowed_account_id: int | None = _p.Field(
+        default=None, validation_alias="allowedAccountId", serialization_alias="allowedAccountId"
+    )
+    """Account id to give full access
+
+    Read-only: the API sets it.
+    """
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending task id
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProAccountNative(_gen.BaseModel):
+    """Mailbox"""
+
+    sam_account_name: str | None = _p.Field(
+        default=None, validation_alias="SAMAccountName", serialization_alias="SAMAccountName"
+    )
+    """SAM account name
+
+    Read-only: the API sets it.
+    """
+
+    configured: bool | None = _p.Field(default=None)
+    """Indicates if the account is configured
+
+    Read-only: the API sets it.
+    """
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    current_usage: int | None = _p.Field(
+        default=None, validation_alias="currentUsage", serialization_alias="currentUsage"
+    )
+    """Mailbox usage
+
+    Read-only: the API sets it.
+    """
+
+    delete_at_expiration: bool | None = _p.Field(
+        default=None,
+        validation_alias="deleteAtExpiration",
+        serialization_alias="deleteAtExpiration",
+    )
+    """delete at expiration
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Account display name
+
+    Read-only: the API sets it.
+    """
+
+    domain: str | None = _p.Field(default=None)
+    """Email domain
+
+    Read-only: the API sets it.
+    """
+
+    expiration_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="expirationDate", serialization_alias="expirationDate"
+    )
+    """expiration date
+
+    Read-only: the API sets it.
+    """
+
+    expiration_outlook_date: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="expirationOutlookDate",
+        serialization_alias="expirationOutlookDate",
+    )
+    """expiration date
+
+    Read-only: the API sets it.
+    """
+
+    first_name: str | None = _p.Field(
+        default=None, validation_alias="firstName", serialization_alias="firstName"
+    )
+    """Account first name
+
+    Read-only: the API sets it.
+    """
+
+    hidden_from_gal: bool | None = _p.Field(
+        default=None, validation_alias="hiddenFromGAL", serialization_alias="hiddenFromGAL"
+    )
+    """Hide account in Global Address List
+
+    Read-only: the API sets it.
+    """
+
+    id: int | None = _p.Field(default=None)
+    """Account id
+
+    Read-only: the API sets it.
+    """
+
+    initial: str | None = _p.Field(default=None)
+    """Account initials
+
+    Read-only: the API sets it.
+    """
+
+    last_logoff_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastLogoffDate", serialization_alias="lastLogoffDate"
+    )
+    """Last logoff
+
+    Read-only: the API sets it.
+    """
+
+    last_logon_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastLogonDate", serialization_alias="lastLogonDate"
+    )
+    """Last logon
+
+    Read-only: the API sets it.
+    """
+
+    last_name: str | None = _p.Field(
+        default=None, validation_alias="lastName", serialization_alias="lastName"
+    )
+    """Account last name
+
+    Read-only: the API sets it.
+    """
+
+    last_update_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastUpdateDate", serialization_alias="lastUpdateDate"
+    )
+    """Last update
+
+    Read-only: the API sets it.
+    """
+
+    login: str | None = _p.Field(default=None)
+    """Account login
+
+    Read-only: the API sets it.
+    """
+
+    mailing_filter: list[EmailProMailingFilterEnum] | None = _p.Field(
+        default=None, validation_alias="mailingFilter", serialization_alias="mailingFilter"
+    )
+    """Enable or disable anti-virus and anti-spam
+
+    Read-only: the API sets it.
+    """
+
+    password_last_update: datetime.datetime | None = _p.Field(
+        default=None,
+        validation_alias="passwordLastUpdate",
+        serialization_alias="passwordLastUpdate",
+    )
+    """Time of account's password last update
+
+    Read-only: the API sets it.
+    """
+
+    primary_email_address: str | None = _p.Field(
+        default=None,
+        validation_alias="primaryEmailAddress",
+        serialization_alias="primaryEmailAddress",
+    )
+    """Default email for this mailbox
+
+    Read-only: the API sets it.
+    """
+
+    quota: int | None = _p.Field(default=None)
+    """Account maximum size
+
+    Read-only: the API sets it.
+    """
+
+    renew_period: EmailProRenewPeriodEnum | None = _p.Field(
+        default=None, validation_alias="renewPeriod", serialization_alias="renewPeriod"
+    )
+    """change the renew period
+
+    Read-only: the API sets it.
+    """
+
+    spam_and_virus_configuration: EmailProSpamAndVirusConfiguration | None = _p.Field(
+        default=None,
+        validation_alias="spamAndVirusConfiguration",
+        serialization_alias="spamAndVirusConfiguration",
+    )
+    """Spam and Antivirus configuration
+
+    Read-only: the API sets it.
+    """
+
+    spam_detected: bool | None = _p.Field(
+        default=None, validation_alias="spamDetected", serialization_alias="spamDetected"
+    )
+    """Account was sending spam
+
+    Read-only: the API sets it.
+    """
+
+    spam_ticket_number: int | None = _p.Field(
+        default=None, validation_alias="spamTicketNumber", serialization_alias="spamTicketNumber"
+    )
+    """Ticket number of spam detection
+
+    Read-only: the API sets it.
+    """
+
+    state: EmailProObjectStateEnum | None = _p.Field(default=None)
+    """Account state
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending tasks for this account
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProAccountSendAs(_gen.BaseModel):
+    """Users authorized to send mails from this mailbox"""
+
+    allowed_account_id: int | None = _p.Field(
+        default=None, validation_alias="allowedAccountId", serialization_alias="allowedAccountId"
+    )
+    """Account id to give send as
+
+    Read-only: the API sets it.
+    """
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending task id
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProAccountSendOnBehalfTo(_gen.BaseModel):
+    """Get users authorized to Send On Behalf To mails from this mailbox"""
+
+    allowed_account_id: int | None = _p.Field(
+        default=None, validation_alias="allowedAccountId", serialization_alias="allowedAccountId"
+    )
+    """Account id to give send on behalf to
+
+    Read-only: the API sets it.
+    """
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending task id
+
+    Read-only: the API sets it.
+    """
+
+
 class EmailProAccountWritable(_gen.BaseModel):
     """Mailbox. Without the read-only fields, which the API sets."""
 
@@ -287,6 +727,324 @@ class EmailProAccountWritable(_gen.BaseModel):
     """Spam and Antivirus configuration"""
 
 
+class EmailProDisclaimerAttributeEnum(_gen.OpenStrEnum):
+    """Disclaimer attributes list
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CITY = "City"
+    COMPANY = "Company"
+    COUNTRY = "Country"
+    DEPARTMENT = "Department"
+    DISPLAY_NAME = "DisplayName"
+    EMAIL = "Email"
+    FAX_NUMBER = "FaxNumber"
+    FIRST_NAME = "FirstName"
+    HOME_PHONE_NUMBER = "HomePhoneNumber"
+    INITIALS = "Initials"
+    LAST_NAME = "LastName"
+    MANAGER = "Manager"
+    MOBILE_NUMBER = "MobileNumber"
+    NOTES = "Notes"
+    OFFICE = "Office"
+    OTHER_FAX_NUMBER = "OtherFaxNumber"
+    OTHER_HOME_PHONE_NUMBER = "OtherHomePhoneNumber"
+    OTHER_PHONE_NUMBER = "OtherPhoneNumber"
+    PAGER_NUMBER = "PagerNumber"
+    PHONE_NUMBER = "PhoneNumber"
+    STATE = "State"
+    STREET = "Street"
+    TITLE = "Title"
+    USER_LOGON_NAME = "UserLogonName"
+    ZIP_CODE = "ZipCode"
+
+
+class EmailProDkimAlt(_gen.BaseModel):
+    """DKIM for a domain"""
+
+    cname_is_valid: bool | None = _p.Field(
+        default=None, validation_alias="cnameIsValid", serialization_alias="cnameIsValid"
+    )
+    """DNS CNAME validation passed
+
+    Read-only: the API sets it.
+    """
+
+    customer_record: str | None = _p.Field(
+        default=None, validation_alias="customerRecord", serialization_alias="customerRecord"
+    )
+    """Customer DNS record
+
+    Read-only: the API sets it.
+    """
+
+    header: str | None = _p.Field(default=None)
+    """Header used for DKIM signature
+
+    Read-only: the API sets it.
+    """
+
+    last_update: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastUpdate", serialization_alias="lastUpdate"
+    )
+    """Last update date
+
+    Read-only: the API sets it.
+    """
+
+    record_type: EmailProDkimRecordTypeEnumAlt | None = _p.Field(
+        default=None, validation_alias="recordType", serialization_alias="recordType"
+    )
+    """Record type of the customer record
+
+    Read-only: the API sets it.
+    """
+
+    selector_name: str | None = _p.Field(
+        default=None, validation_alias="selectorName", serialization_alias="selectorName"
+    )
+    """Selector name
+
+    Read-only: the API sets it.
+    """
+
+    status: EmailProDkimStatusEnumAlt | None = _p.Field(default=None)
+    """DKIM status
+
+    Read-only: the API sets it.
+    """
+
+    target_record: str | None = _p.Field(
+        default=None, validation_alias="targetRecord", serialization_alias="targetRecord"
+    )
+    """Target of the customer record
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending task for this DKIM
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProDkimRecordTypeEnumAlt(_gen.OpenStrEnum):
+    """Record type of the customer record
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CNAME = "CNAME"
+
+
+class EmailProDkimStatusEnumAlt(_gen.OpenStrEnum):
+    """DKIM status
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DELETING = "deleting"
+    DISABLING = "disabling"
+    ENABLING = "enabling"
+    IN_PRODUCTION = "inProduction"
+    READY = "ready"
+    TODO = "todo"
+    WAITING_RECORD = "waitingRecord"
+
+
+class EmailProDomainDkimDiagnostics(_gen.BaseModel):
+    """Dkim selectors and DNS configuration state"""
+
+    error_code: int | None = _p.Field(
+        default=None, validation_alias="errorCode", serialization_alias="errorCode"
+    )
+    """Error code related to misconfiguration of DKIM, if exists
+
+    Read-only: the API sets it.
+    """
+
+    message: str | None = _p.Field(default=None)
+    """DKIM misconfiguration description, if exists
+
+    Read-only: the API sets it.
+    """
+
+    state: EmailProDomainDkimDiagnosticsStateEnum | None = _p.Field(default=None)
+    """State of DKIM selectors
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProDomainDkimDiagnosticsStateEnum(_gen.OpenStrEnum):
+    """DKIM status
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACTIVE = "active"
+    DISABLED = "disabled"
+    ERROR = "error"
+    IN_PROGRESS = "inProgress"
+    TO_CONFIGURE = "toConfigure"
+
+
+class EmailProDomainNative(_gen.BaseModel):
+    """Domain"""
+
+    cname_to_check: str | None = _p.Field(
+        default=None, validation_alias="cnameToCheck", serialization_alias="cnameToCheck"
+    )
+    """Cname that will be checked to prove the domain ownership
+
+    Read-only: the API sets it.
+    """
+
+    dkim_diagnostics: EmailProDomainDkimDiagnostics | None = _p.Field(
+        default=None, validation_alias="dkimDiagnostics", serialization_alias="dkimDiagnostics"
+    )
+    """Dkim selectors and DNS configuration state
+
+    Read-only: the API sets it.
+    """
+
+    domain_aliases: list[str] | None = _p.Field(
+        default=None, validation_alias="domainAliases", serialization_alias="domainAliases"
+    )
+    """List of aliases for this domain
+
+    Read-only: the API sets it.
+    """
+
+    domain_validated: bool | None = _p.Field(
+        default=None, validation_alias="domainValidated", serialization_alias="domainValidated"
+    )
+    """Domain validation status
+
+    Read-only: the API sets it.
+    """
+
+    expected_autodiscover_srv: str | None = _p.Field(
+        default=None,
+        validation_alias="expectedAutodiscoverSRV",
+        serialization_alias="expectedAutodiscoverSRV",
+    )
+    """Expected SRV record on this domain
+
+    Read-only: the API sets it.
+    """
+
+    expected_mx: list[str] | None = _p.Field(
+        default=None, validation_alias="expectedMX", serialization_alias="expectedMX"
+    )
+    """Expected MX record(s) on this domain
+
+    Read-only: the API sets it.
+    """
+
+    expected_spf: str | None = _p.Field(
+        default=None, validation_alias="expectedSPF", serialization_alias="expectedSPF"
+    )
+    """Expected SPF record on this domain
+
+    Read-only: the API sets it.
+    """
+
+    is_alias_domain: bool | None = _p.Field(
+        default=None, validation_alias="isAliasDomain", serialization_alias="isAliasDomain"
+    )
+    """Indicate if this domain is an alias for another domain
+
+    Read-only: the API sets it.
+    """
+
+    mx_is_valid: bool | None = _p.Field(
+        default=None, validation_alias="mxIsValid", serialization_alias="mxIsValid"
+    )
+    """If true your DNS MX configuration is valid
+
+    Read-only: the API sets it.
+    """
+
+    mx_record: list[str] | None = _p.Field(
+        default=None, validation_alias="mxRecord", serialization_alias="mxRecord"
+    )
+    """Domain MX record configured in DNS
+
+    Read-only: the API sets it.
+    """
+
+    mx_relay: str | None = _p.Field(
+        default=None, validation_alias="mxRelay", serialization_alias="mxRelay"
+    )
+    """If specified, emails to not existing address will be redirected to that domain
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Domain name
+
+    Read-only: the API sets it.
+    """
+
+    spf_is_valid: bool | None = _p.Field(
+        default=None, validation_alias="spfIsValid", serialization_alias="spfIsValid"
+    )
+    """SPF record validation passed
+
+    Read-only: the API sets it.
+    """
+
+    spf_record: list[str] | None = _p.Field(
+        default=None, validation_alias="spfRecord", serialization_alias="spfRecord"
+    )
+    """Domain's SPF record configured in the DNS
+
+    Read-only: the API sets it.
+    """
+
+    srv_is_valid: bool | None = _p.Field(
+        default=None, validation_alias="srvIsValid", serialization_alias="srvIsValid"
+    )
+    """If true your DNS SRV record is valid
+
+    Read-only: the API sets it.
+    """
+
+    srv_record: list[str] | None = _p.Field(
+        default=None, validation_alias="srvRecord", serialization_alias="srvRecord"
+    )
+    """Domain SRV record configured in DNS
+
+    Read-only: the API sets it.
+    """
+
+    state: EmailProObjectStateEnum | None = _p.Field(default=None)
+    """Domain state
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending tasks id
+
+    Read-only: the API sets it.
+    """
+
+    type: EmailProDomainTypeEnum | None = _p.Field(default=None)
+    """Domain type
+
+    Read-only: the API sets it.
+    """
+
+
 class EmailProDomainTypeEnum(_gen.OpenStrEnum):
     """Domain type
 
@@ -307,6 +1065,86 @@ class EmailProDomainWritable(_gen.BaseModel):
 
     type: EmailProDomainTypeEnum | str | None = _p.Field(default=None, union_mode="left_to_right")
     """Domain type"""
+
+
+class EmailProExternalContactNative(_gen.BaseModel):
+    """External contact for this pro service"""
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Contact display name
+
+    Read-only: the API sets it.
+    """
+
+    external_email_address: str | None = _p.Field(
+        default=None,
+        validation_alias="externalEmailAddress",
+        serialization_alias="externalEmailAddress",
+    )
+    """Contact email
+
+    Read-only: the API sets it.
+    """
+
+    first_name: str | None = _p.Field(
+        default=None, validation_alias="firstName", serialization_alias="firstName"
+    )
+    """Contact first name
+
+    Read-only: the API sets it.
+    """
+
+    hidden_from_gal: bool | None = _p.Field(
+        default=None, validation_alias="hiddenFromGAL", serialization_alias="hiddenFromGAL"
+    )
+    """Hide the contact in Global Address List
+
+    Read-only: the API sets it.
+    """
+
+    id: int | None = _p.Field(default=None)
+    """Contact id
+
+    Read-only: the API sets it.
+    """
+
+    initials: str | None = _p.Field(default=None)
+    """Contact initals
+
+    Read-only: the API sets it.
+    """
+
+    last_name: str | None = _p.Field(
+        default=None, validation_alias="lastName", serialization_alias="lastName"
+    )
+    """Contact last name
+
+    Read-only: the API sets it.
+    """
+
+    state: EmailProObjectStateEnum | None = _p.Field(default=None)
+    """Contact state
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Task pending id
+
+    Read-only: the API sets it.
+    """
 
 
 class EmailProExternalContactWritable(_gen.BaseModel):
@@ -350,6 +1188,290 @@ class EmailProMailingFilterEnum(_gen.OpenStrEnum):
     """
 
     VADERETRO = "vaderetro"
+
+
+class EmailProObjectStateEnum(_gen.OpenStrEnum):
+    """Current object state
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "creating"
+    DELETING = "deleting"
+    OK = "ok"
+    REOPENING = "reopening"
+    SUSPENDED = "suspended"
+    SUSPENDING = "suspending"
+    UNKNOWN = "unknown"
+
+
+class EmailProServer(_gen.BaseModel):
+    """Server"""
+
+    current_disk_usage: int | None = _p.Field(
+        default=None, validation_alias="currentDiskUsage", serialization_alias="currentDiskUsage"
+    )
+    """Current disk usage in MB
+
+    Read-only: the API sets it.
+    """
+
+    disk_size: int | None = _p.Field(
+        default=None, validation_alias="diskSize", serialization_alias="diskSize"
+    )
+    """Total disk size in MB
+
+    Read-only: the API sets it.
+    """
+
+    ip: IPv4 | None = _p.Field(default=None)
+    """ipV4
+
+    Read-only: the API sets it.
+    """
+
+    ip_v6: IPv6 | None = _p.Field(default=None, validation_alias="ipV6", serialization_alias="ipV6")
+    """ipV6
+
+    Read-only: the API sets it.
+    """
+
+    is_a_valid: bool | None = _p.Field(
+        default=None, validation_alias="isAValid", serialization_alias="isAValid"
+    )
+    """If true your dns A record is valid
+
+    Read-only: the API sets it.
+    """
+
+    is_aaaa_valid: bool | None = _p.Field(
+        default=None, validation_alias="isAaaaValid", serialization_alias="isAaaaValid"
+    )
+    """If true your dns AAAA record is valid
+
+    Read-only: the API sets it.
+    """
+
+    is_ptr_v6_valid: bool | None = _p.Field(
+        default=None, validation_alias="isPtrV6Valid", serialization_alias="isPtrV6Valid"
+    )
+    """If true your dns ptrV6 record is valid
+
+    Read-only: the API sets it.
+    """
+
+    is_ptr_valid: bool | None = _p.Field(
+        default=None, validation_alias="isPtrValid", serialization_alias="isPtrValid"
+    )
+    """If true your dns ptr record is valid
+
+    Read-only: the API sets it.
+    """
+
+    state: EmailProServerStateEnum | None = _p.Field(default=None)
+    """Server state
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Task pending id
+
+    Read-only: the API sets it.
+    """
+
+    version: str | None = _p.Field(default=None)
+    """Server version
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProServerStateEnum(_gen.OpenStrEnum):
+    """Server State
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CONFIGURATION_PENDING = "configurationPending"
+    NOT_CONFIGURED = "notConfigured"
+    OK = "ok"
+
+
+class EmailProServiceNativeWithIAM(_gen.BaseModel):
+    """Email pro service"""
+
+    complexity_enabled: bool | None = _p.Field(
+        default=None, validation_alias="complexityEnabled", serialization_alias="complexityEnabled"
+    )
+    """enable policy for strong and secure passwords
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """service displayName
+
+    Read-only: the API sets it.
+    """
+
+    domain: str | None = _p.Field(default=None)
+    """Domain name of your service
+
+    Read-only: the API sets it.
+    """
+
+    hostname: str | None = _p.Field(default=None)
+    """Hostname of your service
+
+    Read-only: the API sets it.
+    """
+
+    iam: IAMResourceMetadata | None = _p.Field(default=None)
+    """IAM resource metadata
+
+    Read-only: the API sets it.
+    """
+
+    last_update_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastUpdateDate", serialization_alias="lastUpdateDate"
+    )
+    """Update date
+
+    Read-only: the API sets it.
+    """
+
+    lockout_duration: int | None = _p.Field(
+        default=None, validation_alias="lockoutDuration", serialization_alias="lockoutDuration"
+    )
+    """number of minutes account will remain locked if it occurs
+
+    Read-only: the API sets it.
+    """
+
+    lockout_observation_window: int | None = _p.Field(
+        default=None,
+        validation_alias="lockoutObservationWindow",
+        serialization_alias="lockoutObservationWindow",
+    )
+    """number of minutes that must elapse after a failed logon to reset lockout trigger
+
+    Read-only: the API sets it.
+    """
+
+    lockout_threshold: int | None = _p.Field(
+        default=None, validation_alias="lockoutThreshold", serialization_alias="lockoutThreshold"
+    )
+    """number of attempts before account to be locked
+
+    Read-only: the API sets it.
+    """
+
+    max_password_age: int | None = _p.Field(
+        default=None, validation_alias="maxPasswordAge", serialization_alias="maxPasswordAge"
+    )
+    """maximum number of days that account's password is valid before expiration
+
+    Read-only: the API sets it.
+    """
+
+    max_receive_size: int | None = _p.Field(
+        default=None, validation_alias="maxReceiveSize", serialization_alias="maxReceiveSize"
+    )
+    """Maximum message size that You can receive in MB
+
+    Read-only: the API sets it.
+    """
+
+    max_send_size: int | None = _p.Field(
+        default=None, validation_alias="maxSendSize", serialization_alias="maxSendSize"
+    )
+    """Maximum message size that You can send in MB
+
+    Read-only: the API sets it.
+    """
+
+    min_password_age: int | None = _p.Field(
+        default=None, validation_alias="minPasswordAge", serialization_alias="minPasswordAge"
+    )
+    """minimum number of days before able to change account's password
+
+    Read-only: the API sets it.
+    """
+
+    min_password_length: int | None = _p.Field(
+        default=None, validation_alias="minPasswordLength", serialization_alias="minPasswordLength"
+    )
+    """minimum number of characters password must contain
+
+    Read-only: the API sets it.
+    """
+
+    offer: EmailProServiceOfferEnum | None = _p.Field(default=None)
+    """Type of your offer
+
+    Read-only: the API sets it.
+    """
+
+    spam_and_virus_configuration: EmailProSpamAndVirusConfiguration | None = _p.Field(
+        default=None,
+        validation_alias="spamAndVirusConfiguration",
+        serialization_alias="spamAndVirusConfiguration",
+    )
+    """Spam and Antivirus configuration
+
+    Read-only: the API sets it.
+    """
+
+    state: EmailProServiceStateEnum | None = _p.Field(default=None)
+    """State of your service
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Task pending id
+
+    Read-only: the API sets it.
+    """
+
+    web_url: str | None = _p.Field(
+        default=None, validation_alias="webUrl", serialization_alias="webUrl"
+    )
+    """URL for web interface
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProServiceOfferEnum(_gen.OpenStrEnum):
+    """Service Offer name
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EMAILPRO = "emailpro"
+
+
+class EmailProServiceStateEnum(_gen.OpenStrEnum):
+    """Service State
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "creating"
+    DELETING = "deleting"
+    IN_MAINTENANCE = "inMaintenance"
+    OK = "ok"
+    REOPENING = "reopening"
+    SUSPENDED = "suspended"
+    SUSPENDING = "suspending"
 
 
 class EmailProServiceWritable(_gen.BaseModel):
@@ -523,6 +1645,46 @@ class EmailProTaskStatusEnum(_gen.OpenStrEnum):
     TODO = "todo"
 
 
+class EmailProDisclaimerNative(_gen.BaseModel):
+    """disclaimer"""
+
+    content: str | None = _p.Field(default=None)
+    """Signature, added at the bottom of your organization emails
+
+    Read-only: the API sets it.
+    """
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Disclaimer name
+
+    Read-only: the API sets it.
+    """
+
+    outside_only: bool | None = _p.Field(
+        default=None, validation_alias="outsideOnly", serialization_alias="outsideOnly"
+    )
+    """Activate the disclaimer only for external emails
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """task pending id
+
+    Read-only: the API sets it.
+    """
+
+
 class EmailProDisclaimerWritable(_gen.BaseModel):
     """disclaimer. Without the read-only fields, which the API sets."""
 
@@ -533,6 +1695,94 @@ class EmailProDisclaimerWritable(_gen.BaseModel):
         default=None, validation_alias="outsideOnly", serialization_alias="outsideOnly"
     )
     """Activate the disclaimer only for external emails"""
+
+
+class EmailProDkim(_gen.BaseModel):
+    """DKIM for a domain"""
+
+    customer_record: str | None = _p.Field(
+        default=None, validation_alias="customerRecord", serialization_alias="customerRecord"
+    )
+    """customer DNS record
+
+    Read-only: the API sets it.
+    """
+
+    header: str | None = _p.Field(default=None)
+    """header used for DKIM signature
+
+    Read-only: the API sets it.
+    """
+
+    last_update: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastUpdate", serialization_alias="lastUpdate"
+    )
+    """Last update date
+
+    Read-only: the API sets it.
+    """
+
+    record_type: EmailProDkimRecordTypeEnum | None = _p.Field(
+        default=None, validation_alias="recordType", serialization_alias="recordType"
+    )
+    """Record type of the customer record
+
+    Read-only: the API sets it.
+    """
+
+    selector_name: str | None = _p.Field(
+        default=None, validation_alias="selectorName", serialization_alias="selectorName"
+    )
+    """selectorName
+
+    Read-only: the API sets it.
+    """
+
+    status: EmailProDkimStatusEnum | None = _p.Field(default=None)
+    """dkim status
+
+    Read-only: the API sets it.
+    """
+
+    target_record: str | None = _p.Field(
+        default=None, validation_alias="targetRecord", serialization_alias="targetRecord"
+    )
+    """Target of the customer record
+
+    Read-only: the API sets it.
+    """
+
+    task_pending_id: int | None = _p.Field(
+        default=None, validation_alias="taskPendingId", serialization_alias="taskPendingId"
+    )
+    """Pending task for this DKIM
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailProDkimRecordTypeEnum(_gen.OpenStrEnum):
+    """Record type of the customer record
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CNAME = "CNAME"
+
+
+class EmailProDkimStatusEnum(_gen.OpenStrEnum):
+    """dkim status
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DELETING = "deleting"
+    DISABLING = "disabling"
+    ENABLING = "enabling"
+    IN_PRODUCTION = "inProduction"
+    READY = "ready"
+    TODO = "todo"
+    WAITING_RECORD = "waitingRecord"
 
 
 class EmailProRenewPeriodEnum(_gen.OpenStrEnum):
@@ -582,6 +1832,84 @@ class EmailProSpamAndVirusConfiguration(_gen.BaseModel):
         default=None, validation_alias="tagVirus", serialization_alias="tagVirus"
     )
     """If message is a virus change its subject"""
+
+
+class IAMResourceMetadata(_gen.BaseModel):
+    """IAM resource metadata embedded in services models"""
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Resource display name
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the resource
+
+    Read-only: the API sets it.
+    """
+
+    state: IAMResourceMetadataStateEnum | None = _p.Field(default=None)
+    """Resource state
+
+    Read-only: the API sets it.
+    """
+
+    tags: dict[str, str] | None = _p.Field(default=None)
+    """Resource tags. Tags that were internally computed are prefixed with ovh:
+
+    Read-only: the API sets it.
+    """
+
+    urn: str | None = _p.Field(default=None)
+    """Unique resource name used in policies
+
+    Read-only: the API sets it.
+    """
+
+
+class IAMResourceMetadataStateEnum(_gen.OpenStrEnum):
+    """Resource state
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EXPIRED = "EXPIRED"
+    IN_CREATION = "IN_CREATION"
+    OK = "OK"
+    SUSPENDED = "SUSPENDED"
+
+
+class IAMResourceTagFilter(_gen.BaseModel):
+    """Resource tag filter"""
+
+    operator: IAMResourceTagFilterOperatorEnum | None = _p.Field(default=None)
+    """Operator to use in order to filter on the value (defaults to 'EQ')
+
+    Read-only: the API sets it.
+    """
+
+    value: str | None = _p.Field(default=None)
+    """Value to use in order to filter tags
+
+    Read-only: the API sets it.
+    """
+
+
+class IAMResourceTagFilterOperatorEnum(_gen.OpenStrEnum):
+    """Operator that can be used in order to filter resources tags
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EQ = "EQ"
+    EXISTS = "EXISTS"
+    ILIKE = "ILIKE"
+    LIKE = "LIKE"
+    NEQ = "NEQ"
+    NEXISTS = "NEXISTS"
 
 
 class ServiceRenewType(_gen.BaseModel):
@@ -721,3 +2049,10 @@ class ServicesServiceWritable(_gen.BaseModel):
 
     renew: ServiceRenewType | None = _p.Field(default=None)
     """Way of handling the renew"""
+
+
+IPv4: t.TypeAlias = str
+"""IPv4 address (e.g., 192.0.2.0)"""
+
+IPv6: t.TypeAlias = str
+"""IPv6 address (e.g., 2001:41d0:1:1994::1)"""

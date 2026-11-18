@@ -239,6 +239,46 @@ OP_DELETE_ORGANIZATION = Operation(
     schemas_version="1.0",
 )
 
+OP_ALL_REDIRECTIONS = Operation(
+    name="zimbra.all_redirections",
+    method="GET",
+    path="/v2/zimbra/platform/{platformId}/redirection",
+    summary="List redirections",
+    iam_actions=("zimbra:apiovh:platform/redirection/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_REDIRECTION = Operation(
+    name="zimbra.create_redirection",
+    method="POST",
+    path="/v2/zimbra/platform/{platformId}/redirection",
+    summary="Create a redirection",
+    iam_actions=("zimbra:apiovh:platform/redirection/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_REDIRECTION = Operation(
+    name="zimbra.get_redirection",
+    method="GET",
+    path="/v2/zimbra/platform/{platformId}/redirection/{redirectionId}",
+    summary="Get a redirection",
+    iam_actions=("zimbra:apiovh:platform/redirection/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_DELETE_REDIRECTION = Operation(
+    name="zimbra.delete_redirection",
+    method="DELETE",
+    path="/v2/zimbra/platform/{platformId}/redirection/{redirectionId}",
+    summary="Delete a redirection",
+    iam_actions=("zimbra:apiovh:platform/redirection/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
 OP_REFRESH_QUOTA_USAGE = Operation(
     name="zimbra.refresh_quota_usage",
     method="POST",
@@ -302,6 +342,10 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_GET_ORGANIZATION,
     OP_UPDATE_ORGANIZATION,
     OP_DELETE_ORGANIZATION,
+    OP_ALL_REDIRECTIONS,
+    OP_CREATE_REDIRECTION,
+    OP_GET_REDIRECTION,
+    OP_DELETE_REDIRECTION,
     OP_REFRESH_QUOTA_USAGE,
     OP_ALL_SLOTS,
     OP_GET_SLOT,

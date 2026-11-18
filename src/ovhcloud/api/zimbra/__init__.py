@@ -10,10 +10,10 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.zimbra``. Its types are in
 ``ovhcloud.api.zimbra.models``.
 
-It has 26 operations, on the routes under /v2/zimbra/platform.
+It has 30 operations, on the routes under /v2/zimbra/platform.
 
 To start, list what the account has: all_platforms, all_accounts, all_alias, all_domains,
-all_organizations, all_slots, all_tasks.
+all_organizations, all_redirections, all_slots, all_tasks.
 
 To find the method for a route, search index/zimbra.jsonl: one line per method, with its route, its
 signature and the IAM actions it requires. It is at the root of the SDK repository, and in the

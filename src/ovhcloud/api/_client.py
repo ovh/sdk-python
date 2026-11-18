@@ -107,6 +107,8 @@ if t.TYPE_CHECKING:
     from .licenseworklight._api import LicenseworklightApi as _LicenseworklightApi
     from .location._api import AsyncLocationApi as _AsyncLocationApi
     from .location._api import LocationApi as _LocationApi
+    from .managed_cms._api import AsyncManagedCMSApi as _AsyncManagedCMSApi
+    from .managed_cms._api import ManagedCMSApi as _ManagedCMSApi
     from .me._api import AsyncMeApi as _AsyncMeApi
     from .me._api import MeApi as _MeApi
     from .metrics._api import AsyncMetricsApi as _AsyncMetricsApi
@@ -139,6 +141,8 @@ if t.TYPE_CHECKING:
     from .price._api import PriceApi as _PriceApi
     from .public_cloud._api import AsyncPublicCloudApi as _AsyncPublicCloudApi
     from .public_cloud._api import PublicCloudApi as _PublicCloudApi
+    from .saascsp2._api import AsyncSaascsp2Api as _AsyncSaascsp2Api
+    from .saascsp2._api import Saascsp2Api as _Saascsp2Api
     from .secret._api import AsyncSecretApi as _AsyncSecretApi
     from .secret._api import SecretApi as _SecretApi
     from .services._api import AsyncServicesApi as _AsyncServicesApi
@@ -147,6 +151,8 @@ if t.TYPE_CHECKING:
     from .sms._api import SmsApi as _SmsApi
     from .ssl._api import AsyncSslApi as _AsyncSslApi
     from .ssl._api import SslApi as _SslApi
+    from .ssl_gateway._api import AsyncSslGatewayApi as _AsyncSslGatewayApi
+    from .ssl_gateway._api import SslGatewayApi as _SslGatewayApi
     from .stackmis._api import AsyncStackmisApi as _AsyncStackmisApi
     from .stackmis._api import StackmisApi as _StackmisApi
     from .startup._api import AsyncStartupApi as _AsyncStartupApi
@@ -276,7 +282,7 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def dedicatedcluster(self) -> _DedicatedclusterApi:
-        """The dedicatedcluster section: 1 operations."""
+        """The dedicatedcluster section: 9 operations."""
         from .dedicatedcluster._api import DedicatedclusterApi
 
         return DedicatedclusterApi(self)
@@ -304,7 +310,7 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def dedicatedserver(self) -> _DedicatedserverApi:
-        """The dedicatedserver section: 104 operations."""
+        """The dedicatedserver section: 132 operations."""
         from .dedicatedserver._api import DedicatedserverApi
 
         return DedicatedserverApi(self)
@@ -339,7 +345,7 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def emailpro(self) -> _EmailproApi:
-        """The emailpro section: 32 operations."""
+        """The emailpro section: 60 operations."""
         from .emailpro._api import EmailproApi
 
         return EmailproApi(self)
@@ -423,14 +429,14 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def licenseoffice(self) -> _LicenseofficeApi:
-        """The licenseoffice section: 8 operations."""
+        """The licenseoffice section: 16 operations."""
         from .licenseoffice._api import LicenseofficeApi
 
         return LicenseofficeApi(self)
 
     @functools.cached_property
     def licenseoffice_prepaid(self) -> _LicenseofficePrepaidApi:
-        """The licenseofficePrepaid section: 1 operations."""
+        """The licenseofficePrepaid section: 12 operations."""
         from .licenseoffice_prepaid._api import LicenseofficePrepaidApi
 
         return LicenseofficePrepaidApi(self)
@@ -478,8 +484,15 @@ class Client(_CoreClient):
         return LocationApi(self)
 
     @functools.cached_property
+    def managed_cms(self) -> _ManagedCMSApi:
+        """The managedCMS section: 33 operations."""
+        from .managed_cms._api import ManagedCMSApi
+
+        return ManagedCMSApi(self)
+
+    @functools.cached_property
     def me(self) -> _MeApi:
-        """The me section: 361 operations."""
+        """The me section: 362 operations."""
         from .me._api import MeApi
 
         return MeApi(self)
@@ -528,14 +541,14 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def okms(self) -> _OkmsApi:
-        """The okms section: 26 operations."""
+        """The okms section: 33 operations."""
         from .okms._api import OkmsApi
 
         return OkmsApi(self)
 
     @functools.cached_property
     def order(self) -> _OrderApi:
-        """The order section: 662 operations."""
+        """The order section: 665 operations."""
         from .order._api import OrderApi
 
         return OrderApi(self)
@@ -584,10 +597,17 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def public_cloud(self) -> _PublicCloudApi:
-        """The publicCloud section: 191 operations."""
+        """The publicCloud section: 600 operations."""
         from .public_cloud._api import PublicCloudApi
 
         return PublicCloudApi(self)
+
+    @functools.cached_property
+    def saascsp2(self) -> _Saascsp2Api:
+        """The saascsp2 section: 17 operations."""
+        from .saascsp2._api import Saascsp2Api
+
+        return Saascsp2Api(self)
 
     @functools.cached_property
     def secret(self) -> _SecretApi:
@@ -616,6 +636,13 @@ class Client(_CoreClient):
         from .ssl._api import SslApi
 
         return SslApi(self)
+
+    @functools.cached_property
+    def ssl_gateway(self) -> _SslGatewayApi:
+        """The sslGateway section: 23 operations."""
+        from .ssl_gateway._api import SslGatewayApi
+
+        return SslGatewayApi(self)
 
     @functools.cached_property
     def stackmis(self) -> _StackmisApi:
@@ -724,7 +751,7 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def zimbra(self) -> _ZimbraApi:
-        """The zimbra section: 26 operations."""
+        """The zimbra section: 30 operations."""
         from .zimbra._api import ZimbraApi
 
         return ZimbraApi(self)
@@ -819,7 +846,7 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def dedicatedcluster(self) -> _AsyncDedicatedclusterApi:
-        """The dedicatedcluster section: 1 operations."""
+        """The dedicatedcluster section: 9 operations."""
         from .dedicatedcluster._api import AsyncDedicatedclusterApi
 
         return AsyncDedicatedclusterApi(self)
@@ -847,7 +874,7 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def dedicatedserver(self) -> _AsyncDedicatedserverApi:
-        """The dedicatedserver section: 104 operations."""
+        """The dedicatedserver section: 132 operations."""
         from .dedicatedserver._api import AsyncDedicatedserverApi
 
         return AsyncDedicatedserverApi(self)
@@ -882,7 +909,7 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def emailpro(self) -> _AsyncEmailproApi:
-        """The emailpro section: 32 operations."""
+        """The emailpro section: 60 operations."""
         from .emailpro._api import AsyncEmailproApi
 
         return AsyncEmailproApi(self)
@@ -966,14 +993,14 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def licenseoffice(self) -> _AsyncLicenseofficeApi:
-        """The licenseoffice section: 8 operations."""
+        """The licenseoffice section: 16 operations."""
         from .licenseoffice._api import AsyncLicenseofficeApi
 
         return AsyncLicenseofficeApi(self)
 
     @functools.cached_property
     def licenseoffice_prepaid(self) -> _AsyncLicenseofficePrepaidApi:
-        """The licenseofficePrepaid section: 1 operations."""
+        """The licenseofficePrepaid section: 12 operations."""
         from .licenseoffice_prepaid._api import AsyncLicenseofficePrepaidApi
 
         return AsyncLicenseofficePrepaidApi(self)
@@ -1021,8 +1048,15 @@ class AsyncClient(_CoreAsyncClient):
         return AsyncLocationApi(self)
 
     @functools.cached_property
+    def managed_cms(self) -> _AsyncManagedCMSApi:
+        """The managedCMS section: 33 operations."""
+        from .managed_cms._api import AsyncManagedCMSApi
+
+        return AsyncManagedCMSApi(self)
+
+    @functools.cached_property
     def me(self) -> _AsyncMeApi:
-        """The me section: 361 operations."""
+        """The me section: 362 operations."""
         from .me._api import AsyncMeApi
 
         return AsyncMeApi(self)
@@ -1071,14 +1105,14 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def okms(self) -> _AsyncOkmsApi:
-        """The okms section: 26 operations."""
+        """The okms section: 33 operations."""
         from .okms._api import AsyncOkmsApi
 
         return AsyncOkmsApi(self)
 
     @functools.cached_property
     def order(self) -> _AsyncOrderApi:
-        """The order section: 662 operations."""
+        """The order section: 665 operations."""
         from .order._api import AsyncOrderApi
 
         return AsyncOrderApi(self)
@@ -1127,10 +1161,17 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def public_cloud(self) -> _AsyncPublicCloudApi:
-        """The publicCloud section: 191 operations."""
+        """The publicCloud section: 600 operations."""
         from .public_cloud._api import AsyncPublicCloudApi
 
         return AsyncPublicCloudApi(self)
+
+    @functools.cached_property
+    def saascsp2(self) -> _AsyncSaascsp2Api:
+        """The saascsp2 section: 17 operations."""
+        from .saascsp2._api import AsyncSaascsp2Api
+
+        return AsyncSaascsp2Api(self)
 
     @functools.cached_property
     def secret(self) -> _AsyncSecretApi:
@@ -1159,6 +1200,13 @@ class AsyncClient(_CoreAsyncClient):
         from .ssl._api import AsyncSslApi
 
         return AsyncSslApi(self)
+
+    @functools.cached_property
+    def ssl_gateway(self) -> _AsyncSslGatewayApi:
+        """The sslGateway section: 23 operations."""
+        from .ssl_gateway._api import AsyncSslGatewayApi
+
+        return AsyncSslGatewayApi(self)
 
     @functools.cached_property
     def stackmis(self) -> _AsyncStackmisApi:
@@ -1267,7 +1315,7 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def zimbra(self) -> _AsyncZimbraApi:
-        """The zimbra section: 26 operations."""
+        """The zimbra section: 30 operations."""
         from .zimbra._api import AsyncZimbraApi
 
         return AsyncZimbraApi(self)

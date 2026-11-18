@@ -21,11 +21,16 @@ import pydantic as _p
 from ..._core import _gen
 
 __all__ = [
+    "AggregationOlaRequest",
     "ChangeContactRequest",
+    "ConfigureBiosSettingsSgxRequest",
     "ConfirmTerminationRequest",
+    "CreateFeaturesBackupCloudRequest",
     "CreateFeaturesBackupFTPAccessRequest",
     "CreateFeaturesIpmiAccessRequest",
     "CreateFeaturesIpmiTestRequest",
+    "CreateLogSubscription400Response",
+    "CreateLogSubscription503Response",
     "CreateSecondaryDNSDomainsRequest",
     "CreateSplaRequest",
     "CreateVirtualMacVirtualAddressRequest",
@@ -39,25 +44,48 @@ __all__ = [
     "Reinstall409Response",
     "Reinstall500Response",
     "Reinstall501Response",
+    "ResetOlaRequest",
+    "URLLog400Response",
+    "URLLog503Response",
     "UngroupOlaRequest",
     "WindowsLicenseRequest",
     "ComplexTypeSafeKeyValueCanBeNullString",
     "ComplexTypeUnitAndValueDouble",
     "ComplexTypeUnitAndValueLong",
     "ComplexTypeUnitAndValueString",
+    "DbaasLogsLogKind",
+    "DbaasLogsLogSubscription",
+    "DbaasLogsLogSubscriptionCreation",
+    "DbaasLogsLogSubscriptionResource",
+    "DbaasLogsLogSubscriptionResponse",
+    "DbaasLogsLogURLCreation",
+    "DbaasLogsTemporaryLogsLink",
     "DedicatedAvailabilityDatacenter",
     "DedicatedAvailabilityDatacenterEnum",
     "DedicatedAvailabilityEnum",
     "DedicatedDatacenterAvailability",
     "DedicatedDatacenterEnum",
+    "DedicatedPlannedChangeStatusEnum",
+    "DedicatedPlannedInterventionStatusEnum",
+    "DedicatedPlannedInterventionTypeEnum",
     "DedicatedPublicLog",
     "DedicatedPublicLogEntry",
     "DedicatedTaskFunctionEnum",
     "DedicatedTaskStatusEnum",
+    "DedicatedBiosSettingsBiosSettings",
+    "DedicatedBiosSettingsSgxBiosSettingsSgx",
+    "DedicatedNetworkInterfaceControllerNetworkInterfaceController",
+    "DedicatedNetworkInterfaceControllerNetworkInterfaceControllerLinkTypeEnum",
     "DedicatedSecondaryDNSDomainSecondaryDNS",
     "DedicatedSecondaryDNSDomainSecondaryDNSWritable",
     "DedicatedServerAccess",
     "DedicatedServerAccessTypeEnum",
+    "DedicatedServerAvailabilityByRegion",
+    "DedicatedServerAvailabilityEnum",
+    "DedicatedServerAvailabilityRegionalizationEnum",
+    "DedicatedServerAvailabilityZones",
+    "DedicatedServerAvailabilityZonesEnum",
+    "DedicatedServerBackupCloud",
     "DedicatedServerBackupFtp",
     "DedicatedServerBackupFtpACL",
     "DedicatedServerBackupFtpACLWritable",
@@ -72,6 +100,10 @@ __all__ = [
     "DedicatedServerBandwidthvRackOrderEnum",
     "DedicatedServerBandwidthvRackOrderable",
     "DedicatedServerBandwidthvRackTypeEnum",
+    "DedicatedServerBiosSettingsSgxPrmrrEnum",
+    "DedicatedServerBiosSettingsSgxStatusEnum",
+    "DedicatedServerBiosSettingsSupport",
+    "DedicatedServerBiosSettingsSupportSgxOptions",
     "DedicatedServerBootModeEnum",
     "DedicatedServerBootOptionEnum",
     "DedicatedServerBootTypeEnum",
@@ -98,6 +130,7 @@ __all__ = [
     "DedicatedServerInstallationProgressStatus",
     "DedicatedServerInstallationProgressStatusEnum",
     "DedicatedServerInstallationProgressSteps",
+    "DedicatedServerInterfaces",
     "DedicatedServerIntervention",
     "DedicatedServerIPBlockSizeEnum",
     "DedicatedServerIPCountryEnum",
@@ -115,6 +148,9 @@ __all__ = [
     "DedicatedServerMrtgTypeEnum",
     "DedicatedServerNetboot",
     "DedicatedServerNetworkSpecifications",
+    "DedicatedServerNetworking",
+    "DedicatedServerNetworkingOperationEnum",
+    "DedicatedServerNetworkingTypeEnum",
     "DedicatedServerOlaAvailableModes",
     "DedicatedServerOlaDetails",
     "DedicatedServerOlaInterface",
@@ -124,7 +160,10 @@ __all__ = [
     "DedicatedServerOptionRequiredEnum",
     "DedicatedServerOptionStateEnum",
     "DedicatedServerOrderableSysFeatureEnum",
+    "DedicatedServerPlannedChange",
+    "DedicatedServerPlannedIntervention",
     "DedicatedServerPowerStateEnum",
+    "DedicatedServerRegionAvailability",
     "DedicatedServerReinstall",
     "DedicatedServerRoutingDetails",
     "DedicatedServerRoutingDetailsIPv4",
@@ -147,6 +186,15 @@ __all__ = [
     "DedicatedServerVirtualNetworkInterface",
     "DedicatedServerVmacDetails",
     "DedicatedServerVmacTypeEnum",
+    "DedicatedServerBackupBackupContainer",
+    "DedicatedServerBackupBackupOffer",
+    "DedicatedServerBackupBackupPassword",
+    "DedicatedServerBackupBackupProject",
+    "DedicatedServerBackupBackupQuota",
+    "DedicatedServerBackupBackupSftp",
+    "DedicatedServerBackupBackupStatus",
+    "DedicatedServerBackupBackupStatusCodeEnum",
+    "DedicatedServerBackupBackupSwift",
     "DedicatedServerKvm",
     "DedicatedServerNetbootOption",
     "DedicatedServerReinstallCustomizations",
@@ -170,6 +218,7 @@ __all__ = [
     "DedicatedServerTaskFunctionEnum",
     "DedicatedServerTaskResponse",
     "DedicatedServerTaskStatusEnum",
+    "DedicatedVirtualNetworkInterfaceVirtualNetworkInterface",
     "DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum",
     "DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceWritable",
     "IAMResourceMetadata",
@@ -183,6 +232,7 @@ __all__ = [
     "IPv6Block",
     "LicenseWindowsOsVersionEnum",
     "LicenseWindowsSQLVersionEnum",
+    "MacAddress",
     "SecondaryDNSSecondaryDNSCheckField",
     "SecondaryDNSSecondaryDNSNameServer",
     "ServiceRenewType",
@@ -197,6 +247,18 @@ __all__ = [
     "VrackDedicatedServer",
     "ZoneNamedResolutionFieldTypeEnum",
 ]
+
+
+class AggregationOlaRequest(_gen.BaseModel):
+    """The request body of POST /v1/dedicated/server/{serviceName}/ola/aggregation."""
+
+    name: str = _p.Field()
+    """Resulting VirtualNetworkInterface name"""
+
+    virtual_network_interfaces: list[str] = _p.Field(
+        validation_alias="virtualNetworkInterfaces", serialization_alias="virtualNetworkInterfaces"
+    )
+    """Interfaces to aggregate"""
 
 
 class ChangeContactRequest(_gen.BaseModel):
@@ -216,6 +278,20 @@ class ChangeContactRequest(_gen.BaseModel):
         default=None, validation_alias="contactTech", serialization_alias="contactTech"
     )
     """The contact to set as tech contact"""
+
+
+class ConfigureBiosSettingsSgxRequest(_gen.BaseModel):
+    """The request body of POST /v1/dedicated/server/{serviceName}/biosSettings/sgx/configure."""
+
+    prmrr: DedicatedServerBiosSettingsSgxPrmrrEnum | str | None = _p.Field(
+        default=None, union_mode="left_to_right"
+    )
+    """Size of the Processor Reserved Memory"""
+
+    status: DedicatedServerBiosSettingsSgxStatusEnum | str | None = _p.Field(
+        default=None, union_mode="left_to_right"
+    )
+    """Desired SGX status"""
 
 
 class ConfirmTerminationRequest(_gen.BaseModel):
@@ -239,6 +315,22 @@ class ConfirmTerminationRequest(_gen.BaseModel):
 
     token: str = _p.Field()
     """The termination token sent by email to the admin contact"""
+
+
+class CreateFeaturesBackupCloudRequest(_gen.BaseModel):
+    """The request body of POST /v1/dedicated/server/{serviceName}/features/backupCloud."""
+
+    cloud_project_id: str | None = _p.Field(
+        default=None, validation_alias="cloudProjectId", serialization_alias="cloudProjectId"
+    )
+    """cloud project id"""
+
+    project_description: str | None = _p.Field(
+        default=None,
+        validation_alias="projectDescription",
+        serialization_alias="projectDescription",
+    )
+    """Project description of the project to be created (ignored when an existing project is already specified)"""
 
 
 class CreateFeaturesBackupFTPAccessRequest(_gen.BaseModel):
@@ -285,6 +377,30 @@ class CreateFeaturesIpmiTestRequest(_gen.BaseModel):
 
     type: DedicatedServerIpmiTestTypeEnum | str = _p.Field(union_mode="left_to_right")
     """Test to make on KVM IPMI interface"""
+
+
+class CreateLogSubscription400Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class CreateLogSubscription503Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
 
 
 class CreateSecondaryDNSDomainsRequest(_gen.BaseModel):
@@ -433,6 +549,39 @@ class Reinstall501Response(_gen.BaseModel):
     """Error message"""
 
 
+class ResetOlaRequest(_gen.BaseModel):
+    """The request body of POST /v1/dedicated/server/{serviceName}/ola/reset."""
+
+    virtual_network_interface: str = _p.Field(
+        validation_alias="virtualNetworkInterface", serialization_alias="virtualNetworkInterface"
+    )
+    """Interface to reset"""
+
+
+class URLLog400Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class URLLog503Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
 class UngroupOlaRequest(_gen.BaseModel):
     """The request body of POST /v1/dedicated/server/{serviceName}/ola/ungroup."""
 
@@ -482,6 +631,185 @@ class ComplexTypeUnitAndValueString(_gen.BaseModel):
     unit: str | None = _p.Field(default=None)
 
     value: str | None = _p.Field(default=None)
+
+
+class DbaasLogsLogKind(_gen.BaseModel):
+    """A kind of log a service can emit, which you can subscribe to and forward into a stream"""
+
+    additional_returned_fields: list[str] | None = _p.Field(
+        default=None,
+        validation_alias="additionalReturnedFields",
+        serialization_alias="additionalReturnedFields",
+    )
+    """List of additional log fields managed in this log kind
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Creation date of the log kind
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Log kind display name
+
+    Read-only: the API sets it.
+    """
+
+    kind_id: str | None = _p.Field(
+        default=None, validation_alias="kindId", serialization_alias="kindId"
+    )
+    """Identifier of the log kind
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Log kind name
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last update date of the log kind
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogSubscription(_gen.BaseModel):
+    """A live forwarding of one kind of log from a service into a Logs Data Platform stream"""
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Creation date of the subscription
+
+    Read-only: the API sets it.
+    """
+
+    kind: str | None = _p.Field(default=None)
+    """Log kind name of this subscription
+
+    Read-only: the API sets it.
+    """
+
+    resource: DbaasLogsLogSubscriptionResource | None = _p.Field(default=None)
+    """Subscribed resource, where the logs come from
+
+    Read-only: the API sets it.
+    """
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """Name of the destination log service
+
+    Read-only: the API sets it.
+    """
+
+    stream_id: str | None = _p.Field(
+        default=None, validation_alias="streamId", serialization_alias="streamId"
+    )
+    """Identifier of the destination log stream
+
+    Read-only: the API sets it.
+    """
+
+    subscription_id: str | None = _p.Field(
+        default=None, validation_alias="subscriptionId", serialization_alias="subscriptionId"
+    )
+    """Unique identifier of the subscription, used to change or stop the forwarding
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last update date of the subscription
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogSubscriptionCreation(_gen.BaseModel):
+    """Log subscription creation payload"""
+
+    kind: str = _p.Field()
+    """Log kind name to subscribe to"""
+
+    stream_id: str = _p.Field(validation_alias="streamId", serialization_alias="streamId")
+    """Identifier of the customer log stream"""
+
+
+class DbaasLogsLogSubscriptionResource(_gen.BaseModel):
+    """The service a log subscription collects its logs from"""
+
+    name: str | None = _p.Field(default=None)
+    """Name of subscribed resource
+
+    Read-only: the API sets it.
+    """
+
+    type: str | None = _p.Field(default=None)
+    """Type of subscribed resource
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogSubscriptionResponse(_gen.BaseModel):
+    """Asynchronous operation after subscribing or unsubscribing to a resource logs"""
+
+    operation_id: str | None = _p.Field(
+        default=None, validation_alias="operationId", serialization_alias="operationId"
+    )
+    """Identifier of the operation
+
+    Read-only: the API sets it.
+    """
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """Operation owner's service name
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogURLCreation(_gen.BaseModel):
+    """Log temporary URL creation payload"""
+
+    kind: str = _p.Field()
+    """Log kind name"""
+
+
+class DbaasLogsTemporaryLogsLink(_gen.BaseModel):
+    """Temporary url information"""
+
+    expiration_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="expirationDate", serialization_alias="expirationDate"
+    )
+    """Temporary url expiration date
+
+    Read-only: the API sets it.
+    """
+
+    url: str | None = _p.Field(default=None)
+    """Temporary url
+
+    Read-only: the API sets it.
+    """
 
 
 class DedicatedAvailabilityDatacenter(_gen.BaseModel):
@@ -701,6 +1029,46 @@ class DedicatedDatacenterEnum(_gen.OpenStrEnum):
     YYZ01 = "yyz01"
 
 
+class DedicatedPlannedChangeStatusEnum(_gen.OpenStrEnum):
+    """Change status
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACKNOWLEDGED = "acknowledged"
+    ASSESS = "assess"
+    AUTHORIZE = "authorize"
+    CANCELED = "canceled"
+    CLOSED = "closed"
+    DOING = "doing"
+    DONE = "done"
+    IMPLEMENT = "implement"
+    NEW = "new"
+    REVIEW = "review"
+    SCHEDULED = "scheduled"
+    TODO = "todo"
+
+
+class DedicatedPlannedInterventionStatusEnum(_gen.OpenStrEnum):
+    """Intervention status
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DOING = "doing"
+    DONE = "done"
+    TODO = "todo"
+
+
+class DedicatedPlannedInterventionTypeEnum(_gen.OpenStrEnum):
+    """Intervention type
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    HARDWARE_UPGRADE_ON_ACTIVE_SERVER = "HARDWARE_UPGRADE_ON_ACTIVE_SERVER"
+
+
 class DedicatedPublicLog(_gen.BaseModel):
     """List of logs"""
 
@@ -803,6 +1171,77 @@ class DedicatedTaskStatusEnum(_gen.OpenStrEnum):
     TODO = "todo"
 
 
+class DedicatedBiosSettingsBiosSettings(_gen.BaseModel):
+    """Your BiosSettings"""
+
+    supported_settings: DedicatedServerBiosSettingsSupport | None = _p.Field(
+        default=None, validation_alias="supportedSettings", serialization_alias="supportedSettings"
+    )
+    """List supported setting
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedBiosSettingsSgxBiosSettingsSgx(_gen.BaseModel):
+    """Your BiosSettings for SGX feature"""
+
+    prmrr: DedicatedServerBiosSettingsSgxPrmrrEnum | None = _p.Field(default=None)
+    """Settings sections
+
+    Read-only: the API sets it.
+    """
+
+    status: DedicatedServerBiosSettingsSgxStatusEnum | None = _p.Field(default=None)
+    """Settings sections
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedNetworkInterfaceControllerNetworkInterfaceController(_gen.BaseModel):
+    """Your networkInterfaceController"""
+
+    link_type: DedicatedNetworkInterfaceControllerNetworkInterfaceControllerLinkTypeEnum | None = (
+        _p.Field(default=None, validation_alias="linkType", serialization_alias="linkType")
+    )
+    """NetworkInterfaceController linkType
+
+    Read-only: the API sets it.
+    """
+
+    mac: MacAddress | None = _p.Field(default=None)
+    """NetworkInterfaceController mac
+
+    Read-only: the API sets it.
+    """
+
+    virtual_network_interface: str | None = _p.Field(
+        default=None,
+        validation_alias="virtualNetworkInterface",
+        serialization_alias="virtualNetworkInterface",
+    )
+    """VirtualNetworkInterface bound to this NetworkInterfaceController
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedNetworkInterfaceControllerNetworkInterfaceControllerLinkTypeEnum(_gen.OpenStrEnum):
+    """List NetworkInterfaceController linktype
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ISOLATED = "isolated"
+    PRIVATE = "private"
+    PRIVATE_LAG = "private_lag"
+    PROVISIONING = "provisioning"
+    PROVISIONING_LAG = "provisioning_lag"
+    PUBLIC = "public"
+    PUBLIC_LAG = "public_lag"
+
+
 class DedicatedSecondaryDNSDomainSecondaryDNS(_gen.BaseModel):
     """Secondary DNS infos"""
 
@@ -875,6 +1314,151 @@ class DedicatedServerAccessTypeEnum(_gen.OpenStrEnum):
     SQL_SERVER = "SQL_SERVER"
     SSH = "SSH"
     WEB_PANEL = "WEB_PANEL"
+
+
+class DedicatedServerAvailabilityByRegion(_gen.BaseModel):
+    """A structure describing the hardware availability for each region"""
+
+    availability: DedicatedServerAvailabilityEnum | None = _p.Field(default=None)
+    """The availability
+
+    Read-only: the API sets it.
+    """
+
+    availability_zones: list[DedicatedServerAvailabilityZones] | None = _p.Field(
+        default=None, validation_alias="availabilityZones", serialization_alias="availabilityZones"
+    )
+    """Availability zones
+
+    Read-only: the API sets it.
+    """
+
+    region: DedicatedServerAvailabilityRegionalizationEnum | None = _p.Field(default=None)
+    """The region
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedServerAvailabilityEnum(_gen.OpenStrEnum):
+    """The availability
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    VALUE_120_H = "120H"
+    VALUE_1440_H = "1440H"
+    VALUE_1_H_HIGH = "1H-high"
+    VALUE_1_H_LOW = "1H-low"
+    VALUE_2160_H = "2160H"
+    VALUE_240_H = "240H"
+    VALUE_24_H = "24H"
+    VALUE_480_H = "480H"
+    VALUE_720_H = "720H"
+    VALUE_72_H = "72H"
+    COMING_SOON = "comingSoon"
+    UNAVAILABLE = "unavailable"
+    UNKNOWN = "unknown"
+
+
+class DedicatedServerAvailabilityRegionalizationEnum(_gen.OpenStrEnum):
+    """The region
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AP_SOUTH_1 = "ap-south-1"
+    AP_SOUTHEAST_SGP = "ap-southeast-sgp"
+    AP_SOUTHEAST_SYD = "ap-southeast-syd"
+    CA_EAST_1 = "ca-east-1"
+    CA_EAST_BHS = "ca-east-bhs"
+    EU_CENTRAL_WAW = "eu-central-waw"
+    EU_WEST_ERI = "eu-west-eri"
+    EU_WEST_GRA = "eu-west-gra"
+    EU_WEST_LIM = "eu-west-lim"
+    EU_WEST_PAR = "eu-west-par"
+    EU_WEST_RBX = "eu-west-rbx"
+    EU_WEST_SBG = "eu-west-sbg"
+    US_EAST_VIN = "us-east-vin"
+    US_WEST_HIL = "us-west-hil"
+
+
+class DedicatedServerAvailabilityZones(_gen.BaseModel):
+    """A structure describing the hardware availability for each availability zone"""
+
+    availability: DedicatedServerAvailabilityEnum | None = _p.Field(default=None)
+    """The availability
+
+    Read-only: the API sets it.
+    """
+
+    availability_zone: DedicatedServerAvailabilityZonesEnum | None = _p.Field(
+        default=None, validation_alias="availabilityZone", serialization_alias="availabilityZone"
+    )
+    """The availability zone
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedServerAvailabilityZonesEnum(_gen.OpenStrEnum):
+    """The availability zone
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AP_SOUTH_1_A = "ap-south-1-a"
+    AP_SOUTH_MUM_A = "ap-south-mum-a"
+    AP_SOUTHEAST_SGP_A = "ap-southeast-sgp-a"
+    AP_SOUTHEAST_SYD_A = "ap-southeast-syd-a"
+    CA_EAST_1_A = "ca-east-1-a"
+    CA_EAST_BHS_A = "ca-east-bhs-a"
+    CA_EAST_TOR_A = "ca-east-tor-a"
+    EU_CENTRAL_WAW_A = "eu-central-waw-a"
+    EU_SOUTH_MIL_A = "eu-south-mil-a"
+    EU_SOUTH_MIL_B = "eu-south-mil-b"
+    EU_SOUTH_MIL_C = "eu-south-mil-c"
+    EU_WEST_1_A = "eu-west-1-a"
+    EU_WEST_1_B = "eu-west-1-b"
+    EU_WEST_1_C = "eu-west-1-c"
+    EU_WEST_ERI_A = "eu-west-eri-a"
+    EU_WEST_GRA_A = "eu-west-gra-a"
+    EU_WEST_LIM_A = "eu-west-lim-a"
+    EU_WEST_PAR_A = "eu-west-par-a"
+    EU_WEST_PAR_B = "eu-west-par-b"
+    EU_WEST_PAR_C = "eu-west-par-c"
+    EU_WEST_RBX_A = "eu-west-rbx-a"
+    EU_WEST_SBG_A = "eu-west-sbg-a"
+    US_EAST_VIN_A = "us-east-vin-a"
+    US_WEST_HIL_A = "us-west-hil-a"
+
+
+class DedicatedServerBackupCloud(_gen.BaseModel):
+    """Backup Cloud assigned to this server"""
+
+    agreements: list[int] | None = _p.Field(default=None)
+    """Agreement ids waiting for validation
+
+    Read-only: the API sets it.
+    """
+
+    archive: DedicatedServerBackupBackupContainer | None = _p.Field(default=None)
+    """Archive space info.
+
+    Read-only: the API sets it.
+    """
+
+    status: DedicatedServerBackupBackupStatus | None = _p.Field(default=None)
+    """Status of the container.
+
+    Read-only: the API sets it.
+    """
+
+    storage: DedicatedServerBackupBackupContainer | None = _p.Field(default=None)
+    """Storage space info.
+
+    Read-only: the API sets it.
+    """
 
 
 class DedicatedServerBackupFtp(_gen.BaseModel):
@@ -1106,6 +1690,59 @@ class DedicatedServerBandwidthvRackTypeEnum(_gen.OpenStrEnum):
 
     INCLUDED = "included"
     STANDARD = "standard"
+
+
+class DedicatedServerBiosSettingsSgxPrmrrEnum(_gen.OpenStrEnum):
+    """SGX PRMRR value enum
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    VALUE_128 = "128"
+    VALUE_131072 = "131072"
+    VALUE_16384 = "16384"
+    VALUE_2048 = "2048"
+    VALUE_256 = "256"
+    VALUE_32 = "32"
+    VALUE_32768 = "32768"
+    VALUE_4096 = "4096"
+    VALUE_512 = "512"
+    VALUE_64 = "64"
+    VALUE_65536 = "65536"
+    VALUE_8192 = "8192"
+
+
+class DedicatedServerBiosSettingsSgxStatusEnum(_gen.OpenStrEnum):
+    """SGX Status enum
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DISABLED = "disabled"
+    ENABLED = "enabled"
+    SOFTWARE_CONTROLLED = "software controlled"
+
+
+class DedicatedServerBiosSettingsSupport(_gen.BaseModel):
+    """A structure describing supported bios settings"""
+
+    sgx: bool | None = _p.Field(default=None)
+    """SGX feature support"""
+
+    sgx_options: DedicatedServerBiosSettingsSupportSgxOptions | None = _p.Field(
+        default=None, validation_alias="sgxOptions", serialization_alias="sgxOptions"
+    )
+    """Supported SGX options"""
+
+
+class DedicatedServerBiosSettingsSupportSgxOptions(_gen.BaseModel):
+    """A structure describing supported SGX options values"""
+
+    prmrr: list[DedicatedServerBiosSettingsSgxPrmrrEnum] | None = _p.Field(default=None)
+    """Supported SGX prmrr values"""
+
+    status: list[DedicatedServerBiosSettingsSgxStatusEnum] | None = _p.Field(default=None)
+    """Supported SGX statuses"""
 
 
 class DedicatedServerBootModeEnum(_gen.OpenStrEnum):
@@ -1723,6 +2360,23 @@ class DedicatedServerInstallationProgressSteps(_gen.BaseModel):
     """Status of this installation step"""
 
 
+class DedicatedServerInterfaces(_gen.BaseModel):
+    """Interface or interfaces aggregation"""
+
+    aggregation_fallback: MacAddress | None = _p.Field(
+        default=None,
+        validation_alias="aggregationFallback",
+        serialization_alias="aggregationFallback",
+    )
+    """Mac address of the LACP fallback interface"""
+
+    macs: list[MacAddress] | None = _p.Field(default=None)
+    """Mac address or list of mac addresses"""
+
+    type: DedicatedServerNetworkingTypeEnum | None = _p.Field(default=None)
+    """Network type"""
+
+
 class DedicatedServerIntervention(_gen.BaseModel):
     """Intervention made on this server"""
 
@@ -2020,6 +2674,48 @@ class DedicatedServerNetworkSpecifications(_gen.BaseModel):
     """vRack details"""
 
 
+class DedicatedServerNetworking(_gen.BaseModel):
+    """Network configuration"""
+
+    description: str | None = _p.Field(default=None)
+    """Operation description
+
+    Read-only: the API sets it.
+    """
+
+    interfaces: list[DedicatedServerInterfaces] | None = _p.Field(default=None)
+    """Interface or interfaces aggregation
+
+    Read-only: the API sets it.
+    """
+
+    status: DedicatedServerNetworkingOperationEnum | None = _p.Field(default=None)
+    """Operation status
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedServerNetworkingOperationEnum(_gen.OpenStrEnum):
+    """Network operation states
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACTIVE = "active"
+    DEPLOYING = "deploying"
+
+
+class DedicatedServerNetworkingTypeEnum(_gen.OpenStrEnum):
+    """Network type
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    PUBLIC = "public"
+    VRACK = "vrack"
+
+
 class DedicatedServerOlaAvailableModes(_gen.BaseModel):
     """A structure describing OVH Link Aggregation available modes"""
 
@@ -2139,6 +2835,82 @@ class DedicatedServerOrderableSysFeatureEnum(_gen.OpenStrEnum):
     MONITORING = "monitoring"
 
 
+class DedicatedServerPlannedChange(_gen.BaseModel):
+    """Planned change on the server"""
+
+    expected_end_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="expectedEndDate", serialization_alias="expectedEndDate"
+    )
+    """Expected end date for this change
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """UUID of the change
+
+    Read-only: the API sets it.
+    """
+
+    status: DedicatedPlannedChangeStatusEnum | None = _p.Field(default=None)
+    """Status of the change
+
+    Read-only: the API sets it.
+    """
+
+    type: DedicatedPlannedInterventionTypeEnum | None = _p.Field(default=None)
+    """Operation purpose
+
+    Read-only: the API sets it.
+    """
+
+    wanted_start_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="wantedStartDate", serialization_alias="wantedStartDate"
+    )
+    """Wanted start date for this change
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedServerPlannedIntervention(_gen.BaseModel):
+    """Planned intervention on the server"""
+
+    expected_end_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="expectedEndDate", serialization_alias="expectedEndDate"
+    )
+    """Expected end date for this intervention
+
+    Read-only: the API sets it.
+    """
+
+    id: int | None = _p.Field(default=None)
+    """ID of the intervention
+
+    Read-only: the API sets it.
+    """
+
+    status: DedicatedPlannedInterventionStatusEnum | None = _p.Field(default=None)
+    """Status of the intervention
+
+    Read-only: the API sets it.
+    """
+
+    type: DedicatedPlannedInterventionTypeEnum | None = _p.Field(default=None)
+    """Operation purpose
+
+    Read-only: the API sets it.
+    """
+
+    wanted_start_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="wantedStartDate", serialization_alias="wantedStartDate"
+    )
+    """Wanted start date for this intervention
+
+    Read-only: the API sets it.
+    """
+
+
 class DedicatedServerPowerStateEnum(_gen.OpenStrEnum):
     """Power states of a Dedicated
 
@@ -2147,6 +2919,62 @@ class DedicatedServerPowerStateEnum(_gen.OpenStrEnum):
 
     POWEROFF = "poweroff"
     POWERON = "poweron"
+
+
+class DedicatedServerRegionAvailability(_gen.BaseModel):
+    """A structure describing the availabilities of dedicated server"""
+
+    fqn: str | None = _p.Field(default=None)
+    """Fully qualified and unique name of the hardware
+
+    Read-only: the API sets it.
+    """
+
+    gpu: str | None = _p.Field(default=None)
+    """Name of the gpu hardware part
+
+    Read-only: the API sets it.
+    """
+
+    memory: str | None = _p.Field(default=None)
+    """Name of the memory hardware part
+
+    Read-only: the API sets it.
+    """
+
+    plan_code: str | None = _p.Field(
+        default=None, validation_alias="planCode", serialization_alias="planCode"
+    )
+    """Plan code in which the hardware is involved
+
+    Read-only: the API sets it.
+    """
+
+    regions: list[DedicatedServerAvailabilityByRegion] | None = _p.Field(default=None)
+    """The hardware availability for each region
+
+    Read-only: the API sets it.
+    """
+
+    server: str | None = _p.Field(default=None)
+    """Name of the base hardware
+
+    Read-only: the API sets it.
+    """
+
+    storage: str | None = _p.Field(default=None)
+    """Name of the storage hardware part
+
+    Read-only: the API sets it.
+    """
+
+    system_storage: str | None = _p.Field(
+        default=None, validation_alias="systemStorage", serialization_alias="systemStorage"
+    )
+    """Name of the system storage hardware part
+
+    Read-only: the API sets it.
+    """
 
 
 class DedicatedServerReinstall(_gen.BaseModel):
@@ -2582,6 +3410,174 @@ class DedicatedServerVmacTypeEnum(_gen.OpenStrEnum):
 
     OVH = "ovh"
     VMWARE = "vmware"
+
+
+class DedicatedServerBackupBackupContainer(_gen.BaseModel):
+    """A structure describing informations about the backup cloud feature"""
+
+    cloud_project: DedicatedServerBackupBackupProject | None = _p.Field(
+        default=None, validation_alias="cloudProject", serialization_alias="cloudProject"
+    )
+    """/cloud project which the container belongs to."""
+
+    id: str | None = _p.Field(default=None)
+    """Container id (can also be used to retrieve the resource in the /cloud api)."""
+
+    name: str | None = _p.Field(default=None)
+    """Container name."""
+
+    quota: DedicatedServerBackupBackupQuota | None = _p.Field(default=None)
+    """Quota on the current container"""
+
+    region: str | None = _p.Field(default=None)
+    """The cloud region which the container belongs to."""
+
+    sftp: DedicatedServerBackupBackupSftp | None = _p.Field(default=None)
+    """Sftp connection info"""
+
+    swift: DedicatedServerBackupBackupSwift | None = _p.Field(default=None)
+    """Swift related information to reach the container"""
+
+
+class DedicatedServerBackupBackupOffer(_gen.BaseModel):
+    """Backup cloud offer description for a dedicated server"""
+
+    max_archive: ComplexTypeUnitAndValueLong | None = _p.Field(
+        default=None, validation_alias="maxArchive", serialization_alias="maxArchive"
+    )
+    """Archive container max size."""
+
+    max_bandwidth_archive: ComplexTypeUnitAndValueLong | None = _p.Field(
+        default=None,
+        validation_alias="maxBandwidthArchive",
+        serialization_alias="maxBandwidthArchive",
+    )
+    """Archive volume r/w bandwidth limit: read/write volume offered per month on the container."""
+
+    max_bandwidth_storage: ComplexTypeUnitAndValueLong | None = _p.Field(
+        default=None,
+        validation_alias="maxBandwidthStorage",
+        serialization_alias="maxBandwidthStorage",
+    )
+    """Storage volume r/w bandwidth limit: read/write volume offered per month on the container."""
+
+    max_storage: ComplexTypeUnitAndValueLong | None = _p.Field(
+        default=None, validation_alias="maxStorage", serialization_alias="maxStorage"
+    )
+    """Storage container max size."""
+
+
+class DedicatedServerBackupBackupPassword(_gen.BaseModel):
+    """A structure describing regenerated passwords"""
+
+    sftp_archive: str | None = _p.Field(
+        default=None, validation_alias="sftpArchive", serialization_alias="sftpArchive"
+    )
+    """Password to reach the archive container through the sftp gw."""
+
+    sftp_storage: str | None = _p.Field(
+        default=None, validation_alias="sftpStorage", serialization_alias="sftpStorage"
+    )
+    """Password to reach the storage container through the sftp gw."""
+
+    swift_archive: str | None = _p.Field(
+        default=None, validation_alias="swiftArchive", serialization_alias="swiftArchive"
+    )
+    """Password to reach the archive container through swift."""
+
+    swift_storage: str | None = _p.Field(
+        default=None, validation_alias="swiftStorage", serialization_alias="swiftStorage"
+    )
+    """Password to reach the storage container through swift."""
+
+
+class DedicatedServerBackupBackupProject(_gen.BaseModel):
+    """Cloud project struct."""
+
+    description: str | None = _p.Field(default=None)
+    """Project description."""
+
+    project_id: str | None = _p.Field(
+        default=None, validation_alias="projectId", serialization_alias="projectId"
+    )
+    """Project id."""
+
+
+class DedicatedServerBackupBackupQuota(_gen.BaseModel):
+    """A structure describing quota associated to the current container"""
+
+    max_bandwidth: ComplexTypeUnitAndValueLong | None = _p.Field(
+        default=None, validation_alias="maxBandwidth", serialization_alias="maxBandwidth"
+    )
+    """Volume r/w bandwidth limit: read/write volume offered per month on the container."""
+
+    max_storage: ComplexTypeUnitAndValueLong | None = _p.Field(
+        default=None, validation_alias="maxStorage", serialization_alias="maxStorage"
+    )
+    """Container max size."""
+
+    storage_used: ComplexTypeUnitAndValueLong | None = _p.Field(
+        default=None, validation_alias="storageUsed", serialization_alias="storageUsed"
+    )
+    """Volume usage."""
+
+    usage_percent: float | None = _p.Field(
+        default=None, validation_alias="usagePercent", serialization_alias="usagePercent"
+    )
+    """Volume usage in percent"""
+
+
+class DedicatedServerBackupBackupSftp(_gen.BaseModel):
+    """A structure describing the SFTP access to a container"""
+
+    password: str | None = _p.Field(default=None)
+    """Sftp password."""
+
+    url: str | None = _p.Field(default=None)
+    """Url"""
+
+    username: str | None = _p.Field(default=None)
+    """Username"""
+
+
+class DedicatedServerBackupBackupStatus(_gen.BaseModel):
+    """A structure describing the status of your backup"""
+
+    code: DedicatedServerBackupBackupStatusCodeEnum | None = _p.Field(default=None)
+    """Status code"""
+
+    reason: str | None = _p.Field(default=None)
+    """Status code reason (when not ok)"""
+
+
+class DedicatedServerBackupBackupStatusCodeEnum(_gen.OpenStrEnum):
+    """Possible values for backup status code
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DELETING = "DELETING"
+    ERROR = "ERROR"
+    OK = "OK"
+    SUSPENDED = "SUSPENDED"
+    SUSPENDING = "SUSPENDING"
+    UNKNOWN = "UNKNOWN"
+    WAITING_AGREEMENTS_VALIDATION = "WAITING_AGREEMENTS_VALIDATION"
+
+
+class DedicatedServerBackupBackupSwift(_gen.BaseModel):
+    """A structure describing the information related to Openstack to reach the container."""
+
+    auth_url: str | None = _p.Field(
+        default=None, validation_alias="authUrl", serialization_alias="authUrl"
+    )
+    """Auth url."""
+
+    password: str | None = _p.Field(default=None)
+    """Openstack password."""
+
+    username: str | None = _p.Field(default=None)
+    """Openstack username to use swift."""
 
 
 class DedicatedServerKvm(_gen.BaseModel):
@@ -3096,6 +4092,62 @@ class DedicatedServerTaskStatusEnum(_gen.OpenStrEnum):
     TODO = "todo"
 
 
+class DedicatedVirtualNetworkInterfaceVirtualNetworkInterface(_gen.BaseModel):
+    """Your VirtualNetworkInterface"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """VirtualNetworkInterface activation state
+
+    Read-only: the API sets it.
+    """
+
+    mode: DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum | None = _p.Field(
+        default=None
+    )
+    """VirtualNetworkInterface mode"""
+
+    name: str | None = _p.Field(default=None)
+    """User defined VirtualNetworkInterface name"""
+
+    network_interface_controller: list[MacAddress] | None = _p.Field(
+        default=None,
+        validation_alias="networkInterfaceController",
+        serialization_alias="networkInterfaceController",
+    )
+    """NetworkInterfaceControllers bound to this VirtualNetworkInterface
+
+    Read-only: the API sets it.
+    """
+
+    server_name: str | None = _p.Field(
+        default=None, validation_alias="serverName", serialization_alias="serverName"
+    )
+    """Server bound to this VirtualNetworkInterface
+
+    Read-only: the API sets it.
+    """
+
+    uuid: str | None = _p.Field(default=None)
+    """VirtualNetworkInterface unique id
+
+    Read-only: the API sets it.
+    """
+
+    vrack: str | None = _p.Field(default=None)
+    """vRack name
+
+    Read-only: the API sets it.
+    """
+
+    def writable(self) -> DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceWritable:
+        """This object as a DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceWritable, the form a request body takes.
+
+        It has no read-only field, at any depth. Change what you need in it, then send it.
+        It is a deep copy: this object stays as it was.
+        """
+        return _gen.writable(self, DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceWritable)
+
+
 class DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum(_gen.OpenStrEnum):
     """Available VirtualNetworkInterface modes
 
@@ -3109,7 +4161,7 @@ class DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum(_gen.OpenS
 
 
 class DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceWritable(_gen.BaseModel):
-    """Your VirtualNetworkInterface. Without the read-only fields, which the API sets."""
+    """DedicatedVirtualNetworkInterfaceVirtualNetworkInterface without its read-only fields, which the API sets: the form a request body takes."""
 
     mode: DedicatedVirtualNetworkInterfaceVirtualNetworkInterfaceModeEnum | str | None = _p.Field(
         default=None, union_mode="left_to_right"
@@ -5081,3 +6133,6 @@ IPv6: t.TypeAlias = str
 
 IPv6Block: t.TypeAlias = str
 """IPv6 CIDR notation (e.g., 2001:41d0::/128)"""
+
+MacAddress: t.TypeAlias = str
+"""MAC address (e.g., 00:00:5e:00:53:01)"""

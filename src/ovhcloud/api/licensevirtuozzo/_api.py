@@ -41,7 +41,10 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_virtuozzos calls GET /v1/license/virtuozzo: List available services
+        """list_virtuozzos calls GET /v1/license/virtuozzo: List your Virtuozzo licenses
+
+        Returns the names of the Virtuozzo licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -59,6 +62,8 @@ class LicensevirtuozzoApi(_gen.SectionApi):
     ) -> list[models.LicenseVirtuozzoOrderConfiguration]:
         """list_orderable_versions calls GET /v1/license/virtuozzo/orderableVersions: Get the orderable Virtuozzo versions
 
+        Returns the versions that can be ordered for the given IP, grouped by service type.
+
         Args:
             ip: Your license Ip
 
@@ -71,7 +76,10 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         )
 
     def get_virtuozzo(self, service_name: str) -> models.LicenseVirtuozzoVirtuozzoWithIAM:
-        """get_virtuozzo calls GET /v1/license/virtuozzo/{serviceName}: Get this object properties
+        """get_virtuozzo calls GET /v1/license/virtuozzo/{serviceName}: Get a Virtuozzo license
+
+        Returns the license ID, version, status, IP address, container number and the product and
+        information keys.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -91,7 +99,7 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseVirtuozzoVirtuozzoWithIAM]:
-        """all_virtuozzos iterates over GET /v1/license/virtuozzo (List available services).
+        """all_virtuozzos iterates over GET /v1/license/virtuozzo (List your Virtuozzo licenses).
 
         It lists the IDs with list_virtuozzos, then gets each object with get_virtuozzo,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -112,7 +120,9 @@ class LicensevirtuozzoApi(_gen.SectionApi):
     def update_virtuozzo(
         self, service_name: str, body: models.LicenseVirtuozzoVirtuozzoWritable
     ) -> None:
-        """update_virtuozzo calls PUT /v1/license/virtuozzo/{serviceName}: Alter this object properties
+        """update_virtuozzo calls PUT /v1/license/virtuozzo/{serviceName}: Update a Virtuozzo license
+
+        Changes the settings that can be modified: the automatic deletion at expiration.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -130,7 +140,10 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         )
 
     def list_allowed_destination_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_allowed_destination_ips calls GET /v1/license/virtuozzo/{serviceName}/allowedDestinationIp: Returns an array of ips where the license can be moved to
+        """list_allowed_destination_ips calls GET /v1/license/virtuozzo/{serviceName}/allowedDestinationIp: List the IPs a Virtuozzo license can be moved to
+
+        Returns the IP blocks that can receive the license, so you can pick the destination of a
+        move.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -148,7 +161,9 @@ class LicensevirtuozzoApi(_gen.SectionApi):
     def get_can_license_be_moved_to(
         self, service_name: str, destination_ip: models.IPv4
     ) -> models.LicenseChangeIPStatus:
-        """get_can_license_be_moved_to calls GET /v1/license/virtuozzo/{serviceName}/canLicenseBeMovedTo: Will tell if the ip can accept the license
+        """get_can_license_be_moved_to calls GET /v1/license/virtuozzo/{serviceName}/canLicenseBeMovedTo: Check whether a Virtuozzo license can be moved to an IP
+
+        Returns whether the destination IP can receive the license, with the reason when it cannot.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -166,7 +181,9 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         )
 
     def change_ip(self, service_name: str, body: models.ChangeIPRequest) -> models.LicenseTask:
-        """change_ip calls POST /v1/license/virtuozzo/{serviceName}/changeIp: Move this license to another Ip
+        """change_ip calls POST /v1/license/virtuozzo/{serviceName}/changeIp: Move a Virtuozzo license to another IP
+
+        Starts the move of the license to the given IP and returns the task that performs it.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -212,7 +229,10 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         *,
         label: models.LicenseOptionLabel | str | None | NotGiven = NOT_GIVEN,
     ) -> list[models.LicenseOptionLabel]:
-        """list_options calls GET /v1/license/virtuozzo/{serviceName}/option: Options linked to this license
+        """list_options calls GET /v1/license/virtuozzo/{serviceName}/option: List the options of a Virtuozzo license
+
+        Returns the labels of the options attached to the license; get an option for its version,
+        quantity and expiration date.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -232,7 +252,10 @@ class LicensevirtuozzoApi(_gen.SectionApi):
     def get_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseOption:
-        """get_option calls GET /v1/license/virtuozzo/{serviceName}/option/{label}: Get this object properties
+        """get_option calls GET /v1/license/virtuozzo/{serviceName}/option/{label}: Get an option of a license
+
+        Returns the label, version, quantity, expiration date and whether the option can be
+        released.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -255,7 +278,7 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         *,
         label: models.LicenseOptionLabel | str | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseOption]:
-        """all_options iterates over GET /v1/license/virtuozzo/{serviceName}/option (Options linked to this license).
+        """all_options iterates over GET /v1/license/virtuozzo/{serviceName}/option (List the options of a Virtuozzo license).
 
         It lists the IDs with list_options, then gets each object with get_option,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -278,7 +301,9 @@ class LicensevirtuozzoApi(_gen.SectionApi):
     def delete_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseTask:
-        """delete_option calls DELETE /v1/license/virtuozzo/{serviceName}/option/{label}: release this Option
+        """delete_option calls DELETE /v1/license/virtuozzo/{serviceName}/option/{label}: Release an option from a license
+
+        Removes the option from the license and returns the task that performs the release.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -342,7 +367,10 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/virtuozzo/{serviceName}/tasks: tasks linked to this license
+        """list_tasks calls GET /v1/license/virtuozzo/{serviceName}/tasks: List the tasks of a Virtuozzo license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade, an option change or an IP change.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -364,7 +392,10 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         )
 
     def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/virtuozzo/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/virtuozzo/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -388,7 +419,7 @@ class LicensevirtuozzoApi(_gen.SectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.Iterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/virtuozzo/{serviceName}/tasks (tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/virtuozzo/{serviceName}/tasks (List the tasks of a Virtuozzo license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -450,7 +481,10 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> list[str]:
-        """list_virtuozzos calls GET /v1/license/virtuozzo: List available services
+        """list_virtuozzos calls GET /v1/license/virtuozzo: List your Virtuozzo licenses
+
+        Returns the names of the Virtuozzo licenses of the account; each name is the service name
+        used by the other calls.
 
         Args:
             iam_tags: Filter resources on IAM tags (optional)
@@ -468,6 +502,8 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
     ) -> list[models.LicenseVirtuozzoOrderConfiguration]:
         """list_orderable_versions calls GET /v1/license/virtuozzo/orderableVersions: Get the orderable Virtuozzo versions
 
+        Returns the versions that can be ordered for the given IP, grouped by service type.
+
         Args:
             ip: Your license Ip
 
@@ -480,7 +516,10 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         )
 
     async def get_virtuozzo(self, service_name: str) -> models.LicenseVirtuozzoVirtuozzoWithIAM:
-        """get_virtuozzo calls GET /v1/license/virtuozzo/{serviceName}: Get this object properties
+        """get_virtuozzo calls GET /v1/license/virtuozzo/{serviceName}: Get a Virtuozzo license
+
+        Returns the license ID, version, status, IP address, container number and the product and
+        information keys.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -500,7 +539,7 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         *,
         iam_tags: dict[str, list[models.IAMResourceTagFilter]] | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseVirtuozzoVirtuozzoWithIAM]:
-        """all_virtuozzos iterates over GET /v1/license/virtuozzo (List available services).
+        """all_virtuozzos iterates over GET /v1/license/virtuozzo (List your Virtuozzo licenses).
 
         It lists the IDs with list_virtuozzos, then gets each object with get_virtuozzo,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -521,7 +560,9 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
     async def update_virtuozzo(
         self, service_name: str, body: models.LicenseVirtuozzoVirtuozzoWritable
     ) -> None:
-        """update_virtuozzo calls PUT /v1/license/virtuozzo/{serviceName}: Alter this object properties
+        """update_virtuozzo calls PUT /v1/license/virtuozzo/{serviceName}: Update a Virtuozzo license
+
+        Changes the settings that can be modified: the automatic deletion at expiration.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -539,7 +580,10 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         )
 
     async def list_allowed_destination_ips(self, service_name: str) -> list[models.IPBlock]:
-        """list_allowed_destination_ips calls GET /v1/license/virtuozzo/{serviceName}/allowedDestinationIp: Returns an array of ips where the license can be moved to
+        """list_allowed_destination_ips calls GET /v1/license/virtuozzo/{serviceName}/allowedDestinationIp: List the IPs a Virtuozzo license can be moved to
+
+        Returns the IP blocks that can receive the license, so you can pick the destination of a
+        move.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -557,7 +601,9 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
     async def get_can_license_be_moved_to(
         self, service_name: str, destination_ip: models.IPv4
     ) -> models.LicenseChangeIPStatus:
-        """get_can_license_be_moved_to calls GET /v1/license/virtuozzo/{serviceName}/canLicenseBeMovedTo: Will tell if the ip can accept the license
+        """get_can_license_be_moved_to calls GET /v1/license/virtuozzo/{serviceName}/canLicenseBeMovedTo: Check whether a Virtuozzo license can be moved to an IP
+
+        Returns whether the destination IP can receive the license, with the reason when it cannot.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -577,7 +623,9 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
     async def change_ip(
         self, service_name: str, body: models.ChangeIPRequest
     ) -> models.LicenseTask:
-        """change_ip calls POST /v1/license/virtuozzo/{serviceName}/changeIp: Move this license to another Ip
+        """change_ip calls POST /v1/license/virtuozzo/{serviceName}/changeIp: Move a Virtuozzo license to another IP
+
+        Starts the move of the license to the given IP and returns the task that performs it.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -625,7 +673,10 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         *,
         label: models.LicenseOptionLabel | str | None | NotGiven = NOT_GIVEN,
     ) -> list[models.LicenseOptionLabel]:
-        """list_options calls GET /v1/license/virtuozzo/{serviceName}/option: Options linked to this license
+        """list_options calls GET /v1/license/virtuozzo/{serviceName}/option: List the options of a Virtuozzo license
+
+        Returns the labels of the options attached to the license; get an option for its version,
+        quantity and expiration date.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -645,7 +696,10 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
     async def get_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseOption:
-        """get_option calls GET /v1/license/virtuozzo/{serviceName}/option/{label}: Get this object properties
+        """get_option calls GET /v1/license/virtuozzo/{serviceName}/option/{label}: Get an option of a license
+
+        Returns the label, version, quantity, expiration date and whether the option can be
+        released.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -668,7 +722,7 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         *,
         label: models.LicenseOptionLabel | str | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseOption]:
-        """all_options iterates over GET /v1/license/virtuozzo/{serviceName}/option (Options linked to this license).
+        """all_options iterates over GET /v1/license/virtuozzo/{serviceName}/option (List the options of a Virtuozzo license).
 
         It lists the IDs with list_options, then gets each object with get_option,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -691,7 +745,9 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
     async def delete_option(
         self, service_name: str, label: models.LicenseOptionLabel | str
     ) -> models.LicenseTask:
-        """delete_option calls DELETE /v1/license/virtuozzo/{serviceName}/option/{label}: release this Option
+        """delete_option calls DELETE /v1/license/virtuozzo/{serviceName}/option/{label}: Release an option from a license
+
+        Removes the option from the license and returns the task that performs the release.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -757,7 +813,10 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> list[int]:
-        """list_tasks calls GET /v1/license/virtuozzo/{serviceName}/tasks: tasks linked to this license
+        """list_tasks calls GET /v1/license/virtuozzo/{serviceName}/tasks: List the tasks of a Virtuozzo license
+
+        Returns the IDs of the tasks linked to the license, each task records an action such as a
+        version upgrade, an option change or an IP change.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -779,7 +838,10 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         )
 
     async def get_tasks(self, service_name: str, task_id: int) -> models.LicenseTask:
-        """get_tasks calls GET /v1/license/virtuozzo/{serviceName}/tasks/{taskId}: Get this object properties
+        """get_tasks calls GET /v1/license/virtuozzo/{serviceName}/tasks/{taskId}: Get a license task
+
+        Returns the action, status, creation date, completion date and last update of a task linked
+        to a license.
 
         Args:
             service_name: The name of your Virtuozzo license
@@ -803,7 +865,7 @@ class AsyncLicensevirtuozzoApi(_gen.AsyncSectionApi):
         action: models.LicenseActionType | str | None | NotGiven = NOT_GIVEN,
         status: models.LicenseTaskStateEnum | str | None | NotGiven = NOT_GIVEN,
     ) -> t.AsyncIterator[models.LicenseTask]:
-        """all_tasks iterates over GET /v1/license/virtuozzo/{serviceName}/tasks (tasks linked to this license).
+        """all_tasks iterates over GET /v1/license/virtuozzo/{serviceName}/tasks (List the tasks of a Virtuozzo license).
 
         It lists the IDs with list_tasks, then gets each object with get_tasks,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other

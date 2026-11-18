@@ -21,23 +21,114 @@ import pydantic as _p
 from ..._core import _gen
 
 __all__ = [
+    "IAMResourceMetadata",
+    "IAMResourceMetadataStateEnum",
+    "IAMResourceTagFilter",
+    "IAMResourceTagFilterOperatorEnum",
     "LicenseOfficeCountryEnum",
+    "LicenseOfficeDomainNative",
+    "LicenseOfficeDomainStatusEnum",
     "LicenseOfficeLicenseEnum",
+    "LicenseOfficeOfficeCurrentStatisticsNative",
     "LicenseOfficeOfficeTaskNative",
+    "LicenseOfficeOfficeTenantNativeWithIAM",
+    "LicenseOfficeOfficeTenantNativeWritable",
     "LicenseOfficeOfficeTenantPostChangePassword",
     "LicenseOfficeOfficeUserNative",
     "LicenseOfficeOfficeUserNativeUpdate",
     "LicenseOfficePostUserNative",
+    "LicenseOfficeServiceStateEnum",
+    "LicenseOfficeServiceTypeEnum",
+    "LicenseOfficeStatisticsLineNative",
     "LicenseOfficeTaskStatusEnum",
     "LicenseOfficeUserStateEnum",
     "LicenseOfficePrepaidCountryEnum",
     "LicenseOfficePrepaidLicenseEnum",
+    "PhoneNumber",
     "ServiceRenewType",
     "ServiceRenewalTypeEnum",
     "ServiceStateEnum",
     "ServicesService",
     "ServicesServiceWritable",
 ]
+
+
+class IAMResourceMetadata(_gen.BaseModel):
+    """IAM resource metadata embedded in services models"""
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Resource display name
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the resource
+
+    Read-only: the API sets it.
+    """
+
+    state: IAMResourceMetadataStateEnum | None = _p.Field(default=None)
+    """Resource state
+
+    Read-only: the API sets it.
+    """
+
+    tags: dict[str, str] | None = _p.Field(default=None)
+    """Resource tags. Tags that were internally computed are prefixed with ovh:
+
+    Read-only: the API sets it.
+    """
+
+    urn: str | None = _p.Field(default=None)
+    """Unique resource name used in policies
+
+    Read-only: the API sets it.
+    """
+
+
+class IAMResourceMetadataStateEnum(_gen.OpenStrEnum):
+    """Resource state
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EXPIRED = "EXPIRED"
+    IN_CREATION = "IN_CREATION"
+    OK = "OK"
+    SUSPENDED = "SUSPENDED"
+
+
+class IAMResourceTagFilter(_gen.BaseModel):
+    """Resource tag filter"""
+
+    operator: IAMResourceTagFilterOperatorEnum | None = _p.Field(default=None)
+    """Operator to use in order to filter on the value (defaults to 'EQ')
+
+    Read-only: the API sets it.
+    """
+
+    value: str | None = _p.Field(default=None)
+    """Value to use in order to filter tags
+
+    Read-only: the API sets it.
+    """
+
+
+class IAMResourceTagFilterOperatorEnum(_gen.OpenStrEnum):
+    """Operator that can be used in order to filter resources tags
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EQ = "EQ"
+    EXISTS = "EXISTS"
+    ILIKE = "ILIKE"
+    LIKE = "LIKE"
+    NEQ = "NEQ"
+    NEXISTS = "NEXISTS"
 
 
 class LicenseOfficeCountryEnum(_gen.OpenStrEnum):
@@ -308,6 +399,42 @@ class LicenseOfficeCountryEnum(_gen.OpenStrEnum):
     ZW = "zw"
 
 
+class LicenseOfficeDomainNative(_gen.BaseModel):
+    """Office tenant"""
+
+    domain_name: str | None = _p.Field(
+        default=None, validation_alias="domainName", serialization_alias="domainName"
+    )
+    """Domain name
+
+    Read-only: the API sets it.
+    """
+
+    status: LicenseOfficeDomainStatusEnum | None = _p.Field(default=None)
+    """Domain status
+
+    Read-only: the API sets it.
+    """
+
+    txt_entry: str | None = _p.Field(
+        default=None, validation_alias="txtEntry", serialization_alias="txtEntry"
+    )
+    """Domain status
+
+    Read-only: the API sets it.
+    """
+
+
+class LicenseOfficeDomainStatusEnum(_gen.OpenStrEnum):
+    """Office tenant type
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    OK = "ok"
+    UNVERIFIED = "unverified"
+
+
 class LicenseOfficeLicenseEnum(_gen.OpenStrEnum):
     """Office tenant type
 
@@ -316,6 +443,22 @@ class LicenseOfficeLicenseEnum(_gen.OpenStrEnum):
 
     OFFICE_BUSINESS = "officeBusiness"
     OFFICE_PRO_PLUS = "officeProPlus"
+
+
+class LicenseOfficeOfficeCurrentStatisticsNative(_gen.BaseModel):
+    """Office Current Statisitics"""
+
+    date: datetime.date | None = _p.Field(default=None)
+    """Date of the statistics
+
+    Read-only: the API sets it.
+    """
+
+    lines: list[LicenseOfficeStatisticsLineNative] | None = _p.Field(default=None)
+    """List of lines associated to this statistics entity.
+
+    Read-only: the API sets it.
+    """
 
 
 class LicenseOfficeOfficeTaskNative(_gen.BaseModel):
@@ -354,6 +497,118 @@ class LicenseOfficeOfficeTaskNative(_gen.BaseModel):
 
     Read-only: the API sets it.
     """
+
+
+class LicenseOfficeOfficeTenantNativeWithIAM(_gen.BaseModel):
+    """Office tenant"""
+
+    address: str | None = _p.Field(default=None)
+    """Contact's address line"""
+
+    city: str | None = _p.Field(default=None)
+    """Contact's city"""
+
+    creation_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="creationDate", serialization_alias="creationDate"
+    )
+    """Creation date
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Tenant's display name"""
+
+    first_name: str | None = _p.Field(
+        default=None, validation_alias="firstName", serialization_alias="firstName"
+    )
+    """Contact's first name"""
+
+    iam: IAMResourceMetadata | None = _p.Field(default=None)
+    """IAM resource metadata
+
+    Read-only: the API sets it.
+    """
+
+    last_name: str | None = _p.Field(
+        default=None, validation_alias="lastName", serialization_alias="lastName"
+    )
+    """Contact's last name"""
+
+    mca_agreed: bool | None = _p.Field(
+        default=None, validation_alias="mcaAgreed", serialization_alias="mcaAgreed"
+    )
+    """MCA acceptance status"""
+
+    phone: PhoneNumber | None = _p.Field(default=None)
+    """Primary phone number"""
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """Internal service name
+
+    Read-only: the API sets it.
+    """
+
+    service_type: LicenseOfficeServiceTypeEnum | None = _p.Field(
+        default=None, validation_alias="serviceType", serialization_alias="serviceType"
+    )
+    """Tenant's service type
+
+    Read-only: the API sets it.
+    """
+
+    status: LicenseOfficeServiceStateEnum | None = _p.Field(default=None)
+    """Tenant's status
+
+    Read-only: the API sets it.
+    """
+
+    zip_code: str | None = _p.Field(
+        default=None, validation_alias="zipCode", serialization_alias="zipCode"
+    )
+    """Contact's zip code"""
+
+
+class LicenseOfficeOfficeTenantNativeWritable(_gen.BaseModel):
+    """Office tenant. Without the read-only fields, which the API sets."""
+
+    address: str | None = _p.Field(default=None)
+    """Contact's address line"""
+
+    city: str | None = _p.Field(default=None)
+    """Contact's city"""
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Tenant's display name"""
+
+    first_name: str | None = _p.Field(
+        default=None, validation_alias="firstName", serialization_alias="firstName"
+    )
+    """Contact's first name"""
+
+    last_name: str | None = _p.Field(
+        default=None, validation_alias="lastName", serialization_alias="lastName"
+    )
+    """Contact's last name"""
+
+    mca_agreed: bool | None = _p.Field(
+        default=None, validation_alias="mcaAgreed", serialization_alias="mcaAgreed"
+    )
+    """MCA acceptance status"""
+
+    phone: PhoneNumber | None = _p.Field(default=None)
+    """Primary phone number"""
+
+    zip_code: str | None = _p.Field(
+        default=None, validation_alias="zipCode", serialization_alias="zipCode"
+    )
+    """Contact's zip code"""
 
 
 class LicenseOfficeOfficeTenantPostChangePassword(_gen.BaseModel):
@@ -504,6 +759,58 @@ class LicenseOfficePostUserNative(_gen.BaseModel):
         default=None, validation_alias="usageLocation", serialization_alias="usageLocation"
     )
     """ISO 3166-1 alpha-2 country code where the user is using Office365 services"""
+
+
+class LicenseOfficeServiceStateEnum(_gen.OpenStrEnum):
+    """Office tenant state
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    CREATING = "creating"
+    IN_MAINTENANCE = "inMaintenance"
+    OK = "ok"
+    REOPENING = "reopening"
+    SUSPENDED = "suspended"
+    SUSPENDING = "suspending"
+
+
+class LicenseOfficeServiceTypeEnum(_gen.OpenStrEnum):
+    """Office tenant type
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    PAY_AS_YOU_GO = "payAsYouGo"
+    PREPAID = "prepaid"
+
+
+class LicenseOfficeStatisticsLineNative(_gen.BaseModel):
+    """License usage statistics line."""
+
+    end_of_day_count: int | None = _p.Field(
+        default=None, validation_alias="endOfDayCount", serialization_alias="endOfDayCount"
+    )
+    """Count of activated licenses at the end of the day.
+
+    Read-only: the API sets it.
+    """
+
+    licence_type: LicenseOfficeLicenseEnum | None = _p.Field(
+        default=None, validation_alias="licenceType", serialization_alias="licenceType"
+    )
+    """Type of the Office license.
+
+    Read-only: the API sets it.
+    """
+
+    peak_count: int | None = _p.Field(
+        default=None, validation_alias="peakCount", serialization_alias="peakCount"
+    )
+    """Maximum count of simultaneous activated licences.
+
+    Read-only: the API sets it.
+    """
 
 
 class LicenseOfficeTaskStatusEnum(_gen.OpenStrEnum):
@@ -948,3 +1255,7 @@ class ServicesServiceWritable(_gen.BaseModel):
 
     renew: ServiceRenewType | None = _p.Field(default=None)
     """Way of handling the renew"""
+
+
+PhoneNumber: t.TypeAlias = str
+"""Phone number"""

@@ -19,12 +19,52 @@ SECTION_KEY = "emailpro"
 #: The /v2 contract the section was generated from, sent as X-Schemas-Version.
 SCHEMAS_VERSION: str | None = None
 
+OP_LIST_PROS = Operation(
+    name="emailpro.list_pros",
+    method="GET",
+    path="/v1/email/pro",
+    summary="List Email Pro services",
+    iam_actions=("emailPro:apiovh:get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_PRO = Operation(
+    name="emailpro.get_pro",
+    method="GET",
+    path="/v1/email/pro/{service}",
+    summary="Get the Email Pro service",
+    iam_actions=("emailPro:apiovh:get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_UPDATE_PRO = Operation(
     name="emailpro.update_pro",
     method="PUT",
     path="/v1/email/pro/{service}",
     summary="Update the Email Pro service",
     iam_actions=("emailPro:apiovh:put",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_ACCOUNTS = Operation(
+    name="emailpro.list_accounts",
+    method="GET",
+    path="/v1/email/pro/{service}/account",
+    summary="List email accounts",
+    iam_actions=("emailPro:apiovh:account/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_ACCOUNT = Operation(
+    name="emailpro.get_account",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}",
+    summary="Get an email account",
+    iam_actions=("emailPro:apiovh:account/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -49,12 +89,32 @@ OP_DELETE_ACCOUNT = Operation(
     schemas_version=None,
 )
 
+OP_LIST_ACCOUNT_ALIAS = Operation(
+    name="emailpro.list_account_alias",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/alias",
+    summary="List account aliases",
+    iam_actions=("emailPro:apiovh:account/alias/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_CREATE_ACCOUNT_ALIAS = Operation(
     name="emailpro.create_account_alias",
     method="POST",
     path="/v1/email/pro/{service}/account/{email}/alias",
     summary="Create an account alias",
     iam_actions=("emailPro:apiovh:account/alias/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_ACCOUNT_ALIAS = Operation(
+    name="emailpro.get_account_alias",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/alias/{alias}",
+    summary="Get an account alias",
+    iam_actions=("emailPro:apiovh:account/alias/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -79,12 +139,32 @@ OP_CHANGE_PASSWORD_ACCOUNT = Operation(
     schemas_version=None,
 )
 
+OP_GET_ACCOUNT_DIAGNOSTICS = Operation(
+    name="emailpro.get_account_diagnostics",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/diagnostics",
+    summary="Get the account diagnosis",
+    iam_actions=("emailPro:apiovh:account/diagnostics/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_CREATE_ACCOUNT_DIAGNOSTICS = Operation(
     name="emailpro.create_account_diagnostics",
     method="POST",
     path="/v1/email/pro/{service}/account/{email}/diagnostics",
     summary="Run an account diagnosis",
     iam_actions=("emailPro:apiovh:account/diagnostics/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_ACCOUNT_FULL_ACCESS = Operation(
+    name="emailpro.list_account_full_access",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/fullAccess",
+    summary="List full access permissions",
+    iam_actions=("emailPro:apiovh:account/fullAccess/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -99,12 +179,32 @@ OP_CREATE_ACCOUNT_FULL_ACCESS = Operation(
     schemas_version=None,
 )
 
+OP_GET_ACCOUNT_FULL_ACCESS = Operation(
+    name="emailpro.get_account_full_access",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/fullAccess/{allowedAccountId}",
+    summary="Get a full access permission",
+    iam_actions=("emailPro:apiovh:account/fullAccess/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_DELETE_ACCOUNT_FULL_ACCESS = Operation(
     name="emailpro.delete_account_full_access",
     method="DELETE",
     path="/v1/email/pro/{service}/account/{email}/fullAccess/{allowedAccountId}",
     summary="Remove a full access permission",
     iam_actions=("emailPro:apiovh:account/fullAccess/revoke",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_ACCOUNT_SEND_AS = Operation(
+    name="emailpro.list_account_send_as",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/sendAs",
+    summary="List send as permissions",
+    iam_actions=("emailPro:apiovh:account/sendAs/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -119,12 +219,32 @@ OP_CREATE_ACCOUNT_SEND_AS = Operation(
     schemas_version=None,
 )
 
+OP_GET_ACCOUNT_SEND_AS = Operation(
+    name="emailpro.get_account_send_as",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/sendAs/{allowedAccountId}",
+    summary="Get a send as permission",
+    iam_actions=("emailPro:apiovh:account/sendAs/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_DELETE_ACCOUNT_SEND_AS = Operation(
     name="emailpro.delete_account_send_as",
     method="DELETE",
     path="/v1/email/pro/{service}/account/{email}/sendAs/{allowedAccountId}",
     summary="Remove a send as permission",
     iam_actions=("emailPro:apiovh:account/sendAs/revoke",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_ACCOUNT_SEND_ON_BEHALF_TOS = Operation(
+    name="emailpro.list_account_send_on_behalf_tos",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/sendOnBehalfTo",
+    summary="List send on behalf permissions",
+    iam_actions=("emailPro:apiovh:account/sendOnBehalfTo/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -139,12 +259,42 @@ OP_CREATE_ACCOUNT_SEND_ON_BEHALF_TO = Operation(
     schemas_version=None,
 )
 
+OP_GET_ACCOUNT_SEND_ON_BEHALF_TO = Operation(
+    name="emailpro.get_account_send_on_behalf_to",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/sendOnBehalfTo/{allowedAccountId}",
+    summary="Get a send on behalf permission",
+    iam_actions=("emailPro:apiovh:account/sendOnBehalfTo/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_DELETE_ACCOUNT_SEND_ON_BEHALF_TO = Operation(
     name="emailpro.delete_account_send_on_behalf_to",
     method="DELETE",
     path="/v1/email/pro/{service}/account/{email}/sendOnBehalfTo/{allowedAccountId}",
     summary="Remove a send on behalf permission",
     iam_actions=("emailPro:apiovh:account/sendOnBehalfTo/revoke",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_ACCOUNT_TASKS = Operation(
+    name="emailpro.list_account_tasks",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/tasks",
+    summary="List email account tasks",
+    iam_actions=("emailPro:apiovh:account/tasks/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_ACCOUNT_TASKS = Operation(
+    name="emailpro.get_account_tasks",
+    method="GET",
+    path="/v1/email/pro/{service}/account/{email}/tasks/{id}",
+    summary="Get a task",
+    iam_actions=("emailPro:apiovh:account/tasks/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -159,6 +309,26 @@ OP_TERMINATE_ACCOUNT = Operation(
     schemas_version=None,
 )
 
+OP_GET_BILLING_MIGRATED = Operation(
+    name="emailpro.get_billing_migrated",
+    method="GET",
+    path="/v1/email/pro/{service}/billingMigrated",
+    summary="Get the billing migration status",
+    iam_actions=("emailPro:apiovh:billingMigrated/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_BILLING_PLAN = Operation(
+    name="emailpro.get_billing_plan",
+    method="GET",
+    path="/v1/email/pro/{service}/billingPlan",
+    summary="Get the billing plan",
+    iam_actions=("emailPro:apiovh:billingPlan/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_CHANGE_CONTACT = Operation(
     name="emailpro.change_contact",
     method="POST",
@@ -169,12 +339,32 @@ OP_CHANGE_CONTACT = Operation(
     schemas_version=None,
 )
 
+OP_LIST_DOMAINS = Operation(
+    name="emailpro.list_domains",
+    method="GET",
+    path="/v1/email/pro/{service}/domain",
+    summary="List domains",
+    iam_actions=("emailPro:apiovh:domain/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_CREATE_DOMAIN = Operation(
     name="emailpro.create_domain",
     method="POST",
     path="/v1/email/pro/{service}/domain",
     summary="Add a domain",
     iam_actions=("emailPro:apiovh:domain/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_DOMAIN = Operation(
+    name="emailpro.get_domain",
+    method="GET",
+    path="/v1/email/pro/{service}/domain/{domainName}",
+    summary="Get a domain",
+    iam_actions=("emailPro:apiovh:domain/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -195,6 +385,16 @@ OP_DELETE_DOMAIN = Operation(
     path="/v1/email/pro/{service}/domain/{domainName}",
     summary="Remove a domain",
     iam_actions=("emailPro:apiovh:domain/delete",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_DOMAIN_DISCLAIMER = Operation(
+    name="emailpro.get_domain_disclaimer",
+    method="GET",
+    path="/v1/email/pro/{service}/domain/{domainName}/disclaimer",
+    summary="Get the disclaimer",
+    iam_actions=("emailPro:apiovh:domain/disclaimer/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -229,12 +429,42 @@ OP_DELETE_DOMAIN_DISCLAIMER = Operation(
     schemas_version=None,
 )
 
+OP_LIST_DOMAIN_DISCLAIMER_ATTRIBUTES = Operation(
+    name="emailpro.list_domain_disclaimer_attributes",
+    method="GET",
+    path="/v1/email/pro/{service}/domain/{domainName}/disclaimerAttribute",
+    summary="List disclaimer attributes",
+    iam_actions=("emailPro:apiovh:domain/disclaimerAttribute/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_DOMAIN_DKIMS = Operation(
+    name="emailpro.list_domain_dkims",
+    method="GET",
+    path="/v1/email/pro/{service}/domain/{domainName}/dkim",
+    summary="List DKIM selectors",
+    iam_actions=("emailPro:apiovh:domain/dkim/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_CREATE_DOMAIN_DKIM = Operation(
     name="emailpro.create_domain_dkim",
     method="POST",
     path="/v1/email/pro/{service}/domain/{domainName}/dkim",
     summary="Create a DKIM selector",
     iam_actions=("emailPro:apiovh:domain/dkim/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_DOMAIN_DKIM = Operation(
+    name="emailpro.get_domain_dkim",
+    method="GET",
+    path="/v1/email/pro/{service}/domain/{domainName}/dkim/{selectorName}",
+    summary="Get a DKIM selector",
+    iam_actions=("emailPro:apiovh:domain/dkim/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -279,12 +509,32 @@ OP_LIST_DOMAIN_DKIM_SELECTORS = Operation(
     schemas_version=None,
 )
 
+OP_LIST_EXTERNAL_CONTACTS = Operation(
+    name="emailpro.list_external_contacts",
+    method="GET",
+    path="/v1/email/pro/{service}/externalContact",
+    summary="List external contacts",
+    iam_actions=("emailPro:apiovh:externalContact/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_CREATE_EXTERNAL_CONTACT = Operation(
     name="emailpro.create_external_contact",
     method="POST",
     path="/v1/email/pro/{service}/externalContact",
     summary="Create an external contact",
     iam_actions=("emailPro:apiovh:externalContact/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_EXTERNAL_CONTACT = Operation(
+    name="emailpro.get_external_contact",
+    method="GET",
+    path="/v1/email/pro/{service}/externalContact/{externalEmailAddress}",
+    summary="Get an external contact",
+    iam_actions=("emailPro:apiovh:externalContact/get",),
     deprecated=False,
     schemas_version=None,
 )
@@ -309,6 +559,16 @@ OP_DELETE_EXTERNAL_CONTACT = Operation(
     schemas_version=None,
 )
 
+OP_GET_SERVER = Operation(
+    name="emailpro.get_server",
+    method="GET",
+    path="/v1/email/pro/{service}/server",
+    summary="Get the server",
+    iam_actions=("emailPro:apiovh:server/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_GET_SERVICE_INFOS = Operation(
     name="emailpro.get_service_infos",
     method="GET",
@@ -329,6 +589,26 @@ OP_UPDATE_SERVICE_INFOS = Operation(
     schemas_version=None,
 )
 
+OP_LIST_TASKS = Operation(
+    name="emailpro.list_tasks",
+    method="GET",
+    path="/v1/email/pro/{service}/task",
+    summary="List service tasks",
+    iam_actions=("emailPro:apiovh:task/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_TASK = Operation(
+    name="emailpro.get_task",
+    method="GET",
+    path="/v1/email/pro/{service}/task/{id}",
+    summary="Get a task",
+    iam_actions=("emailPro:apiovh:task/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_UPDATE_FLAGS_ON_ALL_ACCOUNTS = Operation(
     name="emailpro.update_flags_on_all_accounts",
     method="POST",
@@ -340,36 +620,64 @@ OP_UPDATE_FLAGS_ON_ALL_ACCOUNTS = Operation(
 )
 
 OPERATIONS: tuple[Operation, ...] = (
+    OP_LIST_PROS,
+    OP_GET_PRO,
     OP_UPDATE_PRO,
+    OP_LIST_ACCOUNTS,
+    OP_GET_ACCOUNT,
     OP_UPDATE_ACCOUNT,
     OP_DELETE_ACCOUNT,
+    OP_LIST_ACCOUNT_ALIAS,
     OP_CREATE_ACCOUNT_ALIAS,
+    OP_GET_ACCOUNT_ALIAS,
     OP_DELETE_ACCOUNT_ALIAS,
     OP_CHANGE_PASSWORD_ACCOUNT,
+    OP_GET_ACCOUNT_DIAGNOSTICS,
     OP_CREATE_ACCOUNT_DIAGNOSTICS,
+    OP_LIST_ACCOUNT_FULL_ACCESS,
     OP_CREATE_ACCOUNT_FULL_ACCESS,
+    OP_GET_ACCOUNT_FULL_ACCESS,
     OP_DELETE_ACCOUNT_FULL_ACCESS,
+    OP_LIST_ACCOUNT_SEND_AS,
     OP_CREATE_ACCOUNT_SEND_AS,
+    OP_GET_ACCOUNT_SEND_AS,
     OP_DELETE_ACCOUNT_SEND_AS,
+    OP_LIST_ACCOUNT_SEND_ON_BEHALF_TOS,
     OP_CREATE_ACCOUNT_SEND_ON_BEHALF_TO,
+    OP_GET_ACCOUNT_SEND_ON_BEHALF_TO,
     OP_DELETE_ACCOUNT_SEND_ON_BEHALF_TO,
+    OP_LIST_ACCOUNT_TASKS,
+    OP_GET_ACCOUNT_TASKS,
     OP_TERMINATE_ACCOUNT,
+    OP_GET_BILLING_MIGRATED,
+    OP_GET_BILLING_PLAN,
     OP_CHANGE_CONTACT,
+    OP_LIST_DOMAINS,
     OP_CREATE_DOMAIN,
+    OP_GET_DOMAIN,
     OP_UPDATE_DOMAIN,
     OP_DELETE_DOMAIN,
+    OP_GET_DOMAIN_DISCLAIMER,
     OP_CREATE_DOMAIN_DISCLAIMER,
     OP_UPDATE_DOMAIN_DISCLAIMER,
     OP_DELETE_DOMAIN_DISCLAIMER,
+    OP_LIST_DOMAIN_DISCLAIMER_ATTRIBUTES,
+    OP_LIST_DOMAIN_DKIMS,
     OP_CREATE_DOMAIN_DKIM,
+    OP_GET_DOMAIN_DKIM,
     OP_DELETE_DOMAIN_DKIM,
     OP_DISABLE_DOMAIN_DKIM,
     OP_ENABLE_DOMAIN_DKIM,
     OP_LIST_DOMAIN_DKIM_SELECTORS,
+    OP_LIST_EXTERNAL_CONTACTS,
     OP_CREATE_EXTERNAL_CONTACT,
+    OP_GET_EXTERNAL_CONTACT,
     OP_UPDATE_EXTERNAL_CONTACT,
     OP_DELETE_EXTERNAL_CONTACT,
+    OP_GET_SERVER,
     OP_GET_SERVICE_INFOS,
     OP_UPDATE_SERVICE_INFOS,
+    OP_LIST_TASKS,
+    OP_GET_TASK,
     OP_UPDATE_FLAGS_ON_ALL_ACCOUNTS,
 )

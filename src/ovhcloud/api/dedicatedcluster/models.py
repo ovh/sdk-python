@@ -21,11 +21,192 @@ import pydantic as _p
 from ..._core import _gen
 
 __all__ = [
+    "DedicatedClusterAvailabilitiesRaw",
+    "DedicatedClusterAvailabilitiesRawRegion",
+    "DedicatedClusterClusterWithIAM",
+    "DedicatedClusterNode",
     "DedicatedClusterRegionAvailability",
     "DedicatedClusterAvailability",
     "DedicatedServerAvailabilityEnum",
     "DedicatedServerAvailabilityRegionalizationEnum",
+    "IAMResourceMetadata",
+    "IAMResourceMetadataStateEnum",
+    "IAMResourceTagFilter",
+    "IAMResourceTagFilterOperatorEnum",
+    "ServiceRenewType",
+    "ServiceRenewalTypeEnum",
+    "ServiceStateEnum",
+    "ServiceTerminationFutureUseEnum",
+    "ServiceTerminationReasonEnum",
+    "ServicesService",
+    "ServicesServiceWritable",
+    "ServicesChangeContact",
+    "ServicesConfirmTermination",
 ]
+
+
+class DedicatedClusterAvailabilitiesRaw(_gen.BaseModel):
+    """Cluster availability"""
+
+    cluster_plan_code: str | None = _p.Field(
+        default=None, validation_alias="clusterPlanCode", serialization_alias="clusterPlanCode"
+    )
+    """Plan code in which the hardware is involved
+
+    Read-only: the API sets it.
+    """
+
+    fqn: str | None = _p.Field(default=None)
+    """Fully qualified name and unique name of the hardware
+
+    Read-only: the API sets it.
+    """
+
+    memory: str | None = _p.Field(default=None)
+    """Name of the memory hardware part
+
+    Read-only: the API sets it.
+    """
+
+    plan_code: str | None = _p.Field(
+        default=None, validation_alias="planCode", serialization_alias="planCode"
+    )
+    """Plan code in which the hardware is involved
+
+    Read-only: the API sets it.
+    """
+
+    regions: list[DedicatedClusterAvailabilitiesRawRegion] | None = _p.Field(default=None)
+    """A structure describing the hardware availability for each region
+
+    Read-only: the API sets it.
+    """
+
+    server: str | None = _p.Field(default=None)
+    """Name of the base hardware
+
+    Read-only: the API sets it.
+    """
+
+    storage: str | None = _p.Field(default=None)
+    """Name of the storage hardware part
+
+    Read-only: the API sets it.
+    """
+
+    system_storage: str | None = _p.Field(
+        default=None, validation_alias="systemStorage", serialization_alias="systemStorage"
+    )
+    """Name of the system storage hardware part
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedClusterAvailabilitiesRawRegion(_gen.BaseModel):
+    """A structure describing the hardware raw availability for each region"""
+
+    availability: DedicatedServerAvailabilityEnum | None = _p.Field(default=None)
+    """The availability
+
+    Read-only: the API sets it.
+    """
+
+    last_rule: str | None = _p.Field(
+        default=None, validation_alias="lastRule", serialization_alias="lastRule"
+    )
+    """Last availability rule applied
+
+    Read-only: the API sets it.
+    """
+
+    parent_available: int | None = _p.Field(
+        default=None, validation_alias="parentAvailable", serialization_alias="parentAvailable"
+    )
+    """Real stock including parent references
+
+    Read-only: the API sets it.
+    """
+
+    region: DedicatedServerAvailabilityEnum | None = _p.Field(default=None)
+    """The region code
+
+    Read-only: the API sets it.
+    """
+
+    true_available: int | None = _p.Field(
+        default=None, validation_alias="trueAvailable", serialization_alias="trueAvailable"
+    )
+    """Real stock
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedClusterClusterWithIAM(_gen.BaseModel):
+    """A structure describing the dedicated cluster"""
+
+    iam: IAMResourceMetadata | None = _p.Field(default=None)
+    """IAM resource metadata
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Cluster's ID
+
+    Read-only: the API sets it.
+    """
+
+    model: str | None = _p.Field(default=None)
+    """Model of the cluster
+
+    Read-only: the API sets it.
+    """
+
+    nodes: list[DedicatedClusterNode] | None = _p.Field(default=None)
+    """Cluster's nodes
+
+    Read-only: the API sets it.
+    """
+
+    region: str | None = _p.Field(default=None)
+    """Region where cluster is located
+
+    Read-only: the API sets it.
+    """
+
+    status: str | None = _p.Field(default=None)
+    """Cluster status
+
+    Read-only: the API sets it.
+    """
+
+
+class DedicatedClusterNode(_gen.BaseModel):
+    """A structure describing the nodes of the cluster"""
+
+    id: str | None = _p.Field(default=None)
+    """ID of the node
+
+    Read-only: the API sets it.
+    """
+
+    server_id: int | None = _p.Field(
+        default=None, validation_alias="serverId", serialization_alias="serverId"
+    )
+    """ID of the server
+
+    Read-only: the API sets it.
+    """
+
+    server_name: str | None = _p.Field(
+        default=None, validation_alias="serverName", serialization_alias="serverName"
+    )
+    """Name of the server
+
+    Read-only: the API sets it.
+    """
 
 
 class DedicatedClusterRegionAvailability(_gen.BaseModel):
@@ -143,3 +324,305 @@ class DedicatedServerAvailabilityRegionalizationEnum(_gen.OpenStrEnum):
     EU_WEST_SBG = "eu-west-sbg"
     US_EAST_VIN = "us-east-vin"
     US_WEST_HIL = "us-west-hil"
+
+
+class IAMResourceMetadata(_gen.BaseModel):
+    """IAM resource metadata embedded in services models"""
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Resource display name
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the resource
+
+    Read-only: the API sets it.
+    """
+
+    state: IAMResourceMetadataStateEnum | None = _p.Field(default=None)
+    """Resource state
+
+    Read-only: the API sets it.
+    """
+
+    tags: dict[str, str] | None = _p.Field(default=None)
+    """Resource tags. Tags that were internally computed are prefixed with ovh:
+
+    Read-only: the API sets it.
+    """
+
+    urn: str | None = _p.Field(default=None)
+    """Unique resource name used in policies
+
+    Read-only: the API sets it.
+    """
+
+
+class IAMResourceMetadataStateEnum(_gen.OpenStrEnum):
+    """Resource state
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EXPIRED = "EXPIRED"
+    IN_CREATION = "IN_CREATION"
+    OK = "OK"
+    SUSPENDED = "SUSPENDED"
+
+
+class IAMResourceTagFilter(_gen.BaseModel):
+    """Resource tag filter"""
+
+    operator: IAMResourceTagFilterOperatorEnum | None = _p.Field(default=None)
+    """Operator to use in order to filter on the value (defaults to 'EQ')
+
+    Read-only: the API sets it.
+    """
+
+    value: str | None = _p.Field(default=None)
+    """Value to use in order to filter tags
+
+    Read-only: the API sets it.
+    """
+
+
+class IAMResourceTagFilterOperatorEnum(_gen.OpenStrEnum):
+    """Operator that can be used in order to filter resources tags
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EQ = "EQ"
+    EXISTS = "EXISTS"
+    ILIKE = "ILIKE"
+    LIKE = "LIKE"
+    NEQ = "NEQ"
+    NEXISTS = "NEXISTS"
+
+
+class ServiceRenewType(_gen.BaseModel):
+    """Map a possible renew for a specific service"""
+
+    automatic: bool | None = _p.Field(default=None)
+    """The service is automatically renewed"""
+
+    delete_at_expiration: bool | None = _p.Field(
+        default=None,
+        validation_alias="deleteAtExpiration",
+        serialization_alias="deleteAtExpiration",
+    )
+    """The service will be deleted at expiration"""
+
+    forced: bool | None = _p.Field(default=None)
+    """The service forced to be renewed"""
+
+    manual_payment: bool | None = _p.Field(
+        default=None, validation_alias="manualPayment", serialization_alias="manualPayment"
+    )
+    """The service needs to be manually renewed and paid"""
+
+    period: int | None = _p.Field(default=None)
+    """period of renew in month"""
+
+
+class ServiceRenewalTypeEnum(_gen.OpenStrEnum):
+    """Detailed renewal type of a service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AUTOMATIC_FORCED_PRODUCT = "automaticForcedProduct"
+    AUTOMATIC_V2012 = "automaticV2012"
+    AUTOMATIC_V2014 = "automaticV2014"
+    AUTOMATIC_V2016 = "automaticV2016"
+    MANUAL = "manual"
+    ONE_SHOT = "oneShot"
+    OPTION = "option"
+
+
+class ServiceStateEnum(_gen.OpenStrEnum):
+    """service.StateEnum
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AUTORENEW_IN_PROGRESS = "autorenewInProgress"
+    EXPIRED = "expired"
+    IN_CREATION = "inCreation"
+    OK = "ok"
+    PENDING_DEBT = "pendingDebt"
+    UN_PAID = "unPaid"
+
+
+class ServiceTerminationFutureUseEnum(_gen.OpenStrEnum):
+    """All future uses you can provide for a service termination
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    NOT_REPLACING_SERVICE = "NOT_REPLACING_SERVICE"
+    OTHER = "OTHER"
+    SUBSCRIBE_AN_OTHER_SERVICE = "SUBSCRIBE_AN_OTHER_SERVICE"
+    SUBSCRIBE_OTHER_KIND_OF_SERVICE_WITH_COMPETITOR = (
+        "SUBSCRIBE_OTHER_KIND_OF_SERVICE_WITH_COMPETITOR"
+    )
+    SUBSCRIBE_SIMILAR_SERVICE_WITH_COMPETITOR = "SUBSCRIBE_SIMILAR_SERVICE_WITH_COMPETITOR"
+
+
+class ServiceTerminationReasonEnum(_gen.OpenStrEnum):
+    """All reasons you can provide for a service termination
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    FEATURES_DONT_SUIT_ME = "FEATURES_DONT_SUIT_ME"
+    LACK_OF_PERFORMANCES = "LACK_OF_PERFORMANCES"
+    MIGRATED_TO_ANOTHER_OVH_PRODUCT = "MIGRATED_TO_ANOTHER_OVH_PRODUCT"
+    MIGRATED_TO_COMPETITOR = "MIGRATED_TO_COMPETITOR"
+    NOT_ENOUGH_RECOGNITION = "NOT_ENOUGH_RECOGNITION"
+    NOT_NEEDED_ANYMORE = "NOT_NEEDED_ANYMORE"
+    NOT_RELIABLE = "NOT_RELIABLE"
+    NO_ANSWER = "NO_ANSWER"
+    OTHER = "OTHER"
+    PRODUCT_DIMENSION_DONT_SUIT_ME = "PRODUCT_DIMENSION_DONT_SUIT_ME"
+    PRODUCT_TOOLS_DONT_SUIT_ME = "PRODUCT_TOOLS_DONT_SUIT_ME"
+    TOO_EXPENSIVE = "TOO_EXPENSIVE"
+    TOO_HARD_TO_USE = "TOO_HARD_TO_USE"
+    UNSATIFIED_BY_CUSTOMER_SUPPORT = "UNSATIFIED_BY_CUSTOMER_SUPPORT"
+
+
+class ServicesService(_gen.BaseModel):
+    """Details about a Service"""
+
+    can_delete_at_expiration: bool | None = _p.Field(
+        default=None,
+        validation_alias="canDeleteAtExpiration",
+        serialization_alias="canDeleteAtExpiration",
+    )
+    """Indicates that the service can be set up to be deleted at expiration
+
+    Read-only: the API sets it.
+    """
+
+    contact_admin: str | None = _p.Field(
+        default=None, validation_alias="contactAdmin", serialization_alias="contactAdmin"
+    )
+    """Read-only: the API sets it."""
+
+    contact_billing: str | None = _p.Field(
+        default=None, validation_alias="contactBilling", serialization_alias="contactBilling"
+    )
+    """Read-only: the API sets it."""
+
+    contact_tech: str | None = _p.Field(
+        default=None, validation_alias="contactTech", serialization_alias="contactTech"
+    )
+    """Read-only: the API sets it."""
+
+    creation: datetime.date | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    domain: str | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    engaged_up_to: datetime.date | None = _p.Field(
+        default=None, validation_alias="engagedUpTo", serialization_alias="engagedUpTo"
+    )
+    """Read-only: the API sets it."""
+
+    expiration: datetime.date | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    possible_renew_period: list[int] | None = _p.Field(
+        default=None,
+        validation_alias="possibleRenewPeriod",
+        serialization_alias="possibleRenewPeriod",
+    )
+    """All the possible renew period of your service in month
+
+    Read-only: the API sets it.
+    """
+
+    renew: ServiceRenewType | None = _p.Field(default=None)
+    """Way of handling the renew"""
+
+    renewal_type: ServiceRenewalTypeEnum | None = _p.Field(
+        default=None, validation_alias="renewalType", serialization_alias="renewalType"
+    )
+    """Read-only: the API sets it."""
+
+    service_id: int | None = _p.Field(
+        default=None, validation_alias="serviceId", serialization_alias="serviceId"
+    )
+    """Read-only: the API sets it."""
+
+    status: ServiceStateEnum | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    def writable(self) -> ServicesServiceWritable:
+        """This object as a ServicesServiceWritable, the form a request body takes.
+
+        It has no read-only field, at any depth. Change what you need in it, then send it.
+        It is a deep copy: this object stays as it was.
+        """
+        return _gen.writable(self, ServicesServiceWritable)
+
+
+class ServicesServiceWritable(_gen.BaseModel):
+    """ServicesService without its read-only fields, which the API sets: the form a request body takes."""
+
+    renew: ServiceRenewType | None = _p.Field(default=None)
+    """Way of handling the renew"""
+
+
+class ServicesChangeContact(_gen.BaseModel):
+    """Service change contact payload"""
+
+    contact_admin: str | None = _p.Field(
+        default=None, validation_alias="contactAdmin", serialization_alias="contactAdmin"
+    )
+    """The contact to set as admin contact"""
+
+    contact_billing: str | None = _p.Field(
+        default=None, validation_alias="contactBilling", serialization_alias="contactBilling"
+    )
+    """The contact to set as billing contact"""
+
+    contact_tech: str | None = _p.Field(
+        default=None, validation_alias="contactTech", serialization_alias="contactTech"
+    )
+    """The contact to set as tech contact"""
+
+
+class ServicesConfirmTermination(_gen.BaseModel):
+    """Service confirm termination payload"""
+
+    commentary: str | None = _p.Field(default=None)
+    """Commentary about your termination request"""
+
+    commentary_future_use: str | None = _p.Field(
+        default=None,
+        validation_alias="commentaryFutureUse",
+        serialization_alias="commentaryFutureUse",
+    )
+    """Commentary about your future use"""
+
+    commentary_reason: str | None = _p.Field(
+        default=None, validation_alias="commentaryReason", serialization_alias="commentaryReason"
+    )
+    """Commentary about your reason for termination request"""
+
+    future_use: ServiceTerminationFutureUseEnum | None = _p.Field(
+        default=None, validation_alias="futureUse", serialization_alias="futureUse"
+    )
+    """All future uses you can provide for a service termination"""
+
+    reason: ServiceTerminationReasonEnum | None = _p.Field(default=None)
+    """All reasons you can provide for a service termination"""
+
+    token: str = _p.Field()
+    """The termination token sent by email to the admin contact"""

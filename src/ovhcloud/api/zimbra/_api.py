@@ -26,10 +26,10 @@ class ZimbraApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 26 operations, on the routes under /v2/zimbra/platform.
+    It has 30 operations, on the routes under /v2/zimbra/platform.
 
     To start, list what the account has: all_platforms, all_accounts, all_alias, all_domains,
-    all_organizations, all_slots, all_tasks.
+    all_organizations, all_redirections, all_slots, all_tasks.
 
     To find the method for a route, search index/zimbra.jsonl: one line per method, with its route,
     its signature and the IAM actions it requires. It is at the root of the SDK repository, and in
@@ -595,6 +595,111 @@ class ZimbraApi(_gen.SectionApi):
             },
         )
 
+    def all_redirections(
+        self,
+        platform_id: str,
+        *,
+        destination: str | None | NotGiven = NOT_GIVEN,
+        domain_id: str | None | NotGiven = NOT_GIVEN,
+        organization_id: str | None | NotGiven = NOT_GIVEN,
+        source: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.ZimbraRedirectionResponse]:
+        """all_redirections iterates over GET /v2/zimbra/platform/{platformId}/redirection (List redirections).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the redirections of the platform with their current state. Filter them by `source`,
+        `destination`, `domainId` or `organizationId`.
+
+        Args:
+            platform_id: Platform ID
+            destination: Filter by destination (optional)
+            domain_id: Filter by domain id (optional)
+            organization_id: Filter by organization id (optional)
+            source: Filter by source (optional)
+
+        Requires the IAM action zimbra:apiovh:platform/redirection/get.
+        """
+        return self._pages(
+            _r.OP_ALL_REDIRECTIONS,
+            path_params={
+                "platformId": platform_id,
+            },
+            query=(
+                ("destination", destination),
+                ("domainId", domain_id),
+                ("organizationId", organization_id),
+                ("source", source),
+            ),
+            item=models.ZimbraRedirectionResponse,
+        )
+
+    def create_redirection(
+        self, platform_id: str, body: models.ZimbraRedirectionPostPayload
+    ) -> models.ZimbraRedirectionResponse:
+        """create_redirection calls POST /v2/zimbra/platform/{platformId}/redirection: Create a redirection
+
+        Creates a redirection from a `source` email address to a `destination` email address.
+
+        Args:
+            platform_id: Platform ID
+            body: the request body
+
+        Requires the IAM action zimbra:apiovh:platform/redirection/create.
+        """
+        return self._call(
+            _r.OP_CREATE_REDIRECTION,
+            path_params={
+                "platformId": platform_id,
+            },
+            body=body,
+            body_type=models.ZimbraRedirectionPostPayload,
+            result=models.ZimbraRedirectionResponse,
+        )
+
+    def get_redirection(
+        self, platform_id: str, redirection_id: str
+    ) -> models.ZimbraRedirectionResponse:
+        """get_redirection calls GET /v2/zimbra/platform/{platformId}/redirection/{redirectionId}: Get a redirection
+
+        Returns the source and destination email addresses of the redirection, with its domain and
+        organization.
+
+        Args:
+            platform_id: Platform ID
+            redirection_id: Redirection ID
+
+        Requires the IAM action zimbra:apiovh:platform/redirection/get.
+        """
+        return self._call(
+            _r.OP_GET_REDIRECTION,
+            path_params={
+                "platformId": platform_id,
+                "redirectionId": redirection_id,
+            },
+            result=models.ZimbraRedirectionResponse,
+        )
+
+    def delete_redirection(self, platform_id: str, redirection_id: str) -> None:
+        """delete_redirection calls DELETE /v2/zimbra/platform/{platformId}/redirection/{redirectionId}: Delete a redirection
+
+        Deletes the redirection.
+
+        Args:
+            platform_id: Platform ID
+            redirection_id: Redirection ID
+
+        Requires the IAM action zimbra:apiovh:platform/redirection/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_REDIRECTION,
+            path_params={
+                "platformId": platform_id,
+                "redirectionId": redirection_id,
+            },
+        )
+
     def refresh_quota_usage(self, platform_id: str) -> None:
         """refresh_quota_usage calls POST /v2/zimbra/platform/{platformId}/refreshQuotaUsage: Refresh quota usage
 
@@ -716,10 +821,10 @@ class AsyncZimbraApi(_gen.AsyncSectionApi):
 
     The methods of ZimbraApi, with await. Iterators are async: use ``async for``.
 
-    It has 26 operations, on the routes under /v2/zimbra/platform.
+    It has 30 operations, on the routes under /v2/zimbra/platform.
 
     To start, list what the account has: all_platforms, all_accounts, all_alias, all_domains,
-    all_organizations, all_slots, all_tasks.
+    all_organizations, all_redirections, all_slots, all_tasks.
 
     To find the method for a route, search index/zimbra.jsonl: one line per method, with its route,
     its signature and the IAM actions it requires. It is at the root of the SDK repository, and in
@@ -1282,6 +1387,111 @@ class AsyncZimbraApi(_gen.AsyncSectionApi):
             path_params={
                 "platformId": platform_id,
                 "organizationId": organization_id,
+            },
+        )
+
+    def all_redirections(
+        self,
+        platform_id: str,
+        *,
+        destination: str | None | NotGiven = NOT_GIVEN,
+        domain_id: str | None | NotGiven = NOT_GIVEN,
+        organization_id: str | None | NotGiven = NOT_GIVEN,
+        source: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.ZimbraRedirectionResponse]:
+        """all_redirections iterates over GET /v2/zimbra/platform/{platformId}/redirection (List redirections).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the redirections of the platform with their current state. Filter them by `source`,
+        `destination`, `domainId` or `organizationId`.
+
+        Args:
+            platform_id: Platform ID
+            destination: Filter by destination (optional)
+            domain_id: Filter by domain id (optional)
+            organization_id: Filter by organization id (optional)
+            source: Filter by source (optional)
+
+        Requires the IAM action zimbra:apiovh:platform/redirection/get.
+        """
+        return self._pages(
+            _r.OP_ALL_REDIRECTIONS,
+            path_params={
+                "platformId": platform_id,
+            },
+            query=(
+                ("destination", destination),
+                ("domainId", domain_id),
+                ("organizationId", organization_id),
+                ("source", source),
+            ),
+            item=models.ZimbraRedirectionResponse,
+        )
+
+    async def create_redirection(
+        self, platform_id: str, body: models.ZimbraRedirectionPostPayload
+    ) -> models.ZimbraRedirectionResponse:
+        """create_redirection calls POST /v2/zimbra/platform/{platformId}/redirection: Create a redirection
+
+        Creates a redirection from a `source` email address to a `destination` email address.
+
+        Args:
+            platform_id: Platform ID
+            body: the request body
+
+        Requires the IAM action zimbra:apiovh:platform/redirection/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_REDIRECTION,
+            path_params={
+                "platformId": platform_id,
+            },
+            body=body,
+            body_type=models.ZimbraRedirectionPostPayload,
+            result=models.ZimbraRedirectionResponse,
+        )
+
+    async def get_redirection(
+        self, platform_id: str, redirection_id: str
+    ) -> models.ZimbraRedirectionResponse:
+        """get_redirection calls GET /v2/zimbra/platform/{platformId}/redirection/{redirectionId}: Get a redirection
+
+        Returns the source and destination email addresses of the redirection, with its domain and
+        organization.
+
+        Args:
+            platform_id: Platform ID
+            redirection_id: Redirection ID
+
+        Requires the IAM action zimbra:apiovh:platform/redirection/get.
+        """
+        return await self._call(
+            _r.OP_GET_REDIRECTION,
+            path_params={
+                "platformId": platform_id,
+                "redirectionId": redirection_id,
+            },
+            result=models.ZimbraRedirectionResponse,
+        )
+
+    async def delete_redirection(self, platform_id: str, redirection_id: str) -> None:
+        """delete_redirection calls DELETE /v2/zimbra/platform/{platformId}/redirection/{redirectionId}: Delete a redirection
+
+        Deletes the redirection.
+
+        Args:
+            platform_id: Platform ID
+            redirection_id: Redirection ID
+
+        Requires the IAM action zimbra:apiovh:platform/redirection/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_REDIRECTION,
+            path_params={
+                "platformId": platform_id,
+                "redirectionId": redirection_id,
             },
         )
 

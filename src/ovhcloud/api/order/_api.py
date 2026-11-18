@@ -26,10 +26,10 @@ class OrderApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 662 operations, on the routes under /v1/order.
+    It has 665 operations, on the routes under /v1/order.
 
     To start, list what the account has: list_carts, list_dedicated_clouds, list_freefaxes,
-    list_over_the_boxes, list_sms, list_telephonies, list_veeam_cloud_connects, list_vps, and 276
+    list_over_the_boxes, list_sms, list_telephonies, list_veeam_cloud_connects, list_vps, and 278
     more.
 
     To find the method for a route, search index/order.jsonl: one line per method, with its route,
@@ -6687,6 +6687,71 @@ class OrderApi(_gen.SectionApi):
             result=models.OrderCartItem,
         )
 
+    def list_cart_service_option_vrack_services(self) -> list[str]:
+        """list_cart_service_option_vrack_services calls GET /v1/order/cartServiceOption/vrackServices: List available services
+
+        Requires the IAM action order:apiovh:cartServiceOption/vrackServices/get.
+        """
+        return self._call(
+            _r.OP_LIST_CART_SERVICE_OPTION_VRACK_SERVICES,
+            result=list[str],
+        )
+
+    def get_cart_service_option_vrack_services(
+        self, service_name: str
+    ) -> list[models.OrderCartGenericOptionDefinition]:
+        """get_cart_service_option_vrack_services calls GET /v1/order/cartServiceOption/vrackServices/{serviceName}: Get informations about additional vrackServices offer for your service
+
+        Args:
+            service_name: The internal ID of your vRackServices service
+
+        Requires the IAM action order:apiovh:cartServiceOption/vrackServices/get.
+        """
+        return self._call(
+            _r.OP_GET_CART_SERVICE_OPTION_VRACK_SERVICES,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[models.OrderCartGenericOptionDefinition],
+        )
+
+    def all_cart_service_option_vrack_services(
+        self,
+    ) -> t.Iterator[list[models.OrderCartGenericOptionDefinition]]:
+        """all_cart_service_option_vrack_services iterates over GET /v1/order/cartServiceOption/vrackServices (List available services).
+
+        It lists the IDs with list_cart_service_option_vrack_services, then gets each object with get_cart_service_option_vrack_services,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        The two calls require the IAM action order:apiovh:cartServiceOption/vrackServices/get.
+        """
+        return self._each(
+            lambda: self.list_cart_service_option_vrack_services(),
+            lambda listed_id: self.get_cart_service_option_vrack_services(listed_id),
+        )
+
+    def post_cart_service_option_vrack_services(
+        self, service_name: str, body: models.PostCartServiceOptionVrackServicesRequest
+    ) -> models.OrderCartItem:
+        """post_cart_service_option_vrack_services calls POST /v1/order/cartServiceOption/vrackServices/{serviceName}: Add an additional vrackServices option in your cart
+
+        Args:
+            service_name: The internal ID of your vRackServices service
+            body: the request body
+
+        Requires the IAM action order:apiovh:cartServiceOption/vrackServices/create.
+        """
+        return self._call(
+            _r.OP_POST_CART_SERVICE_OPTION_VRACK_SERVICES,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.PostCartServiceOptionVrackServicesRequest,
+            result=models.OrderCartItem,
+        )
+
     def list_cart_service_option_web_hostings(self) -> list[str]:
         """list_cart_service_option_web_hostings calls GET /v1/order/cartServiceOption/webHosting: List available services
 
@@ -11230,7 +11295,10 @@ class OrderApi(_gen.SectionApi):
         )
 
     def list_license_cpanels(self) -> list[str]:
-        """list_license_cpanels calls GET /v1/order/license/cpanel: List available services
+        """list_license_cpanels calls GET /v1/order/license/cpanel: List your cPanel licenses
+
+        Returns the names of the cPanel licenses of the account; each name is the service name used
+        by the other calls.
 
         Requires the IAM action order:apiovh:license/cpanel/get.
         """
@@ -11334,7 +11402,7 @@ class OrderApi(_gen.SectionApi):
         )
 
     def all_license_cpanels(self) -> t.Iterator[list[str]]:
-        """all_license_cpanels iterates over GET /v1/order/license/cpanel (List available services).
+        """all_license_cpanels iterates over GET /v1/order/license/cpanel (List your cPanel licenses).
 
         It lists the IDs with list_license_cpanels, then gets each object with get_license_cpanel,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -11523,7 +11591,10 @@ class OrderApi(_gen.SectionApi):
         )
 
     def list_license_plesks(self) -> list[str]:
-        """list_license_plesks calls GET /v1/order/license/plesk: List available services
+        """list_license_plesks calls GET /v1/order/license/plesk: List your Plesk licenses
+
+        Returns the names of the Plesk licenses of the account; each name is the service name used
+        by the other calls.
 
         Requires the IAM action order:apiovh:license/plesk/get.
         """
@@ -11681,7 +11752,7 @@ class OrderApi(_gen.SectionApi):
         )
 
     def all_license_plesks(self) -> t.Iterator[list[str]]:
-        """all_license_plesks iterates over GET /v1/order/license/plesk (List available services).
+        """all_license_plesks iterates over GET /v1/order/license/plesk (List your Plesk licenses).
 
         It lists the IDs with list_license_plesks, then gets each object with get_license_plesk,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -11887,7 +11958,10 @@ class OrderApi(_gen.SectionApi):
         )
 
     def list_license_sqlservers(self) -> list[str]:
-        """list_license_sqlservers calls GET /v1/order/license/sqlserver: List available services
+        """list_license_sqlservers calls GET /v1/order/license/sqlserver: List your SQL Server licenses
+
+        Returns the names of the SQL Server licenses of the account; each name is the service name
+        used by the other calls.
 
         Requires the IAM action order:apiovh:license/sqlserver/get.
         """
@@ -11978,7 +12052,7 @@ class OrderApi(_gen.SectionApi):
         )
 
     def all_license_sqlservers(self) -> t.Iterator[list[str]]:
-        """all_license_sqlservers iterates over GET /v1/order/license/sqlserver (List available services).
+        """all_license_sqlservers iterates over GET /v1/order/license/sqlserver (List your SQL Server licenses).
 
         It lists the IDs with list_license_sqlservers, then gets each object with get_license_sqlserver,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -12057,7 +12131,10 @@ class OrderApi(_gen.SectionApi):
         )
 
     def list_license_windows(self) -> list[str]:
-        """list_license_windows calls GET /v1/order/license/windows: List available services
+        """list_license_windows calls GET /v1/order/license/windows: List your Windows licenses
+
+        Returns the names of the Windows licenses of the account; each name is the service name used
+        by the other calls.
 
         Requires the IAM action order:apiovh:license/windows/get.
         """
@@ -12167,7 +12244,7 @@ class OrderApi(_gen.SectionApi):
         )
 
     def all_license_windows(self) -> t.Iterator[list[str]]:
-        """all_license_windows iterates over GET /v1/order/license/windows (List available services).
+        """all_license_windows iterates over GET /v1/order/license/windows (List your Windows licenses).
 
         It lists the IDs with list_license_windows, then gets each object with get_license_windows,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -12703,6 +12780,9 @@ class OrderApi(_gen.SectionApi):
     def list_telephonies(self) -> list[str]:
         """list_telephonies calls GET /v1/order/telephony: List billing accounts
 
+        Returns the billing accounts of the customer. A billing account groups telephony services
+        billed together.
+
         Requires the IAM action order:apiovh:telephony/get.
         """
         return self._call(
@@ -12712,6 +12792,9 @@ class OrderApi(_gen.SectionApi):
 
     def list_telephony_lines(self) -> list[str]:
         """list_telephony_lines calls GET /v1/order/telephony/lines: List lines
+
+        Returns the lines of the customer, across all billing accounts. Get a line or trunk for the
+        service without its billing account.
 
         Requires the IAM action order:apiovh:telephony/lines/get.
         """
@@ -12973,6 +13056,9 @@ class OrderApi(_gen.SectionApi):
 
     def list_telephony_trunks(self) -> list[str]:
         """list_telephony_trunks calls GET /v1/order/telephony/trunks: List trunks
+
+        Returns the trunks of the customer, across all billing accounts. A trunk connects a customer
+        PBX to OVHcloud over SIP.
 
         Requires the IAM action order:apiovh:telephony/trunks/get.
         """
@@ -14732,10 +14818,10 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
 
     The methods of OrderApi, with await. Iterators are async: use ``async for``.
 
-    It has 662 operations, on the routes under /v1/order.
+    It has 665 operations, on the routes under /v1/order.
 
     To start, list what the account has: list_carts, list_dedicated_clouds, list_freefaxes,
-    list_over_the_boxes, list_sms, list_telephonies, list_veeam_cloud_connects, list_vps, and 276
+    list_over_the_boxes, list_sms, list_telephonies, list_veeam_cloud_connects, list_vps, and 278
     more.
 
     To find the method for a route, search index/order.jsonl: one line per method, with its route,
@@ -21447,6 +21533,71 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
             result=models.OrderCartItem,
         )
 
+    async def list_cart_service_option_vrack_services(self) -> list[str]:
+        """list_cart_service_option_vrack_services calls GET /v1/order/cartServiceOption/vrackServices: List available services
+
+        Requires the IAM action order:apiovh:cartServiceOption/vrackServices/get.
+        """
+        return await self._call(
+            _r.OP_LIST_CART_SERVICE_OPTION_VRACK_SERVICES,
+            result=list[str],
+        )
+
+    async def get_cart_service_option_vrack_services(
+        self, service_name: str
+    ) -> list[models.OrderCartGenericOptionDefinition]:
+        """get_cart_service_option_vrack_services calls GET /v1/order/cartServiceOption/vrackServices/{serviceName}: Get informations about additional vrackServices offer for your service
+
+        Args:
+            service_name: The internal ID of your vRackServices service
+
+        Requires the IAM action order:apiovh:cartServiceOption/vrackServices/get.
+        """
+        return await self._call(
+            _r.OP_GET_CART_SERVICE_OPTION_VRACK_SERVICES,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[models.OrderCartGenericOptionDefinition],
+        )
+
+    def all_cart_service_option_vrack_services(
+        self,
+    ) -> t.AsyncIterator[list[models.OrderCartGenericOptionDefinition]]:
+        """all_cart_service_option_vrack_services iterates over GET /v1/order/cartServiceOption/vrackServices (List available services).
+
+        It lists the IDs with list_cart_service_option_vrack_services, then gets each object with get_cart_service_option_vrack_services,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        The two calls require the IAM action order:apiovh:cartServiceOption/vrackServices/get.
+        """
+        return self._each(
+            lambda: self.list_cart_service_option_vrack_services(),
+            lambda listed_id: self.get_cart_service_option_vrack_services(listed_id),
+        )
+
+    async def post_cart_service_option_vrack_services(
+        self, service_name: str, body: models.PostCartServiceOptionVrackServicesRequest
+    ) -> models.OrderCartItem:
+        """post_cart_service_option_vrack_services calls POST /v1/order/cartServiceOption/vrackServices/{serviceName}: Add an additional vrackServices option in your cart
+
+        Args:
+            service_name: The internal ID of your vRackServices service
+            body: the request body
+
+        Requires the IAM action order:apiovh:cartServiceOption/vrackServices/create.
+        """
+        return await self._call(
+            _r.OP_POST_CART_SERVICE_OPTION_VRACK_SERVICES,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.PostCartServiceOptionVrackServicesRequest,
+            result=models.OrderCartItem,
+        )
+
     async def list_cart_service_option_web_hostings(self) -> list[str]:
         """list_cart_service_option_web_hostings calls GET /v1/order/cartServiceOption/webHosting: List available services
 
@@ -26006,7 +26157,10 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
         )
 
     async def list_license_cpanels(self) -> list[str]:
-        """list_license_cpanels calls GET /v1/order/license/cpanel: List available services
+        """list_license_cpanels calls GET /v1/order/license/cpanel: List your cPanel licenses
+
+        Returns the names of the cPanel licenses of the account; each name is the service name used
+        by the other calls.
 
         Requires the IAM action order:apiovh:license/cpanel/get.
         """
@@ -26110,7 +26264,7 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
         )
 
     def all_license_cpanels(self) -> t.AsyncIterator[list[str]]:
-        """all_license_cpanels iterates over GET /v1/order/license/cpanel (List available services).
+        """all_license_cpanels iterates over GET /v1/order/license/cpanel (List your cPanel licenses).
 
         It lists the IDs with list_license_cpanels, then gets each object with get_license_cpanel,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -26299,7 +26453,10 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
         )
 
     async def list_license_plesks(self) -> list[str]:
-        """list_license_plesks calls GET /v1/order/license/plesk: List available services
+        """list_license_plesks calls GET /v1/order/license/plesk: List your Plesk licenses
+
+        Returns the names of the Plesk licenses of the account; each name is the service name used
+        by the other calls.
 
         Requires the IAM action order:apiovh:license/plesk/get.
         """
@@ -26457,7 +26614,7 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
         )
 
     def all_license_plesks(self) -> t.AsyncIterator[list[str]]:
-        """all_license_plesks iterates over GET /v1/order/license/plesk (List available services).
+        """all_license_plesks iterates over GET /v1/order/license/plesk (List your Plesk licenses).
 
         It lists the IDs with list_license_plesks, then gets each object with get_license_plesk,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -26663,7 +26820,10 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
         )
 
     async def list_license_sqlservers(self) -> list[str]:
-        """list_license_sqlservers calls GET /v1/order/license/sqlserver: List available services
+        """list_license_sqlservers calls GET /v1/order/license/sqlserver: List your SQL Server licenses
+
+        Returns the names of the SQL Server licenses of the account; each name is the service name
+        used by the other calls.
 
         Requires the IAM action order:apiovh:license/sqlserver/get.
         """
@@ -26754,7 +26914,7 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
         )
 
     def all_license_sqlservers(self) -> t.AsyncIterator[list[str]]:
-        """all_license_sqlservers iterates over GET /v1/order/license/sqlserver (List available services).
+        """all_license_sqlservers iterates over GET /v1/order/license/sqlserver (List your SQL Server licenses).
 
         It lists the IDs with list_license_sqlservers, then gets each object with get_license_sqlserver,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -26833,7 +26993,10 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
         )
 
     async def list_license_windows(self) -> list[str]:
-        """list_license_windows calls GET /v1/order/license/windows: List available services
+        """list_license_windows calls GET /v1/order/license/windows: List your Windows licenses
+
+        Returns the names of the Windows licenses of the account; each name is the service name used
+        by the other calls.
 
         Requires the IAM action order:apiovh:license/windows/get.
         """
@@ -26943,7 +27106,7 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
         )
 
     def all_license_windows(self) -> t.AsyncIterator[list[str]]:
-        """all_license_windows iterates over GET /v1/order/license/windows (List available services).
+        """all_license_windows iterates over GET /v1/order/license/windows (List your Windows licenses).
 
         It lists the IDs with list_license_windows, then gets each object with get_license_windows,
         only when the loop reaches it. An object deleted in the meantime is skipped. Any other
@@ -27479,6 +27642,9 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
     async def list_telephonies(self) -> list[str]:
         """list_telephonies calls GET /v1/order/telephony: List billing accounts
 
+        Returns the billing accounts of the customer. A billing account groups telephony services
+        billed together.
+
         Requires the IAM action order:apiovh:telephony/get.
         """
         return await self._call(
@@ -27488,6 +27654,9 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
 
     async def list_telephony_lines(self) -> list[str]:
         """list_telephony_lines calls GET /v1/order/telephony/lines: List lines
+
+        Returns the lines of the customer, across all billing accounts. Get a line or trunk for the
+        service without its billing account.
 
         Requires the IAM action order:apiovh:telephony/lines/get.
         """
@@ -27749,6 +27918,9 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
 
     async def list_telephony_trunks(self) -> list[str]:
         """list_telephony_trunks calls GET /v1/order/telephony/trunks: List trunks
+
+        Returns the trunks of the customer, across all billing accounts. A trunk connects a customer
+        PBX to OVHcloud over SIP.
 
         Requires the IAM action order:apiovh:telephony/trunks/get.
         """

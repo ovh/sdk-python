@@ -19,6 +19,116 @@ SECTION_KEY = "licenseofficePrepaid"
 #: The /v2 contract the section was generated from, sent as X-Schemas-Version.
 SCHEMAS_VERSION: str | None = None
 
+OP_LIST_OFFICE_PREPAIDS = Operation(
+    name="licenseoffice_prepaid.list_office_prepaids",
+    method="GET",
+    path="/v1/license/officePrepaid",
+    summary="List prepaid users",
+    iam_actions=("licenseOfficePrepaid:apiovh:get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_OFFICE_PREPAID = Operation(
+    name="licenseoffice_prepaid.get_office_prepaid",
+    method="GET",
+    path="/v1/license/officePrepaid/{serviceName}",
+    summary="Get a prepaid user",
+    iam_actions=("licenseOfficePrepaid:apiovh:get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_UPDATE_OFFICE_PREPAID = Operation(
+    name="licenseoffice_prepaid.update_office_prepaid",
+    method="PUT",
+    path="/v1/license/officePrepaid/{serviceName}",
+    summary="Update a prepaid user",
+    iam_actions=("licenseOfficePrepaid:apiovh:put",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CHANGE_PASSWORD = Operation(
+    name="licenseoffice_prepaid.change_password",
+    method="POST",
+    path="/v1/license/officePrepaid/{serviceName}/changePassword",
+    summary="Change a prepaid user password",
+    iam_actions=("licenseOfficePrepaid:apiovh:changePassword",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_PARENT_TENANT = Operation(
+    name="licenseoffice_prepaid.get_parent_tenant",
+    method="GET",
+    path="/v1/license/officePrepaid/{serviceName}/parentTenant",
+    summary="Get the parent tenant",
+    iam_actions=("licenseOfficePrepaid:apiovh:parentTenant/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_UPDATE_PARENT_TENANT = Operation(
+    name="licenseoffice_prepaid.update_parent_tenant",
+    method="PUT",
+    path="/v1/license/officePrepaid/{serviceName}/parentTenant",
+    summary="Update the parent tenant",
+    iam_actions=("licenseOfficePrepaid:apiovh:parentTenant/edit",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_ACCEPT_AGREEMENT_PARENT_TENANT = Operation(
+    name="licenseoffice_prepaid.accept_agreement_parent_tenant",
+    method="POST",
+    path="/v1/license/officePrepaid/{serviceName}/parentTenant/acceptAgreement",
+    summary="Accept the Microsoft Customer Agreement",
+    iam_actions=("licenseOfficePrepaid:apiovh:acceptAgreement",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CREATE_ATTESTATION_PARENT_TENANT = Operation(
+    name="licenseoffice_prepaid.create_attestation_parent_tenant",
+    method="POST",
+    path="/v1/license/officePrepaid/{serviceName}/parentTenant/createAttestation",
+    summary="Create an MCA attestation",
+    iam_actions=("licenseOfficePrepaid:apiovh:createAttestation",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_TENANT_PENDING_TASKS = Operation(
+    name="licenseoffice_prepaid.list_tenant_pending_tasks",
+    method="GET",
+    path="/v1/license/officePrepaid/{serviceName}/tenantPendingTask",
+    summary="List parent tenant tasks",
+    iam_actions=("licenseOfficePrepaid:apiovh:tenantPendingTask/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_TENANT_PENDING_TASK = Operation(
+    name="licenseoffice_prepaid.get_tenant_pending_task",
+    method="GET",
+    path="/v1/license/officePrepaid/{serviceName}/tenantPendingTask/{id}",
+    summary="Get a parent tenant task",
+    iam_actions=("licenseOfficePrepaid:apiovh:tenantPendingTask/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_TENANT_USAGE_STATISTICS = Operation(
+    name="licenseoffice_prepaid.list_tenant_usage_statistics",
+    method="GET",
+    path="/v1/license/officePrepaid/{serviceName}/tenantUsageStatistics",
+    summary="Get parent tenant usage statistics",
+    iam_actions=("licenseOfficePrepaid:apiovh:tenantUsageStatistics/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_UNCONFIGURE = Operation(
     name="licenseoffice_prepaid.unconfigure",
     method="POST",
@@ -29,4 +139,17 @@ OP_UNCONFIGURE = Operation(
     schemas_version=None,
 )
 
-OPERATIONS: tuple[Operation, ...] = (OP_UNCONFIGURE,)
+OPERATIONS: tuple[Operation, ...] = (
+    OP_LIST_OFFICE_PREPAIDS,
+    OP_GET_OFFICE_PREPAID,
+    OP_UPDATE_OFFICE_PREPAID,
+    OP_CHANGE_PASSWORD,
+    OP_GET_PARENT_TENANT,
+    OP_UPDATE_PARENT_TENANT,
+    OP_ACCEPT_AGREEMENT_PARENT_TENANT,
+    OP_CREATE_ATTESTATION_PARENT_TENANT,
+    OP_LIST_TENANT_PENDING_TASKS,
+    OP_GET_TENANT_PENDING_TASK,
+    OP_LIST_TENANT_USAGE_STATISTICS,
+    OP_UNCONFIGURE,
+)

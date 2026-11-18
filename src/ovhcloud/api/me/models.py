@@ -85,6 +85,7 @@ __all__ = [
     "AuthProviderRequestedAttributes",
     "AuthProviderWritable",
     "AuthRoleEnum",
+    "AuthServiceProviderInfo",
     "AuthUser",
     "AuthUserRequest",
     "AuthUserStatusEnum",
@@ -1393,6 +1394,42 @@ class AuthRoleEnum(_gen.OpenStrEnum):
     NONE = "NONE"
     REGULAR = "REGULAR"
     UNPRIVILEGED = "UNPRIVILEGED"
+
+
+class AuthServiceProviderInfo(_gen.BaseModel):
+    """An IAM Federation Provider"""
+
+    assertion_consumer_service_url: str | None = _p.Field(
+        default=None,
+        validation_alias="assertionConsumerServiceUrl",
+        serialization_alias="assertionConsumerServiceUrl",
+    )
+    """URL of the SAMLv2 Assertion Consumer Service for OVHcloud
+
+    Read-only: the API sets it.
+    """
+
+    entity_id: str | None = _p.Field(
+        default=None, validation_alias="entityId", serialization_alias="entityId"
+    )
+    """Entity ID of OVHcloud as a service provider
+
+    Read-only: the API sets it.
+    """
+
+    metadata: str | None = _p.Field(default=None)
+    """XML metadata of OVHcloud as a service provider
+
+    Read-only: the API sets it.
+    """
+
+    metadata_url: str | None = _p.Field(
+        default=None, validation_alias="metadataUrl", serialization_alias="metadataUrl"
+    )
+    """URL of the SAMLv2 metadata for OVHcloud
+
+    Read-only: the API sets it.
+    """
 
 
 class AuthUser(_gen.BaseModel):

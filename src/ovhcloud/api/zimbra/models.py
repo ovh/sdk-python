@@ -32,6 +32,7 @@ __all__ = [
     "CreateOrganization400Response",
     "CreateOrganization404Response",
     "CreateOrganization409Response",
+    "CreateRedirection404Response",
     "GetAccount400Response",
     "GetAccount404Response",
     "GetAlias400Response",
@@ -39,6 +40,7 @@ __all__ = [
     "GetDomain404Response",
     "GetOrganization404Response",
     "GetPlatform404Response",
+    "GetRedirection404Response",
     "GetSlot400Response",
     "GetSlot404Response",
     "ListAccounts400Response",
@@ -46,6 +48,7 @@ __all__ = [
     "ListAlias404Response",
     "ListDomains404Response",
     "ListOrganizations404Response",
+    "ListRedirections404Response",
     "ListSlots400Response",
     "ListSlots404Response",
     "ListTasks404Response",
@@ -119,6 +122,10 @@ __all__ = [
     "ZimbraPlatformResponseWithIAM",
     "ZimbraQuota",
     "ZimbraQuotaPayload",
+    "ZimbraRedirection",
+    "ZimbraRedirectionBase",
+    "ZimbraRedirectionPostPayload",
+    "ZimbraRedirectionResponse",
     "ZimbraSlotCurrentState",
     "ZimbraSlotResponse",
 ]
@@ -256,6 +263,18 @@ class CreateOrganization409Response(_gen.BaseModel):
     """Error message"""
 
 
+class CreateRedirection404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
 class GetAccount400Response(_gen.BaseModel):
     """Common error model"""
 
@@ -340,6 +359,18 @@ class GetPlatform404Response(_gen.BaseModel):
     """Error message"""
 
 
+class GetRedirection404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
 class GetSlot400Response(_gen.BaseModel):
     """Common error model"""
 
@@ -413,6 +444,18 @@ class ListDomains404Response(_gen.BaseModel):
 
 
 class ListOrganizations404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class ListRedirections404Response(_gen.BaseModel):
     """Common error model"""
 
     class_: str | None = _p.Field(
@@ -2225,6 +2268,129 @@ class ZimbraQuotaPayload(_gen.BaseModel):
 
     limit: float | None = _p.Field(default=None)
     """Maximum space for account"""
+
+
+class ZimbraRedirection(_gen.BaseModel):
+    """Object representing Redirection"""
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Date of creation
+
+    Read-only: the API sets it.
+    """
+
+    destination: str | None = _p.Field(default=None)
+    """Destination email address to redirect to
+
+    Read-only: the API sets it.
+    """
+
+    domain_id: str | None = _p.Field(
+        default=None, validation_alias="domainId", serialization_alias="domainId"
+    )
+    """Identifier of the domain
+
+    Read-only: the API sets it.
+    """
+
+    organization_id: str | None = _p.Field(
+        default=None, validation_alias="organizationId", serialization_alias="organizationId"
+    )
+    """Identifier of the organization
+
+    Read-only: the API sets it.
+    """
+
+    organization_label: str | None = _p.Field(
+        default=None, validation_alias="organizationLabel", serialization_alias="organizationLabel"
+    )
+    """Label of the organization this redirection belongs to
+
+    Read-only: the API sets it.
+    """
+
+    source: str | None = _p.Field(default=None)
+    """Source email address to redirect
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Date of update
+
+    Read-only: the API sets it.
+    """
+
+
+class ZimbraRedirectionBase(_gen.BaseModel):
+    """Object representing Redirection"""
+
+    destination: str = _p.Field()
+    """Destination email address to redirect to"""
+
+    source: str = _p.Field()
+    """Source email address to redirect"""
+
+
+class ZimbraRedirectionPostPayload(_gen.BaseModel):
+    """Payload for creating new Zimbra Redirection"""
+
+    target_spec: ZimbraRedirectionBase = _p.Field(
+        validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Target redirection specification"""
+
+
+class ZimbraRedirectionResponse(_gen.BaseModel):
+    """Response for get redirection"""
+
+    checksum: str | None = _p.Field(default=None)
+    """Checksum hash in MD5 representation
+
+    Read-only: the API sets it.
+    """
+
+    current_state: ZimbraRedirection | None = _p.Field(
+        default=None, validation_alias="currentState", serialization_alias="currentState"
+    )
+    """Object representing Redirection
+
+    Read-only: the API sets it.
+    """
+
+    current_tasks: list[CommonCurrentTask] | None = _p.Field(
+        default=None, validation_alias="currentTasks", serialization_alias="currentTasks"
+    )
+    """An array containing tasks responses pending on resource extends AsyncResourceBase object
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Resource identifier in UUID representation
+
+    Read-only: the API sets it.
+    """
+
+    resource_status: CommonResourceStatusEnum | None = _p.Field(
+        default=None, validation_alias="resourceStatus", serialization_alias="resourceStatus"
+    )
+    """Current resource status
+
+    Read-only: the API sets it.
+    """
+
+    target_spec: ZimbraRedirectionBase | None = _p.Field(
+        default=None, validation_alias="targetSpec", serialization_alias="targetSpec"
+    )
+    """Object representing Redirection Target Spec
+
+    Read-only: the API sets it.
+    """
 
 
 class ZimbraSlotCurrentState(_gen.BaseModel):

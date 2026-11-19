@@ -3,6 +3,11 @@
 [![PyPI version](https://img.shields.io/pypi/v/ovhcloud.svg)](https://pypi.org/project/ovhcloud/)
 [![Python versions](https://img.shields.io/pypi/pyversions/ovhcloud.svg)](https://pypi.org/project/ovhcloud/)
 
+> **Early version.** This SDK is in active development, and v0.x releases can include breaking
+> changes. Pin a version and read the [changelog](CHANGELOG.md) before you upgrade. We will release
+> v1.0 once the SDK is stable, in the coming weeks. From v1.0, every stable release follows semantic
+> versioning: a breaking change means a new major version.
+
 The Python SDK for the [OVHcloud API](https://developers.eu.ovhcloud.com/): a typed method for
 every public operation, with OAuth2 service-account authentication, retries, typed exceptions
 and iterators over lists.
@@ -100,17 +105,15 @@ This SDK is not [python-ovh](https://github.com/ovh/python-ovh) (`pip install ov
   [Install](#1-install) to create one.
 - **Region:** `OVH_REGION=eu`, `ca` or `us`, instead of the endpoint `ovh-eu`, `ovh-ca` or
   `ovh-us`.
-- **Paths** start with their API version: `/v1/me`, not `/me` or `/1.0/me`. A path without
-  `/v1/` or `/v2/` is refused, with a hint.
-- **Typed methods** replace most raw calls. `client.get` still exists for a route with no
-  method yet. A body is one dict, not keyword arguments.
+- **Methods:** each API call has a typed method. python-ovh's `GET /me` is
+  `client.me.get_account_details()`. A body is a typed model, not keyword arguments.
 
 | python-ovh | This SDK |
 |---|---|
 | `ovh.Client(endpoint="ovh-eu", application_key=..., application_secret=..., consumer_key=...)` | `ovhcloud.Client(region="eu", client_id=..., client_secret=...)` |
-| `client.get("/me")` | `client.me.get_account_details()`, or `client.get("/v1/me")` |
+| `client.get("/me")` | `client.me.get_account_details()` |
 | `client.get("/me/sshKey")` | `client.me.list_ssh_keys()` |
-| `client.post("/me/contact", email="ops@example.com")` | `client.post("/v1/me/contact", {"email": "ops@example.com"})` |
+| `client.post("/me/sshKey", key="ssh-ed25519 AAAA...", keyName="laptop")` | `client.me.create_ssh_key(models.CreateSSHKeyRequest(key="ssh-ed25519 AAAA...", key_name="laptop"))`, with `from ovhcloud.api.me import models` |
 | `ovh.exceptions.ResourceNotFoundError` | `ovhcloud.NotFoundError` |
 | `ovh.exceptions.APIError` | `ovhcloud.ApiError` |
 
@@ -128,8 +131,7 @@ To see what the API offers, browse the
 [API reference](https://developers.eu.ovhcloud.com/reference/) on the OVHcloud developer hub:
 every operation, by product, with its route, parameters and responses. Its groups do not
 match the SDK's sections one to one: take the route and find its method as below. The hub
-writes a v1 route `/1.0/vrack`. The SDK writes it `/v1/vrack`. A path without `/v1/` or
-`/v2/` is refused before it is sent, with a hint: `did you mean /v1/vrack?`.
+writes a v1 route `/1.0/vrack`. The index writes it `/v1/vrack`.
 `ovhcloud.match_operation` reads `/1.0/vrack` as `/v1/vrack`, and tries `/v1` then `/v2` for a
 path with no version.
 

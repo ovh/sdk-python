@@ -252,7 +252,9 @@ class DryRunError(OvhError):
     headers, such as Cookie) is not in ``headers``::
 
         try:
-            client.post("/v1/me/contact", {"email": "ops@example.com"})
+            client.me.create_ssh_key(
+                models.CreateSSHKeyRequest(key="ssh-ed25519 AAAA...", key_name="laptop")
+            )
         except ovhcloud.DryRunError as dry:
             print(dry.method, dry.url, dry.body)
 

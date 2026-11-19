@@ -11,13 +11,13 @@ names from the URL is not reliable. The index also gives the IAM actions of each
 ones the program calls are what its service account needs.
 
 This is not python-ovh (`pip install ovh`, `import ovh`). Here: `import ovhcloud`, an OAuth2
-service account instead of application keys and consumer keys, paths with `/v1/` or `/v2/`
-instead of `/1.0/`, and `client.get("/v1/me")` for a route with no method yet.
+service account instead of application keys and consumer keys, and a typed method for each API
+call: `client.me.get_account_details()` for GET /me.
 
 ## Docs
 
 - [Guide](README.md): install, first program, coming from python-ovh, finding an operation, arguments, pagination, waiting for asynchronous work, errors, configuration, dry run and hooks, raw calls, asyncio, testing, observability, troubleshooting
-- [Examples](examples/README.md): small programs to run or copy: GET /me, list with an iterator, create then wait, a DNS record, a cart order, a raw call with `ovhcloud.path`, error handling, vRack
+- [Examples](examples/README.md): small programs to run or copy: GET /me, list with an iterator, create then wait, a DNS record, a cart order, error handling, vRack
 - [Agent notes](AGENTS.md): the conventions in short, for AI coding agents
 - [Operation index](index/README.md): one index/<section>.jsonl per section, 6962 methods in all, each line a method with its route, Python signature and IAM actions
 

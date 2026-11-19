@@ -133,7 +133,8 @@ class Client(_BaseClient[Engine]):
             print(client.me.get_account_details())
 
     Each API section is an attribute, loaded on first use: ``client.vrack``,
-    ``client.public_cloud``. Call any route with ``client.get("/v1/me")``.
+    ``client.public_cloud``. Each API call is a method of its section:
+    ``client.me.get_account_details()``.
 
     Arguments, all keyword-only:
 

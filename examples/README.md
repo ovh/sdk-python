@@ -10,7 +10,6 @@ first: it lists the environment variables it needs.
 | [create-and-wait.py](create-and-wait.py) | create a Public Cloud network, `wait_ready`, delete it, `wait_gone` | yes |
 | [dns-record.py](dns-record.py) | create a DNS record, then refresh the zone | yes |
 | [cart-order.py](cart-order.py) | order with a cart: add a domain, read the price, stop before payment | no order is placed |
-| [raw-call.py](raw-call.py) | a raw call with `ovhcloud.path()` and a type for the result | no |
 | [errors.py](errors.py) | `except NotFoundError`, `ForbiddenError`, `ApiError` | no |
 | [vrack.py](vrack.py) | every vRack, with the Public Cloud projects in it | no |
 

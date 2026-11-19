@@ -8,8 +8,8 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
   `pip install ovhcloud`, `import ovhcloud`.
 - Credentials are an OAuth2 service account (`OVH_CLIENT_ID`, `OVH_CLIENT_SECRET`,
   `OVH_REGION`). No application key, consumer key or `ovh.conf`.
-- Paths take their version: python-ovh's `client.get("/me")` is `client.get("/v1/me")`, and
-  better `client.me.get_account_details()`. A raw body is one dict, not keyword arguments.
+- Each API call has a typed method: python-ovh's `client.get("/me")` is
+  `client.me.get_account_details()`. A body is a typed model, not keyword arguments.
 
 ## Find the right method
 
@@ -84,8 +84,6 @@ Notes for AI coding agents that write code with this SDK, or work in this reposi
   `client.post("/v1/...", {"key": "value"})`. It returns plain dicts and lists, or the type you
   pass as `result=`: `client.get("/v1/me/sshKey", result=list[str])`. Build a path with
   parameters with `ovhcloud.path("/v1/me/sshKey/{keyName}", keyName=name)`: it escapes them.
-- A path starts with `/v1/` or `/v2/`. python-ovh's `/1.0/me` is `/v1/me` here. A path
-  without its version raises `ovhcloud.InvalidRequestError`, with the path to use.
 
 ## Wait for the work to finish
 

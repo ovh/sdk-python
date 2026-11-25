@@ -79,6 +79,26 @@ OP_GET_ORDERABLE_LICENSES = Operation(
     schemas_version=None,
 )
 
+OP_GET_SERVICE_INFOS = Operation(
+    name="saascsp2.get_service_infos",
+    method="GET",
+    path="/v1/saas/csp2/{serviceName}/serviceInfos",
+    summary="Get service information",
+    iam_actions=("cspReseller:apiovh:serviceInfos/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_UPDATE_SERVICE_INFOS = Operation(
+    name="saascsp2.update_service_infos",
+    method="PUT",
+    path="/v1/saas/csp2/{serviceName}/serviceInfos",
+    summary="Update service information",
+    iam_actions=("cspReseller:apiovh:serviceInfos/edit",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_LIST_SUBSCRIPTIONS = Operation(
     name="saascsp2.list_subscriptions",
     method="GET",
@@ -196,6 +216,8 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_GET_BILLING_PERIOD_PEAKS,
     OP_LIST_ORDERABLE_LICENSES,
     OP_GET_ORDERABLE_LICENSES,
+    OP_GET_SERVICE_INFOS,
+    OP_UPDATE_SERVICE_INFOS,
     OP_LIST_SUBSCRIPTIONS,
     OP_CREATE_SUBSCRIPTION,
     OP_GET_SUBSCRIPTION,

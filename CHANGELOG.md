@@ -2,6 +2,181 @@
 
 Notable changes to the SDK. Changes of behaviour are called out.
 
+## 0.3.0 (2026-11-25)
+
+Compared with 0.2.1.
+
+### New
+
+- `emaildomain`: 11 operations, 10 types, listed below
+- `emailexchange`: 7 operations, 7 types, listed below
+- `hostingweb`: `HostingWebKey.deprecated`
+- `licenseoffice_prepaid`: 4 operations, 8 types, listed below
+- `order`: `get_order_catalog_formatted_domain_highlighted` (GET /v1/order/catalog/formatted/domain/highlighted)
+- `order`: `OrderCatalogFormattedDomainHighlightedExtensionList`
+- `order`: `OrderCatalogFormattedDomainHighlightedExtension`
+- `over_the_box`: `get_ips`, iterator `all_ips` (GET /v1/overTheBox/{serviceName}/ips/{ip})
+- `over_the_box`: `list_ips` (GET /v1/overTheBox/{serviceName}/ips)
+- `over_the_box`: `OtbServiceIPGeolocationEnum`
+- `over_the_box`: `OtbServiceIPStatusEnum`
+- `over_the_box`: `OtbServiceIPVersionEnum`
+- `over_the_box`: `OtbServiceIP`
+- `public_cloud`: 17 operations, 31 types, 1 field, listed below
+- `saascsp2`: `get_service_infos` (GET /v1/saas/csp2/{serviceName}/serviceInfos)
+- `saascsp2`: `update_service_infos` (PUT /v1/saas/csp2/{serviceName}/serviceInfos)
+- `saascsp2`: `ServiceRenewType`
+- `saascsp2`: `ServiceRenewalTypeEnum`
+- `saascsp2`: `ServiceStateEnum`
+- `saascsp2`: `ServicesServiceWritable`
+- `saascsp2`: `ServicesService`
+- `sms`: `SmsCountryEnum` gains `MC` ("mc")
+
+<details>
+<summary>New: everything in emaildomain, emailexchange, licenseoffice_prepaid, public_cloud</summary>
+
+#### `emaildomain`
+
+- `change_redirection_redirection` (POST /v1/email/domain/{domain}/redirection/{id}/changeRedirection)
+- `create_redirection` (POST /v1/email/domain/{domain}/redirection)
+- `delete_redirection` (DELETE /v1/email/domain/{domain}/redirection/{id})
+- `get_account_migrate_destination_email_address_check_migrate` (GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/checkMigrate)
+- `get_account_migrate_destination_email_address`, iterator `all_account_migrate_destination_email_address` (GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress})
+- `get_account_migrate`, iterator `all_account_migrates` (GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName})
+- `get_redirection`, iterator `all_redirections` (GET /v1/email/domain/{domain}/redirection/{id})
+- `list_account_migrate_destination_email_address` (GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress)
+- `list_account_migrates` (GET /v1/email/domain/{domain}/account/{accountName}/migrate)
+- `list_redirections` (GET /v1/email/domain/{domain}/redirection)
+- `migrate_account_migrate_destination_email_address` (POST /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/migrate)
+- `EmailDomainMigrationAccount`
+- `EmailDomainMigrationCheckCodeEnum`
+- `EmailDomainMigrationCheckResultStruct`
+- `EmailDomainMigrationCheckStruct`
+- `EmailDomainMigrationServiceType`
+- `EmailDomainMigrationService`
+- `EmailDomainRedirectionChangeRedirectionCreation`
+- `EmailDomainRedirectionCreation`
+- `EmailDomainRedirectionGlobal`
+- `MigrateAccountMigrateDestinationEmailAddressRequest`
+
+#### `emailexchange`
+
+- `create_service_log_subscription` (POST /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription)
+- `delete_service_log_subscription` (DELETE /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription/{subscriptionId})
+- `get_service_log_kind`, iterator `all_service_log_kinds` (GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind/{name})
+- `get_service_log_subscription`, iterator `all_service_log_subscriptions` (GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription/{subscriptionId})
+- `list_service_log_kinds` (GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind)
+- `list_service_log_subscriptions` (GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription)
+- `url_service_log` (POST /v1/email/exchange/{organizationName}/service/{exchangeService}/log/url)
+- `DbaasLogsLogKind`
+- `DbaasLogsLogSubscriptionCreation`
+- `DbaasLogsLogSubscriptionResponse`
+- `DbaasLogsLogSubscription`
+- `DbaasLogsLogURLCreation`
+- `DbaasLogsSubscriptionResource`
+- `DbaasLogsTemporaryLogsLink`
+
+#### `licenseoffice_prepaid`
+
+- `confirm_termination` (POST /v1/license/officePrepaid/{serviceName}/confirmTermination)
+- `get_service_infos` (GET /v1/license/officePrepaid/{serviceName}/serviceInfos)
+- `terminate` (POST /v1/license/officePrepaid/{serviceName}/terminate)
+- `update_service_infos` (PUT /v1/license/officePrepaid/{serviceName}/serviceInfos)
+- `ConfirmTerminationRequest`
+- `ServiceRenewType`
+- `ServiceRenewalTypeEnum`
+- `ServiceStateEnum`
+- `ServiceTerminationFutureUseEnum`
+- `ServiceTerminationReasonEnum`
+- `ServicesServiceWritable`
+- `ServicesService`
+
+#### `public_cloud`
+
+- `abort_bucket_object_multipart_upload` (DELETE /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id})
+- `all_bucket_multipart_uploads` (iterator) (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload)
+- `all_bucket_object_multipart_uploads` (iterator) (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload)
+- `all_bucket_replication_destinations` (iterator) (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/destination)
+- `all_bucket_replication_jobs` (iterator) (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger)
+- `create_bucket_multipart_upload` (POST /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload)
+- `create_bucket_replication_job` (POST /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger)
+- `edit_bucket_lifecycle` (PUT /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/lifecycle)
+- `edit_bucket_replication` (PUT /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication)
+- `get_bucket_lifecycle` (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/lifecycle)
+- `get_bucket_multipart_upload` (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload/{id})
+- `get_bucket_object_multipart_upload_parts` (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}/parts)
+- `get_bucket_object_multipart_upload` (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id})
+- `get_bucket_replication_job` (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger/{id})
+- `get_bucket_replication` (GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication)
+- `get_managed_analytics_capabilities` (GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities)
+- `get_managed_database_capabilities` (GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities)
+- `PublicCloudDatabaseCapabilities`
+- `PublicCloudInstanceInstanceManagerActionNameEnum`
+- `PublicCloudInstanceInstanceManagerActionReasonEnum`
+- `PublicCloudInstanceInstanceManagerAction`
+- `PublicCloudStorageObjectLifecycleRuleAbortIncompleteMultipartUpload`
+- `PublicCloudStorageObjectLifecycleRuleExpiration`
+- `PublicCloudStorageObjectLifecycleRuleFilter`
+- `PublicCloudStorageObjectLifecycleRuleNoncurrentVersionExpiration`
+- `PublicCloudStorageObjectLifecycleRuleNoncurrentVersionTransition`
+- `PublicCloudStorageObjectLifecycleRulePut`
+- `PublicCloudStorageObjectLifecycleRuleStatusEnum`
+- `PublicCloudStorageObjectLifecycleRuleTransition`
+- `PublicCloudStorageObjectLifecycleRule`
+- `PublicCloudStorageObjectLifecycleRulesResponse`
+- `PublicCloudStorageObjectMultipartUploadCreation`
+- `PublicCloudStorageObjectMultipartUploadPart`
+- `PublicCloudStorageObjectMultipartUploadParts`
+- `PublicCloudStorageObjectMultipartUpload`
+- `PublicCloudStorageObjectReplicationDestinationCandidate`
+- `PublicCloudStorageObjectReplicationDestinationReasonEnum`
+- `PublicCloudStorageObjectReplicationJobStatusEnum`
+- `PublicCloudStorageObjectReplicationJob`
+- `PublicCloudStorageObjectReplicationRuleDeleteMarkerReplicationEnum`
+- `PublicCloudStorageObjectReplicationRuleDestination`
+- `PublicCloudStorageObjectReplicationRuleFilter`
+- `PublicCloudStorageObjectReplicationRulePut`
+- `PublicCloudStorageObjectReplicationRuleStatusEnum`
+- `PublicCloudStorageObjectReplicationRule`
+- `PublicCloudStorageObjectReplicationRulesResponse`
+- `PublicCloudStorageObjectStorageClassLifecycleEnum`
+- `PublicCloudStorageObjectStorageClassReplicationEnum`
+- `PublicCloudInstanceInstanceCurrentState.capabilities`
+
+</details>
+
+<details>
+<summary>Every change to the API contract, as oasdiff reports it (16)</summary>
+
+#### `hostingweb`
+
+- `create_key_ssh`: added the optional property `deprecated` to the response with the `200` status (POST /v1/hosting/web/{serviceName}/key/ssh)
+- `get_key_ssh`: added the optional property `deprecated` to the response with the `200` status (GET /v1/hosting/web/{serviceName}/key/ssh)
+
+#### `order`
+
+- `get_order_catalog_formatted_domain_highlighted`: endpoint added (GET /v1/order/catalog/formatted/domain/highlighted)
+
+#### `public_cloud`
+
+- `all_instances`: added the optional property `items/currentState/allOf[#/components/schemas/publicCloud.instance.InstanceCurrentState]/capabilities` to the response with the `200` status (GET /v2/publicCloud/project/{projectId}/compute/instance)
+- `create_instance`: added the optional property `currentState/allOf[#/components/schemas/publicCloud.instance.InstanceCurrentState]/capabilities` to the response with the `200` status (POST /v2/publicCloud/project/{projectId}/compute/instance)
+- `delete_instance`: added the optional property `currentState/allOf[#/components/schemas/publicCloud.instance.InstanceCurrentState]/capabilities` to the response with the `200` status (DELETE /v2/publicCloud/project/{projectId}/compute/instance/{instanceId})
+- `edit_instance`: added the optional property `currentState/allOf[#/components/schemas/publicCloud.instance.InstanceCurrentState]/capabilities` to the response with the `200` status (PUT /v2/publicCloud/project/{projectId}/compute/instance/{instanceId})
+- `get_instance`: added the optional property `currentState/allOf[#/components/schemas/publicCloud.instance.InstanceCurrentState]/capabilities` to the response with the `200` status (GET /v2/publicCloud/project/{projectId}/compute/instance/{instanceId})
+- `get_managed_analytics_capabilities`: endpoint added (GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities)
+- `get_managed_database_capabilities`: endpoint added (GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities)
+- `post_instance_action`: added the optional property `currentState/allOf[#/components/schemas/publicCloud.instance.InstanceCurrentState]/capabilities` to the response with the `200` status (POST /v2/publicCloud/project/{projectId}/compute/instance/{instanceId}/action)
+
+#### `sms`
+
+- `get_rates_destinations`: added the new `mc` enum value to the `countryCode/allOf[#/components/schemas/sms.CountryEnum]/` response property for the response status `200` (GET /v1/sms/rates/destinations)
+- `get_rates_destinations`: added the new enum value `mc` to the `query` request parameter `country` (GET /v1/sms/rates/destinations)
+- `list_rates_packs`: added the new `mc` enum value to the `items/countryCode/allOf[#/components/schemas/sms.CountryEnum]/` response property for the response status `200` (GET /v1/sms/rates/packs)
+- `list_rates_packs`: added the new enum value `mc` to the `query` request parameter `country` (GET /v1/sms/rates/packs)
+- `list_see_offers`: added the new enum value `mc` to the `query` request parameter `countryDestination` (GET /v1/sms/{serviceName}/seeOffers)
+
+</details>
+
 ## 0.2.1 (2026-11-19)
 
 Compared with 0.2.0.

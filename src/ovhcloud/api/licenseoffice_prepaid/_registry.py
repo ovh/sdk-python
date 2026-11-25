@@ -59,6 +59,16 @@ OP_CHANGE_PASSWORD = Operation(
     schemas_version=None,
 )
 
+OP_CONFIRM_TERMINATION = Operation(
+    name="licenseoffice_prepaid.confirm_termination",
+    method="POST",
+    path="/v1/license/officePrepaid/{serviceName}/confirmTermination",
+    summary="Confirm service termination",
+    iam_actions=("licenseOfficePrepaid:apiovh:confirmTermination",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_GET_PARENT_TENANT = Operation(
     name="licenseoffice_prepaid.get_parent_tenant",
     method="GET",
@@ -99,6 +109,26 @@ OP_CREATE_ATTESTATION_PARENT_TENANT = Operation(
     schemas_version=None,
 )
 
+OP_GET_SERVICE_INFOS = Operation(
+    name="licenseoffice_prepaid.get_service_infos",
+    method="GET",
+    path="/v1/license/officePrepaid/{serviceName}/serviceInfos",
+    summary="Get service information",
+    iam_actions=("licenseOfficePrepaid:apiovh:serviceInfos/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_UPDATE_SERVICE_INFOS = Operation(
+    name="licenseoffice_prepaid.update_service_infos",
+    method="PUT",
+    path="/v1/license/officePrepaid/{serviceName}/serviceInfos",
+    summary="Update service information",
+    iam_actions=("licenseOfficePrepaid:apiovh:serviceInfos/edit",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_LIST_TENANT_PENDING_TASKS = Operation(
     name="licenseoffice_prepaid.list_tenant_pending_tasks",
     method="GET",
@@ -129,6 +159,16 @@ OP_LIST_TENANT_USAGE_STATISTICS = Operation(
     schemas_version=None,
 )
 
+OP_TERMINATE = Operation(
+    name="licenseoffice_prepaid.terminate",
+    method="POST",
+    path="/v1/license/officePrepaid/{serviceName}/terminate",
+    summary="Request service termination",
+    iam_actions=("licenseOfficePrepaid:apiovh:terminate",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_UNCONFIGURE = Operation(
     name="licenseoffice_prepaid.unconfigure",
     method="POST",
@@ -144,12 +184,16 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_GET_OFFICE_PREPAID,
     OP_UPDATE_OFFICE_PREPAID,
     OP_CHANGE_PASSWORD,
+    OP_CONFIRM_TERMINATION,
     OP_GET_PARENT_TENANT,
     OP_UPDATE_PARENT_TENANT,
     OP_ACCEPT_AGREEMENT_PARENT_TENANT,
     OP_CREATE_ATTESTATION_PARENT_TENANT,
+    OP_GET_SERVICE_INFOS,
+    OP_UPDATE_SERVICE_INFOS,
     OP_LIST_TENANT_PENDING_TASKS,
     OP_GET_TENANT_PENDING_TASK,
     OP_LIST_TENANT_USAGE_STATISTICS,
+    OP_TERMINATE,
     OP_UNCONFIGURE,
 )

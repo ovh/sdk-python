@@ -65,6 +65,13 @@ __all__ = [
     "CreateServiceSharedAccountRequest",
     "RenewSSLServiceRequest",
     "UpdateServiceDomainChangeDefaultSBRRequest",
+    "DbaasLogsLogKind",
+    "DbaasLogsLogSubscription",
+    "DbaasLogsLogSubscriptionCreation",
+    "DbaasLogsLogSubscriptionResponse",
+    "DbaasLogsLogURLCreation",
+    "DbaasLogsSubscriptionResource",
+    "DbaasLogsTemporaryLogsLink",
     "EmailExchangeAccount",
     "EmailExchangeAccountLicense",
     "EmailExchangeAccountWritable",
@@ -1211,6 +1218,185 @@ class UpdateServiceDomainChangeDefaultSBRRequest(_gen.BaseModel):
         serialization_alias="sendConnectorIdDefault",
     )
     """Default Sender Connector id applied on all new created accounts"""
+
+
+class DbaasLogsLogKind(_gen.BaseModel):
+    """Log kind"""
+
+    additional_returned_fields: list[str] | None = _p.Field(
+        default=None,
+        validation_alias="additionalReturnedFields",
+        serialization_alias="additionalReturnedFields",
+    )
+    """List of additional log fields managed in this log kind
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Creation date of the log kind
+
+    Read-only: the API sets it.
+    """
+
+    display_name: str | None = _p.Field(
+        default=None, validation_alias="displayName", serialization_alias="displayName"
+    )
+    """Log kind display name
+
+    Read-only: the API sets it.
+    """
+
+    kind_id: str | None = _p.Field(
+        default=None, validation_alias="kindId", serialization_alias="kindId"
+    )
+    """Log kind ID
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Log kind name
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last update date of the log kind
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogSubscription(_gen.BaseModel):
+    """Log subscription"""
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Creation date of the subscription
+
+    Read-only: the API sets it.
+    """
+
+    kind: str | None = _p.Field(default=None)
+    """Log kind name of this subscription
+
+    Read-only: the API sets it.
+    """
+
+    resource: DbaasLogsSubscriptionResource | None = _p.Field(default=None)
+    """Subscribed resource, where the logs come from
+
+    Read-only: the API sets it.
+    """
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """Name of the destination log service
+
+    Read-only: the API sets it.
+    """
+
+    stream_id: str | None = _p.Field(
+        default=None, validation_alias="streamId", serialization_alias="streamId"
+    )
+    """Id of the destination log stream
+
+    Read-only: the API sets it.
+    """
+
+    subscription_id: str | None = _p.Field(
+        default=None, validation_alias="subscriptionId", serialization_alias="subscriptionId"
+    )
+    """Subscription ID
+
+    Read-only: the API sets it.
+    """
+
+    updated_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="updatedAt", serialization_alias="updatedAt"
+    )
+    """Last update date of the subscription
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogSubscriptionCreation(_gen.BaseModel):
+    """Log subscription creation payload"""
+
+    kind: str = _p.Field()
+    """Log kind name to subscribe to"""
+
+    stream_id: str = _p.Field(validation_alias="streamId", serialization_alias="streamId")
+    """Customer log stream ID"""
+
+
+class DbaasLogsLogSubscriptionResponse(_gen.BaseModel):
+    """Asynchronous operation after subscribing or unsubscribing to a resource logs"""
+
+    operation_id: str | None = _p.Field(
+        default=None, validation_alias="operationId", serialization_alias="operationId"
+    )
+    """Identifier of the operation
+
+    Read-only: the API sets it.
+    """
+
+    service_name: str | None = _p.Field(
+        default=None, validation_alias="serviceName", serialization_alias="serviceName"
+    )
+    """Operation owner's service name
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsLogURLCreation(_gen.BaseModel):
+    """Log temporary URL creation payload"""
+
+    kind: str = _p.Field()
+    """Log kind name"""
+
+
+class DbaasLogsSubscriptionResource(_gen.BaseModel):
+    """Log subscription resource"""
+
+    name: str | None = _p.Field(default=None)
+    """Name of subscribed resource
+
+    Read-only: the API sets it.
+    """
+
+    type: str | None = _p.Field(default=None)
+    """Type of subscribed resource
+
+    Read-only: the API sets it.
+    """
+
+
+class DbaasLogsTemporaryLogsLink(_gen.BaseModel):
+    """Temporary url information"""
+
+    expiration_date: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="expirationDate", serialization_alias="expirationDate"
+    )
+    """Temporary url expiration date
+
+    Read-only: the API sets it.
+    """
+
+    url: str | None = _p.Field(default=None)
+    """Temporary url
+
+    Read-only: the API sets it.
+    """
 
 
 class EmailExchangeAccount(_gen.BaseModel):

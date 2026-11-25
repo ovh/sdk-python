@@ -749,6 +749,16 @@ OP_GET_PROJECT_MANAGED_ANALYTICS_BACKUP = Operation(
     schemas_version="1.0",
 )
 
+OP_GET_MANAGED_ANALYTICS_CAPABILITIES = Operation(
+    name="public_cloud.get_managed_analytics_capabilities",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedAnalytics/capabilities",
+    summary="Get Analytics capabilities",
+    iam_actions=("publicCloudProject:apiovh:analytics/capabilities/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
 OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_DISKS = Operation(
     name="public_cloud.all_project_managed_analytics_capabilities_disks",
     method="GET",
@@ -3087,6 +3097,16 @@ OP_GET_PROJECT_MANAGED_DATABASE_BACKUP = Operation(
     path="/v2/publicCloud/project/{projectId}/managedDatabase/backup/{backupId}",
     summary="Get a backup",
     iam_actions=("publicCloudProject:apiovh:database/backup/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_MANAGED_DATABASE_CAPABILITIES = Operation(
+    name="public_cloud.get_managed_database_capabilities",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/managedDatabase/capabilities",
+    summary="Get Databases capabilities",
+    iam_actions=("publicCloudProject:apiovh:database/capabilities/get",),
     deprecated=False,
     schemas_version="1.0",
 )
@@ -6041,6 +6061,156 @@ OP_DELETE_BUCKET = Operation(
     schemas_version="1.0",
 )
 
+OP_GET_BUCKET_LIFECYCLE = Operation(
+    name="public_cloud.get_bucket_lifecycle",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/lifecycle",
+    summary="List lifecycle rules",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/lifecycle/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_EDIT_BUCKET_LIFECYCLE = Operation(
+    name="public_cloud.edit_bucket_lifecycle",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/lifecycle",
+    summary="Replace lifecycle rules",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/lifecycle/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_BUCKET_MULTIPART_UPLOADS = Operation(
+    name="public_cloud.all_bucket_multipart_uploads",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload",
+    summary="List multipart uploads",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_BUCKET_MULTIPART_UPLOAD = Operation(
+    name="public_cloud.create_bucket_multipart_upload",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload",
+    summary="Start a multipart upload",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/multipartUpload/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_BUCKET_MULTIPART_UPLOAD = Operation(
+    name="public_cloud.get_bucket_multipart_upload",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload/{id}",
+    summary="Get a multipart upload",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_BUCKET_OBJECT_MULTIPART_UPLOADS = Operation(
+    name="public_cloud.all_bucket_object_multipart_uploads",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload",
+    summary="List object multipart uploads",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_BUCKET_OBJECT_MULTIPART_UPLOAD = Operation(
+    name="public_cloud.get_bucket_object_multipart_upload",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}",
+    summary="Get an object multipart upload",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ABORT_BUCKET_OBJECT_MULTIPART_UPLOAD = Operation(
+    name="public_cloud.abort_bucket_object_multipart_upload",
+    method="DELETE",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}",
+    summary="Abort a multipart upload",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/object/multipartUpload/delete",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_BUCKET_OBJECT_MULTIPART_UPLOAD_PARTS = Operation(
+    name="public_cloud.get_bucket_object_multipart_upload_parts",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}/parts",
+    summary="List multipart upload parts",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_BUCKET_REPLICATION = Operation(
+    name="public_cloud.get_bucket_replication",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication",
+    summary="List replication rules",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/replication/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_EDIT_BUCKET_REPLICATION = Operation(
+    name="public_cloud.edit_bucket_replication",
+    method="PUT",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication",
+    summary="Replace replication rules",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/replication/edit",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_BUCKET_REPLICATION_DESTINATIONS = Operation(
+    name="public_cloud.all_bucket_replication_destinations",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/destination",
+    summary="List possible replication destinations",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/replication/destination/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_ALL_BUCKET_REPLICATION_JOBS = Operation(
+    name="public_cloud.all_bucket_replication_jobs",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger",
+    summary="List batch replication jobs",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/replication/trigger/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_CREATE_BUCKET_REPLICATION_JOB = Operation(
+    name="public_cloud.create_bucket_replication_job",
+    method="POST",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger",
+    summary="Start a batch replication job",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/replication/trigger/create",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
+OP_GET_BUCKET_REPLICATION_JOB = Operation(
+    name="public_cloud.get_bucket_replication_job",
+    method="GET",
+    path="/v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger/{id}",
+    summary="Get a batch replication job",
+    iam_actions=("publicCloudProject:apiovh:storage/object/bucket/replication/trigger/get",),
+    deprecated=False,
+    schemas_version="1.0",
+)
+
 OP_ALL_SWIFT_CONTAINERS = Operation(
     name="public_cloud.all_swift_containers",
     method="GET",
@@ -6225,6 +6395,7 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_ALL_PROJECT_MANAGED_ANALYTICS_AVAILABILITY_SUGGESTIONS,
     OP_ALL_PROJECT_MANAGED_ANALYTICS_BACKUPS,
     OP_GET_PROJECT_MANAGED_ANALYTICS_BACKUP,
+    OP_GET_MANAGED_ANALYTICS_CAPABILITIES,
     OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_DISKS,
     OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_ENGINES,
     OP_ALL_PROJECT_MANAGED_ANALYTICS_CAPABILITIES_FLAVORS,
@@ -6459,6 +6630,7 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_ALL_PROJECT_MANAGED_DATABASE_AVAILABILITY_SUGGESTIONS,
     OP_ALL_PROJECT_MANAGED_DATABASE_BACKUPS,
     OP_GET_PROJECT_MANAGED_DATABASE_BACKUP,
+    OP_GET_MANAGED_DATABASE_CAPABILITIES,
     OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_DISKS,
     OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_ENGINES,
     OP_ALL_PROJECT_MANAGED_DATABASE_CAPABILITIES_FLAVORS,
@@ -6754,6 +6926,21 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_GET_BUCKET,
     OP_EDIT_BUCKET,
     OP_DELETE_BUCKET,
+    OP_GET_BUCKET_LIFECYCLE,
+    OP_EDIT_BUCKET_LIFECYCLE,
+    OP_ALL_BUCKET_MULTIPART_UPLOADS,
+    OP_CREATE_BUCKET_MULTIPART_UPLOAD,
+    OP_GET_BUCKET_MULTIPART_UPLOAD,
+    OP_ALL_BUCKET_OBJECT_MULTIPART_UPLOADS,
+    OP_GET_BUCKET_OBJECT_MULTIPART_UPLOAD,
+    OP_ABORT_BUCKET_OBJECT_MULTIPART_UPLOAD,
+    OP_GET_BUCKET_OBJECT_MULTIPART_UPLOAD_PARTS,
+    OP_GET_BUCKET_REPLICATION,
+    OP_EDIT_BUCKET_REPLICATION,
+    OP_ALL_BUCKET_REPLICATION_DESTINATIONS,
+    OP_ALL_BUCKET_REPLICATION_JOBS,
+    OP_CREATE_BUCKET_REPLICATION_JOB,
+    OP_GET_BUCKET_REPLICATION_JOB,
     OP_ALL_SWIFT_CONTAINERS,
     OP_CREATE_SWIFT_CONTAINER,
     OP_GET_SWIFT_CONTAINER,

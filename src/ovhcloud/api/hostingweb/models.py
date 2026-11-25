@@ -1981,6 +1981,12 @@ class HostingWebHighLightEnum(_gen.OpenStrEnum):
 class HostingWebKey(_gen.BaseModel):
     """Key information"""
 
+    deprecated: bool | None = _p.Field(default=None)
+    """Whether the key is deprecated and has to be regenerated as an ED25519 key
+
+    Read-only: the API sets it.
+    """
+
     public_key: str | None = _p.Field(
         default=None, validation_alias="publicKey", serialization_alias="publicKey"
     )

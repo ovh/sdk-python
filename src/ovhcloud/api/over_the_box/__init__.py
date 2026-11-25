@@ -10,11 +10,11 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.over_the_box``. Its types are in
 ``ovhcloud.api.over_the_box.models``.
 
-It has 47 operations, on the routes under /v1/overTheBox.
+It has 49 operations, on the routes under /v1/overTheBox.
 
 To start, list what the account has: list_over_the_boxes, list_available_offers, list_hardwares,
-list_hardware_availables, list_available_release_channels, list_backups, list_remote_accesses,
-list_tasks, and 5 more.
+list_hardware_availables, list_available_release_channels, list_backups, list_ips,
+list_remote_accesses, and 6 more.
 
 To find the method for a route, search index/over_the_box.jsonl: one line per method, with its
 route, its signature and the IAM actions it requires. It is at the root of the SDK repository, and

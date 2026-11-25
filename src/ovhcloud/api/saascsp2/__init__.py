@@ -10,7 +10,7 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.saascsp2``. Its types are in
 ``ovhcloud.api.saascsp2.models``.
 
-It has 17 operations, on the routes under /v1/saas/csp2.
+It has 19 operations, on the routes under /v1/saas/csp2.
 
 To start, list what the account has: list_csp2s, list_orderable_licenses, list_subscriptions,
 list_tasks, list_usage_statistics, list_subscription_addons_subscription_ids,

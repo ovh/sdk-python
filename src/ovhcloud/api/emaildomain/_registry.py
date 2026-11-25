@@ -449,6 +449,66 @@ OP_DELETE_ACCOUNT_FILTER_RULE = Operation(
     schemas_version=None,
 )
 
+OP_LIST_ACCOUNT_MIGRATES = Operation(
+    name="emaildomain.list_account_migrates",
+    method="GET",
+    path="/v1/email/domain/{domain}/account/{accountName}/migrate",
+    summary="List migration destinations",
+    iam_actions=("emailDomain:apiovh:account/migrate/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_ACCOUNT_MIGRATE = Operation(
+    name="emaildomain.get_account_migrate",
+    method="GET",
+    path="/v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}",
+    summary="Get a migration destination",
+    iam_actions=("emailDomain:apiovh:account/migrate/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS = Operation(
+    name="emaildomain.list_account_migrate_destination_email_address",
+    method="GET",
+    path="/v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress",
+    summary="List destination email accounts",
+    iam_actions=("emailDomain:apiovh:account/migrate/destinationEmailAddress/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS = Operation(
+    name="emaildomain.get_account_migrate_destination_email_address",
+    method="GET",
+    path="/v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}",
+    summary="Get a destination email account",
+    iam_actions=("emailDomain:apiovh:account/migrate/destinationEmailAddress/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS_CHECK_MIGRATE = Operation(
+    name="emaildomain.get_account_migrate_destination_email_address_check_migrate",
+    method="GET",
+    path="/v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/checkMigrate",
+    summary="Check an email account migration",
+    iam_actions=("emailDomain:apiovh:account/migrate/destinationEmailAddress/checkMigrate/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_MIGRATE_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS = Operation(
+    name="emaildomain.migrate_account_migrate_destination_email_address",
+    method="POST",
+    path="/v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/migrate",
+    summary="Migrate an email account",
+    iam_actions=("emailDomain:apiovh:account/migrate/destinationEmailAddress/migrate",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_UPDATE_USAGE_ACCOUNT = Operation(
     name="emaildomain.update_usage_account",
     method="POST",
@@ -769,6 +829,56 @@ OP_LIST_RECOMMENDED_DNS_RECORDS = Operation(
     schemas_version=None,
 )
 
+OP_LIST_REDIRECTIONS = Operation(
+    name="emaildomain.list_redirections",
+    method="GET",
+    path="/v1/email/domain/{domain}/redirection",
+    summary="List redirections",
+    iam_actions=("emailDomain:apiovh:redirection/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CREATE_REDIRECTION = Operation(
+    name="emaildomain.create_redirection",
+    method="POST",
+    path="/v1/email/domain/{domain}/redirection",
+    summary="Create a redirection",
+    iam_actions=("emailDomain:apiovh:redirection/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_REDIRECTION = Operation(
+    name="emaildomain.get_redirection",
+    method="GET",
+    path="/v1/email/domain/{domain}/redirection/{id}",
+    summary="Get a redirection",
+    iam_actions=("emailDomain:apiovh:redirection/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_DELETE_REDIRECTION = Operation(
+    name="emaildomain.delete_redirection",
+    method="DELETE",
+    path="/v1/email/domain/{domain}/redirection/{id}",
+    summary="Delete a redirection",
+    iam_actions=("emailDomain:apiovh:redirection/delete",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CHANGE_REDIRECTION_REDIRECTION = Operation(
+    name="emaildomain.change_redirection_redirection",
+    method="POST",
+    path="/v1/email/domain/{domain}/redirection/{id}/changeRedirection",
+    summary="Change a redirection target",
+    iam_actions=("emailDomain:apiovh:redirection/changeRedirection",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_LIST_RESPONDERS = Operation(
     name="emaildomain.list_responders",
     method="GET",
@@ -1003,6 +1113,12 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_CREATE_ACCOUNT_FILTER_RULE,
     OP_GET_ACCOUNT_FILTER_RULE,
     OP_DELETE_ACCOUNT_FILTER_RULE,
+    OP_LIST_ACCOUNT_MIGRATES,
+    OP_GET_ACCOUNT_MIGRATE,
+    OP_LIST_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
+    OP_GET_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
+    OP_GET_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS_CHECK_MIGRATE,
+    OP_MIGRATE_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
     OP_UPDATE_USAGE_ACCOUNT,
     OP_GET_ACCOUNT_USAGE,
     OP_LIST_ACLS,
@@ -1035,6 +1151,11 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_MIGRATE_DELEGATION_V3TO_V6,
     OP_GET_QUOTA,
     OP_LIST_RECOMMENDED_DNS_RECORDS,
+    OP_LIST_REDIRECTIONS,
+    OP_CREATE_REDIRECTION,
+    OP_GET_REDIRECTION,
+    OP_DELETE_REDIRECTION,
+    OP_CHANGE_REDIRECTION_REDIRECTION,
     OP_LIST_RESPONDERS,
     OP_CREATE_RESPONDER,
     OP_GET_RESPONDER,

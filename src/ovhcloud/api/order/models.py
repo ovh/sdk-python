@@ -251,6 +251,8 @@ __all__ = [
     "OrderCatalogFormattedDomainExtension",
     "OrderCatalogFormattedDomainExtensionList",
     "OrderCatalogFormattedDomainFormattedPrice",
+    "OrderCatalogFormattedDomainHighlightedExtension",
+    "OrderCatalogFormattedDomainHighlightedExtensionList",
     "OrderCatalogFormattedDomainMultiyearPeriod",
     "OrderCatalogFormattedDomainMultiyearPrice",
     "OrderCatalogFormattedDomainMultiyearPromotion",
@@ -9792,6 +9794,86 @@ class OrderCatalogFormattedDomainFormattedPrice(_gen.BaseModel):
         default=None, validation_alias="valueVat", serialization_alias="valueVat"
     )
     """Price in cents, incl. tax
+
+    Read-only: the API sets it.
+    """
+
+
+class OrderCatalogFormattedDomainHighlightedExtension(_gen.BaseModel):
+    """Domain extension the subsidiary highlights, with its prices"""
+
+    currency: OrderCurrencyCodeEnum | None = _p.Field(default=None)
+    """Currency code of the prices (for example EUR)
+
+    Read-only: the API sets it.
+    """
+
+    extension: str | None = _p.Field(default=None)
+    """Domain extension (for example .com, .fr)
+
+    Read-only: the API sets it.
+    """
+
+    has_multiyear_promotion: bool | None = _p.Field(
+        default=None,
+        validation_alias="hasMultiyearPromotion",
+        serialization_alias="hasMultiyearPromotion",
+    )
+    """Whether a multi-year promotion is currently applied to this extension
+
+    Read-only: the API sets it.
+    """
+
+    has_promotion: bool | None = _p.Field(
+        default=None, validation_alias="hasPromotion", serialization_alias="hasPromotion"
+    )
+    """Whether a promotion is currently applied to this extension
+
+    Read-only: the API sets it.
+    """
+
+    plan_code: str | None = _p.Field(
+        default=None, validation_alias="planCode", serialization_alias="planCode"
+    )
+    """Plan code of the extension in the order catalog
+
+    Read-only: the API sets it.
+    """
+
+    prices: OrderCatalogFormattedDomainPrices | None = _p.Field(default=None)
+    """Prices of the domain operations available for this extension
+
+    Read-only: the API sets it.
+    """
+
+    promotion: OrderCatalogFormattedDomainPromotion | None = _p.Field(default=None)
+    """Promotion currently applied to this extension
+
+    Read-only: the API sets it.
+    """
+
+    renewal_label: str | None = _p.Field(
+        default=None, validation_alias="renewalLabel", serialization_alias="renewalLabel"
+    )
+    """Renewal price worded for the website, incl. or excl. tax like the subsidiary shows its prices (for example Renouvellement 8,99 € HT). Empty when the extension has no renewal price.
+
+    Read-only: the API sets it.
+    """
+
+
+class OrderCatalogFormattedDomainHighlightedExtensionList(_gen.BaseModel):
+    """Highlighted domain extensions of a subsidiary"""
+
+    extensions: list[OrderCatalogFormattedDomainHighlightedExtension] | None = _p.Field(
+        default=None
+    )
+    """Highlighted extensions, in the order of the highlighted extensions list
+
+    Read-only: the API sets it.
+    """
+
+    total: int | None = _p.Field(default=None)
+    """Number of highlighted extensions
 
     Read-only: the API sets it.
     """

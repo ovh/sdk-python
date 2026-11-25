@@ -1,7 +1,7 @@
 # Operation index
 
 One file per API section, `<section>.jsonl` (the section's module name), with one JSON object
-per line: each method of the SDK and the route it calls. 6962 methods in
+per line: each method of the SDK and the route it calls. 7012 methods in
 80 files. It is generated with the SDK's code at each release, from the
 same data, so it always matches it.
 

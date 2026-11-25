@@ -929,6 +929,79 @@ OP_LIST_SERVICE_LICENSES = Operation(
     schemas_version=None,
 )
 
+OP_LIST_SERVICE_LOG_KINDS = Operation(
+    name="emailexchange.list_service_log_kinds",
+    method="GET",
+    path="/v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind",
+    summary="List log kinds",
+    iam_actions=("emailExchange:apiovh:service/log/kind/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_SERVICE_LOG_KIND = Operation(
+    name="emailexchange.get_service_log_kind",
+    method="GET",
+    path="/v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind/{name}",
+    summary="Get a log kind",
+    iam_actions=("emailExchange:apiovh:service/log/kind/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_LIST_SERVICE_LOG_SUBSCRIPTIONS = Operation(
+    name="emailexchange.list_service_log_subscriptions",
+    method="GET",
+    path="/v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription",
+    summary="List log subscriptions",
+    iam_actions=("emailExchange:apiovh:service/log/subscription/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_CREATE_SERVICE_LOG_SUBSCRIPTION = Operation(
+    name="emailexchange.create_service_log_subscription",
+    method="POST",
+    path="/v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription",
+    summary="Create a log subscription",
+    iam_actions=(
+        "emailExchange:apiovh:service/log/subscription/create",
+        "ldp:apiovh:output/graylog/stream/forwardTo",
+    ),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_SERVICE_LOG_SUBSCRIPTION = Operation(
+    name="emailexchange.get_service_log_subscription",
+    method="GET",
+    path="/v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription/{subscriptionId}",
+    summary="Get a log subscription",
+    iam_actions=("emailExchange:apiovh:service/log/subscription/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_DELETE_SERVICE_LOG_SUBSCRIPTION = Operation(
+    name="emailexchange.delete_service_log_subscription",
+    method="DELETE",
+    path="/v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription/{subscriptionId}",
+    summary="Delete a log subscription",
+    iam_actions=("emailExchange:apiovh:service/log/subscription/delete",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_URL_SERVICE_LOG = Operation(
+    name="emailexchange.url_service_log",
+    method="POST",
+    path="/v1/email/exchange/{organizationName}/service/{exchangeService}/log/url",
+    summary="Generate a temporary log URL",
+    iam_actions=("emailExchange:apiovh:service/log/url/create",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_LIST_SERVICE_MAILING_LISTS = Operation(
     name="emailexchange.list_service_mailing_lists",
     method="GET",
@@ -2171,6 +2244,13 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_CHANGE_PASSWORD_SERVICE_IMPERSONATED_USER,
     OP_GET_SERVICE_IMPERSONATION_PASSWORD_POLICY,
     OP_LIST_SERVICE_LICENSES,
+    OP_LIST_SERVICE_LOG_KINDS,
+    OP_GET_SERVICE_LOG_KIND,
+    OP_LIST_SERVICE_LOG_SUBSCRIPTIONS,
+    OP_CREATE_SERVICE_LOG_SUBSCRIPTION,
+    OP_GET_SERVICE_LOG_SUBSCRIPTION,
+    OP_DELETE_SERVICE_LOG_SUBSCRIPTION,
+    OP_URL_SERVICE_LOG,
     OP_LIST_SERVICE_MAILING_LISTS,
     OP_CREATE_SERVICE_MAILING_LIST,
     OP_GET_SERVICE_MAILING_LIST,

@@ -26,11 +26,11 @@ class EmailexchangeApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 206 operations, on the routes under /v1/email/exchange.
+    It has 213 operations, on the routes under /v1/email/exchange.
 
     To start, list what the account has: list_exchanges, list_services, list_service_accounts,
     list_service_authentication_policies, list_service_authorized_ips,
-    list_service_custom_isolations, list_service_dcv_emails, list_service_devices, and 36 more.
+    list_service_custom_isolations, list_service_dcv_emails, list_service_devices, and 38 more.
 
     To find the method for a route, search index/emailexchange.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -3099,6 +3099,238 @@ class EmailexchangeApi(_gen.SectionApi):
                 ("toDate", to_date),
             ),
             result=list[models.EmailExchangeDailyLicense],
+        )
+
+    def list_service_log_kinds(self, organization_name: str, exchange_service: str) -> list[str]:
+        """list_service_log_kinds calls GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind: List log kinds
+
+        Returns the names of the log kinds Exchange emits, which can be forwarded to a stream.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+
+        Requires the IAM action emailExchange:apiovh:service/log/kind/get.
+        """
+        return self._call(
+            _r.OP_LIST_SERVICE_LOG_KINDS,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+            },
+            result=list[str],
+        )
+
+    def get_service_log_kind(
+        self, organization_name: str, exchange_service: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_service_log_kind calls GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            name: Name
+
+        Requires the IAM action emailExchange:apiovh:service/log/kind/get.
+        """
+        return self._call(
+            _r.OP_GET_SERVICE_LOG_KIND,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_service_log_kinds(
+        self, organization_name: str, exchange_service: str
+    ) -> t.Iterator[models.DbaasLogsLogKind]:
+        """all_service_log_kinds iterates over GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind (List log kinds).
+
+        It lists the IDs with list_service_log_kinds, then gets each object with get_service_log_kind,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+
+        The two calls require the IAM action emailExchange:apiovh:service/log/kind/get.
+        """
+        return self._each(
+            lambda: self.list_service_log_kinds(
+                organization_name,
+                exchange_service,
+            ),
+            lambda listed_id: self.get_service_log_kind(
+                organization_name, exchange_service, listed_id
+            ),
+        )
+
+    def list_service_log_subscriptions(
+        self,
+        organization_name: str,
+        exchange_service: str,
+        *,
+        kind: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_service_log_subscriptions calls GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription: List log subscriptions
+
+        Returns the identifiers of the Exchange log subscriptions. Set `kind` to restrict the list
+        to one log kind.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            kind: Filter on a specific kind (e.g., audit) (optional)
+
+        Requires the IAM action emailExchange:apiovh:service/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_LIST_SERVICE_LOG_SUBSCRIPTIONS,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+            },
+            query=(("kind", kind),),
+            result=list[str],
+        )
+
+    def create_service_log_subscription(
+        self,
+        organization_name: str,
+        exchange_service: str,
+        body: models.DbaasLogsLogSubscriptionCreation,
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_service_log_subscription calls POST /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription: Create a log subscription
+
+        Forwards Exchange logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            body: the request body
+
+        Requires the IAM actions emailExchange:apiovh:service/log/subscription/create,
+        ldp:apiovh:output/graylog/stream/forwardTo.
+        """
+        return self._call(
+            _r.OP_CREATE_SERVICE_LOG_SUBSCRIPTION,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def get_service_log_subscription(
+        self, organization_name: str, exchange_service: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_service_log_subscription calls GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            subscription_id: Subscription ID
+
+        Requires the IAM action emailExchange:apiovh:service/log/subscription/get.
+        """
+        return self._call(
+            _r.OP_GET_SERVICE_LOG_SUBSCRIPTION,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def all_service_log_subscriptions(
+        self,
+        organization_name: str,
+        exchange_service: str,
+        *,
+        kind: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.DbaasLogsLogSubscription]:
+        """all_service_log_subscriptions iterates over GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription (List log subscriptions).
+
+        It lists the IDs with list_service_log_subscriptions, then gets each object with get_service_log_subscription,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            kind: Filter on a specific kind (e.g., audit) (optional)
+
+        The two calls require the IAM action emailExchange:apiovh:service/log/subscription/get.
+        """
+        return self._each(
+            lambda: self.list_service_log_subscriptions(
+                organization_name,
+                exchange_service,
+                kind=kind,
+            ),
+            lambda listed_id: self.get_service_log_subscription(
+                organization_name, exchange_service, listed_id
+            ),
+        )
+
+    def delete_service_log_subscription(
+        self, organization_name: str, exchange_service: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_service_log_subscription calls DELETE /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Exchange logs to the stream.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            subscription_id: Subscription ID
+
+        Requires the IAM action emailExchange:apiovh:service/log/subscription/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_SERVICE_LOG_SUBSCRIPTION,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    def url_service_log(
+        self, organization_name: str, exchange_service: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_service_log calls POST /v1/email/exchange/{organizationName}/service/{exchangeService}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            body: the request body
+
+        Requires the IAM action emailExchange:apiovh:service/log/url/create.
+        """
+        return self._call(
+            _r.OP_URL_SERVICE_LOG,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
         )
 
     def list_service_mailing_lists(
@@ -7021,11 +7253,11 @@ class AsyncEmailexchangeApi(_gen.AsyncSectionApi):
 
     The methods of EmailexchangeApi, with await. Iterators are async: use ``async for``.
 
-    It has 206 operations, on the routes under /v1/email/exchange.
+    It has 213 operations, on the routes under /v1/email/exchange.
 
     To start, list what the account has: list_exchanges, list_services, list_service_accounts,
     list_service_authentication_policies, list_service_authorized_ips,
-    list_service_custom_isolations, list_service_dcv_emails, list_service_devices, and 36 more.
+    list_service_custom_isolations, list_service_dcv_emails, list_service_devices, and 38 more.
 
     To find the method for a route, search index/emailexchange.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -10096,6 +10328,240 @@ class AsyncEmailexchangeApi(_gen.AsyncSectionApi):
                 ("toDate", to_date),
             ),
             result=list[models.EmailExchangeDailyLicense],
+        )
+
+    async def list_service_log_kinds(
+        self, organization_name: str, exchange_service: str
+    ) -> list[str]:
+        """list_service_log_kinds calls GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind: List log kinds
+
+        Returns the names of the log kinds Exchange emits, which can be forwarded to a stream.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+
+        Requires the IAM action emailExchange:apiovh:service/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_LIST_SERVICE_LOG_KINDS,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+            },
+            result=list[str],
+        )
+
+    async def get_service_log_kind(
+        self, organization_name: str, exchange_service: str, name: str
+    ) -> models.DbaasLogsLogKind:
+        """get_service_log_kind calls GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind/{name}: Get a log kind
+
+        Returns a log kind and the additional fields its logs carry.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            name: Name
+
+        Requires the IAM action emailExchange:apiovh:service/log/kind/get.
+        """
+        return await self._call(
+            _r.OP_GET_SERVICE_LOG_KIND,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+                "name": name,
+            },
+            result=models.DbaasLogsLogKind,
+        )
+
+    def all_service_log_kinds(
+        self, organization_name: str, exchange_service: str
+    ) -> t.AsyncIterator[models.DbaasLogsLogKind]:
+        """all_service_log_kinds iterates over GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/kind (List log kinds).
+
+        It lists the IDs with list_service_log_kinds, then gets each object with get_service_log_kind,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+
+        The two calls require the IAM action emailExchange:apiovh:service/log/kind/get.
+        """
+        return self._each(
+            lambda: self.list_service_log_kinds(
+                organization_name,
+                exchange_service,
+            ),
+            lambda listed_id: self.get_service_log_kind(
+                organization_name, exchange_service, listed_id
+            ),
+        )
+
+    async def list_service_log_subscriptions(
+        self,
+        organization_name: str,
+        exchange_service: str,
+        *,
+        kind: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_service_log_subscriptions calls GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription: List log subscriptions
+
+        Returns the identifiers of the Exchange log subscriptions. Set `kind` to restrict the list
+        to one log kind.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            kind: Filter on a specific kind (e.g., audit) (optional)
+
+        Requires the IAM action emailExchange:apiovh:service/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_LIST_SERVICE_LOG_SUBSCRIPTIONS,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+            },
+            query=(("kind", kind),),
+            result=list[str],
+        )
+
+    async def create_service_log_subscription(
+        self,
+        organization_name: str,
+        exchange_service: str,
+        body: models.DbaasLogsLogSubscriptionCreation,
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """create_service_log_subscription calls POST /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription: Create a log subscription
+
+        Forwards Exchange logs of one kind to a Logs Data Platform stream. The subscription is
+        created asynchronously and the response returns the operation identifier.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            body: the request body
+
+        Requires the IAM actions emailExchange:apiovh:service/log/subscription/create,
+        ldp:apiovh:output/graylog/stream/forwardTo.
+        """
+        return await self._call(
+            _r.OP_CREATE_SERVICE_LOG_SUBSCRIPTION,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogSubscriptionCreation,
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def get_service_log_subscription(
+        self, organization_name: str, exchange_service: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscription:
+        """get_service_log_subscription calls GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription/{subscriptionId}: Get a log subscription
+
+        Returns the log kind and the destination stream of a subscription.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            subscription_id: Subscription ID
+
+        Requires the IAM action emailExchange:apiovh:service/log/subscription/get.
+        """
+        return await self._call(
+            _r.OP_GET_SERVICE_LOG_SUBSCRIPTION,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscription,
+        )
+
+    def all_service_log_subscriptions(
+        self,
+        organization_name: str,
+        exchange_service: str,
+        *,
+        kind: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.DbaasLogsLogSubscription]:
+        """all_service_log_subscriptions iterates over GET /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription (List log subscriptions).
+
+        It lists the IDs with list_service_log_subscriptions, then gets each object with get_service_log_subscription,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            kind: Filter on a specific kind (e.g., audit) (optional)
+
+        The two calls require the IAM action emailExchange:apiovh:service/log/subscription/get.
+        """
+        return self._each(
+            lambda: self.list_service_log_subscriptions(
+                organization_name,
+                exchange_service,
+                kind=kind,
+            ),
+            lambda listed_id: self.get_service_log_subscription(
+                organization_name, exchange_service, listed_id
+            ),
+        )
+
+    async def delete_service_log_subscription(
+        self, organization_name: str, exchange_service: str, subscription_id: str
+    ) -> models.DbaasLogsLogSubscriptionResponse:
+        """delete_service_log_subscription calls DELETE /v1/email/exchange/{organizationName}/service/{exchangeService}/log/subscription/{subscriptionId}: Delete a log subscription
+
+        Deletes the subscription and stops forwarding Exchange logs to the stream.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            subscription_id: Subscription ID
+
+        Requires the IAM action emailExchange:apiovh:service/log/subscription/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_SERVICE_LOG_SUBSCRIPTION,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+                "subscriptionId": subscription_id,
+            },
+            result=models.DbaasLogsLogSubscriptionResponse,
+        )
+
+    async def url_service_log(
+        self, organization_name: str, exchange_service: str, body: models.DbaasLogsLogURLCreation
+    ) -> models.DbaasLogsTemporaryLogsLink:
+        """url_service_log calls POST /v1/email/exchange/{organizationName}/service/{exchangeService}/log/url: Generate a temporary log URL
+
+        Generates a temporary URL to read the logs of one kind. The URL expires.
+
+        Args:
+            organization_name: The internal name of your exchange organization
+            exchange_service: The internal name of your exchange service
+            body: the request body
+
+        Requires the IAM action emailExchange:apiovh:service/log/url/create.
+        """
+        return await self._call(
+            _r.OP_URL_SERVICE_LOG,
+            path_params={
+                "organizationName": organization_name,
+                "exchangeService": exchange_service,
+            },
+            body=body,
+            body_type=models.DbaasLogsLogURLCreation,
+            result=models.DbaasLogsTemporaryLogsLink,
         )
 
     async def list_service_mailing_lists(

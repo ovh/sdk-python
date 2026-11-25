@@ -10,7 +10,7 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.licenseoffice_prepaid``. Its types are in
 ``ovhcloud.api.licenseoffice_prepaid.models``.
 
-It has 12 operations, on the routes under /v1/license/officePrepaid.
+It has 16 operations, on the routes under /v1/license/officePrepaid.
 
 To start, list what the account has: list_office_prepaids, list_tenant_pending_tasks,
 list_tenant_usage_statistics.

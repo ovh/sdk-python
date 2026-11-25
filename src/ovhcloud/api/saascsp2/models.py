@@ -42,6 +42,11 @@ __all__ = [
     "SaasCsp2SubscriptionCreation",
     "SaasCsp2SubscriptionOrderAddonCreation",
     "SaasCsp2TaskStatusEnum",
+    "ServiceRenewType",
+    "ServiceRenewalTypeEnum",
+    "ServiceStateEnum",
+    "ServicesService",
+    "ServicesServiceWritable",
 ]
 
 
@@ -569,6 +574,145 @@ class SaasCsp2TaskStatusEnum(_gen.OpenStrEnum):
     DONE = "done"
     ERROR = "error"
     TODO = "todo"
+
+
+class ServiceRenewType(_gen.BaseModel):
+    """Map a possible renew for a specific service"""
+
+    automatic: bool | None = _p.Field(default=None)
+    """The service is automatically renewed"""
+
+    delete_at_expiration: bool | None = _p.Field(
+        default=None,
+        validation_alias="deleteAtExpiration",
+        serialization_alias="deleteAtExpiration",
+    )
+    """The service will be deleted at expiration"""
+
+    forced: bool | None = _p.Field(default=None)
+    """The service forced to be renewed"""
+
+    manual_payment: bool | None = _p.Field(
+        default=None, validation_alias="manualPayment", serialization_alias="manualPayment"
+    )
+    """The service needs to be manually renewed and paid"""
+
+    period: int | None = _p.Field(default=None)
+    """period of renew in month"""
+
+
+class ServiceRenewalTypeEnum(_gen.OpenStrEnum):
+    """Detailed renewal type of a service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AUTOMATIC_FORCED_PRODUCT = "automaticForcedProduct"
+    AUTOMATIC_V2012 = "automaticV2012"
+    AUTOMATIC_V2014 = "automaticV2014"
+    AUTOMATIC_V2016 = "automaticV2016"
+    AUTOMATIC_V2024 = "automaticV2024"
+    MANUAL = "manual"
+    ONE_SHOT = "oneShot"
+    OPTION = "option"
+
+
+class ServiceStateEnum(_gen.OpenStrEnum):
+    """The service.StateEnum type of the API.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AUTORENEW_IN_PROGRESS = "autorenewInProgress"
+    EXPIRED = "expired"
+    IN_CREATION = "inCreation"
+    OK = "ok"
+    PENDING_DEBT = "pendingDebt"
+    UN_PAID = "unPaid"
+
+
+class ServicesService(_gen.BaseModel):
+    """Details about a Service"""
+
+    can_delete_at_expiration: bool | None = _p.Field(
+        default=None,
+        validation_alias="canDeleteAtExpiration",
+        serialization_alias="canDeleteAtExpiration",
+    )
+    """Indicates that the service can be set up to be deleted at expiration
+
+    Read-only: the API sets it.
+    """
+
+    contact_admin: str | None = _p.Field(
+        default=None, validation_alias="contactAdmin", serialization_alias="contactAdmin"
+    )
+    """Read-only: the API sets it."""
+
+    contact_billing: str | None = _p.Field(
+        default=None, validation_alias="contactBilling", serialization_alias="contactBilling"
+    )
+    """Read-only: the API sets it."""
+
+    contact_tech: str | None = _p.Field(
+        default=None, validation_alias="contactTech", serialization_alias="contactTech"
+    )
+    """Read-only: the API sets it."""
+
+    creation: datetime.date | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    domain: str | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    engaged_up_to: datetime.date | None = _p.Field(
+        default=None, validation_alias="engagedUpTo", serialization_alias="engagedUpTo"
+    )
+    """Read-only: the API sets it."""
+
+    expiration: datetime.date | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    possible_renew_period: list[int] | None = _p.Field(
+        default=None,
+        validation_alias="possibleRenewPeriod",
+        serialization_alias="possibleRenewPeriod",
+    )
+    """All the possible renew period of your service in month
+
+    Read-only: the API sets it.
+    """
+
+    renew: ServiceRenewType | None = _p.Field(default=None)
+    """Way of handling the renew"""
+
+    renewal_type: ServiceRenewalTypeEnum | None = _p.Field(
+        default=None, validation_alias="renewalType", serialization_alias="renewalType"
+    )
+    """Read-only: the API sets it."""
+
+    service_id: int | None = _p.Field(
+        default=None, validation_alias="serviceId", serialization_alias="serviceId"
+    )
+    """Read-only: the API sets it."""
+
+    status: ServiceStateEnum | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    def writable(self) -> ServicesServiceWritable:
+        """This object as a ServicesServiceWritable, the form a request body takes.
+
+        It has no read-only field, at any depth. Change what you need in it, then send it.
+        It is a deep copy: this object stays as it was.
+        """
+        return _gen.writable(self, ServicesServiceWritable)
+
+
+class ServicesServiceWritable(_gen.BaseModel):
+    """ServicesService without its read-only fields, which the API sets: the form a request body takes."""
+
+    renew: ServiceRenewType | None = _p.Field(default=None)
+    """Way of handling the renew"""
 
 
 PhoneNumber: t.TypeAlias = str

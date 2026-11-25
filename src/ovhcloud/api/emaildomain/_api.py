@@ -26,11 +26,11 @@ class EmaildomainApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 94 operations, on the routes under /v1/email/domain.
+    It has 105 operations, on the routes under /v1/email/domain.
 
     To start, list what the account has: list_domains, list_delegated_accounts, list_accounts,
     list_acls, list_dns_mx_records, list_mailing_lists, list_recommended_dns_records,
-    list_responders, and 12 more.
+    list_redirections, and 15 more.
 
     To find the method for a route, search index/emaildomain.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -1242,6 +1242,253 @@ class EmaildomainApi(_gen.SectionApi):
             result=list[models.EmailDomainTaskFilter],
         )
 
+    def list_account_migrates(
+        self,
+        domain: str,
+        account_name: str,
+        *,
+        type: models.EmailDomainMigrationServiceType | str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_account_migrates calls GET /v1/email/domain/{domain}/account/{accountName}/migrate: List migration destinations
+
+        Returns the names of the services the email account can be migrated to. Filter them by
+        `type`: Email Pro, hosted, private or provider Exchange.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            type: Type of migration service (optional)
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/get.
+        """
+        return self._call(
+            _r.OP_LIST_ACCOUNT_MIGRATES,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+            },
+            query=(("type", type),),
+            result=list[str],
+        )
+
+    def get_account_migrate(
+        self, domain: str, account_name: str, destination_service_name: str
+    ) -> models.EmailDomainMigrationService:
+        """get_account_migrate calls GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}: Get a migration destination
+
+        Returns the offer type, creation and expiration dates, and admin, tech and billing contacts
+        of the destination service.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_MIGRATE,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+            },
+            result=models.EmailDomainMigrationService,
+        )
+
+    def all_account_migrates(
+        self,
+        domain: str,
+        account_name: str,
+        *,
+        type: models.EmailDomainMigrationServiceType | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.EmailDomainMigrationService]:
+        """all_account_migrates iterates over GET /v1/email/domain/{domain}/account/{accountName}/migrate (List migration destinations).
+
+        It lists the IDs with list_account_migrates, then gets each object with get_account_migrate,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            type: Type of migration service (optional)
+
+        The two calls require the IAM action emailDomain:apiovh:account/migrate/get.
+        """
+        return self._each(
+            lambda: self.list_account_migrates(
+                domain,
+                account_name,
+                type=type,
+            ),
+            lambda listed_id: self.get_account_migrate(domain, account_name, listed_id),
+        )
+
+    def list_account_migrate_destination_email_address(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        *,
+        quota: int | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_account_migrate_destination_email_address calls GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress: List destination email accounts
+
+        Returns the email addresses of the destination service the email account can be migrated to.
+        Filter them by minimum size with `quota`.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            quota: Account maximum size (optional)
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/destinationEmailAddress/get.
+        """
+        return self._call(
+            _r.OP_LIST_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+            },
+            query=(("quota", quota),),
+            result=list[str],
+        )
+
+    def get_account_migrate_destination_email_address(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        destination_email_address: str,
+    ) -> models.EmailDomainMigrationAccount:
+        """get_account_migrate_destination_email_address calls GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}: Get a destination email account
+
+        Returns the email address and maximum size of the destination account.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            destination_email_address: Destination account name
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/destinationEmailAddress/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+                "destinationEmailAddress": destination_email_address,
+            },
+            result=models.EmailDomainMigrationAccount,
+        )
+
+    def all_account_migrate_destination_email_address(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        *,
+        quota: int | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.EmailDomainMigrationAccount]:
+        """all_account_migrate_destination_email_address iterates over GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress (List destination email accounts).
+
+        It lists the IDs with list_account_migrate_destination_email_address, then gets each object with get_account_migrate_destination_email_address,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            quota: Account maximum size (optional)
+
+        The two calls require the IAM action
+        emailDomain:apiovh:account/migrate/destinationEmailAddress/get.
+        """
+        return self._each(
+            lambda: self.list_account_migrate_destination_email_address(
+                domain,
+                account_name,
+                destination_service_name,
+                quota=quota,
+            ),
+            lambda listed_id: self.get_account_migrate_destination_email_address(
+                domain, account_name, destination_service_name, listed_id
+            ),
+        )
+
+    def get_account_migrate_destination_email_address_check_migrate(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        destination_email_address: str,
+    ) -> models.EmailDomainMigrationCheckStruct:
+        """get_account_migrate_destination_email_address_check_migrate calls GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/checkMigrate: Check an email account migration
+
+        Returns the errors and warnings found for the migration to the destination account, and the
+        aliases, filters and forwards found.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            destination_email_address: Destination account name
+
+        Requires the IAM action
+        emailDomain:apiovh:account/migrate/destinationEmailAddress/checkMigrate/get.
+        """
+        return self._call(
+            _r.OP_GET_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS_CHECK_MIGRATE,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+                "destinationEmailAddress": destination_email_address,
+            },
+            result=models.EmailDomainMigrationCheckStruct,
+        )
+
+    def migrate_account_migrate_destination_email_address(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        destination_email_address: str,
+        body: models.MigrateAccountMigrateDestinationEmailAddressRequest,
+    ) -> models.EmailDomainTaskPop:
+        """migrate_account_migrate_destination_email_address calls POST /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/migrate: Migrate an email account
+
+        Migrates the email account to the destination account and returns the task. `password` is
+        the new password used for the migration.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            destination_email_address: Destination account name
+            body: the request body
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/destinationEmailAddress/migrate.
+        """
+        return self._call(
+            _r.OP_MIGRATE_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+                "destinationEmailAddress": destination_email_address,
+            },
+            body=body,
+            body_type=models.MigrateAccountMigrateDestinationEmailAddressRequest,
+            result=models.EmailDomainTaskPop,
+        )
+
     def update_usage_account(self, domain: str, account_name: str) -> None:
         """update_usage_account calls POST /v1/email/domain/{domain}/account/{accountName}/updateUsage: Refresh email account usage
 
@@ -2046,6 +2293,155 @@ class EmaildomainApi(_gen.SectionApi):
             result=list[models.EmailDomainRecord],
         )
 
+    def list_redirections(
+        self,
+        domain: str,
+        *,
+        from_: str | None | NotGiven = NOT_GIVEN,
+        to: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_redirections calls GET /v1/email/domain/{domain}/redirection: List redirections
+
+        Returns the IDs of the redirections of the domain. Filter them by `from` or `to` address.
+
+        Args:
+            domain: Name of your domain name
+            from_: Name of redirection (optional)
+            to: Email of redirection target (optional)
+
+        Requires the IAM action emailDomain:apiovh:redirection/get.
+        """
+        return self._call(
+            _r.OP_LIST_REDIRECTIONS,
+            path_params={
+                "domain": domain,
+            },
+            query=(
+                ("from", from_),
+                ("to", to),
+            ),
+            result=list[str],
+        )
+
+    def create_redirection(
+        self, domain: str, body: models.EmailDomainRedirectionCreation
+    ) -> models.EmailDomainTaskSpecialAccount:
+        """create_redirection calls POST /v1/email/domain/{domain}/redirection: Create a redirection
+
+        Creates a redirection from the `from` address to the `to` address, and returns the task. Set
+        `localCopy` to true to keep a local copy.
+
+        Args:
+            domain: Name of your domain name
+            body: the request body
+
+        Requires the IAM action emailDomain:apiovh:redirection/create.
+        """
+        return self._call(
+            _r.OP_CREATE_REDIRECTION,
+            path_params={
+                "domain": domain,
+            },
+            body=body,
+            body_type=models.EmailDomainRedirectionCreation,
+            result=models.EmailDomainTaskSpecialAccount,
+        )
+
+    def get_redirection(self, domain: str, id: str) -> models.EmailDomainRedirectionGlobal:
+        """get_redirection calls GET /v1/email/domain/{domain}/redirection/{id}: Get a redirection
+
+        Returns the ID, the source address (`from`) and the target address (`to`) of the
+        redirection.
+
+        Args:
+            domain: Name of your domain name
+            id: Id
+
+        Requires the IAM action emailDomain:apiovh:redirection/get.
+        """
+        return self._call(
+            _r.OP_GET_REDIRECTION,
+            path_params={
+                "domain": domain,
+                "id": id,
+            },
+            result=models.EmailDomainRedirectionGlobal,
+        )
+
+    def all_redirections(
+        self,
+        domain: str,
+        *,
+        from_: str | None | NotGiven = NOT_GIVEN,
+        to: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.Iterator[models.EmailDomainRedirectionGlobal]:
+        """all_redirections iterates over GET /v1/email/domain/{domain}/redirection (List redirections).
+
+        It lists the IDs with list_redirections, then gets each object with get_redirection,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            domain: Name of your domain name
+            from_: Name of redirection (optional)
+            to: Email of redirection target (optional)
+
+        The two calls require the IAM action emailDomain:apiovh:redirection/get.
+        """
+        return self._each(
+            lambda: self.list_redirections(
+                domain,
+                from_=from_,
+                to=to,
+            ),
+            lambda listed_id: self.get_redirection(domain, listed_id),
+        )
+
+    def delete_redirection(self, domain: str, id: str) -> models.EmailDomainTaskSpecialAccount:
+        """delete_redirection calls DELETE /v1/email/domain/{domain}/redirection/{id}: Delete a redirection
+
+        Deletes the redirection and returns the task.
+
+        Args:
+            domain: Name of your domain name
+            id: Id
+
+        Requires the IAM action emailDomain:apiovh:redirection/delete.
+        """
+        return self._call(
+            _r.OP_DELETE_REDIRECTION,
+            path_params={
+                "domain": domain,
+                "id": id,
+            },
+            result=models.EmailDomainTaskSpecialAccount,
+        )
+
+    def change_redirection_redirection(
+        self, domain: str, id: str, body: models.EmailDomainRedirectionChangeRedirectionCreation
+    ) -> models.EmailDomainTaskSpecialAccount:
+        """change_redirection_redirection calls POST /v1/email/domain/{domain}/redirection/{id}/changeRedirection: Change a redirection target
+
+        Sets the new target address (`to`) of the redirection and returns the task.
+
+        Args:
+            domain: Name of your domain name
+            id: Id
+            body: the request body
+
+        Requires the IAM action emailDomain:apiovh:redirection/changeRedirection.
+        """
+        return self._call(
+            _r.OP_CHANGE_REDIRECTION_REDIRECTION,
+            path_params={
+                "domain": domain,
+                "id": id,
+            },
+            body=body,
+            body_type=models.EmailDomainRedirectionChangeRedirectionCreation,
+            result=models.EmailDomainTaskSpecialAccount,
+        )
+
     def list_responders(
         self, domain: str, *, account: str | None | NotGiven = NOT_GIVEN
     ) -> list[str]:
@@ -2589,11 +2985,11 @@ class AsyncEmaildomainApi(_gen.AsyncSectionApi):
 
     The methods of EmaildomainApi, with await. Iterators are async: use ``async for``.
 
-    It has 94 operations, on the routes under /v1/email/domain.
+    It has 105 operations, on the routes under /v1/email/domain.
 
     To start, list what the account has: list_domains, list_delegated_accounts, list_accounts,
     list_acls, list_dns_mx_records, list_mailing_lists, list_recommended_dns_records,
-    list_responders, and 12 more.
+    list_redirections, and 15 more.
 
     To find the method for a route, search index/emaildomain.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -3813,6 +4209,253 @@ class AsyncEmaildomainApi(_gen.AsyncSectionApi):
             result=list[models.EmailDomainTaskFilter],
         )
 
+    async def list_account_migrates(
+        self,
+        domain: str,
+        account_name: str,
+        *,
+        type: models.EmailDomainMigrationServiceType | str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_account_migrates calls GET /v1/email/domain/{domain}/account/{accountName}/migrate: List migration destinations
+
+        Returns the names of the services the email account can be migrated to. Filter them by
+        `type`: Email Pro, hosted, private or provider Exchange.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            type: Type of migration service (optional)
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/get.
+        """
+        return await self._call(
+            _r.OP_LIST_ACCOUNT_MIGRATES,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+            },
+            query=(("type", type),),
+            result=list[str],
+        )
+
+    async def get_account_migrate(
+        self, domain: str, account_name: str, destination_service_name: str
+    ) -> models.EmailDomainMigrationService:
+        """get_account_migrate calls GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}: Get a migration destination
+
+        Returns the offer type, creation and expiration dates, and admin, tech and billing contacts
+        of the destination service.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_MIGRATE,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+            },
+            result=models.EmailDomainMigrationService,
+        )
+
+    def all_account_migrates(
+        self,
+        domain: str,
+        account_name: str,
+        *,
+        type: models.EmailDomainMigrationServiceType | str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.EmailDomainMigrationService]:
+        """all_account_migrates iterates over GET /v1/email/domain/{domain}/account/{accountName}/migrate (List migration destinations).
+
+        It lists the IDs with list_account_migrates, then gets each object with get_account_migrate,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            type: Type of migration service (optional)
+
+        The two calls require the IAM action emailDomain:apiovh:account/migrate/get.
+        """
+        return self._each(
+            lambda: self.list_account_migrates(
+                domain,
+                account_name,
+                type=type,
+            ),
+            lambda listed_id: self.get_account_migrate(domain, account_name, listed_id),
+        )
+
+    async def list_account_migrate_destination_email_address(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        *,
+        quota: int | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_account_migrate_destination_email_address calls GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress: List destination email accounts
+
+        Returns the email addresses of the destination service the email account can be migrated to.
+        Filter them by minimum size with `quota`.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            quota: Account maximum size (optional)
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/destinationEmailAddress/get.
+        """
+        return await self._call(
+            _r.OP_LIST_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+            },
+            query=(("quota", quota),),
+            result=list[str],
+        )
+
+    async def get_account_migrate_destination_email_address(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        destination_email_address: str,
+    ) -> models.EmailDomainMigrationAccount:
+        """get_account_migrate_destination_email_address calls GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}: Get a destination email account
+
+        Returns the email address and maximum size of the destination account.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            destination_email_address: Destination account name
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/destinationEmailAddress/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+                "destinationEmailAddress": destination_email_address,
+            },
+            result=models.EmailDomainMigrationAccount,
+        )
+
+    def all_account_migrate_destination_email_address(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        *,
+        quota: int | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.EmailDomainMigrationAccount]:
+        """all_account_migrate_destination_email_address iterates over GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress (List destination email accounts).
+
+        It lists the IDs with list_account_migrate_destination_email_address, then gets each object with get_account_migrate_destination_email_address,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            quota: Account maximum size (optional)
+
+        The two calls require the IAM action
+        emailDomain:apiovh:account/migrate/destinationEmailAddress/get.
+        """
+        return self._each(
+            lambda: self.list_account_migrate_destination_email_address(
+                domain,
+                account_name,
+                destination_service_name,
+                quota=quota,
+            ),
+            lambda listed_id: self.get_account_migrate_destination_email_address(
+                domain, account_name, destination_service_name, listed_id
+            ),
+        )
+
+    async def get_account_migrate_destination_email_address_check_migrate(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        destination_email_address: str,
+    ) -> models.EmailDomainMigrationCheckStruct:
+        """get_account_migrate_destination_email_address_check_migrate calls GET /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/checkMigrate: Check an email account migration
+
+        Returns the errors and warnings found for the migration to the destination account, and the
+        aliases, filters and forwards found.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            destination_email_address: Destination account name
+
+        Requires the IAM action
+        emailDomain:apiovh:account/migrate/destinationEmailAddress/checkMigrate/get.
+        """
+        return await self._call(
+            _r.OP_GET_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS_CHECK_MIGRATE,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+                "destinationEmailAddress": destination_email_address,
+            },
+            result=models.EmailDomainMigrationCheckStruct,
+        )
+
+    async def migrate_account_migrate_destination_email_address(
+        self,
+        domain: str,
+        account_name: str,
+        destination_service_name: str,
+        destination_email_address: str,
+        body: models.MigrateAccountMigrateDestinationEmailAddressRequest,
+    ) -> models.EmailDomainTaskPop:
+        """migrate_account_migrate_destination_email_address calls POST /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/migrate: Migrate an email account
+
+        Migrates the email account to the destination account and returns the task. `password` is
+        the new password used for the migration.
+
+        Args:
+            domain: Name of your domain name
+            account_name: Name of account
+            destination_service_name: Service name allowed as migration destination
+            destination_email_address: Destination account name
+            body: the request body
+
+        Requires the IAM action emailDomain:apiovh:account/migrate/destinationEmailAddress/migrate.
+        """
+        return await self._call(
+            _r.OP_MIGRATE_ACCOUNT_MIGRATE_DESTINATION_EMAIL_ADDRESS,
+            path_params={
+                "domain": domain,
+                "accountName": account_name,
+                "destinationServiceName": destination_service_name,
+                "destinationEmailAddress": destination_email_address,
+            },
+            body=body,
+            body_type=models.MigrateAccountMigrateDestinationEmailAddressRequest,
+            result=models.EmailDomainTaskPop,
+        )
+
     async def update_usage_account(self, domain: str, account_name: str) -> None:
         """update_usage_account calls POST /v1/email/domain/{domain}/account/{accountName}/updateUsage: Refresh email account usage
 
@@ -4617,6 +5260,157 @@ class AsyncEmaildomainApi(_gen.AsyncSectionApi):
                 "domain": domain,
             },
             result=list[models.EmailDomainRecord],
+        )
+
+    async def list_redirections(
+        self,
+        domain: str,
+        *,
+        from_: str | None | NotGiven = NOT_GIVEN,
+        to: str | None | NotGiven = NOT_GIVEN,
+    ) -> list[str]:
+        """list_redirections calls GET /v1/email/domain/{domain}/redirection: List redirections
+
+        Returns the IDs of the redirections of the domain. Filter them by `from` or `to` address.
+
+        Args:
+            domain: Name of your domain name
+            from_: Name of redirection (optional)
+            to: Email of redirection target (optional)
+
+        Requires the IAM action emailDomain:apiovh:redirection/get.
+        """
+        return await self._call(
+            _r.OP_LIST_REDIRECTIONS,
+            path_params={
+                "domain": domain,
+            },
+            query=(
+                ("from", from_),
+                ("to", to),
+            ),
+            result=list[str],
+        )
+
+    async def create_redirection(
+        self, domain: str, body: models.EmailDomainRedirectionCreation
+    ) -> models.EmailDomainTaskSpecialAccount:
+        """create_redirection calls POST /v1/email/domain/{domain}/redirection: Create a redirection
+
+        Creates a redirection from the `from` address to the `to` address, and returns the task. Set
+        `localCopy` to true to keep a local copy.
+
+        Args:
+            domain: Name of your domain name
+            body: the request body
+
+        Requires the IAM action emailDomain:apiovh:redirection/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_REDIRECTION,
+            path_params={
+                "domain": domain,
+            },
+            body=body,
+            body_type=models.EmailDomainRedirectionCreation,
+            result=models.EmailDomainTaskSpecialAccount,
+        )
+
+    async def get_redirection(self, domain: str, id: str) -> models.EmailDomainRedirectionGlobal:
+        """get_redirection calls GET /v1/email/domain/{domain}/redirection/{id}: Get a redirection
+
+        Returns the ID, the source address (`from`) and the target address (`to`) of the
+        redirection.
+
+        Args:
+            domain: Name of your domain name
+            id: Id
+
+        Requires the IAM action emailDomain:apiovh:redirection/get.
+        """
+        return await self._call(
+            _r.OP_GET_REDIRECTION,
+            path_params={
+                "domain": domain,
+                "id": id,
+            },
+            result=models.EmailDomainRedirectionGlobal,
+        )
+
+    def all_redirections(
+        self,
+        domain: str,
+        *,
+        from_: str | None | NotGiven = NOT_GIVEN,
+        to: str | None | NotGiven = NOT_GIVEN,
+    ) -> t.AsyncIterator[models.EmailDomainRedirectionGlobal]:
+        """all_redirections iterates over GET /v1/email/domain/{domain}/redirection (List redirections).
+
+        It lists the IDs with list_redirections, then gets each object with get_redirection,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            domain: Name of your domain name
+            from_: Name of redirection (optional)
+            to: Email of redirection target (optional)
+
+        The two calls require the IAM action emailDomain:apiovh:redirection/get.
+        """
+        return self._each(
+            lambda: self.list_redirections(
+                domain,
+                from_=from_,
+                to=to,
+            ),
+            lambda listed_id: self.get_redirection(domain, listed_id),
+        )
+
+    async def delete_redirection(
+        self, domain: str, id: str
+    ) -> models.EmailDomainTaskSpecialAccount:
+        """delete_redirection calls DELETE /v1/email/domain/{domain}/redirection/{id}: Delete a redirection
+
+        Deletes the redirection and returns the task.
+
+        Args:
+            domain: Name of your domain name
+            id: Id
+
+        Requires the IAM action emailDomain:apiovh:redirection/delete.
+        """
+        return await self._call(
+            _r.OP_DELETE_REDIRECTION,
+            path_params={
+                "domain": domain,
+                "id": id,
+            },
+            result=models.EmailDomainTaskSpecialAccount,
+        )
+
+    async def change_redirection_redirection(
+        self, domain: str, id: str, body: models.EmailDomainRedirectionChangeRedirectionCreation
+    ) -> models.EmailDomainTaskSpecialAccount:
+        """change_redirection_redirection calls POST /v1/email/domain/{domain}/redirection/{id}/changeRedirection: Change a redirection target
+
+        Sets the new target address (`to`) of the redirection and returns the task.
+
+        Args:
+            domain: Name of your domain name
+            id: Id
+            body: the request body
+
+        Requires the IAM action emailDomain:apiovh:redirection/changeRedirection.
+        """
+        return await self._call(
+            _r.OP_CHANGE_REDIRECTION_REDIRECTION,
+            path_params={
+                "domain": domain,
+                "id": id,
+            },
+            body=body,
+            body_type=models.EmailDomainRedirectionChangeRedirectionCreation,
+            result=models.EmailDomainTaskSpecialAccount,
         )
 
     async def list_responders(

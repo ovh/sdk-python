@@ -3649,6 +3649,16 @@ OP_GET_CATALOG_FORMATTED_DOMAIN_ALTERNATIVE_NAMES = Operation(
     schemas_version=None,
 )
 
+OP_GET_ORDER_CATALOG_FORMATTED_DOMAIN_HIGHLIGHTED = Operation(
+    name="order.get_order_catalog_formatted_domain_highlighted",
+    method="GET",
+    path="/v1/order/catalog/formatted/domain/highlighted",
+    summary="Get the highlighted domain extensions of a subsidiary, with their prices",
+    iam_actions=(),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_GET_CATALOG_FORMATTED_ECO = Operation(
     name="order.get_catalog_formatted_eco",
     method="GET",
@@ -7033,6 +7043,7 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_GET_CATALOG_FORMATTED_DISCOVER,
     OP_GET_CATALOG_FORMATTED_DOMAIN,
     OP_GET_CATALOG_FORMATTED_DOMAIN_ALTERNATIVE_NAMES,
+    OP_GET_ORDER_CATALOG_FORMATTED_DOMAIN_HIGHLIGHTED,
     OP_GET_CATALOG_FORMATTED_ECO,
     OP_GET_CATALOG_FORMATTED_LOGS,
     OP_GET_CATALOG_FORMATTED_PRIVATE_CLOUD,

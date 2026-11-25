@@ -279,6 +279,26 @@ OP_RESTORE_BACKUP_DEVICE = Operation(
     schemas_version=None,
 )
 
+OP_LIST_IPS = Operation(
+    name="over_the_box.list_ips",
+    method="GET",
+    path="/v1/overTheBox/{serviceName}/ips",
+    summary="List the IPs of an OverTheBox service",
+    iam_actions=("overTheBox:apiovh:ips/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
+OP_GET_IPS = Operation(
+    name="over_the_box.get_ips",
+    method="GET",
+    path="/v1/overTheBox/{serviceName}/ips/{ip}",
+    summary="Get an IP of an OverTheBox service",
+    iam_actions=("overTheBox:apiovh:ips/get",),
+    deprecated=False,
+    schemas_version=None,
+)
+
 OP_UPDATE_IPV6 = Operation(
     name="over_the_box.update_ipv6",
     method="PUT",
@@ -519,6 +539,8 @@ OPERATIONS: tuple[Operation, ...] = (
     OP_GET_DEVICE_HARDWARE,
     OP_LOGS_DEVICE,
     OP_RESTORE_BACKUP_DEVICE,
+    OP_LIST_IPS,
+    OP_GET_IPS,
     OP_UPDATE_IPV6,
     OP_LINK_DEVICE,
     OP_LINK_HARDWARE,

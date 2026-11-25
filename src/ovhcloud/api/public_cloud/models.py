@@ -22,6 +22,8 @@ from ..._core import _gen
 
 __all__ = [
     "AdminCredentialsProjectRancher500Response",
+    "CreateBucketMultipartUpload404Response",
+    "CreateBucketReplicationJob404Response",
     "CreateBucket400Response",
     "CreateBucket409Response",
     "CreateGateway400Response",
@@ -129,6 +131,8 @@ __all__ = [
     "DeleteVolumeSnapshot409Response",
     "DeleteVolume404Response",
     "DeleteVolume409Response",
+    "EditBucketLifecycle409Response",
+    "EditBucketReplication409Response",
     "EditBucket404Response",
     "EditBucket409Response",
     "EditFloatingIP400Response",
@@ -183,6 +187,17 @@ __all__ = [
     "EditVolume400Response",
     "EditVolume404Response",
     "EditVolume409Response",
+    "GetBucketLifecycle409Response",
+    "GetBucketMultipartUpload404Response",
+    "GetBucketMultipartUploads404Response",
+    "GetBucketObjectMultipartUploadParts404Response",
+    "GetBucketObjectMultipartUpload404Response",
+    "GetBucketObjectMultipartUploads404Response",
+    "GetBucketReplicationDestinations404Response",
+    "GetBucketReplicationDestinations409Response",
+    "GetBucketReplicationJob404Response",
+    "GetBucketReplicationJobs404Response",
+    "GetBucketReplication409Response",
     "GetBucket404Response",
     "GetGateway404Response",
     "GetInstanceConsoleOutput404Response",
@@ -316,6 +331,7 @@ __all__ = [
     "PublicCloudDatabaseBackupSpec",
     "PublicCloudDatabaseBackupStatusEnum",
     "PublicCloudDatabaseBackupTypeEnum",
+    "PublicCloudDatabaseCapabilities",
     "PublicCloudDatabaseCategoryEnum",
     "PublicCloudDatabaseCertificates",
     "PublicCloudDatabaseCurrentQuery",
@@ -492,6 +508,9 @@ __all__ = [
     "PublicCloudInstanceInstanceImage",
     "PublicCloudInstanceInstanceImageRef",
     "PublicCloudInstanceInstanceLocation",
+    "PublicCloudInstanceInstanceManagerAction",
+    "PublicCloudInstanceInstanceManagerActionNameEnum",
+    "PublicCloudInstanceInstanceManagerActionReasonEnum",
     "PublicCloudInstanceInstanceNetwork",
     "PublicCloudInstanceInstanceNetworkAddress",
     "PublicCloudInstanceInstanceNetworkAddressTypeEnum",
@@ -903,7 +922,34 @@ __all__ = [
     "PublicCloudStorageObjectBucketUpdateTargetSpec",
     "PublicCloudStorageObjectBucketVersioningConfig",
     "PublicCloudStorageObjectBucketVersioningStatusEnum",
+    "PublicCloudStorageObjectLifecycleRule",
+    "PublicCloudStorageObjectLifecycleRuleAbortIncompleteMultipartUpload",
+    "PublicCloudStorageObjectLifecycleRuleExpiration",
+    "PublicCloudStorageObjectLifecycleRuleFilter",
+    "PublicCloudStorageObjectLifecycleRuleNoncurrentVersionExpiration",
+    "PublicCloudStorageObjectLifecycleRuleNoncurrentVersionTransition",
+    "PublicCloudStorageObjectLifecycleRulePut",
+    "PublicCloudStorageObjectLifecycleRuleStatusEnum",
+    "PublicCloudStorageObjectLifecycleRuleTransition",
+    "PublicCloudStorageObjectLifecycleRulesResponse",
+    "PublicCloudStorageObjectMultipartUpload",
+    "PublicCloudStorageObjectMultipartUploadCreation",
+    "PublicCloudStorageObjectMultipartUploadPart",
+    "PublicCloudStorageObjectMultipartUploadParts",
+    "PublicCloudStorageObjectReplicationDestinationCandidate",
+    "PublicCloudStorageObjectReplicationDestinationReasonEnum",
+    "PublicCloudStorageObjectReplicationJob",
+    "PublicCloudStorageObjectReplicationJobStatusEnum",
+    "PublicCloudStorageObjectReplicationRule",
+    "PublicCloudStorageObjectReplicationRuleDeleteMarkerReplicationEnum",
+    "PublicCloudStorageObjectReplicationRuleDestination",
+    "PublicCloudStorageObjectReplicationRuleFilter",
+    "PublicCloudStorageObjectReplicationRulePut",
+    "PublicCloudStorageObjectReplicationRuleStatusEnum",
+    "PublicCloudStorageObjectReplicationRulesResponse",
     "PublicCloudStorageObjectStorageClassEnum",
+    "PublicCloudStorageObjectStorageClassLifecycleEnum",
+    "PublicCloudStorageObjectStorageClassReplicationEnum",
     "PublicCloudStorageSwiftContainer",
     "PublicCloudStorageSwiftContainerCreation",
     "PublicCloudStorageSwiftContainerCurrentState",
@@ -920,6 +966,30 @@ __all__ = [
 
 
 class AdminCredentialsProjectRancher500Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class CreateBucketMultipartUpload404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class CreateBucketReplicationJob404Response(_gen.BaseModel):
     """Common error model"""
 
     class_: str | None = _p.Field(
@@ -2215,6 +2285,30 @@ class DeleteVolume409Response(_gen.BaseModel):
     """Error message"""
 
 
+class EditBucketLifecycle409Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class EditBucketReplication409Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
 class EditBucket404Response(_gen.BaseModel):
     """Common error model"""
 
@@ -2852,6 +2946,138 @@ class EditVolume404Response(_gen.BaseModel):
 
 
 class EditVolume409Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketLifecycle409Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketMultipartUpload404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketMultipartUploads404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketObjectMultipartUploadParts404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketObjectMultipartUpload404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketObjectMultipartUploads404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketReplicationDestinations404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketReplicationDestinations409Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketReplicationJob404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketReplicationJobs404Response(_gen.BaseModel):
+    """Common error model"""
+
+    class_: str | None = _p.Field(
+        default=None, validation_alias="class", serialization_alias="class"
+    )
+    """Class of the error"""
+
+    message: str | None = _p.Field(default=None)
+    """Error message"""
+
+
+class GetBucketReplication409Response(_gen.BaseModel):
     """Common error model"""
 
     class_: str | None = _p.Field(
@@ -5209,6 +5435,46 @@ class PublicCloudDatabaseBackupTypeEnum(_gen.OpenStrEnum):
     NONE = "NONE"
     PITR = "PITR"
     SNAPSHOT = "SNAPSHOT"
+
+
+class PublicCloudDatabaseCapabilities(_gen.BaseModel):
+    """Options available to create a managed database or analytics service"""
+
+    disks: list[PublicCloudDatabaseCapabilitiesDiskType] | None = _p.Field(default=None)
+    """Disk types available with their performance specifications
+
+    Read-only: the API sets it.
+    """
+
+    engines: list[PublicCloudDatabaseEngineCapability] | None = _p.Field(default=None)
+    """Database engines available
+
+    Read-only: the API sets it.
+    """
+
+    flavors: list[PublicCloudDatabaseCapabilitiesFlavor] | None = _p.Field(default=None)
+    """Compute flavors available
+
+    Read-only: the API sets it.
+    """
+
+    options: list[PublicCloudDatabaseCapabilitiesOption] | None = _p.Field(default=None)
+    """Options available
+
+    Read-only: the API sets it.
+    """
+
+    plans: list[PublicCloudDatabaseCapabilitiesPlan] | None = _p.Field(default=None)
+    """Service plans available
+
+    Read-only: the API sets it.
+    """
+
+    regions: list[PublicCloudDatabaseCapabilitiesRegion] | None = _p.Field(default=None)
+    """Regions available
+
+    Read-only: the API sets it.
+    """
 
 
 class PublicCloudDatabaseCategoryEnum(_gen.OpenStrEnum):
@@ -9708,6 +9974,12 @@ class PublicCloudInstanceInstanceCurrentState(_gen.BaseModel):
     Read-only: the API sets it.
     """
 
+    capabilities: list[PublicCloudInstanceInstanceManagerAction] | None = _p.Field(default=None)
+    """Actions the OVHcloud Manager can offer on the instance, one entry per `InstanceManagerActionNameEnum` value, in a fixed display order. Omitted when the response answers a create, an update, a delete or an action, or when the data needed to compute it cannot be read.
+
+    Read-only: the API sets it.
+    """
+
     flavor: PublicCloudInstanceInstanceFlavor | None = _p.Field(default=None)
     """Observed flavor of the instance with full details (name, vCPUs, RAM, local disk). See InstanceFlavor.
 
@@ -9930,6 +10202,69 @@ class PublicCloudInstanceInstanceLocation(_gen.BaseModel):
 
     region: str = _p.Field()
     """Code of the region where the instance is provisioned, for example GRA11, BHS5. Immutable after creation. An instance cannot be moved to another region."""
+
+
+class PublicCloudInstanceInstanceManagerAction(_gen.BaseModel):
+    """Availability of one action the OVHcloud Manager can offer on the instance"""
+
+    enabled: bool | None = _p.Field(default=None)
+    """Whether the action can currently be performed
+
+    Read-only: the API sets it.
+    """
+
+    name: PublicCloudInstanceInstanceManagerActionNameEnum | None = _p.Field(default=None)
+    """Manager action the entry refers to
+
+    Read-only: the API sets it.
+    """
+
+    reason: PublicCloudInstanceInstanceManagerActionReasonEnum | None = _p.Field(default=None)
+    """Why the action is disabled. Omitted when `enabled` is `true`. When several reasons apply, only the first is given, in this order: `INVALID_STATUS` or `TASK_IN_PROGRESS`, `UNAVAILABLE_IN_REGION`, `UNSUPPORTED_FLAVOR`, `UNSUPPORTED_IN_LOCAL_ZONE`, `HAS_PUBLIC_IP`, `ALREADY_MONTHLY_BILLED`.
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudInstanceInstanceManagerActionNameEnum(_gen.OpenStrEnum):
+    """Action that the OVHcloud Manager can offer on an instance. `ACTIVATE_MONTHLY_BILLING`: switch the instance from hourly to monthly billing. `ASSIGN_FLOATING_IP`: attach a floating IP to the instance. `CREATE_AUTOBACKUP`: schedule automatic backups of the instance. `CREATE_BACKUP`: create a backup of the instance now. `DELETE`: delete the instance. `DETAILS`: open the detail page of the instance. `EDIT`: open the edit page of the instance. `HARD_REBOOT`: restart the instance with a power cycle. `REINSTALL`: reinstall the operating system of the instance. `RESCUE`: start the instance in rescue mode. `RESUME`: restore a suspended instance. `SHELVE`: power off the instance and release its compute resources. `SOFT_REBOOT`: restart the operating system of the instance. `START`: power on a stopped instance. `STOP`: power off the instance. `UNRESCUE`: return the instance from rescue mode to normal operation. `UNSHELVE`: restore a shelved instance. `VNC`: open the VNC console of the instance.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACTIVATE_MONTHLY_BILLING = "ACTIVATE_MONTHLY_BILLING"
+    ASSIGN_FLOATING_IP = "ASSIGN_FLOATING_IP"
+    CREATE_AUTOBACKUP = "CREATE_AUTOBACKUP"
+    CREATE_BACKUP = "CREATE_BACKUP"
+    DELETE = "DELETE"
+    DETAILS = "DETAILS"
+    EDIT = "EDIT"
+    HARD_REBOOT = "HARD_REBOOT"
+    REINSTALL = "REINSTALL"
+    RESCUE = "RESCUE"
+    RESUME = "RESUME"
+    SHELVE = "SHELVE"
+    SOFT_REBOOT = "SOFT_REBOOT"
+    START = "START"
+    STOP = "STOP"
+    UNRESCUE = "UNRESCUE"
+    UNSHELVE = "UNSHELVE"
+    VNC = "VNC"
+
+
+class PublicCloudInstanceInstanceManagerActionReasonEnum(_gen.OpenStrEnum):
+    """Reason a Manager action of an instance is disabled. `ALREADY_MONTHLY_BILLED`: the instance already uses monthly billing. `HAS_PUBLIC_IP`: the instance already has a public IP, on the public network (Ext-Net) or as a floating IP. `INVALID_STATUS`: the status of the instance does not allow the action, for example `START` on a running instance. `TASK_IN_PROGRESS`: an operation is in progress on the instance, for example a reboot or a reinstall. `UNAVAILABLE_IN_REGION`: the product that the action needs is not available in the region of the instance. `UNSUPPORTED_FLAVOR`: the flavor of the instance does not support the action, for example a bare-metal flavor. `UNSUPPORTED_IN_LOCAL_ZONE`: the action is not available in a Local Zone.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ALREADY_MONTHLY_BILLED = "ALREADY_MONTHLY_BILLED"
+    HAS_PUBLIC_IP = "HAS_PUBLIC_IP"
+    INVALID_STATUS = "INVALID_STATUS"
+    TASK_IN_PROGRESS = "TASK_IN_PROGRESS"
+    UNAVAILABLE_IN_REGION = "UNAVAILABLE_IN_REGION"
+    UNSUPPORTED_FLAVOR = "UNSUPPORTED_FLAVOR"
+    UNSUPPORTED_IN_LOCAL_ZONE = "UNSUPPORTED_IN_LOCAL_ZONE"
 
 
 class PublicCloudInstanceInstanceNetwork(_gen.BaseModel):
@@ -19664,6 +19999,461 @@ class PublicCloudStorageObjectBucketVersioningStatusEnum(_gen.OpenStrEnum):
     SUSPENDED = "SUSPENDED"
 
 
+class PublicCloudStorageObjectLifecycleRule(_gen.BaseModel):
+    """An S3™ compatible bucket lifecycle rule"""
+
+    abort_incomplete_multipart_upload: (
+        PublicCloudStorageObjectLifecycleRuleAbortIncompleteMultipartUpload | None
+    ) = _p.Field(
+        default=None,
+        validation_alias="abortIncompleteMultipartUpload",
+        serialization_alias="abortIncompleteMultipartUpload",
+    )
+    """Settings for aborting incomplete multipart uploads"""
+
+    expiration: PublicCloudStorageObjectLifecycleRuleExpiration | None = _p.Field(default=None)
+    """Expiration settings for current version objects"""
+
+    filter: PublicCloudStorageObjectLifecycleRuleFilter | None = _p.Field(default=None)
+    """Filter criteria for the rule"""
+
+    id: str = _p.Field()
+    """Unique identifier of the lifecycle rule"""
+
+    noncurrent_version_expiration: (
+        PublicCloudStorageObjectLifecycleRuleNoncurrentVersionExpiration | None
+    ) = _p.Field(
+        default=None,
+        validation_alias="noncurrentVersionExpiration",
+        serialization_alias="noncurrentVersionExpiration",
+    )
+    """Expiration settings for noncurrent version objects"""
+
+    noncurrent_version_transitions: (
+        list[PublicCloudStorageObjectLifecycleRuleNoncurrentVersionTransition] | None
+    ) = _p.Field(
+        default=None,
+        validation_alias="noncurrentVersionTransitions",
+        serialization_alias="noncurrentVersionTransitions",
+    )
+    """Transition rules for noncurrent version objects"""
+
+    status: PublicCloudStorageObjectLifecycleRuleStatusEnum = _p.Field()
+    """Whether the rule is enabled or disabled"""
+
+    transitions: list[PublicCloudStorageObjectLifecycleRuleTransition] | None = _p.Field(
+        default=None
+    )
+    """Transition rules for current version objects"""
+
+
+class PublicCloudStorageObjectLifecycleRuleAbortIncompleteMultipartUpload(_gen.BaseModel):
+    """Settings for aborting incomplete multipart uploads in a lifecycle rule"""
+
+    days_after_initiation: int = _p.Field(
+        validation_alias="daysAfterInitiation", serialization_alias="daysAfterInitiation"
+    )
+    """Number of days after initiation to abort incomplete multipart uploads"""
+
+
+class PublicCloudStorageObjectLifecycleRuleExpiration(_gen.BaseModel):
+    """Expiration settings for current object versions in a lifecycle rule"""
+
+    date: datetime.date | None = _p.Field(default=None)
+    """Date when objects expire"""
+
+    days: int | None = _p.Field(default=None)
+    """Number of days after creation when objects expire"""
+
+    expired_object_delete_marker: bool | None = _p.Field(
+        default=None,
+        validation_alias="expiredObjectDeleteMarker",
+        serialization_alias="expiredObjectDeleteMarker",
+    )
+    """Whether to remove expired object delete markers"""
+
+
+class PublicCloudStorageObjectLifecycleRuleFilter(_gen.BaseModel):
+    """Filter criteria to select which objects a lifecycle rule applies to"""
+
+    object_size_greater_than: int | None = _p.Field(
+        default=None,
+        validation_alias="objectSizeGreaterThan",
+        serialization_alias="objectSizeGreaterThan",
+    )
+    """Minimum object size in bytes for the rule to apply"""
+
+    object_size_less_than: int | None = _p.Field(
+        default=None,
+        validation_alias="objectSizeLessThan",
+        serialization_alias="objectSizeLessThan",
+    )
+    """Maximum object size in bytes for the rule to apply"""
+
+    prefix: str | None = _p.Field(default=None)
+    """Key prefix to filter objects"""
+
+    tags: dict[str, str] | None = _p.Field(default=None)
+    """Key-value tag pairs to filter objects"""
+
+
+class PublicCloudStorageObjectLifecycleRuleNoncurrentVersionExpiration(_gen.BaseModel):
+    """Expiration settings for noncurrent object versions in a lifecycle rule"""
+
+    newer_noncurrent_versions: int | None = _p.Field(
+        default=None,
+        validation_alias="newerNoncurrentVersions",
+        serialization_alias="newerNoncurrentVersions",
+    )
+    """Number of newer noncurrent versions to retain"""
+
+    noncurrent_days: int = _p.Field(
+        validation_alias="noncurrentDays", serialization_alias="noncurrentDays"
+    )
+    """Number of days after an object version becomes noncurrent before it expires"""
+
+
+class PublicCloudStorageObjectLifecycleRuleNoncurrentVersionTransition(_gen.BaseModel):
+    """Storage class transition for noncurrent object versions"""
+
+    newer_noncurrent_versions: int | None = _p.Field(
+        default=None,
+        validation_alias="newerNoncurrentVersions",
+        serialization_alias="newerNoncurrentVersions",
+    )
+    """Number of newer noncurrent versions to retain before transitioning"""
+
+    noncurrent_days: int = _p.Field(
+        validation_alias="noncurrentDays", serialization_alias="noncurrentDays"
+    )
+    """Number of days after an object version becomes noncurrent before it transitions"""
+
+    storage_class: PublicCloudStorageObjectStorageClassLifecycleEnum = _p.Field(
+        validation_alias="storageClass", serialization_alias="storageClass"
+    )
+    """Target storage class for the transition"""
+
+
+class PublicCloudStorageObjectLifecycleRulePut(_gen.BaseModel):
+    """Payload to replace all lifecycle rules for an S3™ compatible bucket"""
+
+    rules: list[PublicCloudStorageObjectLifecycleRule] = _p.Field()
+    """Array of lifecycle rules. An empty array deletes all rules."""
+
+
+class PublicCloudStorageObjectLifecycleRuleStatusEnum(_gen.OpenStrEnum):
+    """Possible statuses for an S3™ compatible bucket lifecycle rule
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DISABLED = "DISABLED"
+    ENABLED = "ENABLED"
+
+
+class PublicCloudStorageObjectLifecycleRuleTransition(_gen.BaseModel):
+    """Storage class transition for current object versions"""
+
+    date: datetime.date | None = _p.Field(default=None)
+    """Date (YYYY-MM-DD) when objects transition to another storage class"""
+
+    days: int | None = _p.Field(default=None)
+    """Number of days after creation when objects transition"""
+
+    storage_class: PublicCloudStorageObjectStorageClassLifecycleEnum = _p.Field(
+        validation_alias="storageClass", serialization_alias="storageClass"
+    )
+    """Target storage class for the transition"""
+
+
+class PublicCloudStorageObjectLifecycleRulesResponse(_gen.BaseModel):
+    """Response containing lifecycle rules for an S3™ compatible bucket"""
+
+    rules: list[PublicCloudStorageObjectLifecycleRule] | None = _p.Field(default=None)
+    """Array of lifecycle rules
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudStorageObjectMultipartUpload(_gen.BaseModel):
+    """A multipart upload in progress in an S3™ compatible bucket"""
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Multipart upload initiation timestamp
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the multipart upload
+
+    Read-only: the API sets it.
+    """
+
+    key: str | None = _p.Field(default=None)
+    """Object key (path within the bucket)
+
+    Read-only: the API sets it.
+    """
+
+    storage_class: PublicCloudStorageObjectStorageClassEnum | None = _p.Field(
+        default=None, validation_alias="storageClass", serialization_alias="storageClass"
+    )
+    """Storage class of the object
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudStorageObjectMultipartUploadCreation(_gen.BaseModel):
+    """Request body for initiating a multipart upload in an S3™ compatible bucket"""
+
+    key: str = _p.Field()
+    """Object key (path within the bucket)"""
+
+    storage_class: PublicCloudStorageObjectStorageClassEnum | None = _p.Field(
+        default=None, validation_alias="storageClass", serialization_alias="storageClass"
+    )
+    """Storage class of the object"""
+
+
+class PublicCloudStorageObjectMultipartUploadPart(_gen.BaseModel):
+    """A part uploaded as portion of a multipart upload in an S3™ compatible bucket"""
+
+    etag: str | None = _p.Field(default=None)
+    """Entity tag (hash of the part content)
+
+    Read-only: the API sets it.
+    """
+
+    last_modified_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="lastModifiedAt", serialization_alias="lastModifiedAt"
+    )
+    """Part last modification timestamp
+
+    Read-only: the API sets it.
+    """
+
+    number: int | None = _p.Field(default=None)
+    """Part number
+
+    Read-only: the API sets it.
+    """
+
+    size: int | None = _p.Field(default=None)
+    """Part size in bytes
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudStorageObjectMultipartUploadParts(_gen.BaseModel):
+    """Parts uploaded for a multipart upload in an S3™ compatible bucket"""
+
+    parts: list[PublicCloudStorageObjectMultipartUploadPart] | None = _p.Field(default=None)
+    """Array of uploaded parts
+
+    Read-only: the API sets it.
+    """
+
+    storage_class: PublicCloudStorageObjectStorageClassEnum | None = _p.Field(
+        default=None, validation_alias="storageClass", serialization_alias="storageClass"
+    )
+    """Storage class of the object
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudStorageObjectReplicationDestinationCandidate(_gen.BaseModel):
+    """A bucket of the project evaluated as a possible replication destination for a given source bucket"""
+
+    eligible: bool | None = _p.Field(default=None)
+    """Whether this bucket can be used as the destination of a replication rule on the source bucket
+
+    Read-only: the API sets it.
+    """
+
+    name: str | None = _p.Field(default=None)
+    """Bucket name
+
+    Read-only: the API sets it.
+    """
+
+    reason: PublicCloudStorageObjectReplicationDestinationReasonEnum | None = _p.Field(default=None)
+    """Why the bucket cannot be used as a destination. Set only when eligible is false.
+
+    Read-only: the API sets it.
+    """
+
+    region: str | None = _p.Field(default=None)
+    """Region the bucket is located in
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudStorageObjectReplicationDestinationReasonEnum(_gen.OpenStrEnum):
+    """Reason a bucket cannot be used as a replication destination. `OBJECT_LOCK_INCOMPATIBLE`: The object lock configuration of the destination bucket is incompatible with the one of the source bucket. `REGION_NOT_REPLICATION_TARGET`: The region of the destination bucket does not accept replicated objects. `VERSIONING_DISABLED`: Versioning is not enabled on the destination bucket.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    OBJECT_LOCK_INCOMPATIBLE = "OBJECT_LOCK_INCOMPATIBLE"
+    REGION_NOT_REPLICATION_TARGET = "REGION_NOT_REPLICATION_TARGET"
+    VERSIONING_DISABLED = "VERSIONING_DISABLED"
+
+
+class PublicCloudStorageObjectReplicationJob(_gen.BaseModel):
+    """A batch replication job applying a bucket's replication configuration to its existing objects"""
+
+    completed: int | None = _p.Field(default=None)
+    """Number of successfully replicated objects
+
+    Read-only: the API sets it.
+    """
+
+    created_at: datetime.datetime | None = _p.Field(
+        default=None, validation_alias="createdAt", serialization_alias="createdAt"
+    )
+    """Job creation date
+
+    Read-only: the API sets it.
+    """
+
+    failed: int | None = _p.Field(default=None)
+    """Number of objects that failed to replicate
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Unique identifier of the job
+
+    Read-only: the API sets it.
+    """
+
+    status: PublicCloudStorageObjectReplicationJobStatusEnum | None = _p.Field(default=None)
+    """Job status
+
+    Read-only: the API sets it.
+    """
+
+    stuck: int | None = _p.Field(default=None)
+    """Number of stuck objects
+
+    Read-only: the API sets it.
+    """
+
+    total: int | None = _p.Field(default=None)
+    """Total number of objects to replicate
+
+    Read-only: the API sets it.
+    """
+
+
+class PublicCloudStorageObjectReplicationJobStatusEnum(_gen.OpenStrEnum):
+    """Replication job status
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACTIVE = "ACTIVE"
+    COMPLETED = "COMPLETED"
+    CREATED = "CREATED"
+    FAILED = "FAILED"
+    PREPARING = "PREPARING"
+
+
+class PublicCloudStorageObjectReplicationRule(_gen.BaseModel):
+    """An S3™ compatible bucket replication rule"""
+
+    delete_marker_replication: PublicCloudStorageObjectReplicationRuleDeleteMarkerReplicationEnum = _p.Field(
+        validation_alias="deleteMarkerReplication", serialization_alias="deleteMarkerReplication"
+    )
+    """Whether delete markers are replicated"""
+
+    destination: PublicCloudStorageObjectReplicationRuleDestination | None = _p.Field(default=None)
+    """Destination bucket and settings for replicated objects"""
+
+    filter: PublicCloudStorageObjectReplicationRuleFilter | None = _p.Field(default=None)
+    """Filter criteria for the rule"""
+
+    id: str = _p.Field()
+    """Unique identifier of the replication rule"""
+
+    priority: int = _p.Field()
+    """Priority of the replication rule"""
+
+    status: PublicCloudStorageObjectReplicationRuleStatusEnum = _p.Field()
+    """Whether the rule is enabled or disabled"""
+
+
+class PublicCloudStorageObjectReplicationRuleDeleteMarkerReplicationEnum(_gen.OpenStrEnum):
+    """Whether delete markers are replicated
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DISABLED = "DISABLED"
+    ENABLED = "ENABLED"
+
+
+class PublicCloudStorageObjectReplicationRuleDestination(_gen.BaseModel):
+    """Destination configuration for replicated objects"""
+
+    name: str = _p.Field()
+    """Name of the destination bucket"""
+
+    region: str = _p.Field()
+    """Region of the destination bucket"""
+
+    storage_class: PublicCloudStorageObjectStorageClassReplicationEnum | None = _p.Field(
+        default=None, validation_alias="storageClass", serialization_alias="storageClass"
+    )
+    """Storage class for replicated objects in the destination bucket"""
+
+
+class PublicCloudStorageObjectReplicationRuleFilter(_gen.BaseModel):
+    """Filter criteria to select which objects a replication rule applies to"""
+
+    prefix: str | None = _p.Field(default=None)
+    """Key prefix to filter objects"""
+
+    tags: dict[str, str] | None = _p.Field(default=None)
+    """Key-value tag pairs to filter objects"""
+
+
+class PublicCloudStorageObjectReplicationRulePut(_gen.BaseModel):
+    """Payload to replace all replication rules for an S3™ compatible bucket"""
+
+    rules: list[PublicCloudStorageObjectReplicationRule] = _p.Field()
+    """Array of replication rules. An empty array deletes all rules."""
+
+
+class PublicCloudStorageObjectReplicationRuleStatusEnum(_gen.OpenStrEnum):
+    """Possible statuses for an S3™ compatible bucket replication rule
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DISABLED = "DISABLED"
+    ENABLED = "ENABLED"
+
+
+class PublicCloudStorageObjectReplicationRulesResponse(_gen.BaseModel):
+    """Response containing replication rules for an S3™ compatible bucket"""
+
+    rules: list[PublicCloudStorageObjectReplicationRule] | None = _p.Field(default=None)
+    """Array of replication rules
+
+    Read-only: the API sets it.
+    """
+
+
 class PublicCloudStorageObjectStorageClassEnum(_gen.OpenStrEnum):
     """Available S3™ storage classes
 
@@ -19673,6 +20463,34 @@ class PublicCloudStorageObjectStorageClassEnum(_gen.OpenStrEnum):
     DEEP_ARCHIVE = "DEEP_ARCHIVE"
     GLACIER_IR = "GLACIER_IR"
     HIGH_PERF = "HIGH_PERF"
+    STANDARD = "STANDARD"
+    STANDARD_IA = "STANDARD_IA"
+
+
+class PublicCloudStorageObjectStorageClassLifecycleEnum(_gen.OpenStrEnum):
+    """Available S3™ storage classes for lifecycle rules
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DEEP_ARCHIVE = "DEEP_ARCHIVE"
+    GLACIER_IR = "GLACIER_IR"
+    STANDARD = "STANDARD"
+    STANDARD_IA = "STANDARD_IA"
+
+
+class PublicCloudStorageObjectStorageClassReplicationEnum(_gen.OpenStrEnum):
+    """Available S3™ storage classes for replication
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    DEEP_ARCHIVE = "DEEP_ARCHIVE"
+    GLACIER = "GLACIER"
+    GLACIER_IR = "GLACIER_IR"
+    HIGH_PERF = "HIGH_PERF"
+    INTELLIGENT_TIERING = "INTELLIGENT_TIERING"
+    ONEZONE_IA = "ONEZONE_IA"
     STANDARD = "STANDARD"
     STANDARD_IA = "STANDARD_IA"
 

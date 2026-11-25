@@ -43,6 +43,7 @@ __all__ = [
     "CreateMailingListSubscriberRequest",
     "CreateMailingListRequest",
     "CreateResponderRequest",
+    "MigrateAccountMigrateDestinationEmailAddressRequest",
     "SendListByEmailMailingListRequest",
     "DomainDomainFilterActionEnum",
     "DomainDomainFilterOperandEnum",
@@ -72,8 +73,17 @@ __all__ = [
     "EmailDomainFilter",
     "EmailDomainMailingList",
     "EmailDomainMailingListWritable",
+    "EmailDomainMigrationAccount",
+    "EmailDomainMigrationCheckCodeEnum",
+    "EmailDomainMigrationCheckResultStruct",
+    "EmailDomainMigrationCheckStruct",
+    "EmailDomainMigrationService",
+    "EmailDomainMigrationServiceType",
     "EmailDomainModerator",
     "EmailDomainRecord",
+    "EmailDomainRedirectionChangeRedirectionCreation",
+    "EmailDomainRedirectionCreation",
+    "EmailDomainRedirectionGlobal",
     "EmailDomainResponder",
     "EmailDomainResponderAccount",
     "EmailDomainResponderAccountWritable",
@@ -400,6 +410,13 @@ class CreateResponderRequest(_gen.BaseModel):
 
     to: datetime.datetime | None = _p.Field(default=None)
     """Date of end responder"""
+
+
+class MigrateAccountMigrateDestinationEmailAddressRequest(_gen.BaseModel):
+    """The request body of POST /v1/email/domain/{domain}/account/{accountName}/migrate/{destinationServiceName}/destinationEmailAddress/{destinationEmailAddress}/migrate."""
+
+    password: str = _p.Field()
+    """New password used for migration"""
 
 
 class SendListByEmailMailingListRequest(_gen.BaseModel):
@@ -1033,6 +1050,148 @@ class EmailDomainMailingListWritable(_gen.BaseModel):
     """Email to reply of mailing list"""
 
 
+class EmailDomainMigrationAccount(_gen.BaseModel):
+    """Migration account"""
+
+    destination_email_address: str | None = _p.Field(
+        default=None,
+        validation_alias="destinationEmailAddress",
+        serialization_alias="destinationEmailAddress",
+    )
+    """Destination account name
+
+    Read-only: the API sets it.
+    """
+
+    quota: int | None = _p.Field(default=None)
+    """Account maximum size
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailDomainMigrationCheckCodeEnum(_gen.OpenStrEnum):
+    """Result code of check migration
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACCOUNT_EMPTY = "ACCOUNT_EMPTY"
+    ACCOUNT_INPROGRESS = "ACCOUNT_INPROGRESS"
+    DELEGATION_EXIST = "DELEGATION_EXIST"
+    DOMAIN_EMPTY = "DOMAIN_EMPTY"
+    FILTER_EXIST = "FILTER_EXIST"
+    FORWARD_EXIST = "FORWARD_EXIST"
+    FORWARD_LOCAL = "FORWARD_LOCAL"
+    MAILINGLIST_EXIST = "MAILINGLIST_EXIST"
+    MAILINGLIST_INPROGRESS = "MAILINGLIST_INPROGRESS"
+    MAILPROXY_BAD_INFRA = "MAILPROXY_BAD_INFRA"
+    MAILPROXY_EMPTY = "MAILPROXY_EMPTY"
+    MAILPROXY_INPROGRESS = "MAILPROXY_INPROGRESS"
+    MAILPROXY_RESERVATION = "MAILPROXY_RESERVATION"
+    REDIRECTION_INPROGRESS = "REDIRECTION_INPROGRESS"
+    RESPONDER_EXIST = "RESPONDER_EXIST"
+    RESPONDER_INPROGRESS = "RESPONDER_INPROGRESS"
+    UNKNOW = "UNKNOW"
+
+
+class EmailDomainMigrationCheckResultStruct(_gen.BaseModel):
+    """Check Migration result"""
+
+    code: EmailDomainMigrationCheckCodeEnum | None = _p.Field(default=None)
+    """Result code of check migration"""
+
+    details: str | None = _p.Field(default=None)
+    """Details of result code"""
+
+
+class EmailDomainMigrationCheckStruct(_gen.BaseModel):
+    """Check Migration result"""
+
+    alias: list[str] | None = _p.Field(default=None)
+    """List of aliases"""
+
+    error: list[EmailDomainMigrationCheckResultStruct] | None = _p.Field(default=None)
+    """List of errors"""
+
+    filter: list[str] | None = _p.Field(default=None)
+    """List of filters"""
+
+    forward: list[str] | None = _p.Field(default=None)
+    """List of forwards"""
+
+    warning: list[EmailDomainMigrationCheckResultStruct] | None = _p.Field(default=None)
+    """List of warnings"""
+
+
+class EmailDomainMigrationService(_gen.BaseModel):
+    """Migration service"""
+
+    contact_admin: str | None = _p.Field(
+        default=None, validation_alias="contactAdmin", serialization_alias="contactAdmin"
+    )
+    """Admin contact of service
+
+    Read-only: the API sets it.
+    """
+
+    contact_billing: str | None = _p.Field(
+        default=None, validation_alias="contactBilling", serialization_alias="contactBilling"
+    )
+    """Billing contact of service
+
+    Read-only: the API sets it.
+    """
+
+    contact_tech: str | None = _p.Field(
+        default=None, validation_alias="contactTech", serialization_alias="contactTech"
+    )
+    """Tech contact of service
+
+    Read-only: the API sets it.
+    """
+
+    creation: datetime.date | None = _p.Field(default=None)
+    """Creation date of service
+
+    Read-only: the API sets it.
+    """
+
+    destination_service_name: str | None = _p.Field(
+        default=None,
+        validation_alias="destinationServiceName",
+        serialization_alias="destinationServiceName",
+    )
+    """Service name allowed as migration destination
+
+    Read-only: the API sets it.
+    """
+
+    expiration: datetime.date | None = _p.Field(default=None)
+    """Expiration date of service
+
+    Read-only: the API sets it.
+    """
+
+    type: EmailDomainMigrationServiceType | None = _p.Field(default=None)
+    """Offer type of service
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailDomainMigrationServiceType(_gen.OpenStrEnum):
+    """Types of migration service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    EMAIL_PRO = "EMAIL PRO"
+    HOSTED_EXCHANGE = "HOSTED EXCHANGE"
+    PRIVATE_EXCHANGE = "PRIVATE EXCHANGE"
+    PROVIDER_EXCHANGE = "PROVIDER EXCHANGE"
+
+
 class EmailDomainModerator(_gen.BaseModel):
     """Moderators List"""
 
@@ -1085,6 +1244,48 @@ class EmailDomainRecord(_gen.BaseModel):
 
     zone: str | None = _p.Field(default=None)
     """Name of DNS zone
+
+    Read-only: the API sets it.
+    """
+
+
+class EmailDomainRedirectionChangeRedirectionCreation(_gen.BaseModel):
+    """Change redirection"""
+
+    to: str = _p.Field()
+    """Target of account"""
+
+
+class EmailDomainRedirectionCreation(_gen.BaseModel):
+    """Create redirection"""
+
+    from_: str = _p.Field(validation_alias="from", serialization_alias="from")
+    """Name of redirection"""
+
+    local_copy: bool = _p.Field(validation_alias="localCopy", serialization_alias="localCopy")
+    """If true keep a local copy"""
+
+    to: str = _p.Field()
+    """Target of account"""
+
+
+class EmailDomainRedirectionGlobal(_gen.BaseModel):
+    """Global Redirection"""
+
+    from_: str | None = _p.Field(default=None, validation_alias="from", serialization_alias="from")
+    """Name of redirection
+
+    Read-only: the API sets it.
+    """
+
+    id: str | None = _p.Field(default=None)
+    """Id of redirection
+
+    Read-only: the API sets it.
+    """
+
+    to: str | None = _p.Field(default=None)
+    """Target of redirection
 
     Read-only: the API sets it.
     """

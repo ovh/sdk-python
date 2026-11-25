@@ -10,7 +10,7 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.order``. Its types are in
 ``ovhcloud.api.order.models``.
 
-It has 665 operations, on the routes under /v1/order.
+It has 666 operations, on the routes under /v1/order.
 
 To start, list what the account has: list_carts, list_dedicated_clouds, list_freefaxes,
 list_over_the_boxes, list_sms, list_telephonies, list_veeam_cloud_connects, list_vps, and 278 more.

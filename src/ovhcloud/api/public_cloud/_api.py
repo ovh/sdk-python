@@ -26,11 +26,11 @@ class PublicCloudApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 613 operations, on the routes under /v2/publicCloud.
+    It has 630 operations, on the routes under /v2/publicCloud.
 
     To start, list what the account has: all_projects, all_gateways, all_load_balancers,
     all_project_managed_kubernetes, all_all_managed_registries, all_networks, all_public_ips,
-    all_project_ranchers, and 169 more.
+    all_project_ranchers, and 173 more.
 
     To find the method for a route, search index/public_cloud.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -2375,6 +2375,27 @@ class PublicCloudApi(_gen.SectionApi):
                 "backupId": backup_id,
             },
             result=models.PublicCloudDatabaseBackup,
+        )
+
+    def get_managed_analytics_capabilities(
+        self, project_id: str
+    ) -> models.PublicCloudDatabaseCapabilities:
+        """get_managed_analytics_capabilities calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities: Get Analytics capabilities
+
+        Returns the disk types, engines, flavors, options, plans and regions available for Analytics
+        services. Each list is the one returned by the capabilities route of the same name.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return self._call(
+            _r.OP_GET_MANAGED_ANALYTICS_CAPABILITIES,
+            path_params={
+                "projectId": project_id,
+            },
+            result=models.PublicCloudDatabaseCapabilities,
         )
 
     def all_project_managed_analytics_capabilities_disks(
@@ -8429,6 +8450,27 @@ class PublicCloudApi(_gen.SectionApi):
                 "backupId": backup_id,
             },
             result=models.PublicCloudDatabaseBackup,
+        )
+
+    def get_managed_database_capabilities(
+        self, project_id: str
+    ) -> models.PublicCloudDatabaseCapabilities:
+        """get_managed_database_capabilities calls GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities: Get Databases capabilities
+
+        Returns the disk types, engines, flavors, options, plans and regions available for Databases
+        services. Each list is the one returned by the capabilities route of the same name.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return self._call(
+            _r.OP_GET_MANAGED_DATABASE_CAPABILITIES,
+            path_params={
+                "projectId": project_id,
+            },
+            result=models.PublicCloudDatabaseCapabilities,
         )
 
     def all_project_managed_database_capabilities_disks(
@@ -15951,6 +15993,393 @@ class PublicCloudApi(_gen.SectionApi):
             result=models.PublicCloudStorageObjectBucket,
         )
 
+    def get_bucket_lifecycle(
+        self, project_id: str, bucket_name: str
+    ) -> models.PublicCloudStorageObjectLifecycleRulesResponse:
+        """get_bucket_lifecycle calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/lifecycle: List lifecycle rules
+
+        Returns the rules that expire objects or move them to another storage class.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/lifecycle/get.
+        """
+        return self._call(
+            _r.OP_GET_BUCKET_LIFECYCLE,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            result=models.PublicCloudStorageObjectLifecycleRulesResponse,
+        )
+
+    def edit_bucket_lifecycle(
+        self,
+        project_id: str,
+        bucket_name: str,
+        body: models.PublicCloudStorageObjectLifecycleRulePut,
+    ) -> models.PublicCloudStorageObjectLifecycleRulesResponse:
+        """edit_bucket_lifecycle calls PUT /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/lifecycle: Replace lifecycle rules
+
+        Replaces all lifecycle rules of the bucket. An empty list deletes all rules.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/lifecycle/edit.
+        """
+        return self._call(
+            _r.OP_EDIT_BUCKET_LIFECYCLE,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            body=body,
+            body_type=models.PublicCloudStorageObjectLifecycleRulePut,
+            result=models.PublicCloudStorageObjectLifecycleRulesResponse,
+        )
+
+    def all_bucket_multipart_uploads(
+        self, project_id: str, bucket_name: str
+    ) -> t.Iterator[models.PublicCloudStorageObjectMultipartUpload]:
+        """all_bucket_multipart_uploads iterates over GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload (List multipart uploads).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the multipart uploads in progress in the bucket, meaning those not yet completed or
+        aborted.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return self._pages(
+            _r.OP_ALL_BUCKET_MULTIPART_UPLOADS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            item=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    def create_bucket_multipart_upload(
+        self,
+        project_id: str,
+        bucket_name: str,
+        body: models.PublicCloudStorageObjectMultipartUploadCreation,
+    ) -> models.PublicCloudStorageObjectMultipartUpload:
+        """create_bucket_multipart_upload calls POST /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload: Start a multipart upload
+
+        Starts uploading a large object in several parts. Returns the upload identifier used by the
+        next calls.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/multipartUpload/create.
+        """
+        return self._call(
+            _r.OP_CREATE_BUCKET_MULTIPART_UPLOAD,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            body=body,
+            body_type=models.PublicCloudStorageObjectMultipartUploadCreation,
+            result=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    def get_bucket_multipart_upload(
+        self, project_id: str, bucket_name: str, id: str
+    ) -> models.PublicCloudStorageObjectMultipartUpload:
+        """get_bucket_multipart_upload calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload/{id}: Get a multipart upload
+
+        Returns the details of a multipart upload in progress.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            id: Id
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return self._call(
+            _r.OP_GET_BUCKET_MULTIPART_UPLOAD,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "id": id,
+            },
+            result=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    def all_bucket_object_multipart_uploads(
+        self, project_id: str, bucket_name: str, key: str
+    ) -> t.Iterator[models.PublicCloudStorageObjectMultipartUpload]:
+        """all_bucket_object_multipart_uploads iterates over GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload (List object multipart uploads).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the multipart uploads in progress for the object.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            key: Key
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return self._pages(
+            _r.OP_ALL_BUCKET_OBJECT_MULTIPART_UPLOADS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "key": key,
+            },
+            item=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    def get_bucket_object_multipart_upload(
+        self, project_id: str, bucket_name: str, key: str, id: str
+    ) -> models.PublicCloudStorageObjectMultipartUpload:
+        """get_bucket_object_multipart_upload calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}: Get an object multipart upload
+
+        Returns the details of a multipart upload in progress for the object.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            key: Key
+            id: Id
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return self._call(
+            _r.OP_GET_BUCKET_OBJECT_MULTIPART_UPLOAD,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "key": key,
+                "id": id,
+            },
+            result=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    def abort_bucket_object_multipart_upload(
+        self, project_id: str, bucket_name: str, key: str, id: str
+    ) -> None:
+        """abort_bucket_object_multipart_upload calls DELETE /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}: Abort a multipart upload
+
+        Stops the upload and deletes the parts already uploaded. No object is created.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            key: Key
+            id: Id
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/object/multipartUpload/delete.
+        """
+        return self._call(
+            _r.OP_ABORT_BUCKET_OBJECT_MULTIPART_UPLOAD,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "key": key,
+                "id": id,
+            },
+        )
+
+    def get_bucket_object_multipart_upload_parts(
+        self, project_id: str, bucket_name: str, key: str, id: str
+    ) -> models.PublicCloudStorageObjectMultipartUploadParts:
+        """get_bucket_object_multipart_upload_parts calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}/parts: List multipart upload parts
+
+        Returns the parts already uploaded for a multipart upload.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            key: Key
+            id: Id
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return self._call(
+            _r.OP_GET_BUCKET_OBJECT_MULTIPART_UPLOAD_PARTS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "key": key,
+                "id": id,
+            },
+            result=models.PublicCloudStorageObjectMultipartUploadParts,
+        )
+
+    def get_bucket_replication(
+        self, project_id: str, bucket_name: str
+    ) -> models.PublicCloudStorageObjectReplicationRulesResponse:
+        """get_bucket_replication calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication: List replication rules
+
+        Returns the rules that copy new objects to other buckets.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/replication/get.
+        """
+        return self._call(
+            _r.OP_GET_BUCKET_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            result=models.PublicCloudStorageObjectReplicationRulesResponse,
+        )
+
+    def edit_bucket_replication(
+        self,
+        project_id: str,
+        bucket_name: str,
+        body: models.PublicCloudStorageObjectReplicationRulePut,
+    ) -> models.PublicCloudStorageObjectReplicationRulesResponse:
+        """edit_bucket_replication calls PUT /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication: Replace replication rules
+
+        Replaces all replication rules of the bucket. An empty list deletes all rules.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/replication/edit.
+        """
+        return self._call(
+            _r.OP_EDIT_BUCKET_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            body=body,
+            body_type=models.PublicCloudStorageObjectReplicationRulePut,
+            result=models.PublicCloudStorageObjectReplicationRulesResponse,
+        )
+
+    def all_bucket_replication_destinations(
+        self, project_id: str, bucket_name: str
+    ) -> t.Iterator[models.PublicCloudStorageObjectReplicationDestinationCandidate]:
+        """all_bucket_replication_destinations iterates over GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/destination (List possible replication destinations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the other buckets of the project and whether each one can receive objects replicated
+        from this bucket. A bucket that cannot gives a reason: versioning disabled, incompatible
+        object lock, or a region that does not accept replicated objects.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/replication/destination/get.
+        """
+        return self._pages(
+            _r.OP_ALL_BUCKET_REPLICATION_DESTINATIONS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            item=models.PublicCloudStorageObjectReplicationDestinationCandidate,
+        )
+
+    def all_bucket_replication_jobs(
+        self, project_id: str, bucket_name: str
+    ) -> t.Iterator[models.PublicCloudStorageObjectReplicationJob]:
+        """all_bucket_replication_jobs iterates over GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger (List batch replication jobs).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop.
+
+        Returns the batch replication jobs of the bucket and their progress.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/replication/trigger/get.
+        """
+        return self._pages(
+            _r.OP_ALL_BUCKET_REPLICATION_JOBS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            item=models.PublicCloudStorageObjectReplicationJob,
+        )
+
+    def create_bucket_replication_job(
+        self, project_id: str, bucket_name: str
+    ) -> models.PublicCloudStorageObjectReplicationJob:
+        """create_bucket_replication_job calls POST /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger: Start a batch replication job
+
+        Applies the current replication rules to the objects already in the bucket.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/replication/trigger/create.
+        """
+        return self._call(
+            _r.OP_CREATE_BUCKET_REPLICATION_JOB,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            result=models.PublicCloudStorageObjectReplicationJob,
+        )
+
+    def get_bucket_replication_job(
+        self, project_id: str, bucket_name: str, id: str
+    ) -> models.PublicCloudStorageObjectReplicationJob:
+        """get_bucket_replication_job calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger/{id}: Get a batch replication job
+
+        Returns the progress of a batch replication job: total, completed, failed and stuck objects.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            id: Id
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/replication/trigger/get.
+        """
+        return self._call(
+            _r.OP_GET_BUCKET_REPLICATION_JOB,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "id": id,
+            },
+            result=models.PublicCloudStorageObjectReplicationJob,
+        )
+
     def all_swift_containers(
         self, project_id: str
     ) -> t.Iterator[models.PublicCloudStorageSwiftContainer]:
@@ -16231,11 +16660,11 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
 
     The methods of PublicCloudApi, with await. Iterators are async: use ``async for``.
 
-    It has 613 operations, on the routes under /v2/publicCloud.
+    It has 630 operations, on the routes under /v2/publicCloud.
 
     To start, list what the account has: all_projects, all_gateways, all_load_balancers,
     all_project_managed_kubernetes, all_all_managed_registries, all_networks, all_public_ips,
-    all_project_ranchers, and 169 more.
+    all_project_ranchers, and 173 more.
 
     To find the method for a route, search index/public_cloud.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -18586,6 +19015,27 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
                 "backupId": backup_id,
             },
             result=models.PublicCloudDatabaseBackup,
+        )
+
+    async def get_managed_analytics_capabilities(
+        self, project_id: str
+    ) -> models.PublicCloudDatabaseCapabilities:
+        """get_managed_analytics_capabilities calls GET /v2/publicCloud/project/{projectId}/managedAnalytics/capabilities: Get Analytics capabilities
+
+        Returns the disk types, engines, flavors, options, plans and regions available for Analytics
+        services. Each list is the one returned by the capabilities route of the same name.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:analytics/capabilities/get.
+        """
+        return await self._call(
+            _r.OP_GET_MANAGED_ANALYTICS_CAPABILITIES,
+            path_params={
+                "projectId": project_id,
+            },
+            result=models.PublicCloudDatabaseCapabilities,
         )
 
     def all_project_managed_analytics_capabilities_disks(
@@ -24640,6 +25090,27 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
                 "backupId": backup_id,
             },
             result=models.PublicCloudDatabaseBackup,
+        )
+
+    async def get_managed_database_capabilities(
+        self, project_id: str
+    ) -> models.PublicCloudDatabaseCapabilities:
+        """get_managed_database_capabilities calls GET /v2/publicCloud/project/{projectId}/managedDatabase/capabilities: Get Databases capabilities
+
+        Returns the disk types, engines, flavors, options, plans and regions available for Databases
+        services. Each list is the one returned by the capabilities route of the same name.
+
+        Args:
+            project_id: Project ID
+
+        Requires the IAM action publicCloudProject:apiovh:database/capabilities/get.
+        """
+        return await self._call(
+            _r.OP_GET_MANAGED_DATABASE_CAPABILITIES,
+            path_params={
+                "projectId": project_id,
+            },
+            result=models.PublicCloudDatabaseCapabilities,
         )
 
     def all_project_managed_database_capabilities_disks(
@@ -32180,6 +32651,393 @@ class AsyncPublicCloudApi(_gen.AsyncSectionApi):
                 "bucketName": bucket_name,
             },
             result=models.PublicCloudStorageObjectBucket,
+        )
+
+    async def get_bucket_lifecycle(
+        self, project_id: str, bucket_name: str
+    ) -> models.PublicCloudStorageObjectLifecycleRulesResponse:
+        """get_bucket_lifecycle calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/lifecycle: List lifecycle rules
+
+        Returns the rules that expire objects or move them to another storage class.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/lifecycle/get.
+        """
+        return await self._call(
+            _r.OP_GET_BUCKET_LIFECYCLE,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            result=models.PublicCloudStorageObjectLifecycleRulesResponse,
+        )
+
+    async def edit_bucket_lifecycle(
+        self,
+        project_id: str,
+        bucket_name: str,
+        body: models.PublicCloudStorageObjectLifecycleRulePut,
+    ) -> models.PublicCloudStorageObjectLifecycleRulesResponse:
+        """edit_bucket_lifecycle calls PUT /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/lifecycle: Replace lifecycle rules
+
+        Replaces all lifecycle rules of the bucket. An empty list deletes all rules.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/lifecycle/edit.
+        """
+        return await self._call(
+            _r.OP_EDIT_BUCKET_LIFECYCLE,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            body=body,
+            body_type=models.PublicCloudStorageObjectLifecycleRulePut,
+            result=models.PublicCloudStorageObjectLifecycleRulesResponse,
+        )
+
+    def all_bucket_multipart_uploads(
+        self, project_id: str, bucket_name: str
+    ) -> t.AsyncIterator[models.PublicCloudStorageObjectMultipartUpload]:
+        """all_bucket_multipart_uploads iterates over GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload (List multipart uploads).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the multipart uploads in progress in the bucket, meaning those not yet completed or
+        aborted.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return self._pages(
+            _r.OP_ALL_BUCKET_MULTIPART_UPLOADS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            item=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    async def create_bucket_multipart_upload(
+        self,
+        project_id: str,
+        bucket_name: str,
+        body: models.PublicCloudStorageObjectMultipartUploadCreation,
+    ) -> models.PublicCloudStorageObjectMultipartUpload:
+        """create_bucket_multipart_upload calls POST /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload: Start a multipart upload
+
+        Starts uploading a large object in several parts. Returns the upload identifier used by the
+        next calls.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            body: the request body
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/multipartUpload/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_BUCKET_MULTIPART_UPLOAD,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            body=body,
+            body_type=models.PublicCloudStorageObjectMultipartUploadCreation,
+            result=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    async def get_bucket_multipart_upload(
+        self, project_id: str, bucket_name: str, id: str
+    ) -> models.PublicCloudStorageObjectMultipartUpload:
+        """get_bucket_multipart_upload calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/multipartUpload/{id}: Get a multipart upload
+
+        Returns the details of a multipart upload in progress.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            id: Id
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return await self._call(
+            _r.OP_GET_BUCKET_MULTIPART_UPLOAD,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "id": id,
+            },
+            result=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    def all_bucket_object_multipart_uploads(
+        self, project_id: str, bucket_name: str, key: str
+    ) -> t.AsyncIterator[models.PublicCloudStorageObjectMultipartUpload]:
+        """all_bucket_object_multipart_uploads iterates over GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload (List object multipart uploads).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the multipart uploads in progress for the object.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            key: Key
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return self._pages(
+            _r.OP_ALL_BUCKET_OBJECT_MULTIPART_UPLOADS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "key": key,
+            },
+            item=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    async def get_bucket_object_multipart_upload(
+        self, project_id: str, bucket_name: str, key: str, id: str
+    ) -> models.PublicCloudStorageObjectMultipartUpload:
+        """get_bucket_object_multipart_upload calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}: Get an object multipart upload
+
+        Returns the details of a multipart upload in progress for the object.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            key: Key
+            id: Id
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return await self._call(
+            _r.OP_GET_BUCKET_OBJECT_MULTIPART_UPLOAD,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "key": key,
+                "id": id,
+            },
+            result=models.PublicCloudStorageObjectMultipartUpload,
+        )
+
+    async def abort_bucket_object_multipart_upload(
+        self, project_id: str, bucket_name: str, key: str, id: str
+    ) -> None:
+        """abort_bucket_object_multipart_upload calls DELETE /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}: Abort a multipart upload
+
+        Stops the upload and deletes the parts already uploaded. No object is created.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            key: Key
+            id: Id
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/object/multipartUpload/delete.
+        """
+        return await self._call(
+            _r.OP_ABORT_BUCKET_OBJECT_MULTIPART_UPLOAD,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "key": key,
+                "id": id,
+            },
+        )
+
+    async def get_bucket_object_multipart_upload_parts(
+        self, project_id: str, bucket_name: str, key: str, id: str
+    ) -> models.PublicCloudStorageObjectMultipartUploadParts:
+        """get_bucket_object_multipart_upload_parts calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/object/{key}/multipartUpload/{id}/parts: List multipart upload parts
+
+        Returns the parts already uploaded for a multipart upload.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            key: Key
+            id: Id
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/multipartUpload/get.
+        """
+        return await self._call(
+            _r.OP_GET_BUCKET_OBJECT_MULTIPART_UPLOAD_PARTS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "key": key,
+                "id": id,
+            },
+            result=models.PublicCloudStorageObjectMultipartUploadParts,
+        )
+
+    async def get_bucket_replication(
+        self, project_id: str, bucket_name: str
+    ) -> models.PublicCloudStorageObjectReplicationRulesResponse:
+        """get_bucket_replication calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication: List replication rules
+
+        Returns the rules that copy new objects to other buckets.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/replication/get.
+        """
+        return await self._call(
+            _r.OP_GET_BUCKET_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            result=models.PublicCloudStorageObjectReplicationRulesResponse,
+        )
+
+    async def edit_bucket_replication(
+        self,
+        project_id: str,
+        bucket_name: str,
+        body: models.PublicCloudStorageObjectReplicationRulePut,
+    ) -> models.PublicCloudStorageObjectReplicationRulesResponse:
+        """edit_bucket_replication calls PUT /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication: Replace replication rules
+
+        Replaces all replication rules of the bucket. An empty list deletes all rules.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            body: the request body
+
+        Requires the IAM action publicCloudProject:apiovh:storage/object/bucket/replication/edit.
+        """
+        return await self._call(
+            _r.OP_EDIT_BUCKET_REPLICATION,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            body=body,
+            body_type=models.PublicCloudStorageObjectReplicationRulePut,
+            result=models.PublicCloudStorageObjectReplicationRulesResponse,
+        )
+
+    def all_bucket_replication_destinations(
+        self, project_id: str, bucket_name: str
+    ) -> t.AsyncIterator[models.PublicCloudStorageObjectReplicationDestinationCandidate]:
+        """all_bucket_replication_destinations iterates over GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/destination (List possible replication destinations).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the other buckets of the project and whether each one can receive objects replicated
+        from this bucket. A bucket that cannot gives a reason: versioning disabled, incompatible
+        object lock, or a region that does not accept replicated objects.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/replication/destination/get.
+        """
+        return self._pages(
+            _r.OP_ALL_BUCKET_REPLICATION_DESTINATIONS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            item=models.PublicCloudStorageObjectReplicationDestinationCandidate,
+        )
+
+    def all_bucket_replication_jobs(
+        self, project_id: str, bucket_name: str
+    ) -> t.AsyncIterator[models.PublicCloudStorageObjectReplicationJob]:
+        """all_bucket_replication_jobs iterates over GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger (List batch replication jobs).
+
+        It yields one item at a time, and gets the next page only when the loop reaches it.
+        An error is raised and stops the loop. Use it with ``async for``.
+
+        Returns the batch replication jobs of the bucket and their progress.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/replication/trigger/get.
+        """
+        return self._pages(
+            _r.OP_ALL_BUCKET_REPLICATION_JOBS,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            item=models.PublicCloudStorageObjectReplicationJob,
+        )
+
+    async def create_bucket_replication_job(
+        self, project_id: str, bucket_name: str
+    ) -> models.PublicCloudStorageObjectReplicationJob:
+        """create_bucket_replication_job calls POST /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger: Start a batch replication job
+
+        Applies the current replication rules to the objects already in the bucket.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/replication/trigger/create.
+        """
+        return await self._call(
+            _r.OP_CREATE_BUCKET_REPLICATION_JOB,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+            },
+            result=models.PublicCloudStorageObjectReplicationJob,
+        )
+
+    async def get_bucket_replication_job(
+        self, project_id: str, bucket_name: str, id: str
+    ) -> models.PublicCloudStorageObjectReplicationJob:
+        """get_bucket_replication_job calls GET /v2/publicCloud/project/{projectId}/storage/object/bucket/{bucketName}/replication/trigger/{id}: Get a batch replication job
+
+        Returns the progress of a batch replication job: total, completed, failed and stuck objects.
+
+        Args:
+            project_id: Project ID
+            bucket_name: Bucket name
+            id: Id
+
+        Requires the IAM action
+        publicCloudProject:apiovh:storage/object/bucket/replication/trigger/get.
+        """
+        return await self._call(
+            _r.OP_GET_BUCKET_REPLICATION_JOB,
+            path_params={
+                "projectId": project_id,
+                "bucketName": bucket_name,
+                "id": id,
+            },
+            result=models.PublicCloudStorageObjectReplicationJob,
         )
 
     def all_swift_containers(

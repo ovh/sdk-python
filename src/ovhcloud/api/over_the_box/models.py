@@ -49,6 +49,10 @@ __all__ = [
     "OtbServiceActivationStatusEnum",
     "OtbServiceConfigurationModeEnum",
     "OtbServiceGraphEndpoint",
+    "OtbServiceIP",
+    "OtbServiceIPGeolocationEnum",
+    "OtbServiceIPStatusEnum",
+    "OtbServiceIPVersionEnum",
     "OtbServiceOperationModeEnum",
     "OtbServiceStatusEnum",
     "OtbServiceTunnelModeEnum",
@@ -525,6 +529,72 @@ class OtbServiceGraphEndpoint(_gen.BaseModel):
 
     Read-only: the API sets it.
     """
+
+
+class OtbServiceIP(_gen.BaseModel):
+    """Service IP details"""
+
+    geolocation: OtbServiceIPGeolocationEnum | None = _p.Field(default=None)
+    """IP geolocation
+
+    Read-only: the API sets it.
+    """
+
+    ip: IP | None = _p.Field(default=None)
+    """IP address
+
+    Read-only: the API sets it.
+    """
+
+    range: int | None = _p.Field(default=None)
+    """IP cidr prefix
+
+    Read-only: the API sets it.
+    """
+
+    status: OtbServiceIPStatusEnum | None = _p.Field(default=None)
+    """IP status
+
+    Read-only: the API sets it.
+    """
+
+    version: OtbServiceIPVersionEnum | None = _p.Field(default=None)
+    """IP version
+
+    Read-only: the API sets it.
+    """
+
+
+class OtbServiceIPGeolocationEnum(_gen.OpenStrEnum):
+    """IP geolocation
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    FR = "fr"
+
+
+class OtbServiceIPStatusEnum(_gen.OpenStrEnum):
+    """IP status
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    ACTIVE = "active"
+    FREE = "free"
+    PENDING_RELEASE = "pendingRelease"
+    RELEASED = "released"
+    RESERVED = "reserved"
+
+
+class OtbServiceIPVersionEnum(_gen.OpenStrEnum):
+    """IP version
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    V4 = "v4"
+    V6 = "v6"
 
 
 class OtbServiceOperationModeEnum(_gen.OpenStrEnum):

@@ -21,6 +21,7 @@ import pydantic as _p
 from ..._core import _gen
 
 __all__ = [
+    "ConfirmTerminationRequest",
     "IAMResourceMetadata",
     "IAMResourceMetadataStateEnum",
     "IAMResourceTagFilter",
@@ -44,7 +45,37 @@ __all__ = [
     "LicenseOfficePrepaidCreateAttestationResponse",
     "NichandleLanguageEnum",
     "PhoneNumber",
+    "ServiceRenewType",
+    "ServiceRenewalTypeEnum",
+    "ServiceStateEnum",
+    "ServiceTerminationFutureUseEnum",
+    "ServiceTerminationReasonEnum",
+    "ServicesService",
+    "ServicesServiceWritable",
 ]
+
+
+class ConfirmTerminationRequest(_gen.BaseModel):
+    """The request body of POST /v1/license/officePrepaid/{serviceName}/confirmTermination."""
+
+    commentary: str | None = _p.Field(default=None)
+    """Commentary about your termination request"""
+
+    future_use: ServiceTerminationFutureUseEnum | str | None = _p.Field(
+        default=None,
+        validation_alias="futureUse",
+        serialization_alias="futureUse",
+        union_mode="left_to_right",
+    )
+    """What next after your termination request"""
+
+    reason: ServiceTerminationReasonEnum | str | None = _p.Field(
+        default=None, union_mode="left_to_right"
+    )
+    """Reason of your termination request"""
+
+    token: str = _p.Field()
+    """The termination token sent by email to the admin contact"""
 
 
 class IAMResourceMetadata(_gen.BaseModel):
@@ -1113,6 +1144,182 @@ class NichandleLanguageEnum(_gen.OpenStrEnum):
     NL_NL = "nl_NL"
     PL_PL = "pl_PL"
     PT_PT = "pt_PT"
+
+
+class ServiceRenewType(_gen.BaseModel):
+    """Map a possible renew for a specific service"""
+
+    automatic: bool | None = _p.Field(default=None)
+    """The service is automatically renewed"""
+
+    delete_at_expiration: bool | None = _p.Field(
+        default=None,
+        validation_alias="deleteAtExpiration",
+        serialization_alias="deleteAtExpiration",
+    )
+    """The service will be deleted at expiration"""
+
+    forced: bool | None = _p.Field(default=None)
+    """The service forced to be renewed"""
+
+    manual_payment: bool | None = _p.Field(
+        default=None, validation_alias="manualPayment", serialization_alias="manualPayment"
+    )
+    """The service needs to be manually renewed and paid"""
+
+    period: int | None = _p.Field(default=None)
+    """period of renew in month"""
+
+
+class ServiceRenewalTypeEnum(_gen.OpenStrEnum):
+    """Detailed renewal type of a service
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AUTOMATIC_FORCED_PRODUCT = "automaticForcedProduct"
+    AUTOMATIC_V2012 = "automaticV2012"
+    AUTOMATIC_V2014 = "automaticV2014"
+    AUTOMATIC_V2016 = "automaticV2016"
+    AUTOMATIC_V2024 = "automaticV2024"
+    MANUAL = "manual"
+    ONE_SHOT = "oneShot"
+    OPTION = "option"
+
+
+class ServiceStateEnum(_gen.OpenStrEnum):
+    """The service.StateEnum type of the API.
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    AUTORENEW_IN_PROGRESS = "autorenewInProgress"
+    EXPIRED = "expired"
+    IN_CREATION = "inCreation"
+    OK = "ok"
+    PENDING_DEBT = "pendingDebt"
+    UN_PAID = "unPaid"
+
+
+class ServiceTerminationFutureUseEnum(_gen.OpenStrEnum):
+    """All future uses you can provide for a service termination
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    NOT_REPLACING_SERVICE = "NOT_REPLACING_SERVICE"
+    OTHER = "OTHER"
+    SUBSCRIBE_AN_OTHER_SERVICE = "SUBSCRIBE_AN_OTHER_SERVICE"
+    SUBSCRIBE_OTHER_KIND_OF_SERVICE_WITH_COMPETITOR = (
+        "SUBSCRIBE_OTHER_KIND_OF_SERVICE_WITH_COMPETITOR"
+    )
+    SUBSCRIBE_SIMILAR_SERVICE_WITH_COMPETITOR = "SUBSCRIBE_SIMILAR_SERVICE_WITH_COMPETITOR"
+
+
+class ServiceTerminationReasonEnum(_gen.OpenStrEnum):
+    """All reasons you can provide for a service termination
+
+    Open: a value the SDK does not know yet is accepted as a new member.
+    """
+
+    FEATURES_DONT_SUIT_ME = "FEATURES_DONT_SUIT_ME"
+    LACK_OF_PERFORMANCES = "LACK_OF_PERFORMANCES"
+    MIGRATED_TO_ANOTHER_OVH_PRODUCT = "MIGRATED_TO_ANOTHER_OVH_PRODUCT"
+    MIGRATED_TO_COMPETITOR = "MIGRATED_TO_COMPETITOR"
+    NOT_ENOUGH_RECOGNITION = "NOT_ENOUGH_RECOGNITION"
+    NOT_NEEDED_ANYMORE = "NOT_NEEDED_ANYMORE"
+    NOT_RELIABLE = "NOT_RELIABLE"
+    NO_ANSWER = "NO_ANSWER"
+    OTHER = "OTHER"
+    PRODUCT_DIMENSION_DONT_SUIT_ME = "PRODUCT_DIMENSION_DONT_SUIT_ME"
+    PRODUCT_TOOLS_DONT_SUIT_ME = "PRODUCT_TOOLS_DONT_SUIT_ME"
+    TOO_EXPENSIVE = "TOO_EXPENSIVE"
+    TOO_HARD_TO_USE = "TOO_HARD_TO_USE"
+    UNSATIFIED_BY_CUSTOMER_SUPPORT = "UNSATIFIED_BY_CUSTOMER_SUPPORT"
+
+
+class ServicesService(_gen.BaseModel):
+    """Details about a Service"""
+
+    can_delete_at_expiration: bool | None = _p.Field(
+        default=None,
+        validation_alias="canDeleteAtExpiration",
+        serialization_alias="canDeleteAtExpiration",
+    )
+    """Indicates that the service can be set up to be deleted at expiration
+
+    Read-only: the API sets it.
+    """
+
+    contact_admin: str | None = _p.Field(
+        default=None, validation_alias="contactAdmin", serialization_alias="contactAdmin"
+    )
+    """Read-only: the API sets it."""
+
+    contact_billing: str | None = _p.Field(
+        default=None, validation_alias="contactBilling", serialization_alias="contactBilling"
+    )
+    """Read-only: the API sets it."""
+
+    contact_tech: str | None = _p.Field(
+        default=None, validation_alias="contactTech", serialization_alias="contactTech"
+    )
+    """Read-only: the API sets it."""
+
+    creation: datetime.date | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    domain: str | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    engaged_up_to: datetime.date | None = _p.Field(
+        default=None, validation_alias="engagedUpTo", serialization_alias="engagedUpTo"
+    )
+    """Read-only: the API sets it."""
+
+    expiration: datetime.date | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    possible_renew_period: list[int] | None = _p.Field(
+        default=None,
+        validation_alias="possibleRenewPeriod",
+        serialization_alias="possibleRenewPeriod",
+    )
+    """All the possible renew period of your service in month
+
+    Read-only: the API sets it.
+    """
+
+    renew: ServiceRenewType | None = _p.Field(default=None)
+    """Way of handling the renew"""
+
+    renewal_type: ServiceRenewalTypeEnum | None = _p.Field(
+        default=None, validation_alias="renewalType", serialization_alias="renewalType"
+    )
+    """Read-only: the API sets it."""
+
+    service_id: int | None = _p.Field(
+        default=None, validation_alias="serviceId", serialization_alias="serviceId"
+    )
+    """Read-only: the API sets it."""
+
+    status: ServiceStateEnum | None = _p.Field(default=None)
+    """Read-only: the API sets it."""
+
+    def writable(self) -> ServicesServiceWritable:
+        """This object as a ServicesServiceWritable, the form a request body takes.
+
+        It has no read-only field, at any depth. Change what you need in it, then send it.
+        It is a deep copy: this object stays as it was.
+        """
+        return _gen.writable(self, ServicesServiceWritable)
+
+
+class ServicesServiceWritable(_gen.BaseModel):
+    """ServicesService without its read-only fields, which the API sets: the form a request body takes."""
+
+    renew: ServiceRenewType | None = _p.Field(default=None)
+    """Way of handling the renew"""
 
 
 PhoneNumber: t.TypeAlias = str

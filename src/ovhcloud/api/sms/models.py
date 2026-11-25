@@ -1490,6 +1490,7 @@ class SmsCountryEnum(_gen.OpenStrEnum):
     LV = "lv"
     LY = "ly"
     MA = "ma"
+    MC = "mc"
     MD = "md"
     ME = "me"
     MG = "mg"

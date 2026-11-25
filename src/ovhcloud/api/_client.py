@@ -324,14 +324,14 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def emaildomain(self) -> _EmaildomainApi:
-        """The emaildomain section: 94 operations."""
+        """The emaildomain section: 105 operations."""
         from .emaildomain._api import EmaildomainApi
 
         return EmaildomainApi(self)
 
     @functools.cached_property
     def emailexchange(self) -> _EmailexchangeApi:
-        """The emailexchange section: 206 operations."""
+        """The emailexchange section: 213 operations."""
         from .emailexchange._api import EmailexchangeApi
 
         return EmailexchangeApi(self)
@@ -436,7 +436,7 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def licenseoffice_prepaid(self) -> _LicenseofficePrepaidApi:
-        """The licenseofficePrepaid section: 12 operations."""
+        """The licenseofficePrepaid section: 16 operations."""
         from .licenseoffice_prepaid._api import LicenseofficePrepaidApi
 
         return LicenseofficePrepaidApi(self)
@@ -548,14 +548,14 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def order(self) -> _OrderApi:
-        """The order section: 665 operations."""
+        """The order section: 666 operations."""
         from .order._api import OrderApi
 
         return OrderApi(self)
 
     @functools.cached_property
     def over_the_box(self) -> _OverTheBoxApi:
-        """The overTheBox section: 47 operations."""
+        """The overTheBox section: 49 operations."""
         from .over_the_box._api import OverTheBoxApi
 
         return OverTheBoxApi(self)
@@ -590,14 +590,14 @@ class Client(_CoreClient):
 
     @functools.cached_property
     def public_cloud(self) -> _PublicCloudApi:
-        """The publicCloud section: 613 operations."""
+        """The publicCloud section: 630 operations."""
         from .public_cloud._api import PublicCloudApi
 
         return PublicCloudApi(self)
 
     @functools.cached_property
     def saascsp2(self) -> _Saascsp2Api:
-        """The saascsp2 section: 17 operations."""
+        """The saascsp2 section: 19 operations."""
         from .saascsp2._api import Saascsp2Api
 
         return Saascsp2Api(self)
@@ -888,14 +888,14 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def emaildomain(self) -> _AsyncEmaildomainApi:
-        """The emaildomain section: 94 operations."""
+        """The emaildomain section: 105 operations."""
         from .emaildomain._api import AsyncEmaildomainApi
 
         return AsyncEmaildomainApi(self)
 
     @functools.cached_property
     def emailexchange(self) -> _AsyncEmailexchangeApi:
-        """The emailexchange section: 206 operations."""
+        """The emailexchange section: 213 operations."""
         from .emailexchange._api import AsyncEmailexchangeApi
 
         return AsyncEmailexchangeApi(self)
@@ -1000,7 +1000,7 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def licenseoffice_prepaid(self) -> _AsyncLicenseofficePrepaidApi:
-        """The licenseofficePrepaid section: 12 operations."""
+        """The licenseofficePrepaid section: 16 operations."""
         from .licenseoffice_prepaid._api import AsyncLicenseofficePrepaidApi
 
         return AsyncLicenseofficePrepaidApi(self)
@@ -1112,14 +1112,14 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def order(self) -> _AsyncOrderApi:
-        """The order section: 665 operations."""
+        """The order section: 666 operations."""
         from .order._api import AsyncOrderApi
 
         return AsyncOrderApi(self)
 
     @functools.cached_property
     def over_the_box(self) -> _AsyncOverTheBoxApi:
-        """The overTheBox section: 47 operations."""
+        """The overTheBox section: 49 operations."""
         from .over_the_box._api import AsyncOverTheBoxApi
 
         return AsyncOverTheBoxApi(self)
@@ -1154,14 +1154,14 @@ class AsyncClient(_CoreAsyncClient):
 
     @functools.cached_property
     def public_cloud(self) -> _AsyncPublicCloudApi:
-        """The publicCloud section: 613 operations."""
+        """The publicCloud section: 630 operations."""
         from .public_cloud._api import AsyncPublicCloudApi
 
         return AsyncPublicCloudApi(self)
 
     @functools.cached_property
     def saascsp2(self) -> _AsyncSaascsp2Api:
-        """The saascsp2 section: 17 operations."""
+        """The saascsp2 section: 19 operations."""
         from .saascsp2._api import AsyncSaascsp2Api
 
         return AsyncSaascsp2Api(self)

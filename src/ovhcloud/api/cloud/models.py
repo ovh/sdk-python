@@ -29590,7 +29590,7 @@ class CloudKubeNodePoolTemplateSpec(_gen.BaseModel):
     """Spec of each nodes in the pool"""
 
     taints: list[CloudKubeTaint] = _p.Field()
-    """Taints to apply to each nodes"""
+    """A Kubernetes taint, made of a key, a value and an effect (NoSchedule, PreferNoSchedule or NoExecute). Pods that do not tolerate it are kept off the nodes according to this effect."""
 
     unschedulable: bool = _p.Field()
     """If true, set nodes as un-schedulable"""
@@ -29760,7 +29760,7 @@ class CloudKubeResponseMessage(_gen.BaseModel):
 
 
 class CloudKubeTaint(_gen.BaseModel):
-    """Kubernetes taint object"""
+    """A Kubernetes taint, made of a key, a value and an effect (NoSchedule, PreferNoSchedule or NoExecute). Pods that do not tolerate it are kept off the nodes according to this effect."""
 
     effect: CloudKubeTaintEffectEnum = _p.Field()
     """The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute"""

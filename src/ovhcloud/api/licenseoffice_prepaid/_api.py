@@ -26,7 +26,7 @@ class LicenseofficePrepaidApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 12 operations, on the routes under /v1/license/officePrepaid.
+    It has 16 operations, on the routes under /v1/license/officePrepaid.
 
     To start, list what the account has: list_office_prepaids, list_tenant_pending_tasks,
     list_tenant_usage_statistics.
@@ -148,6 +148,28 @@ class LicenseofficePrepaidApi(_gen.SectionApi):
             result=models.LicenseOfficePrepaidOfficeTaskNative,
         )
 
+    def confirm_termination(self, service_name: str, body: models.ConfirmTerminationRequest) -> str:
+        """confirm_termination calls POST /v1/license/officePrepaid/{serviceName}/confirmTermination: Confirm service termination
+
+        Terminates the service with the token sent by email to the admin contact. A reason, a future
+        use and a comment can be given.
+
+        Args:
+            service_name: The service name of your office account
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:confirmTermination.
+        """
+        return self._call(
+            _r.OP_CONFIRM_TERMINATION,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ConfirmTerminationRequest,
+            result=str,
+        )
+
     def get_parent_tenant(self, service_name: str) -> models.LicenseOfficePrepaidOfficeTenantNative:
         """get_parent_tenant calls GET /v1/license/officePrepaid/{serviceName}/parentTenant: Get the parent tenant
 
@@ -231,6 +253,46 @@ class LicenseofficePrepaidApi(_gen.SectionApi):
             body=body,
             body_type=models.LicenseOfficePrepaidCreateAttestationPostPayload,
             result=models.LicenseOfficePrepaidCreateAttestationResponse,
+        )
+
+    def get_service_infos(self, service_name: str) -> models.ServicesService:
+        """get_service_infos calls GET /v1/license/officePrepaid/{serviceName}/serviceInfos: Get service information
+
+        Returns the status, creation and expiration dates, contacts and renewal settings of the
+        service.
+
+        Args:
+            service_name: The service name of your office account
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:serviceInfos/get.
+        """
+        return self._call(
+            _r.OP_GET_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.ServicesService,
+        )
+
+    def update_service_infos(self, service_name: str, body: models.ServicesServiceWritable) -> None:
+        """update_service_infos calls PUT /v1/license/officePrepaid/{serviceName}/serviceInfos: Update service information
+
+        Updates the renewal settings of the service: automatic renewal, period, or deletion at
+        expiration.
+
+        Args:
+            service_name: The service name of your office account
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:serviceInfos/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesServiceWritable,
         )
 
     def list_tenant_pending_tasks(self, service_name: str) -> list[int]:
@@ -325,6 +387,25 @@ class LicenseofficePrepaidApi(_gen.SectionApi):
             result=list[models.LicenseOfficePrepaidOfficeCurrentStatisticsNative],
         )
 
+    def terminate(self, service_name: str) -> str:
+        """terminate calls POST /v1/license/officePrepaid/{serviceName}/terminate: Request service termination
+
+        Starts the termination of the service. The admin contact receives a token by email, to
+        confirm with the `confirmTermination` call.
+
+        Args:
+            service_name: The service name of your office account
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:terminate.
+        """
+        return self._call(
+            _r.OP_TERMINATE,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=str,
+        )
+
     def unconfigure(self, service_name: str) -> models.LicenseOfficePrepaidOfficeTaskNative:
         """unconfigure calls POST /v1/license/officePrepaid/{serviceName}/unconfigure: Unconfigure a prepaid user
 
@@ -350,7 +431,7 @@ class AsyncLicenseofficePrepaidApi(_gen.AsyncSectionApi):
 
     The methods of LicenseofficePrepaidApi, with await. Iterators are async: use ``async for``.
 
-    It has 12 operations, on the routes under /v1/license/officePrepaid.
+    It has 16 operations, on the routes under /v1/license/officePrepaid.
 
     To start, list what the account has: list_office_prepaids, list_tenant_pending_tasks,
     list_tenant_usage_statistics.
@@ -472,6 +553,30 @@ class AsyncLicenseofficePrepaidApi(_gen.AsyncSectionApi):
             result=models.LicenseOfficePrepaidOfficeTaskNative,
         )
 
+    async def confirm_termination(
+        self, service_name: str, body: models.ConfirmTerminationRequest
+    ) -> str:
+        """confirm_termination calls POST /v1/license/officePrepaid/{serviceName}/confirmTermination: Confirm service termination
+
+        Terminates the service with the token sent by email to the admin contact. A reason, a future
+        use and a comment can be given.
+
+        Args:
+            service_name: The service name of your office account
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:confirmTermination.
+        """
+        return await self._call(
+            _r.OP_CONFIRM_TERMINATION,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ConfirmTerminationRequest,
+            result=str,
+        )
+
     async def get_parent_tenant(
         self, service_name: str
     ) -> models.LicenseOfficePrepaidOfficeTenantNative:
@@ -557,6 +662,48 @@ class AsyncLicenseofficePrepaidApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.LicenseOfficePrepaidCreateAttestationPostPayload,
             result=models.LicenseOfficePrepaidCreateAttestationResponse,
+        )
+
+    async def get_service_infos(self, service_name: str) -> models.ServicesService:
+        """get_service_infos calls GET /v1/license/officePrepaid/{serviceName}/serviceInfos: Get service information
+
+        Returns the status, creation and expiration dates, contacts and renewal settings of the
+        service.
+
+        Args:
+            service_name: The service name of your office account
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:serviceInfos/get.
+        """
+        return await self._call(
+            _r.OP_GET_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.ServicesService,
+        )
+
+    async def update_service_infos(
+        self, service_name: str, body: models.ServicesServiceWritable
+    ) -> None:
+        """update_service_infos calls PUT /v1/license/officePrepaid/{serviceName}/serviceInfos: Update service information
+
+        Updates the renewal settings of the service: automatic renewal, period, or deletion at
+        expiration.
+
+        Args:
+            service_name: The service name of your office account
+            body: the request body
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:serviceInfos/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesServiceWritable,
         )
 
     async def list_tenant_pending_tasks(self, service_name: str) -> list[int]:
@@ -649,6 +796,25 @@ class AsyncLicenseofficePrepaidApi(_gen.AsyncSectionApi):
                 ("to", to),
             ),
             result=list[models.LicenseOfficePrepaidOfficeCurrentStatisticsNative],
+        )
+
+    async def terminate(self, service_name: str) -> str:
+        """terminate calls POST /v1/license/officePrepaid/{serviceName}/terminate: Request service termination
+
+        Starts the termination of the service. The admin contact receives a token by email, to
+        confirm with the `confirmTermination` call.
+
+        Args:
+            service_name: The service name of your office account
+
+        Requires the IAM action licenseOfficePrepaid:apiovh:terminate.
+        """
+        return await self._call(
+            _r.OP_TERMINATE,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=str,
         )
 
     async def unconfigure(self, service_name: str) -> models.LicenseOfficePrepaidOfficeTaskNative:

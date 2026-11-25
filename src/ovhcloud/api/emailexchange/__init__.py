@@ -10,11 +10,11 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.emailexchange``. Its types are in
 ``ovhcloud.api.emailexchange.models``.
 
-It has 206 operations, on the routes under /v1/email/exchange.
+It has 213 operations, on the routes under /v1/email/exchange.
 
 To start, list what the account has: list_exchanges, list_services, list_service_accounts,
 list_service_authentication_policies, list_service_authorized_ips, list_service_custom_isolations,
-list_service_dcv_emails, list_service_devices, and 36 more.
+list_service_dcv_emails, list_service_devices, and 38 more.
 
 To find the method for a route, search index/emailexchange.jsonl: one line per method, with its
 route, its signature and the IAM actions it requires. It is at the root of the SDK repository, and

@@ -26,7 +26,7 @@ class OrderApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 665 operations, on the routes under /v1/order.
+    It has 666 operations, on the routes under /v1/order.
 
     To start, list what the account has: list_carts, list_dedicated_clouds, list_freefaxes,
     list_over_the_boxes, list_sms, list_telephonies, list_veeam_cloud_connects, list_vps, and 278
@@ -7061,6 +7061,24 @@ class OrderApi(_gen.SectionApi):
                 ("ovhSubsidiary", ovh_subsidiary),
             ),
             result=models.OrderCatalogFormattedDomainAlternativeNames,
+        )
+
+    def get_order_catalog_formatted_domain_highlighted(
+        self, ovh_subsidiary: models.NichandleOvhSubsidiaryEnum | str
+    ) -> models.OrderCatalogFormattedDomainHighlightedExtensionList:
+        """get_order_catalog_formatted_domain_highlighted calls GET /v1/order/catalog/formatted/domain/highlighted: Get the highlighted domain extensions of a subsidiary, with their prices
+
+        Returns the domain extensions the subsidiary highlights, in the order of its highlighted
+        extensions list. Each extension comes with its prices and running promotion from the public
+        domain catalog, and with its renewal price worded for the website.
+
+        Args:
+            ovh_subsidiary: OVHcloud subsidiary targeted
+        """
+        return self._call(
+            _r.OP_GET_ORDER_CATALOG_FORMATTED_DOMAIN_HIGHLIGHTED,
+            query=(("ovhSubsidiary", ovh_subsidiary),),
+            result=models.OrderCatalogFormattedDomainHighlightedExtensionList,
         )
 
     def get_catalog_formatted_eco(
@@ -14818,7 +14836,7 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
 
     The methods of OrderApi, with await. Iterators are async: use ``async for``.
 
-    It has 665 operations, on the routes under /v1/order.
+    It has 666 operations, on the routes under /v1/order.
 
     To start, list what the account has: list_carts, list_dedicated_clouds, list_freefaxes,
     list_over_the_boxes, list_sms, list_telephonies, list_veeam_cloud_connects, list_vps, and 278
@@ -21907,6 +21925,24 @@ class AsyncOrderApi(_gen.AsyncSectionApi):
                 ("ovhSubsidiary", ovh_subsidiary),
             ),
             result=models.OrderCatalogFormattedDomainAlternativeNames,
+        )
+
+    async def get_order_catalog_formatted_domain_highlighted(
+        self, ovh_subsidiary: models.NichandleOvhSubsidiaryEnum | str
+    ) -> models.OrderCatalogFormattedDomainHighlightedExtensionList:
+        """get_order_catalog_formatted_domain_highlighted calls GET /v1/order/catalog/formatted/domain/highlighted: Get the highlighted domain extensions of a subsidiary, with their prices
+
+        Returns the domain extensions the subsidiary highlights, in the order of its highlighted
+        extensions list. Each extension comes with its prices and running promotion from the public
+        domain catalog, and with its renewal price worded for the website.
+
+        Args:
+            ovh_subsidiary: OVHcloud subsidiary targeted
+        """
+        return await self._call(
+            _r.OP_GET_ORDER_CATALOG_FORMATTED_DOMAIN_HIGHLIGHTED,
+            query=(("ovhSubsidiary", ovh_subsidiary),),
+            result=models.OrderCatalogFormattedDomainHighlightedExtensionList,
         )
 
     async def get_catalog_formatted_eco(

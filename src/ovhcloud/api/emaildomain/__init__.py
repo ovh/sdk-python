@@ -10,11 +10,11 @@ Its operations are a client attribute, on Client and AsyncClient:
 ``client.emaildomain``. Its types are in
 ``ovhcloud.api.emaildomain.models``.
 
-It has 94 operations, on the routes under /v1/email/domain.
+It has 105 operations, on the routes under /v1/email/domain.
 
 To start, list what the account has: list_domains, list_delegated_accounts, list_accounts,
-list_acls, list_dns_mx_records, list_mailing_lists, list_recommended_dns_records, list_responders,
-and 12 more.
+list_acls, list_dns_mx_records, list_mailing_lists, list_recommended_dns_records, list_redirections,
+and 15 more.
 
 To find the method for a route, search index/emaildomain.jsonl: one line per method, with its route,
 its signature and the IAM actions it requires. It is at the root of the SDK repository, and in the

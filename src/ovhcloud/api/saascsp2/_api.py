@@ -26,7 +26,7 @@ class Saascsp2Api(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 17 operations, on the routes under /v1/saas/csp2.
+    It has 19 operations, on the routes under /v1/saas/csp2.
 
     To start, list what the account has: list_csp2s, list_orderable_licenses, list_subscriptions,
     list_tasks, list_usage_statistics, list_subscription_addons_subscription_ids,
@@ -195,6 +195,46 @@ class Saascsp2Api(_gen.SectionApi):
                 service_name,
             ),
             lambda listed_id: self.get_orderable_licenses(service_name, listed_id),
+        )
+
+    def get_service_infos(self, service_name: str) -> models.ServicesService:
+        """get_service_infos calls GET /v1/saas/csp2/{serviceName}/serviceInfos: Get service information
+
+        Returns the status, creation and expiration dates, contacts and renewal settings of the
+        service.
+
+        Args:
+            service_name: The unique identifier of your Office service
+
+        Requires the IAM action cspReseller:apiovh:serviceInfos/get.
+        """
+        return self._call(
+            _r.OP_GET_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.ServicesService,
+        )
+
+    def update_service_infos(self, service_name: str, body: models.ServicesServiceWritable) -> None:
+        """update_service_infos calls PUT /v1/saas/csp2/{serviceName}/serviceInfos: Update service information
+
+        Updates the renewal settings of the service: automatic renewal, period, or deletion at
+        expiration.
+
+        Args:
+            service_name: The unique identifier of your Office service
+            body: the request body
+
+        Requires the IAM action cspReseller:apiovh:serviceInfos/edit.
+        """
+        return self._call(
+            _r.OP_UPDATE_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesServiceWritable,
         )
 
     def list_subscriptions(self, service_name: str) -> list[int]:
@@ -476,7 +516,7 @@ class AsyncSaascsp2Api(_gen.AsyncSectionApi):
 
     The methods of Saascsp2Api, with await. Iterators are async: use ``async for``.
 
-    It has 17 operations, on the routes under /v1/saas/csp2.
+    It has 19 operations, on the routes under /v1/saas/csp2.
 
     To start, list what the account has: list_csp2s, list_orderable_licenses, list_subscriptions,
     list_tasks, list_usage_statistics, list_subscription_addons_subscription_ids,
@@ -651,6 +691,48 @@ class AsyncSaascsp2Api(_gen.AsyncSectionApi):
                 service_name,
             ),
             lambda listed_id: self.get_orderable_licenses(service_name, listed_id),
+        )
+
+    async def get_service_infos(self, service_name: str) -> models.ServicesService:
+        """get_service_infos calls GET /v1/saas/csp2/{serviceName}/serviceInfos: Get service information
+
+        Returns the status, creation and expiration dates, contacts and renewal settings of the
+        service.
+
+        Args:
+            service_name: The unique identifier of your Office service
+
+        Requires the IAM action cspReseller:apiovh:serviceInfos/get.
+        """
+        return await self._call(
+            _r.OP_GET_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=models.ServicesService,
+        )
+
+    async def update_service_infos(
+        self, service_name: str, body: models.ServicesServiceWritable
+    ) -> None:
+        """update_service_infos calls PUT /v1/saas/csp2/{serviceName}/serviceInfos: Update service information
+
+        Updates the renewal settings of the service: automatic renewal, period, or deletion at
+        expiration.
+
+        Args:
+            service_name: The unique identifier of your Office service
+            body: the request body
+
+        Requires the IAM action cspReseller:apiovh:serviceInfos/edit.
+        """
+        return await self._call(
+            _r.OP_UPDATE_SERVICE_INFOS,
+            path_params={
+                "serviceName": service_name,
+            },
+            body=body,
+            body_type=models.ServicesServiceWritable,
         )
 
     async def list_subscriptions(self, service_name: str) -> list[int]:

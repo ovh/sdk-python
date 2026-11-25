@@ -26,11 +26,11 @@ class OverTheBoxApi(_gen.SectionApi):
 
     Each method's docstring starts with the route it calls.
 
-    It has 47 operations, on the routes under /v1/overTheBox.
+    It has 49 operations, on the routes under /v1/overTheBox.
 
     To start, list what the account has: list_over_the_boxes, list_available_offers, list_hardwares,
-    list_hardware_availables, list_available_release_channels, list_backups, list_remote_accesses,
-    list_tasks, and 5 more.
+    list_hardware_availables, list_available_release_channels, list_backups, list_ips,
+    list_remote_accesses, and 6 more.
 
     To find the method for a route, search index/over_the_box.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -640,6 +640,65 @@ class OverTheBoxApi(_gen.SectionApi):
             result=list[models.OverTheBoxDeviceAction],
         )
 
+    def list_ips(self, service_name: str) -> list[models.IP]:
+        """list_ips calls GET /v1/overTheBox/{serviceName}/ips: List the IPs of an OverTheBox service
+
+        Returns the IP addresses attached to the OverTheBox service. Get an IP for its version,
+        prefix, status and geolocation.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action overTheBox:apiovh:ips/get.
+        """
+        return self._call(
+            _r.OP_LIST_IPS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[models.IP],
+        )
+
+    def get_ips(self, service_name: str, ip: models.IP) -> models.OtbServiceIP:
+        """get_ips calls GET /v1/overTheBox/{serviceName}/ips/{ip}: Get an IP of an OverTheBox service
+
+        Returns an IP address of the OverTheBox service with its version (v4 or v6), CIDR prefix,
+        status and geolocation.
+
+        Args:
+            service_name: Service name
+            ip: Ip
+
+        Requires the IAM action overTheBox:apiovh:ips/get.
+        """
+        return self._call(
+            _r.OP_GET_IPS,
+            path_params={
+                "serviceName": service_name,
+                "ip": ip,
+            },
+            result=models.OtbServiceIP,
+        )
+
+    def all_ips(self, service_name: str) -> t.Iterator[models.OtbServiceIP]:
+        """all_ips iterates over GET /v1/overTheBox/{serviceName}/ips (List the IPs of an OverTheBox service).
+
+        It lists the IDs with list_ips, then gets each object with get_ips,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop.
+
+        Args:
+            service_name: Service name
+
+        The two calls require the IAM action overTheBox:apiovh:ips/get.
+        """
+        return self._each(
+            lambda: self.list_ips(
+                service_name,
+            ),
+            lambda listed_id: self.get_ips(service_name, listed_id),
+        )
+
     def update_ipv6(
         self, service_name: str, body: models.UpdateIPv6Request
     ) -> models.OverTheBoxTask:
@@ -1193,11 +1252,11 @@ class AsyncOverTheBoxApi(_gen.AsyncSectionApi):
 
     The methods of OverTheBoxApi, with await. Iterators are async: use ``async for``.
 
-    It has 47 operations, on the routes under /v1/overTheBox.
+    It has 49 operations, on the routes under /v1/overTheBox.
 
     To start, list what the account has: list_over_the_boxes, list_available_offers, list_hardwares,
-    list_hardware_availables, list_available_release_channels, list_backups, list_remote_accesses,
-    list_tasks, and 5 more.
+    list_hardware_availables, list_available_release_channels, list_backups, list_ips,
+    list_remote_accesses, and 6 more.
 
     To find the method for a route, search index/over_the_box.jsonl: one line per method, with its
     route, its signature and the IAM actions it requires. It is at the root of the SDK repository,
@@ -1807,6 +1866,65 @@ class AsyncOverTheBoxApi(_gen.AsyncSectionApi):
             body=body,
             body_type=models.RestoreBackupDeviceRequest,
             result=list[models.OverTheBoxDeviceAction],
+        )
+
+    async def list_ips(self, service_name: str) -> list[models.IP]:
+        """list_ips calls GET /v1/overTheBox/{serviceName}/ips: List the IPs of an OverTheBox service
+
+        Returns the IP addresses attached to the OverTheBox service. Get an IP for its version,
+        prefix, status and geolocation.
+
+        Args:
+            service_name: Service name
+
+        Requires the IAM action overTheBox:apiovh:ips/get.
+        """
+        return await self._call(
+            _r.OP_LIST_IPS,
+            path_params={
+                "serviceName": service_name,
+            },
+            result=list[models.IP],
+        )
+
+    async def get_ips(self, service_name: str, ip: models.IP) -> models.OtbServiceIP:
+        """get_ips calls GET /v1/overTheBox/{serviceName}/ips/{ip}: Get an IP of an OverTheBox service
+
+        Returns an IP address of the OverTheBox service with its version (v4 or v6), CIDR prefix,
+        status and geolocation.
+
+        Args:
+            service_name: Service name
+            ip: Ip
+
+        Requires the IAM action overTheBox:apiovh:ips/get.
+        """
+        return await self._call(
+            _r.OP_GET_IPS,
+            path_params={
+                "serviceName": service_name,
+                "ip": ip,
+            },
+            result=models.OtbServiceIP,
+        )
+
+    def all_ips(self, service_name: str) -> t.AsyncIterator[models.OtbServiceIP]:
+        """all_ips iterates over GET /v1/overTheBox/{serviceName}/ips (List the IPs of an OverTheBox service).
+
+        It lists the IDs with list_ips, then gets each object with get_ips,
+        only when the loop reaches it. An object deleted in the meantime is skipped. Any other
+        error is raised and stops the loop. Use it with ``async for``.
+
+        Args:
+            service_name: Service name
+
+        The two calls require the IAM action overTheBox:apiovh:ips/get.
+        """
+        return self._each(
+            lambda: self.list_ips(
+                service_name,
+            ),
+            lambda listed_id: self.get_ips(service_name, listed_id),
         )
 
     async def update_ipv6(
